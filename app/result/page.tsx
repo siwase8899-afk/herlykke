@@ -82,13 +82,20 @@ export default function ResultPage() {
           정확한 진단은 전문의 상담을 권장드려요.
         </p>
 
-        {/* CTA */}
-        <div className="space-y-3">
-          <Link href="/signup" className="block">
+        {/* CTA - 매일 기록으로 연결 */}
+        <div className="bg-gradient-to-br from-alma-primary-light to-alma-accent-light rounded-2xl p-6 mb-6 border border-alma-border">
+          <h3 className="font-bold text-alma-text mb-2">매일 기록하면 패턴이 보여요</h3>
+          <p className="text-sm text-alma-text-secondary mb-4">
+            JoyHer처럼 매일 컨디션을 기록하고, 나에게 맞는 케어 방법을 찾아보세요.
+          </p>
+          <Link href="/login" className="block">
             <Button variant="primary" size="lg">
-              결과 저장하기
+              무료로 시작하기
             </Button>
           </Link>
+        </div>
+
+        <div className="space-y-3">
           <Link href="/community" className="block">
             <Button variant="secondary" size="md" className="w-full">
               커뮤니티 먼저 보기
