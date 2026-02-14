@@ -2,23 +2,26 @@
 
 export const APP_NAME = 'ALMA';
 
-// 색상 팔레트 (따뜻한 톤, 4-50대 여성 친화적)
+// 색상 팔레트 - "Soulful Depth" (8사 경쟁 분석 기반 리프레시)
 export const Colors = {
-  primary: '#D4727A',       // 따뜻한 코랄/로즈
-  primaryLight: '#F5D0D3',
-  primaryDark: '#B85A62',
-  secondary: '#7B9EA8',     // 차분한 틸
-  secondaryLight: '#C4DDE4',
-  accent: '#E8A87C',        // 부드러운 피치
-  background: '#FFF9F9',    // 거의 화이트, 살짝 따뜻한
+  primary: '#1A6B5A',       // Deep Teal (깊이, 자신감)
+  primaryLight: '#E6F5F0',
+  primaryDark: '#0E4D3E',
+  accent: '#D4850A',        // Warm Amber (따뜻함, 활력)
+  accentLight: '#FFF3E0',
+  accentDark: '#B06E00',
+  secondary: '#2D2926',     // Warm Charcoal (세련됨)
+  secondaryLight: '#E8E4E0',
+  background: '#FEFCF8',
   surface: '#FFFFFF',
-  text: '#2D2D2D',
-  textSecondary: '#6B7280',
-  textTertiary: '#9CA3AF',
-  border: '#E5E7EB',
-  error: '#EF4444',
-  success: '#10B981',
-  warning: '#F59E0B',
+  surfaceWarm: '#FBF5EC',
+  text: '#1C1917',
+  textSecondary: '#57534E',
+  textTertiary: '#A8A29E',
+  border: '#E7E5E4',
+  error: '#DC2626',
+  success: '#15803D',
+  warning: '#EA580C',
 } as const;
 
 // 인증 레벨

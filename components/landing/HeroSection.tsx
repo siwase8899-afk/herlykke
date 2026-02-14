@@ -1,32 +1,70 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Evernow 인사이트: 증상 순환 텍스트로 공감+포괄성 전달
+const cyclingSymptoms = [
+  '안면 홍조',
+  '수면 장애',
+  '감정 기복',
+  '관절통',
+  '만성 피로',
+  '브레인 포그',
+  '불안감',
+  '체중 변화',
+];
+
 export function HeroSection() {
+  const [symptomIndex, setSymptomIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false);
+      setTimeout(() => {
+        setSymptomIndex((prev) => (prev + 1) % cyclingSymptoms.length);
+        setIsVisible(true);
+      }, 300);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative overflow-hidden">
-      {/* Warm gradient background */}
+      {/* Teal-Amber gradient background */}
       <div className="bg-gradient-to-br from-alma-primary-light via-white to-alma-accent-light">
         <div className="max-w-6xl mx-auto px-5 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left: Copy */}
             <div>
-              {/* Badge */}
+              {/* Badge — 실제 포지셔닝 표현 */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full border border-alma-border mb-6">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-alma-text-secondary">850만 여성이 함께하고 있어요</span>
+                <span className="w-2 h-2 bg-alma-primary rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-alma-text-secondary">한국 최초 갱년기 전용 커뮤니티</span>
               </div>
 
-              {/* Main headline */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-alma-text leading-[1.1] mb-6">
+              {/* Main headline — 보존: ALMA 최강 카피 */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-alma-text leading-[1.1] mb-4">
                 나만 그런 거
                 <br />
                 <span className="text-alma-primary">아니었어.</span>
               </h1>
 
-              {/* Subheadline */}
+              {/* 다이나믹 증상 순환 텍스트 (Evernow 인사이트) */}
+              <p className="text-lg md:text-xl text-alma-text-secondary leading-relaxed mb-2">
+                지금 겪고 있는{' '}
+                <span
+                  className={`inline-block font-bold text-alma-accent transition-opacity duration-300 ${
+                    isVisible ? 'opacity-100 symptom-cycle-enter' : 'opacity-0'
+                  }`}
+                >
+                  {cyclingSymptoms[symptomIndex]}
+                </span>
+                ,
+              </p>
               <p className="text-lg md:text-xl text-alma-text-secondary leading-relaxed mb-8">
-                묻어 두었던 이야기,
-                <br />
                 비슷한 친구들과 편하게 나눠요.
               </p>
 
@@ -49,7 +87,6 @@ export function HeroSection() {
 
             {/* Right: Photo collage */}
             <div className="relative hidden md:block">
-              {/* Main photo */}
               <div className="relative">
                 <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                   <Image
@@ -59,7 +96,6 @@ export function HeroSection() {
                     className="object-cover"
                     priority
                   />
-                  {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-alma-secondary/20 to-transparent" />
                 </div>
 
@@ -105,7 +141,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Stats section - Cream */}
+      {/* Stats section — 구체적 수치 신뢰 (Midi 인사이트) */}
       <div className="bg-alma-surface-warm border-t border-alma-border">
         <div className="max-w-6xl mx-auto px-5 py-8">
           <div className="grid grid-cols-3 gap-8 text-center">
@@ -118,8 +154,8 @@ export function HeroSection() {
               <p className="text-sm text-alma-text-secondary mt-1">체크인 소요시간</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-alma-secondary">850만</p>
-              <p className="text-sm text-alma-text-secondary mt-1">함께하는 여성</p>
+              <p className="text-3xl md:text-4xl font-bold text-alma-secondary">10가지</p>
+              <p className="text-sm text-alma-text-secondary mt-1">주요 증상 분석</p>
             </div>
           </div>
         </div>

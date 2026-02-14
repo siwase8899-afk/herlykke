@@ -28,6 +28,15 @@ const personas = [
     bgColor: 'bg-alma-secondary-light',
     accentColor: 'text-alma-secondary',
   },
+  {
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=200&fit=crop&crop=face',
+    name: '재취업 준비 중',
+    age: '50대 중반',
+    pain: '관절이 아파서 면접도 걱정인데, 이게 갱년기 때문인 줄 몰랐어요.',
+    need: '맞춤 솔루션 찾기',
+    bgColor: 'bg-alma-primary-light',
+    accentColor: 'text-alma-primary',
+  },
 ];
 
 export function SocialProof() {
@@ -45,7 +54,7 @@ export function SocialProof() {
         </div>
 
         {/* Persona cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {personas.map((p) => (
             <div
               key={p.name}
@@ -119,7 +128,7 @@ export function SocialProof() {
               </div>
             </div>
             <div className="text-left">
-              <p className="text-base font-bold text-alma-text">비슷한 여성들이 기다리고 있어요</p>
+              <p className="text-base font-bold text-alma-text">같은 증상을 겪는 여성들과 연결되세요</p>
               <p className="text-sm text-alma-text-tertiary">체크인 완료 후 맞춤 그룹에 연결됩니다</p>
             </div>
           </div>

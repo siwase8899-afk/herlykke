@@ -1,40 +1,41 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ALMA 색상 팔레트 - Vivid & Lively */
+  /* ALMA 색상 팔레트 - "Soulful Depth" */
+  /* 8사 경쟁 분석 기반: 핑크/파스텔 클리셰 의도적 거부 */
 
-  /* Primary - Bold Golden Yellow (활력, 따뜻함) */
-  --color-alma-primary: #E5A000;
-  --color-alma-primary-light: #FFF4D6;
-  --color-alma-primary-dark: #C78C00;
+  /* Primary - Deep Teal (깊이, 차분한 자신감, 자연 = ALMA 영혼) */
+  --color-alma-primary: #1A6B5A;
+  --color-alma-primary-light: #E6F5F0;
+  --color-alma-primary-dark: #0E4D3E;
 
-  /* Accent - Rich Mauve/Plum (여성스러움, 고급스러움) */
-  --color-alma-accent: #9B5DE5;
-  --color-alma-accent-light: #F3E8FF;
-  --color-alma-accent-dark: #7B3FC7;
+  /* Accent - Warm Amber (따뜻함, 활력, 골드에서 진화) */
+  --color-alma-accent: #D4850A;
+  --color-alma-accent-light: #FFF3E0;
+  --color-alma-accent-dark: #B06E00;
 
-  /* Secondary - Deep Warm Brown (안정감, 신뢰) */
-  --color-alma-secondary: #5D4037;
-  --color-alma-secondary-light: #D7CCC8;
+  /* Secondary - Warm Charcoal (세련됨, 안정감) */
+  --color-alma-secondary: #2D2926;
+  --color-alma-secondary-light: #E8E4E0;
 
   /* Backgrounds */
-  --color-alma-bg: #FFFBF5;
+  --color-alma-bg: #FEFCF8;
   --color-alma-surface: #ffffff;
-  --color-alma-surface-warm: #FEF7EC;
+  --color-alma-surface-warm: #FBF5EC;
 
-  /* Text - Higher contrast */
-  --color-alma-text: #1A1A1A;
-  --color-alma-text-secondary: #4A4A4A;
-  --color-alma-text-tertiary: #767676;
+  /* Text - Warm near-black */
+  --color-alma-text: #1C1917;
+  --color-alma-text-secondary: #57534E;
+  --color-alma-text-tertiary: #A8A29E;
 
   /* Border */
-  --color-alma-border: #E5E5E5;
-  --color-alma-border-light: #F5F5F5;
+  --color-alma-border: #E7E5E4;
+  --color-alma-border-light: #F5F5F4;
 
   /* Status */
-  --color-alma-success: #2E7D32;
-  --color-alma-error: #D32F2F;
-  --color-alma-warning: #F9A825;
+  --color-alma-success: #15803D;
+  --color-alma-error: #DC2626;
+  --color-alma-warning: #EA580C;
 
   /* 폰트 - 산세리프만 */
   --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -49,8 +50,8 @@ html {
 }
 
 body {
-  background-color: #FFFBF5;
-  color: #1A1A1A;
+  background-color: #FEFCF8;
+  color: #1C1917;
   line-height: 1.6;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -64,17 +65,33 @@ input, textarea, select {
 
 /* Selection */
 ::selection {
-  background-color: #ede9fe;
-  color: #5b21b6;
+  background-color: #E6F5F0;
+  color: #0E4D3E;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid #1A6B5A;
   outline-offset: 2px;
 }
 
 /* Smooth transitions */
 button, a, input {
   transition: all 0.2s ease;
+}
+
+/* 증상 순환 애니메이션 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.symptom-cycle-enter {
+  animation: fadeInUp 0.4s ease-out;
 }

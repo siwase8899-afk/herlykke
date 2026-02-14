@@ -56,11 +56,11 @@ const journey = [
   {
     step: '04',
     title: 'AI 맞춤 솔루션',
-    desc: '기록을 분석해서 나만의 패턴과 맞춤 조언을 받아요.',
-    detail: '패턴 분석 · 주간 리포트 · 초개인화 추천',
+    desc: '명상, 운동, 영양제, 상담까지. 기록할수록 정확해져요 — AI가 나의 패턴을 학습합니다.',
+    detail: '카테고리별 추천 · 매치 점수 · 리뷰 기반 · 데이터 루프',
     Icon: SparklesIcon,
     color: 'bg-gradient-to-r from-alma-primary to-alma-accent',
-    href: '/insights',
+    href: '/solutions',
   },
 ];
 
@@ -70,6 +70,7 @@ const solutions = [
   { label: '영양제/건기식', desc: '맞춤 보충' },
   { label: '전문 상담', desc: '심리 케어' },
   { label: '라이프스타일', desc: '슬립테크 등' },
+  { label: '갱년기 코칭', desc: '1:1 동반자' },
 ];
 
 export function HowItWorks() {
@@ -84,7 +85,7 @@ export function HowItWorks() {
           <h2 className="text-3xl md:text-4xl font-bold text-alma-text mb-4">
             혼자 고민하지 마세요.
             <br />
-            <span className="text-alma-primary">같이 해결해요.</span>
+            <span className="text-alma-primary">ALMA가 함께해요.</span>
           </h2>
         </div>
 

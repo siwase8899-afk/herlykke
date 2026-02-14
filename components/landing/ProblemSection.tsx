@@ -1,12 +1,14 @@
 import Image from 'next/image';
 
 // 신체적 고충 + 정서적 고충
+// Sol 인사이트: 한국 여성 증상 빈도순 재정렬 (관절통 > 수면 > 홍조)
 const struggles = {
   body: [
-    { symptom: '안면 홍조', desc: '갑자기 확 달아오르는 얼굴' },
+    { symptom: '관절통/근육통', desc: '아침에 몸이 뻣뻣해요' },
     { symptom: '수면 장애', desc: '새벽 3시에 눈이 번쩍' },
-    { symptom: '체중 변화', desc: '먹는 양은 그대로인데...' },
+    { symptom: '안면 홍조', desc: '갑자기 확 달아오르는 얼굴' },
     { symptom: '만성 피로', desc: '쉬어도 충전이 안 돼요' },
+    { symptom: '건조함', desc: '피부도 점막도 마를 때' },
   ],
   mind: [
     { symptom: '브레인 포그', desc: '단어가 떠오르지 않아요' },
@@ -47,7 +49,7 @@ export function ProblemSection() {
             <div>
               {/* Section header */}
               <p className="text-alma-accent font-semibold mb-4 tracking-wide uppercase text-sm">
-                Less Fear. More Clarity.
+                듣고 있어요. 당신의 이야기.
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-alma-text leading-tight mb-6">
                 그냥 묻어 두었던 것들,
@@ -113,7 +115,7 @@ export function ProblemSection() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">검색하면 건기식 광고뿐</p>
-              <p className="text-xl font-bold text-alma-primary">광고 없이 진짜 정보만</p>
+              <p className="text-xl font-bold text-alma-accent">증상 인증 리뷰만</p>
             </div>
             <div className="p-6 border-y md:border-y-0 md:border-x border-white/10">
               <p className="text-white/50 text-sm line-through mb-3">병원은 무섭고, 비싸고, 귀찮아</p>
