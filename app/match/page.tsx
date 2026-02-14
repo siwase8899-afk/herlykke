@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 // Peanut 인사이트: 증상 + 상황 기반 매칭
 // "Find women who get it" — 같은 상황을 이해하는 친구 찾기
@@ -20,6 +18,7 @@ const SITUATION_TAGS = [
 ];
 
 // 데모 프로필 데이터 (Peanut 인사이트: 상황 필드 추가)
+// 한국/아시아 중년 여성 이미지로 교체
 const DEMO_PROFILES = [
   {
     id: '1',
@@ -30,7 +29,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['열감', '수면장애', '피로감'],
     interests: ['요가', '명상', '독서'],
     bio: '비슷한 경험을 나눌 친구를 찾고 있어요. 함께 이야기하며 위로받고 싶어요.',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face',
     match_percent: 92,
     online: true,
     match_reason: '같은 증상 3개 · 같은 상황',
@@ -44,7 +43,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['브레인포그', '감정기복', '열감'],
     interests: ['운동', '요리', '정원가꾸기'],
     bio: '직장 생활하면서 갱년기 겪고 있어요. 같은 상황인 분들과 소통하고 싶어요.',
-    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop&crop=face',
     match_percent: 87,
     online: false,
     match_reason: '같은 증상 2개 · 같은 관심사',
@@ -58,7 +57,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['관절통', '피로감', '수면장애'],
     interests: ['산책', '명상', '뜨개질'],
     bio: '갱년기 끝자락에 있어요. 경험을 나누고 후배들에게 도움이 되고 싶어요.',
-    image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop&crop=face',
     match_percent: 78,
     online: true,
     match_reason: '멘토링 가능 · 경험 공유',
@@ -72,7 +71,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['열감', '불안', '피부건조'],
     interests: ['필라테스', '카페투어', '영화'],
     bio: '혼자 고민하다가 ALMA를 알게 됐어요. 솔직하게 이야기 나눌 수 있는 친구를 찾아요.',
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
     match_percent: 85,
     online: true,
     match_reason: '같은 증상 2개 · 같은 상황',
@@ -86,7 +85,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['생리불순', '피로감', '두통'],
     interests: ['요가', '독서', '음악감상'],
     bio: '최근에 증상이 시작됐어요. 선배님들의 조언이 필요해요!',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1606122017369-d782bbb78f32?w=400&h=400&fit=crop&crop=face',
     match_percent: 90,
     online: false,
     match_reason: '같은 단계 · 조언 필요',
@@ -100,7 +99,7 @@ const DEMO_PROFILES = [
     main_symptoms: ['수면장애', '열감', '관절통'],
     interests: ['등산', '요가', '봉사활동'],
     bio: '긍정적인 마인드로 이 시기를 보내고 있어요. 함께 응원해요!',
-    image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1601288496920-b6154fe3626a?w=400&h=400&fit=crop&crop=face',
     match_percent: 75,
     online: true,
     match_reason: '비슷한 관심사 · 긍정 에너지',
@@ -110,8 +109,7 @@ const DEMO_PROFILES = [
 type Profile = typeof DEMO_PROFILES[number];
 
 export default function MatchPage() {
-  const router = useRouter();
-  const [profiles, setProfiles] = useState<Profile[]>(DEMO_PROFILES);
+  const [profiles] = useState<Profile[]>(DEMO_PROFILES);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [viewMode, setViewMode] = useState<'cards' | 'grid'>('cards');
   const [likedProfiles, setLikedProfiles] = useState<string[]>([]);
@@ -150,12 +148,6 @@ export default function MatchPage() {
     } else {
       setCurrentIndex(0); // Loop back
     }
-  };
-
-  const getSymptomMatchCount = (symptoms: string[]) => {
-    // 데모: 내 증상과 비교 (실제로는 사용자 데이터 기반)
-    const mySymptoms = ['열감', '수면장애', '피로감'];
-    return symptoms.filter(s => mySymptoms.includes(s)).length;
   };
 
   if (loading) {

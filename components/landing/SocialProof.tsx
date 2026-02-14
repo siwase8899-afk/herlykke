@@ -4,9 +4,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 // Midi 인사이트: 다양한 페르소나 + 실제 후기
+// 한국/아시아 중년 여성 이미지로 교체
 const personas = [
   {
-    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
     name: '직장인 워킹맘',
     age: '40대 후반',
     pain: '수면장애와 감정 기복이 시작됐는데, 이게 갱년기인지 스트레스인지 모르겠어요.',
@@ -15,7 +16,7 @@ const personas = [
     accentColor: 'text-alma-primary',
   },
   {
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=200&fit=crop&crop=face',
     name: '자녀 독립 후',
     age: '50대 초반',
     pain: '열감, 불면, 우울감이 심해지는데 남편은 "다 그런 거"라고 해요.',
@@ -24,7 +25,7 @@ const personas = [
     accentColor: 'text-alma-accent',
   },
   {
-    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
     name: '1인가구 싱글',
     age: '40-50대',
     pain: '혼자 겪는 건 괜찮은데, 새벽에 깼을 때 불안이 밀려와요.',
@@ -33,7 +34,7 @@ const personas = [
     accentColor: 'text-alma-secondary',
   },
   {
-    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&h=200&fit=crop&crop=face',
     name: '재취업 준비 중',
     age: '50대 중반',
     pain: '관절이 아파서 면접도 걱정인데, 이게 갱년기 때문인 줄 몰랐어요.',
@@ -42,7 +43,7 @@ const personas = [
     accentColor: 'text-alma-primary',
   },
   {
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1606122017369-d782bbb78f32?w=200&h=200&fit=crop&crop=face',
     name: '프리랜서',
     age: '40대 초반',
     pain: '브레인포그가 심해서 업무에 지장이 있어요. 클라이언트한테 말하기도 민망하고...',
@@ -51,7 +52,7 @@ const personas = [
     accentColor: 'text-alma-accent',
   },
   {
-    image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1601288496920-b6154fe3626a?w=200&h=200&fit=crop&crop=face',
     name: '자영업자',
     age: '50대 초반',
     pain: '손님 앞에서 갑자기 열이 확 오르면 너무 당황스러워요.',
@@ -62,9 +63,10 @@ const personas = [
 ];
 
 // Midi 스타일: 실제 이름 + 사진 + 상세 후기
+// 한국/아시아 중년 여성 이미지로 교체
 const testimonials = [
   {
-    image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
     name: '미영',
     age: 52,
     location: '서울',
@@ -74,7 +76,7 @@ const testimonials = [
     improvement: '공감 친구 3명 만남',
   },
   {
-    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=200&fit=crop&crop=face',
     name: '정은',
     age: 47,
     location: '부산',
@@ -84,7 +86,7 @@ const testimonials = [
     improvement: '수면시간 2시간 증가',
   },
   {
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
     name: '선희',
     age: 49,
     location: '대전',
@@ -94,7 +96,7 @@ const testimonials = [
     improvement: '증상 수용 + 적극적 관리',
   },
   {
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&h=200&fit=crop&crop=face',
     name: '현정',
     age: 51,
     location: '인천',
@@ -256,7 +258,7 @@ export function SocialProof() {
         <div className="mt-14 text-center">
           <div className="inline-flex items-center gap-4 px-8 py-5 bg-white rounded-2xl border border-alma-border shadow-sm">
             <div className="flex -space-x-3">
-              {testimonials.slice(0, 3).map((t, i) => (
+              {testimonials.slice(0, 3).map((t) => (
                 <div key={t.name} className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md">
                   <Image
                     src={t.image}
