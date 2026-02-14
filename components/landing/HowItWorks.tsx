@@ -33,14 +33,16 @@ const journey = [
     detail: '신체 증상 + 감정 변화 + 생활 패턴',
     Icon: ChecklistIcon,
     color: 'bg-alma-primary',
+    href: '/log',
   },
   {
     step: '02',
-    title: '나와 비슷한 친구 찾기',
-    desc: '비슷한 증상, 비슷한 상황의 여성들과 매칭돼요.',
-    detail: '같은 단계 · 같은 고민 · 안전한 연결',
-    Icon: UsersIcon,
+    title: 'AI 맞춤 인사이트',
+    desc: '기록을 분석해서 나만의 패턴을 찾고 맞춤 조언을 받아요.',
+    detail: '패턴 분석 · 주간 리포트 · 맞춤 조언',
+    Icon: SparklesIcon,
     color: 'bg-alma-accent',
+    href: '/insights',
   },
   {
     step: '03',
@@ -49,14 +51,16 @@ const journey = [
     detail: '여성 전용 · 완전 익명 · 큐레이션된 대화',
     Icon: ChatIcon,
     color: 'bg-alma-secondary',
+    href: '/community',
   },
   {
     step: '04',
-    title: '나에게 맞는 솔루션',
-    desc: '명상, 운동, 상담, 제품까지. 내 상태에 딱 맞는 방법을 찾아요.',
-    detail: '초개인화 추천 · 전문가 연결 · 큐레이션 커머스',
-    Icon: SparklesIcon,
+    title: '나만의 대시보드',
+    desc: '기록 현황, 통계, 인사이트를 한눈에 확인해요.',
+    detail: '기록 히스토리 · 통계 분석 · 맞춤 추천',
+    Icon: UsersIcon,
     color: 'bg-gradient-to-r from-alma-primary to-alma-accent',
+    href: '/dashboard',
   },
 ];
 
@@ -87,9 +91,10 @@ export function HowItWorks() {
         {/* Journey Steps */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {journey.map((item, i) => (
-            <div
+            <Link
               key={item.step}
-              className="relative bg-alma-bg rounded-2xl p-6 border border-alma-border hover:shadow-lg hover:border-alma-primary/30 transition-all group"
+              href={item.href}
+              className="relative bg-alma-bg rounded-2xl p-6 border border-alma-border hover:shadow-lg hover:border-alma-primary/30 transition-all group cursor-pointer"
             >
               {/* Step number */}
               <div className={`absolute -top-3 -left-1 px-3 py-1 ${item.color} rounded-lg text-white text-xs font-bold shadow-md`}>
@@ -102,7 +107,7 @@ export function HowItWorks() {
               </div>
 
               {/* Content */}
-              <h3 className="text-lg font-bold text-alma-text mb-2">
+              <h3 className="text-lg font-bold text-alma-text mb-2 group-hover:text-alma-primary transition-colors">
                 {item.title}
               </h3>
               <p className="text-sm text-alma-text-secondary leading-relaxed mb-3">
@@ -111,6 +116,14 @@ export function HowItWorks() {
               <p className="text-xs text-alma-text-tertiary">
                 {item.detail}
               </p>
+
+              {/* Click indicator */}
+              <div className="mt-4 flex items-center text-xs font-medium text-alma-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                바로가기
+                <svg className="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
 
               {/* Connector arrow (desktop) */}
               {i < journey.length - 1 && (
@@ -122,7 +135,7 @@ export function HowItWorks() {
                   </div>
                 </div>
               )}
-            </div>
+            </Link>
           ))}
         </div>
 
