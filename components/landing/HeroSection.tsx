@@ -1,19 +1,26 @@
-'use client';
-
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden">
-      {/* Light purple background - Badoo style */}
-      <div className="bg-alma-primary-light">
-        <div className="max-w-6xl mx-auto px-5 py-16 md:py-20">
+      {/* Warm gradient background */}
+      <div className="bg-gradient-to-br from-alma-primary-light via-white to-alma-accent-light">
+        <div className="max-w-6xl mx-auto px-5 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left: Copy */}
             <div>
-              {/* Main headline - Big, bold, friendly */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-alma-primary leading-[1.1] mb-6">
-                나만 그런 거 아니었어.
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full border border-alma-border mb-6">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-alma-text-secondary">850만 여성이 함께하고 있어요</span>
+              </div>
+
+              {/* Main headline */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-alma-text leading-[1.1] mb-6">
+                나만 그런 거
+                <br />
+                <span className="text-alma-primary">아니었어.</span>
               </h1>
 
               {/* Subheadline */}
@@ -26,80 +33,71 @@ export function HeroSection() {
               {/* CTA */}
               <Link
                 href="/checkin"
-                className="inline-flex items-center justify-center px-8 py-4 bg-alma-secondary text-white font-semibold rounded-full hover:bg-alma-secondary/90 active:scale-[0.98] transition-all shadow-lg"
+                className="inline-flex items-center justify-center px-8 py-4 bg-alma-primary text-white font-bold rounded-full hover:bg-alma-primary-dark active:scale-[0.98] transition-all shadow-lg shadow-alma-primary/30"
               >
-                시작하기
+                무료로 시작하기
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
               </Link>
 
               {/* Trust text */}
               <p className="mt-6 text-sm text-alma-text-tertiary">
-                3분이면 충분해요 · 100% 무료 · 850만 여성이 함께해요
+                3분이면 충분해요 · 100% 무료 · 로그인 없이 바로 시작
               </p>
             </div>
 
-            {/* Right: Citrus Character Illustration */}
-            <div className="relative hidden md:flex justify-center">
-              {/* Warm gradient background */}
-              <div className="absolute w-80 h-80 bg-alma-primary/30 rounded-full blur-3xl" />
-
-              {/* Citrus Woman Character */}
-              <div className="relative z-10">
-                {/* Main character container */}
-                <div className="relative w-72 h-80">
-                  {/* Orange slice background - hair/halo */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-56 h-56">
-                    {/* Orange outer ring */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-alma-primary via-amber-400 to-orange-400 shadow-xl" />
-                    {/* Orange inner */}
-                    <div className="absolute inset-3 rounded-full bg-gradient-to-br from-amber-200 to-orange-300" />
-                    {/* Orange segments */}
-                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
-                      <circle cx="50" cy="50" r="42" fill="none" stroke="#f5e6c8" strokeWidth="1" />
-                      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-                        <line
-                          key={angle}
-                          x1="50"
-                          y1="50"
-                          x2={50 + 42 * Math.cos((angle * Math.PI) / 180)}
-                          y2={50 + 42 * Math.sin((angle * Math.PI) / 180)}
-                          stroke="#f5e6c8"
-                          strokeWidth="1"
-                        />
-                      ))}
-                    </svg>
-                  </div>
-
-                  {/* Woman face */}
-                  <div className="absolute top-16 left-1/2 -translate-x-1/2 w-40 h-48">
-                    {/* Face */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-40 bg-gradient-to-b from-amber-100 to-amber-200 rounded-[50%_50%_45%_45%] shadow-lg" />
-                    {/* Hair */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-36 h-20 bg-alma-secondary rounded-t-full" />
-                    {/* Eyes */}
-                    <div className="absolute top-14 left-1/2 -translate-x-1/2 flex gap-6">
-                      <div className="w-3 h-4 bg-alma-text rounded-full" />
-                      <div className="w-3 h-4 bg-alma-text rounded-full" />
-                    </div>
-                    {/* Smile */}
-                    <div className="absolute top-24 left-1/2 -translate-x-1/2 w-8 h-4 border-b-[3px] border-alma-text rounded-b-full" />
-                    {/* Cheeks - citrus colored */}
-                    <div className="absolute top-20 left-6 w-5 h-3 bg-alma-primary/40 rounded-full" />
-                    <div className="absolute top-20 right-6 w-5 h-3 bg-alma-primary/40 rounded-full" />
-                  </div>
-
-                  {/* Small citrus decorations */}
-                  <div className="absolute top-8 right-2 w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-amber-400 shadow-md flex items-center justify-center">
-                    <div className="w-5 h-5 rounded-full bg-yellow-100" />
-                  </div>
-                  <div className="absolute bottom-24 left-0 w-6 h-6 rounded-full bg-gradient-to-br from-lime-300 to-green-400 shadow-md" />
+            {/* Right: Photo collage */}
+            <div className="relative hidden md:block">
+              {/* Main photo */}
+              <div className="relative">
+                <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&h=750&fit=crop&crop=face"
+                    alt="Smiling woman"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-alma-secondary/20 to-transparent" />
                 </div>
 
-                {/* Floating badges */}
-                <div className="absolute top-4 -right-4 bg-white px-4 py-2 rounded-full shadow-md border border-alma-border">
-                  <span className="text-sm font-medium text-alma-text">반가워요 👋</span>
+                {/* Floating card 1 */}
+                <div className="absolute -top-4 -left-4 bg-white px-5 py-3 rounded-2xl shadow-xl border border-alma-border">
+                  <p className="text-sm font-semibold text-alma-text">반가워요!</p>
+                  <p className="text-xs text-alma-text-tertiary">같은 고민을 나눠요</p>
                 </div>
-                <div className="absolute bottom-16 -left-8 bg-white px-4 py-2 rounded-full shadow-md border border-alma-border">
-                  <span className="text-sm font-medium text-alma-text">나도 그래요 🍊</span>
+
+                {/* Floating card 2 */}
+                <div className="absolute -bottom-4 -right-4 bg-alma-primary px-5 py-3 rounded-2xl shadow-xl">
+                  <p className="text-sm font-bold text-white">나도 그래요</p>
+                  <p className="text-xs text-white/80">공감 1,234</p>
+                </div>
+
+                {/* Small photos */}
+                <div className="absolute top-1/2 -right-8 transform -translate-y-1/2 flex flex-col gap-3">
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+                    <Image
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face"
+                      alt="Community member"
+                      width={64}
+                      height={64}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
+                    <Image
+                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
+                      alt="Community member"
+                      width={64}
+                      height={64}
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-white bg-alma-accent flex items-center justify-center">
+                    <span className="text-white font-bold text-sm">+999</span>
+                  </div>
                 </div>
               </div>
             </div>

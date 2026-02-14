@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ALMA 색상 팔레트 - Oddo Style (Warm & Sophisticated) */
+  /* ALMA 색상 팔레트 - Vivid & Lively */
 
-  /* Primary - Mustard Yellow (따뜻함, 에너지, 활력) */
-  --color-alma-primary: #d4a84b;
-  --color-alma-primary-light: #f5e6c8;
-  --color-alma-primary-dark: #b8923d;
+  /* Primary - Bold Golden Yellow (활력, 따뜻함) */
+  --color-alma-primary: #E5A000;
+  --color-alma-primary-light: #FFF4D6;
+  --color-alma-primary-dark: #C78C00;
 
-  /* Accent - Soft Lavender/Mauve (부드러움, 여성스러움) */
-  --color-alma-accent: #c9a7c9;
-  --color-alma-accent-light: #f0e4f0;
-  --color-alma-accent-dark: #a87fa8;
+  /* Accent - Rich Mauve/Plum (여성스러움, 고급스러움) */
+  --color-alma-accent: #9B5DE5;
+  --color-alma-accent-light: #F3E8FF;
+  --color-alma-accent-dark: #7B3FC7;
 
-  /* Secondary - Warm Brown/Taupe (안정감, 프리미엄) */
-  --color-alma-secondary: #6b5b4e;
-  --color-alma-secondary-light: #d4ccc4;
+  /* Secondary - Deep Warm Brown (안정감, 신뢰) */
+  --color-alma-secondary: #5D4037;
+  --color-alma-secondary-light: #D7CCC8;
 
-  /* Backgrounds - Warm & Earthy */
-  --color-alma-bg: #faf6f0;
+  /* Backgrounds */
+  --color-alma-bg: #FFFBF5;
   --color-alma-surface: #ffffff;
-  --color-alma-surface-warm: #f5efe5;
+  --color-alma-surface-warm: #FEF7EC;
 
-  /* Text */
-  --color-alma-text: #3d3429;
-  --color-alma-text-secondary: #5c5347;
-  --color-alma-text-tertiary: #8a8078;
+  /* Text - Higher contrast */
+  --color-alma-text: #1A1A1A;
+  --color-alma-text-secondary: #4A4A4A;
+  --color-alma-text-tertiary: #767676;
 
   /* Border */
-  --color-alma-border: #e8e2d9;
-  --color-alma-border-light: #f2ede5;
+  --color-alma-border: #E5E5E5;
+  --color-alma-border-light: #F5F5F5;
 
   /* Status */
-  --color-alma-success: #7a9e7a;
-  --color-alma-error: #c97070;
-  --color-alma-warning: #d4a84b;
+  --color-alma-success: #2E7D32;
+  --color-alma-error: #D32F2F;
+  --color-alma-warning: #F9A825;
 
   /* 폰트 - 산세리프만 */
   --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -49,8 +49,8 @@ html {
 }
 
 body {
-  background-color: #faf6f0;
-  color: #3d3429;
+  background-color: #FFFBF5;
+  color: #1A1A1A;
   line-height: 1.6;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
