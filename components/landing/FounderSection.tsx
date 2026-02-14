@@ -21,7 +21,7 @@ export function FounderSection() {
             <div className="flex-shrink-0">
               <div className="w-28 h-28 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                 <Image
-                  src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=face"
+                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face"
                   alt="Becca - ALMA Founder"
                   width={112}
                   height={112}
