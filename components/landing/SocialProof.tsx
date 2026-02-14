@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const personas = [
   {
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=face',
     name: '직장인 여성',
     age: '40대 후반',
     pain: '수면장애와 감정 기복이 시작됐는데, 이게 갱년기인지 스트레스인지 모르겠어요.',
@@ -11,7 +11,7 @@ const personas = [
     accentColor: 'text-alma-primary',
   },
   {
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face',
     name: '자녀 독립 후',
     age: '50대 초반',
     pain: '열감, 불면, 우울감이 심해지는데 남편은 "다 그런 거"라고 해요.',
@@ -20,7 +20,7 @@ const personas = [
     accentColor: 'text-alma-accent',
   },
   {
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=face',
+    image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&h=200&fit=crop&crop=face',
     name: '1인가구 여성',
     age: '40-50대',
     pain: '혼자 겪는 건 괜찮은데, 새벽에 깼을 때 불안이 밀려와요.',
@@ -89,7 +89,7 @@ export function SocialProof() {
             <div className="flex -space-x-3">
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md">
                 <Image
-                  src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+                  src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face"
                   alt="Member"
                   width={48}
                   height={48}
@@ -98,7 +98,7 @@ export function SocialProof() {
               </div>
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md">
                 <Image
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face"
+                  src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=face"
                   alt="Member"
                   width={48}
                   height={48}
@@ -107,7 +107,7 @@ export function SocialProof() {
               </div>
               <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-md">
                 <Image
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face"
+                  src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face"
                   alt="Member"
                   width={48}
                   height={48}

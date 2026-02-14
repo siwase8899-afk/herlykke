@@ -27,8 +27,8 @@ export function ProblemSection() {
             <div className="relative hidden lg:block">
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=600&h=750&fit=crop"
-                  alt="Thoughtful woman"
+                  src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=600&h=750&fit=crop&crop=face"
+                  alt="Thoughtful Korean woman"
                   fill
                   className="object-cover"
                 />

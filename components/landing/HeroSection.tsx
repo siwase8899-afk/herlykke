@@ -53,8 +53,8 @@ export function HeroSection() {
               <div className="relative">
                 <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                   <Image
-                    src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=600&h=750&fit=crop&crop=face"
-                    alt="Smiling woman"
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=750&fit=crop&crop=face"
+                    alt="Smiling Korean woman"
                     fill
                     className="object-cover"
                     priority
@@ -79,7 +79,7 @@ export function HeroSection() {
                 <div className="absolute top-1/2 -right-8 transform -translate-y-1/2 flex flex-col gap-3">
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
                     <Image
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face"
+                      src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=100&h=100&fit=crop&crop=face"
                       alt="Community member"
                       width={64}
                       height={64}
@@ -88,7 +88,7 @@ export function HeroSection() {
                   </div>
                   <div className="w-16 h-16 rounded-2xl overflow-hidden shadow-lg border-2 border-white">
                     <Image
-                      src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face"
+                      src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face"
                       alt="Community member"
                       width={64}
                       height={64}
