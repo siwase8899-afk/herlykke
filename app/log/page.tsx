@@ -18,6 +18,7 @@ export default function DailyLogPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const totalSteps = 5;
+  const [isComplete, setIsComplete] = useState(false);
 
   // Form state
   const [condition, setCondition] = useState<number | null>(null);
@@ -54,7 +55,8 @@ export default function DailyLogPage() {
     if (!isSupabaseConfigured) {
       // Demo mode
       setTimeout(() => {
-        router.push('/dashboard');
+        setLoading(false);
+        setIsComplete(true);
       }, 1000);
       return;
     }
@@ -80,7 +82,7 @@ export default function DailyLogPage() {
       });
 
       if (error) throw error;
-      router.push('/dashboard');
+      setIsComplete(true);
     } catch (error) {
       console.error('Error saving log:', error);
       alert('저장 중 오류가 발생했어요. 다시 시도해주세요.');
@@ -99,6 +101,122 @@ export default function DailyLogPage() {
       default: return false;
     }
   };
+
+  // 완료 화면
+  if (isComplete) {
+    const conditionInfo = CONDITION_LEVELS.find(c => c.value === condition);
+    const symptomLabels = symptoms.map(s => SYMPTOMS.find(sym => sym.id === s)?.label).filter(Boolean);
+    const activityLabels = activities.map(a => ACTIVITIES.find(act => act.id === a)?.label).filter(Boolean);
+
+    return (
+      <div className="min-h-screen bg-alma-bg flex flex-col">
+        <main className="flex-1 flex flex-col items-center justify-center px-5 py-8">
+          {/* Success Animation */}
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center mb-6 animate-bounce">
+            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+
+          <h1 className="text-2xl font-bold text-alma-text mb-2 text-center">
+            오늘의 기록 완료!
+          </h1>
+          <p className="text-alma-text-secondary text-center mb-8">
+            기록을 바탕으로 AI가 맞춤 인사이트를 준비했어요
+          </p>
+
+          {/* Summary Card */}
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 border border-alma-border mb-8">
+            <h2 className="font-semibold text-alma-text mb-4">오늘의 기록 요약</h2>
+
+            <div className="space-y-4">
+              {/* Condition */}
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{conditionInfo?.emoji}</span>
+                <div>
+                  <p className="text-sm text-alma-text-tertiary">컨디션</p>
+                  <p className="font-medium text-alma-text">{conditionInfo?.label}</p>
+                </div>
+              </div>
+
+              {/* Symptoms */}
+              {symptomLabels.length > 0 && (
+                <div>
+                  <p className="text-sm text-alma-text-tertiary mb-2">오늘의 증상</p>
+                  <div className="flex flex-wrap gap-2">
+                    {symptomLabels.map((label, i) => (
+                      <span key={i} className="px-3 py-1 bg-alma-primary-light text-alma-primary rounded-full text-sm">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Sleep */}
+              <div className="flex items-center gap-4">
+                <div>
+                  <p className="text-sm text-alma-text-tertiary">수면</p>
+                  <p className="font-medium text-alma-text">{sleepHours}시간</p>
+                </div>
+                <div className="w-px h-8 bg-alma-border" />
+                <div>
+                  <p className="text-sm text-alma-text-tertiary">수면 품질</p>
+                  <p className="font-medium text-alma-text">
+                    {sleepQuality === 1 ? '😫' : sleepQuality === 2 ? '😔' : sleepQuality === 3 ? '😐' : sleepQuality === 4 ? '🙂' : '😴'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Activities */}
+              {activityLabels.length > 0 && (
+                <div>
+                  <p className="text-sm text-alma-text-tertiary mb-2">오늘의 활동</p>
+                  <div className="flex flex-wrap gap-2">
+                    {activityLabels.map((label, i) => (
+                      <span key={i} className="px-3 py-1 bg-alma-accent-light text-alma-accent-dark rounded-full text-sm">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* AI Insights CTA */}
+          <div className="w-full max-w-md space-y-3">
+            <Link
+              href="/insights"
+              className="block w-full py-4 bg-gradient-to-r from-alma-primary to-alma-accent text-white font-bold rounded-xl text-center hover:opacity-90 transition-all shadow-lg"
+            >
+              <div className="flex items-center justify-center gap-2">
+                <span className="text-lg">AI</span>
+                <span>맞춤 인사이트 보기</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+            </Link>
+
+            <Link
+              href="/match"
+              className="block w-full py-4 bg-white border border-alma-border text-alma-text font-medium rounded-xl text-center hover:bg-alma-bg transition-all"
+            >
+              비슷한 친구 찾아보기
+            </Link>
+
+            <Link
+              href="/dashboard"
+              className="block w-full py-3 text-alma-text-tertiary text-center hover:text-alma-text transition-colors"
+            >
+              대시보드로 가기
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-alma-bg flex flex-col">
