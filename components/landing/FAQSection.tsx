@@ -1,0 +1,85 @@
+'use client';
+
+import { useState } from 'react';
+
+const faqs = [
+  {
+    q: '갱년기는 언제 시작되나요?',
+    a: '보통 45-55세 사이에 시작되지만, 40대 초반부터 증상을 느끼는 분도 많아요. 생리 불규칙, 열감, 수면 장애, 감정 변화 등이 초기 증상일 수 있어요.',
+  },
+  {
+    q: 'ALMA는 의료 서비스인가요?',
+    a: '아니요, ALMA는 의료 서비스가 아닌 커뮤니티 플랫폼이에요. 체크인 결과는 참고용이며, 정확한 진단은 전문의 상담을 권장드려요.',
+  },
+  {
+    q: '내 정보는 안전한가요?',
+    a: '커뮤니티에서는 닉네임만 공개돼요. 실명, 나이, 개인 정보는 다른 사용자에게 절대 노출되지 않아요. 모든 데이터는 암호화되어 안전하게 보관됩니다.',
+  },
+  {
+    q: '비용이 있나요?',
+    a: '체크인과 기본 커뮤니티 참여는 무료예요. 앞으로 프리미엄 기능이 추가될 수 있지만, 핵심 기능은 계속 무료로 유지할 예정이에요.',
+  },
+  {
+    q: '남편/가족도 볼 수 있나요?',
+    a: '커뮤니티는 갱년기를 경험하는 여성 전용이에요. 하지만 체크인 결과는 가족에게 보여줘서 나의 상태를 이해시키는 데 활용할 수 있어요.',
+  },
+];
+
+export function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <section className="px-5 py-20 bg-alma-bg">
+      <div className="max-w-3xl mx-auto">
+        {/* Section header */}
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-1.5 bg-alma-primary-light text-alma-primary text-sm font-semibold rounded-full mb-4">
+            FAQ
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-alma-text">
+            자주 묻는 질문
+          </h2>
+        </div>
+
+        {/* FAQ items */}
+        <div className="space-y-3">
+          {faqs.map((faq, index) => (
+            <div
+              key={faq.q}
+              className="bg-alma-surface rounded-2xl border border-alma-border overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
+              >
+                <span className="text-[15px] font-semibold text-alma-text">
+                  {faq.q}
+                </span>
+                <span
+                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                    openIndex === index
+                      ? 'bg-alma-primary text-white rotate-180'
+                      : 'bg-alma-primary-light text-alma-primary'
+                  }`}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </span>
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-200 ${
+                  openIndex === index ? 'max-h-48' : 'max-h-0'
+                }`}
+              >
+                <div className="px-6 pb-5 text-sm text-alma-text-secondary leading-relaxed">
+                  {faq.a}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

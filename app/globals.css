@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ALMA 색상 팔레트 - Oddo Style (Warm & Sophisticated) */
+
+  /* Primary - Mustard Yellow (따뜻함, 에너지, 활력) */
+  --color-alma-primary: #d4a84b;
+  --color-alma-primary-light: #f5e6c8;
+  --color-alma-primary-dark: #b8923d;
+
+  /* Accent - Soft Lavender/Mauve (부드러움, 여성스러움) */
+  --color-alma-accent: #c9a7c9;
+  --color-alma-accent-light: #f0e4f0;
+  --color-alma-accent-dark: #a87fa8;
+
+  /* Secondary - Warm Brown/Taupe (안정감, 프리미엄) */
+  --color-alma-secondary: #6b5b4e;
+  --color-alma-secondary-light: #d4ccc4;
+
+  /* Backgrounds - Warm & Earthy */
+  --color-alma-bg: #faf6f0;
+  --color-alma-surface: #ffffff;
+  --color-alma-surface-warm: #f5efe5;
+
+  /* Text */
+  --color-alma-text: #3d3429;
+  --color-alma-text-secondary: #5c5347;
+  --color-alma-text-tertiary: #8a8078;
+
+  /* Border */
+  --color-alma-border: #e8e2d9;
+  --color-alma-border-light: #f2ede5;
+
+  /* Status */
+  --color-alma-success: #7a9e7a;
+  --color-alma-error: #c97070;
+  --color-alma-warning: #d4a84b;
+
+  /* 폰트 - 산세리프만 */
+  --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #faf6f0;
+  color: #3d3429;
+  line-height: 1.6;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 40-50대 접근성: 최소 폰트 16px */
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Selection */
+::selection {
+  background-color: #ede9fe;
+  color: #5b21b6;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+button, a, input {
+  transition: all 0.2s ease;
+}
