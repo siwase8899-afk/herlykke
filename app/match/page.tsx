@@ -6,79 +6,104 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
-// 데모 프로필 데이터
+// Peanut 인사이트: 증상 + 상황 기반 매칭
+// "Find women who get it" — 같은 상황을 이해하는 친구 찾기
+
+// 상황 태그 (Peanut 스타일)
+const SITUATION_TAGS = [
+  { id: 'working', label: '직장인', icon: '💼' },
+  { id: 'single', label: '1인가구', icon: '🏠' },
+  { id: 'empty_nest', label: '자녀 독립 후', icon: '🕊️' },
+  { id: 'job_seeking', label: '재취업 준비', icon: '📝' },
+  { id: 'caregiver', label: '부모님 돌봄', icon: '🤲' },
+  { id: 'entrepreneur', label: '자영업/창업', icon: '🏪' },
+];
+
+// 데모 프로필 데이터 (Peanut 인사이트: 상황 필드 추가)
 const DEMO_PROFILES = [
   {
     id: '1',
     anonymous_name: '따뜻한 햇살',
     age_group: '40대 초반',
     stage: '갱년기 전기',
+    situation: '직장인',
     main_symptoms: ['열감', '수면장애', '피로감'],
     interests: ['요가', '명상', '독서'],
     bio: '비슷한 경험을 나눌 친구를 찾고 있어요. 함께 이야기하며 위로받고 싶어요.',
     image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
     match_percent: 92,
     online: true,
+    match_reason: '같은 증상 3개 · 같은 상황',
   },
   {
     id: '2',
     anonymous_name: '포근한 바람',
     age_group: '40대 중반',
     stage: '갱년기',
+    situation: '직장인',
     main_symptoms: ['브레인포그', '감정기복', '열감'],
     interests: ['운동', '요리', '정원가꾸기'],
     bio: '직장 생활하면서 갱년기 겪고 있어요. 같은 상황인 분들과 소통하고 싶어요.',
     image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop&crop=face',
     match_percent: 87,
     online: false,
+    match_reason: '같은 증상 2개 · 같은 관심사',
   },
   {
     id: '3',
     anonymous_name: '밝은 달빛',
     age_group: '50대 초반',
     stage: '갱년기 후기',
+    situation: '자녀 독립 후',
     main_symptoms: ['관절통', '피로감', '수면장애'],
     interests: ['산책', '명상', '뜨개질'],
     bio: '갱년기 끝자락에 있어요. 경험을 나누고 후배들에게 도움이 되고 싶어요.',
     image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400&h=400&fit=crop&crop=face',
     match_percent: 78,
     online: true,
+    match_reason: '멘토링 가능 · 경험 공유',
   },
   {
     id: '4',
     anonymous_name: '싱그러운 아침',
     age_group: '40대 후반',
     stage: '갱년기',
+    situation: '1인가구',
     main_symptoms: ['열감', '불안', '피부건조'],
     interests: ['필라테스', '카페투어', '영화'],
     bio: '혼자 고민하다가 ALMA를 알게 됐어요. 솔직하게 이야기 나눌 수 있는 친구를 찾아요.',
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face',
     match_percent: 85,
     online: true,
+    match_reason: '같은 증상 2개 · 같은 상황',
   },
   {
     id: '5',
     anonymous_name: '고운 꽃잎',
     age_group: '40대 초반',
     stage: '갱년기 전기',
+    situation: '재취업 준비',
     main_symptoms: ['생리불순', '피로감', '두통'],
     interests: ['요가', '독서', '음악감상'],
     bio: '최근에 증상이 시작됐어요. 선배님들의 조언이 필요해요!',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face',
     match_percent: 90,
     online: false,
+    match_reason: '같은 단계 · 조언 필요',
   },
   {
     id: '6',
     anonymous_name: '향기로운 봄',
     age_group: '50대 초반',
     stage: '갱년기 후기',
+    situation: '자영업/창업',
     main_symptoms: ['수면장애', '열감', '관절통'],
     interests: ['등산', '요가', '봉사활동'],
     bio: '긍정적인 마인드로 이 시기를 보내고 있어요. 함께 응원해요!',
     image: 'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=400&fit=crop&crop=face',
     match_percent: 75,
     online: true,
+    match_reason: '비슷한 관심사 · 긍정 에너지',
   },
 ];
 
@@ -171,17 +196,50 @@ export default function MatchPage() {
         </div>
       </header>
 
-      {/* Info Banner */}
+      {/* Peanut 스타일: 공감 헤드라인 */}
+      <div className="max-w-2xl mx-auto px-5 pt-6 pb-2">
+        <div className="text-center">
+          <h2 className="text-xl font-bold text-alma-text mb-1">
+            나를 이해하는 친구 찾기
+          </h2>
+          <p className="text-sm text-alma-text-secondary">
+            증상 + 상황이 비슷한 여성들과 연결돼요
+          </p>
+        </div>
+      </div>
+
+      {/* Info Banner — Peanut 스타일 */}
       <div className="max-w-2xl mx-auto px-5 py-4">
-        <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-2xl p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-alma-accent flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+        <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-2xl p-4">
+          {/* 매칭 기준 설명 */}
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-alma-primary flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-bold text-alma-text">AI가 분석한 맞춤 매칭</p>
+              <p className="text-xs text-alma-text-secondary">
+                체크인 데이터 기반 증상 + 상황 + 관심사 매칭
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-medium text-alma-text">익명으로 안전하게 연결돼요</p>
-            <p className="text-xs text-alma-text-secondary">실명, 연락처 등 개인정보는 공개되지 않아요</p>
+
+          {/* 매칭 기준 태그 */}
+          <div className="flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
+              🩺 증상 유사도
+            </span>
+            <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-accent font-medium">
+              💼 생활 상황
+            </span>
+            <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-secondary font-medium">
+              ⭐ 관심사
+            </span>
+            <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-text-secondary font-medium">
+              🔒 100% 익명
+            </span>
           </div>
         </div>
       </div>
@@ -217,12 +275,18 @@ export default function MatchPage() {
                     <span className="text-sm font-bold text-white">{currentProfile.match_percent}% 매치</span>
                   </div>
 
-                  {/* Profile Info */}
+                  {/* Profile Info — Peanut 스타일 */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                     <h2 className="text-2xl font-bold mb-1">{currentProfile.anonymous_name}</h2>
-                    <p className="text-white/80 text-sm mb-3">
+                    <p className="text-white/80 text-sm mb-2">
                       {currentProfile.age_group} · {currentProfile.stage}
                     </p>
+
+                    {/* 상황 태그 (Peanut 인사이트) */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-alma-accent/90 rounded-full text-xs font-medium mb-3">
+                      <span>💼</span>
+                      <span>{currentProfile.situation}</span>
+                    </div>
 
                     {/* Symptoms */}
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -237,9 +301,17 @@ export default function MatchPage() {
                     </div>
 
                     {/* Bio */}
-                    <p className="text-sm text-white/90 leading-relaxed">
+                    <p className="text-sm text-white/90 leading-relaxed mb-2">
                       {currentProfile.bio}
                     </p>
+
+                    {/* 매칭 이유 (Peanut 인사이트: "Find women who get it") */}
+                    <div className="flex items-center gap-1.5 text-alma-accent text-xs">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>{currentProfile.match_reason}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -314,11 +386,23 @@ export default function MatchPage() {
                   </div>
                 </div>
 
-                {/* Info */}
+                {/* Info — Peanut 스타일 */}
                 <div className="p-3">
                   <h3 className="font-semibold text-alma-text text-sm truncate">{profile.anonymous_name}</h3>
                   <p className="text-xs text-alma-text-tertiary">{profile.age_group}</p>
-                  <p className="text-xs text-alma-accent mt-1">{profile.stage}</p>
+
+                  {/* 상황 + 단계 */}
+                  <div className="flex items-center gap-1.5 mt-1.5">
+                    <span className="text-xs px-2 py-0.5 bg-alma-accent-light text-alma-accent rounded-full">
+                      {profile.situation}
+                    </span>
+                    <span className="text-xs text-alma-text-tertiary">{profile.stage}</span>
+                  </div>
+
+                  {/* 매칭 이유 */}
+                  <p className="text-xs text-alma-primary mt-2 line-clamp-1">
+                    ✓ {profile.match_reason}
+                  </p>
 
                   {/* Action Buttons */}
                   <div className="flex gap-2 mt-3">

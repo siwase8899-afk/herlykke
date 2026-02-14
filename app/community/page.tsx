@@ -121,22 +121,41 @@ export default function CommunityPage() {
 
       {/* Posts List */}
       <main className="max-w-2xl mx-auto px-5 py-4">
-        {/* Community Stats */}
-        <div className="bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-4 mb-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
+        {/* Flo 인사이트: Secret Chats 스타일 익명 커뮤니티 배너 */}
+        <div className="bg-gradient-to-br from-alma-secondary to-alma-secondary-dark rounded-2xl p-5 mb-4 text-white">
+          {/* 헤더 */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🔐</span>
+              <div>
+                <p className="text-sm font-bold">Secret Talks</p>
+                <p className="text-xs text-white/70">익명 대화 공간</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-semibold text-alma-text">익명으로 안전하게</p>
-              <p className="text-xs text-alma-text-secondary">자동 생성 닉네임으로 활동해요</p>
+            <div className="text-right">
+              <p className="text-lg font-bold text-alma-accent">{posts.length}+</p>
+              <p className="text-xs text-white/70">대화 중</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-lg font-bold text-alma-primary">{posts.length}</p>
-            <p className="text-xs text-alma-text-tertiary">총 게시글</p>
+
+          {/* 핵심 메시지 */}
+          <p className="text-sm text-white/90 mb-4 leading-relaxed">
+            솔직하게 말하기 어려웠던 이야기들,
+            <br />
+            <span className="font-semibold text-alma-accent">여기서는 편하게 나눌 수 있어요.</span>
+          </p>
+
+          {/* 익명 보장 태그 */}
+          <div className="flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
+              🔒 100% 익명
+            </span>
+            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
+              👤 자동 닉네임
+            </span>
+            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
+              🛡️ 안전한 공간
+            </span>
           </div>
         </div>
 
@@ -457,14 +476,35 @@ function WriteModal({
             )}
           </div>
 
-          {/* Privacy Notice */}
-          <div className="bg-alma-bg rounded-xl p-4">
-            <div className="flex items-start gap-3">
-              <span className="text-lg">🔒</span>
-              <div>
-                <p className="text-sm font-medium text-alma-text">익명으로 게시됩니다</p>
-                <p className="text-xs text-alma-text-tertiary mt-1">
-                  자동 생성된 닉네임으로 활동하며, 다른 사용자는 회원님의 실제 정보를 알 수 없어요.
+          {/* Flo 스타일 Privacy Notice */}
+          <div className="bg-gradient-to-r from-alma-secondary-light to-alma-primary-light rounded-xl p-4 border border-alma-secondary/20">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-lg">🔐</span>
+              <p className="text-sm font-bold text-alma-text">Secret Talks 익명 보장</p>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-alma-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-xs text-alma-text-secondary">
+                  자동 생성 닉네임 &quot;따뜻한 햇살&quot; 등으로 활동
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-alma-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-xs text-alma-text-secondary">
+                  실명, 연락처, 프로필 사진 절대 공개 안 됨
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-alma-secondary flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p className="text-xs text-alma-text-secondary">
+                  말하기 어려웠던 이야기, 여기서 편하게 나눠요
                 </p>
               </div>
             </div>

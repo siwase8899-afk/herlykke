@@ -6,9 +6,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
-// 솔루션 카테고리
+// 솔루션 카테고리 - Elektra 인사이트: 갱년기 코칭 추가
 const SOLUTION_CATEGORIES = [
   { id: 'all', label: '전체', icon: '✨' },
+  { id: 'coaching', label: '갱년기 코칭', icon: '🤝' },  // Elektra "Menopause Doula"
   { id: 'meditation', label: '명상/요가', icon: '🧘‍♀️' },
   { id: 'exercise', label: '운동', icon: '🏃‍♀️' },
   { id: 'nutrition', label: '영양제', icon: '💊' },
@@ -33,6 +34,50 @@ const SYMPTOM_SOLUTIONS: Record<string, string[]> = {
 
 // 솔루션 데이터
 const SOLUTIONS = [
+  // 갱년기 코칭 (Elektra "Menopause Doula" 인사이트)
+  {
+    id: 's0-1',
+    category: 'coaching',
+    title: '1:1 갱년기 코칭 프로그램',
+    provider: 'ALMA 웰니스',
+    description: '갱년기 전문 코치와 8주간 1:1 동반자 여정. 증상 관리부터 라이프스타일 개선까지 맞춤 가이드.',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop',
+    tags: ['1:1코칭', '8주프로그램', '맞춤관리'],
+    rating: 4.9,
+    reviews: 89,
+    price: '월 120,000원',
+    matchScore: 96,
+    forSymptoms: ['hot_flash', 'mood_swing', 'anxiety', 'insomnia'],
+  },
+  {
+    id: 's0-2',
+    category: 'coaching',
+    title: '갱년기 첫걸음 코칭',
+    provider: 'ALMA 웰니스',
+    description: '갱년기 초기 여성을 위한 4주 입문 코칭. 증상 이해하기, 나만의 관리법 찾기.',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=300&fit=crop',
+    tags: ['입문', '4주', '기초관리'],
+    rating: 4.8,
+    reviews: 156,
+    price: '월 80,000원',
+    matchScore: 94,
+    forSymptoms: ['fatigue', 'brain_fog', 'mood_swing'],
+  },
+  {
+    id: 's0-3',
+    category: 'coaching',
+    title: '그룹 코칭 클래스',
+    provider: 'ALMA 웰니스',
+    description: '같은 증상을 가진 5-8명이 함께하는 주 1회 그룹 코칭. 공감과 실천을 동시에.',
+    image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&h=300&fit=crop',
+    tags: ['그룹', '주1회', '커뮤니티'],
+    rating: 4.7,
+    reviews: 234,
+    price: '월 50,000원',
+    matchScore: 90,
+    forSymptoms: ['anxiety', 'mood_swing', 'insomnia'],
+  },
+
   // 명상/요가
   {
     id: 's1',
@@ -302,9 +347,8 @@ type SolutionCategory = typeof SOLUTION_CATEGORIES[number]['id'];
 type Solution = typeof SOLUTIONS[number];
 
 export default function SolutionsPage() {
-  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<SolutionCategory>('all');
-  const [userSymptoms, setUserSymptoms] = useState<string[]>(['hot_flash', 'insomnia', 'fatigue']); // 데모용
+  const [userSymptoms] = useState<string[]>(['hot_flash', 'insomnia', 'fatigue']); // 데모용
   const [sortBy, setSortBy] = useState<'match' | 'rating' | 'reviews'>('match');
   const [loading, setLoading] = useState(true);
 
