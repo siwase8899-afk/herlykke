@@ -4,14 +4,14 @@ export function CTAFooter() {
   return (
     <section className="relative overflow-hidden">
       {/* CTA Section */}
-      <div className="bg-gradient-to-br from-alma-secondary via-alma-secondary to-[#5a4a3d] px-5 py-20">
+      <div className="bg-gradient-to-br from-alma-secondary via-alma-secondary to-[#3d3835] px-5 py-20">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-alma-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-2xl mx-auto text-center">
           <p className="text-alma-secondary-light mb-3">
-            850만 갱년기 여성 중
+            한국 갱년기 전용 디지털 커뮤니티, 처음입니다
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             나와 비슷한 여성들이
@@ -51,6 +51,12 @@ export function CTAFooter() {
               </svg>
               여성 전용 커뮤니티
             </span>
+            <span className="flex items-center gap-1.5">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              개인정보 암호화
+            </span>
           </div>
         </div>
       </div>
@@ -63,7 +69,7 @@ export function CTAFooter() {
             <div>
               <p className="text-xl font-bold text-white mb-1">ALMA</p>
               <p className="text-sm text-gray-400">
-                갱년기 여성을 위한 커뮤니티 기반 웰니스 플랫폼
+                갱년기 여성의 두 번째 삶을 함께하는 커뮤니티
               </p>
             </div>
 

@@ -5,12 +5,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // Evernow 인사이트: 증상 순환 텍스트로 공감+포괄성 전달
+// Sol 인사이트: 아시아 여성은 관절통 > 열감 순으로 경험 (폐경 48-49세)
 const cyclingSymptoms = [
-  '안면 홍조',
+  '관절통',        // 아시아 여성 1위 증상
+  '만성 피로',
   '수면 장애',
   '감정 기복',
-  '관절통',
-  '만성 피로',
+  '안면 홍조',     // 서양 vs 아시아 차이
   '브레인 포그',
   '불안감',
   '체중 변화',
@@ -141,21 +142,29 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Stats section — 구체적 수치 신뢰 (Midi 인사이트) */}
-      <div className="bg-alma-surface-warm border-t border-alma-border">
-        <div className="max-w-6xl mx-auto px-5 py-8">
-          <div className="grid grid-cols-3 gap-8 text-center">
+      {/* Stats section — Evernow 스타일 신뢰 통계 + Midi 공감 */}
+      <div className="bg-alma-secondary text-white">
+        <div className="max-w-6xl mx-auto px-5 py-10">
+          {/* Midi 스타일 공감 메시지 */}
+          <p className="text-center text-white/70 text-sm mb-6 tracking-wide">
+            We see you. We hear you. 당신의 이야기에 귀 기울이고 있어요.
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-alma-primary-dark">91%</p>
-              <p className="text-sm text-alma-text-secondary mt-1">혼자 겪고 있어요</p>
+              <p className="text-3xl md:text-4xl font-bold text-alma-accent">87%</p>
+              <p className="text-sm text-white/80 mt-1">2주 내 공감 경험</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-alma-accent-dark">3분</p>
-              <p className="text-sm text-alma-text-secondary mt-1">체크인 소요시간</p>
+              <p className="text-3xl md:text-4xl font-bold text-white">1,200+</p>
+              <p className="text-sm text-white/80 mt-1">함께하는 여성들</p>
             </div>
             <div>
-              <p className="text-3xl md:text-4xl font-bold text-alma-secondary">10가지</p>
-              <p className="text-sm text-alma-text-secondary mt-1">주요 증상 분석</p>
+              <p className="text-3xl md:text-4xl font-bold text-alma-accent">48세</p>
+              <p className="text-sm text-white/80 mt-1">한국 평균 시작 나이</p>
+            </div>
+            <div>
+              <p className="text-3xl md:text-4xl font-bold text-white">100%</p>
+              <p className="text-sm text-white/80 mt-1">익명 보장</p>
             </div>
           </div>
         </div>

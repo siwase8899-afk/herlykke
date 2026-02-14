@@ -72,6 +72,29 @@ export function FounderSection() {
                   </span>
                 </div>
               </div>
+
+              {/* ALMA의 약속 — Elektra Core Values 한국화 */}
+              <div className="mt-8 pt-6 border-t border-alma-border">
+                <p className="text-sm text-alma-text-tertiary mb-4 font-medium">ALMA의 약속</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
+                    <div className="w-2 h-2 rounded-full bg-alma-primary" />
+                    진짜 정보만
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
+                    <div className="w-2 h-2 rounded-full bg-alma-primary" />
+                    완전한 익명
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
+                    <div className="w-2 h-2 rounded-full bg-alma-accent" />
+                    광고 없는 공간
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
+                    <div className="w-2 h-2 rounded-full bg-alma-accent" />
+                    데이터 기반 맞춤
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
