@@ -203,19 +203,40 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* AI Insights Preview */}
+        <Link
+          href="/insights"
+          className="mt-8 block bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-5 border border-alma-border hover:shadow-md transition-all"
+        >
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-lg">AI</span>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-alma-text mb-1">나의 AI 맞춤 조언</h3>
+              <p className="text-sm text-alma-text-secondary">
+                기록을 분석해서 나만의 패턴과 맞춤 조언을 확인해보세요
+              </p>
+            </div>
+            <svg className="w-5 h-5 text-alma-text-tertiary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </Link>
+
         {/* Quick Actions */}
-        <div className="mt-8 grid grid-cols-2 gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           <Link
-            href="/checkin"
+            href="/insights"
             className="bg-white rounded-2xl p-5 border border-alma-border hover:border-alma-primary/30 hover:shadow-md transition-all"
           >
-            <div className="w-10 h-10 rounded-xl bg-alma-primary-light flex items-center justify-center mb-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-alma-primary/20 to-alma-accent/20 flex items-center justify-center mb-3">
               <svg className="w-5 h-5 text-alma-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
-            <p className="font-semibold text-alma-text">전체 체크인</p>
-            <p className="text-sm text-alma-text-tertiary mt-1">자세한 갱년기 단계 확인</p>
+            <p className="font-semibold text-alma-text">AI 인사이트</p>
+            <p className="text-sm text-alma-text-tertiary mt-1">맞춤 조언 확인</p>
           </Link>
 
           <Link
