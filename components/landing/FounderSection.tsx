@@ -73,25 +73,44 @@ export function FounderSection() {
                 </div>
               </div>
 
-              {/* ALMA의 약속 — Elektra Core Values 한국화 */}
+              {/* ALMA의 5가지 약속 — Elektra Core Values 한국화 */}
               <div className="mt-8 pt-6 border-t border-alma-border">
-                <p className="text-sm text-alma-text-tertiary mb-4 font-medium">ALMA의 약속</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
-                    <div className="w-2 h-2 rounded-full bg-alma-primary" />
-                    진짜 정보만
+                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 5가지 약속</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="flex items-center gap-3 p-3 bg-alma-primary-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold">1</div>
+                    <div>
+                      <p className="text-sm font-medium text-alma-text">진짜 정보만</p>
+                      <p className="text-xs text-alma-text-tertiary">광고 아닌 실제 경험</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
-                    <div className="w-2 h-2 rounded-full bg-alma-primary" />
-                    완전한 익명
+                  <div className="flex items-center gap-3 p-3 bg-alma-primary-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold">2</div>
+                    <div>
+                      <p className="text-sm font-medium text-alma-text">완전한 익명</p>
+                      <p className="text-xs text-alma-text-tertiary">100% 프라이버시 보장</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
-                    <div className="w-2 h-2 rounded-full bg-alma-accent" />
-                    광고 없는 공간
+                  <div className="flex items-center gap-3 p-3 bg-alma-accent-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold">3</div>
+                    <div>
+                      <p className="text-sm font-medium text-alma-text">광고 없는 공간</p>
+                      <p className="text-xs text-alma-text-tertiary">순수한 커뮤니티</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-alma-text-secondary">
-                    <div className="w-2 h-2 rounded-full bg-alma-accent" />
-                    데이터 기반 맞춤
+                  <div className="flex items-center gap-3 p-3 bg-alma-accent-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold">4</div>
+                    <div>
+                      <p className="text-sm font-medium text-alma-text">AI 기반 맞춤</p>
+                      <p className="text-xs text-alma-text-tertiary">데이터로 정확하게</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 bg-alma-secondary-light rounded-xl sm:col-span-2 sm:justify-center">
+                    <div className="w-8 h-8 rounded-full bg-alma-secondary flex items-center justify-center text-white text-sm font-bold">5</div>
+                    <div>
+                      <p className="text-sm font-medium text-alma-text">당사자가 만든 서비스</p>
+                      <p className="text-xs text-alma-text-tertiary">갱년기를 직접 겪고 있는 사람이 만들었어요</p>
+                    </div>
                   </div>
                 </div>
               </div>
