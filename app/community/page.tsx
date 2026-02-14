@@ -1,161 +1,475 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useCheckinStore } from '../../stores/checkinStore';
-import { classifySymptomCluster } from '../../lib/stageClassifier';
-import { Button } from '../../components/ui/Button';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-const SAMPLE_POSTS = [
-  {
-    nickname: '봄날의산책',
-    badge: '🌿',
-    stage: '갱년기 전기',
-    content: '요즘 밤에 열감이 올라와서 이불을 뻈다 덮었다 반복해요. 남편은 모르겠대요.. 같은 분 계세요?',
-    reactions: { empathy: 12, me_too: 8, cheer: 5 },
-  },
-  {
-    nickname: '차한잔',
-    badge: '🌺',
-    stage: '갱년기',
-    content: '마그네슘 먹기 시작한 지 3주째인데 확실히 수면이 좀 나아진 것 같아요. 혹시 드시는 분 있으세요?',
-    reactions: { empathy: 6, me_too: 15, thanks: 9 },
-  },
-  {
-    nickname: '하늘빛',
-    badge: '🌿',
-    stage: '갱년기 전기',
-    content: '어제 회의 중에 갑자기 눈물이 나올 뻔했어요. 다행히 참았는데... 이게 갱년기 때문인 건지, 제가 나약한 건지 모르겠어요.',
-    reactions: { empathy: 23, hug: 18, cheer: 11 },
-  },
-];
-
-const REACTION_EMOJI: Record<string, string> = {
-  empathy: '😢',
-  hug: '🫶',
-  me_too: '🙋',
-  cheer: '💪',
-  thanks: '🙏',
-};
-
-const GROUPS = [
-  { id: 'hot_flash', emoji: '🔥', name: '열감/수면 그룹', members: 24, cluster: 'vasomotor' },
-  { id: 'emotional', emoji: '💭', name: '마음 그룹', members: 18, cluster: 'emotional_dominant' },
-  { id: 'general', emoji: '🌈', name: '종합 그룹', members: 31, cluster: 'mixed' },
-];
+import { useRouter } from 'next/navigation';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import {
+  CATEGORIES,
+  DEMO_POSTS,
+  formatTimeAgo,
+  generateAnonymousName,
+  type Post,
+  type CategoryId,
+} from '@/lib/communityConstants';
 
 export default function CommunityPage() {
-  const store = useCheckinStore();
-  const [hydrated, setHydrated] = useState(false);
+  const router = useRouter();
+  const [posts, setPosts] = useState<Post[]>(DEMO_POSTS);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId | 'all'>('all');
+  const [showWriteModal, setShowWriteModal] = useState(false);
+  const [user, setUser] = useState<{ id: string } | null>(null);
 
   useEffect(() => {
-    setHydrated(true);
+    loadData();
   }, []);
 
-  const cluster = hydrated && store.physicalSymptoms.length > 0
-    ? classifySymptomCluster(store.physicalSymptoms, store.emotionalSymptoms)
-    : 'mixed';
+  const loadData = async () => {
+    if (!isSupabaseConfigured) {
+      setUser({ id: 'demo' });
+      setLoading(false);
+      return;
+    }
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      setUser(user);
+      // Load real posts from Supabase
+      const { data } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('is_hidden', false)
+        .order('is_pinned', { ascending: false })
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (data && data.length > 0) {
+        setPosts(data);
+      }
+    }
+    setLoading(false);
+  };
+
+  const filteredPosts = selectedCategory === 'all'
+    ? posts
+    : posts.filter(post => post.category === selectedCategory);
+
+  const pinnedPosts = filteredPosts.filter(post => post.is_pinned);
+  const regularPosts = filteredPosts.filter(post => !post.is_pinned);
+
+  const getCategoryInfo = (categoryId: CategoryId) => {
+    return CATEGORIES.find(c => c.id === categoryId);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
+        <div className="text-alma-text-secondary">로딩 중...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-alma-bg">
-      <div className="max-w-lg mx-auto px-5 py-8">
-        {/* 헤더 */}
-        <div className="text-center mb-8">
-          <div className="text-4xl mb-3">👩‍👩‍👧‍👧</div>
-          <h1 className="text-2xl font-bold text-alma-text mb-2">
-            ALMA 커뮤니티
-          </h1>
-          <p className="text-sm text-alma-text-secondary">
-            비슷한 경험을 하는 여성들과 익명으로 이야기해요
-          </p>
+      {/* Header */}
+      <header className="sticky top-0 z-50 px-5 py-4 border-b border-alma-border bg-white/80 backdrop-blur-lg">
+        <div className="max-w-2xl mx-auto flex items-center justify-between">
+          <Link href="/dashboard" className="text-alma-text-tertiary hover:text-alma-text transition-colors">
+            ← 대시보드
+          </Link>
+          <h1 className="font-bold text-alma-text">커뮤니티</h1>
+          <button
+            onClick={() => setShowWriteModal(true)}
+            className="text-alma-primary font-medium hover:underline"
+          >
+            글쓰기
+          </button>
         </div>
+      </header>
 
-        {/* 커뮤니티 미리보기 */}
-        <div className="mb-8">
-          <h2 className="text-base font-bold text-alma-text mb-4">
-            이런 대화가 오가고 있어요
-          </h2>
-          <div className="space-y-3">
-            {SAMPLE_POSTS.map((post, i) => (
-              <div key={i} className="bg-alma-surface rounded-2xl border border-alma-border p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <span>{post.badge}</span>
-                  <span className="text-sm font-semibold text-alma-text">{post.nickname}</span>
-                  <span className="text-xs text-alma-primary bg-alma-primary-light px-2 py-0.5 rounded-full">
-                    {post.stage}
-                  </span>
-                </div>
-                <p className="text-[15px] text-alma-text leading-relaxed mb-3">
-                  {post.content}
-                </p>
-                <div className="flex gap-3">
-                  {Object.entries(post.reactions).map(([type, count]) => (
-                    <span key={type} className="text-xs text-alma-text-secondary flex items-center gap-1">
-                      {REACTION_EMOJI[type]} {count}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* 그룹 선택 */}
-        <div className="mb-8">
-          <h2 className="text-base font-bold text-alma-text mb-4">
-            카카오톡 그룹 참여하기
-          </h2>
-          <div className="space-y-3">
-            {GROUPS.map((group) => (
-              <div
-                key={group.id}
-                className={`
-                  bg-alma-surface rounded-2xl border p-4 flex items-center justify-between
-                  ${hydrated && group.cluster === cluster
-                    ? 'border-alma-primary border-2'
-                    : 'border-alma-border'
-                  }
-                `}
+      {/* Category Filter */}
+      <div className="sticky top-[57px] z-40 bg-white border-b border-alma-border">
+        <div className="max-w-2xl mx-auto px-5 py-3">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === 'all'
+                  ? 'bg-alma-primary text-white'
+                  : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+              }`}
+            >
+              전체
+            </button>
+            {CATEGORIES.map(category => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === category.id
+                    ? 'bg-alma-primary text-white'
+                    : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                }`}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{group.emoji}</span>
-                  <div>
-                    <h3 className="text-[15px] font-semibold text-alma-text">
-                      {group.name}
-                      {hydrated && group.cluster === cluster && (
-                        <span className="ml-2 text-xs text-alma-primary font-medium">추천</span>
-                      )}
-                    </h3>
-                    <p className="text-xs text-alma-text-tertiary">{group.members}명 참여 중</p>
-                  </div>
-                </div>
-                <button className="text-sm font-semibold text-alma-primary bg-alma-primary-light px-4 py-2 rounded-xl hover:bg-alma-primary hover:text-white transition-colors cursor-pointer">
-                  참여
-                </button>
-              </div>
+                {category.icon} {category.label}
+              </button>
             ))}
           </div>
-          <p className="text-xs text-alma-text-tertiary text-center mt-3">
-            카카오톡 오픈채팅으로 연결됩니다
-          </p>
+        </div>
+      </div>
+
+      {/* Posts List */}
+      <main className="max-w-2xl mx-auto px-5 py-4">
+        {/* Community Stats */}
+        <div className="bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-4 mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-alma-text">익명으로 안전하게</p>
+              <p className="text-xs text-alma-text-secondary">자동 생성 닉네임으로 활동해요</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-lg font-bold text-alma-primary">{posts.length}</p>
+            <p className="text-xs text-alma-text-tertiary">총 게시글</p>
+          </div>
         </div>
 
-        {/* 커뮤니티 규칙 */}
-        <div className="bg-alma-surface rounded-2xl border border-alma-border p-5 mb-8">
-          <h3 className="text-sm font-bold text-alma-text mb-3">커뮤니티 규칙</h3>
-          <ul className="space-y-2 text-sm text-alma-text-secondary">
-            <li className="flex gap-2"><span>🤝</span> 서로 존중하고 공감하며 대화해요</li>
-            <li className="flex gap-2"><span>🔒</span> 개인 정보를 공유하지 않아요</li>
-            <li className="flex gap-2"><span>💊</span> 의학적 조언 대신 경험을 나눠요</li>
-            <li className="flex gap-2"><span>🚫</span> 광고, 홍보는 금지예요</li>
-          </ul>
+        {/* Pinned Posts */}
+        {pinnedPosts.length > 0 && (
+          <div className="mb-4">
+            {pinnedPosts.map(post => (
+              <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} isPinned />
+            ))}
+          </div>
+        )}
+
+        {/* Regular Posts */}
+        <div className="space-y-3">
+          {regularPosts.length === 0 ? (
+            <div className="bg-white rounded-2xl p-8 border border-alma-border text-center">
+              <p className="text-alma-text-secondary">아직 게시글이 없어요.</p>
+              <button
+                onClick={() => setShowWriteModal(true)}
+                className="mt-4 px-6 py-2 bg-alma-primary text-white rounded-full text-sm font-medium"
+              >
+                첫 글 작성하기
+              </button>
+            </div>
+          ) : (
+            regularPosts.map(post => (
+              <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} />
+            ))
+          )}
+        </div>
+      </main>
+
+      {/* Write Modal */}
+      {showWriteModal && (
+        <WriteModal
+          onClose={() => setShowWriteModal(false)}
+          onSubmit={async (newPost) => {
+            if (!isSupabaseConfigured) {
+              // Demo mode - add locally
+              const demoPost: Post = {
+                id: `demo-${Date.now()}`,
+                user_id: 'demo',
+                anonymous_name: generateAnonymousName(),
+                title: null,
+                content: newPost.content,
+                category: newPost.category,
+                tags: newPost.tags,
+                like_count: 0,
+                comment_count: 0,
+                view_count: 0,
+                is_pinned: false,
+                is_hidden: false,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                is_mine: true,
+              };
+              setPosts([demoPost, ...posts]);
+              setShowWriteModal(false);
+              return;
+            }
+
+            // Real Supabase insert
+            if (user) {
+              const { data, error } = await supabase
+                .from('posts')
+                .insert({
+                  user_id: user.id,
+                  anonymous_name: generateAnonymousName(),
+                  content: newPost.content,
+                  category: newPost.category,
+                  tags: newPost.tags,
+                })
+                .select()
+                .single();
+
+              if (data) {
+                setPosts([{ ...data, is_mine: true }, ...posts]);
+              }
+            }
+            setShowWriteModal(false);
+          }}
+        />
+      )}
+
+      {/* Floating Write Button (Mobile) */}
+      <button
+        onClick={() => setShowWriteModal(true)}
+        className="fixed bottom-6 right-6 w-14 h-14 bg-alma-primary text-white rounded-full shadow-lg hover:bg-alma-primary-dark transition-all flex items-center justify-center md:hidden"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+// Post Card Component
+function PostCard({
+  post,
+  getCategoryInfo,
+  isPinned = false,
+}: {
+  post: Post;
+  getCategoryInfo: (id: CategoryId) => typeof CATEGORIES[number] | undefined;
+  isPinned?: boolean;
+}) {
+  const category = getCategoryInfo(post.category);
+
+  return (
+    <Link href={`/community/${post.id}`}>
+      <div className={`bg-white rounded-2xl p-5 border transition-all hover:shadow-md ${
+        isPinned ? 'border-alma-primary/30 bg-alma-primary-light/30' : 'border-alma-border'
+      }`}>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            {isPinned && (
+              <span className="text-xs bg-alma-primary text-white px-2 py-0.5 rounded-full">
+                고정
+              </span>
+            )}
+            {category && (
+              <span className={`text-xs px-2 py-0.5 rounded-full ${category.color}`}>
+                {category.icon} {category.label}
+              </span>
+            )}
+          </div>
+          <span className="text-xs text-alma-text-tertiary">
+            {formatTimeAgo(post.created_at)}
+          </span>
         </div>
 
-        <Link href="/" className="block">
-          <Button variant="ghost" size="md" className="w-full">
-            홈으로 돌아가기
-          </Button>
-        </Link>
+        {/* Content */}
+        <p className="text-[15px] text-alma-text leading-relaxed line-clamp-3">
+          {post.content}
+        </p>
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-3">
+            {post.tags.map((tag, i) => (
+              <span key={i} className="text-xs text-alma-primary bg-alma-primary-light px-2 py-0.5 rounded-full">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-alma-border">
+          <span className="text-sm text-alma-text-secondary">{post.anonymous_name}</span>
+          <div className="flex items-center gap-4 text-sm text-alma-text-tertiary">
+            <span className="flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              {post.like_count}
+            </span>
+            <span className="flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              {post.comment_count}
+            </span>
+            <span className="flex items-center gap-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              {post.view_count}
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+// Write Modal Component
+function WriteModal({
+  onClose,
+  onSubmit,
+}: {
+  onClose: () => void;
+  onSubmit: (post: { content: string; category: CategoryId; tags: string[] }) => void;
+}) {
+  const [content, setContent] = useState('');
+  const [category, setCategory] = useState<CategoryId>('daily');
+  const [tagInput, setTagInput] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+
+  const handleAddTag = () => {
+    const tag = tagInput.trim();
+    if (tag && !tags.includes(tag) && tags.length < 5) {
+      setTags([...tags, tag]);
+      setTagInput('');
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter(t => t !== tagToRemove));
+  };
+
+  const handleSubmit = () => {
+    if (!content.trim()) return;
+    onSubmit({ content: content.trim(), category, tags });
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/50"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="relative bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-hidden">
+        {/* Header */}
+        <div className="sticky top-0 bg-white px-5 py-4 border-b border-alma-border flex items-center justify-between">
+          <button onClick={onClose} className="text-alma-text-tertiary">
+            취소
+          </button>
+          <h2 className="font-bold text-alma-text">글쓰기</h2>
+          <button
+            onClick={handleSubmit}
+            disabled={!content.trim()}
+            className={`font-bold ${
+              content.trim()
+                ? 'text-alma-primary'
+                : 'text-alma-text-tertiary'
+            }`}
+          >
+            완료
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-5 overflow-y-auto max-h-[calc(90vh-60px)]">
+          {/* Category Selection */}
+          <div className="mb-4">
+            <label className="text-sm font-medium text-alma-text mb-2 block">
+              카테고리
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {CATEGORIES.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setCategory(cat.id)}
+                  className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                    category === cat.id
+                      ? 'bg-alma-primary text-white'
+                      : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                  }`}
+                >
+                  {cat.icon} {cat.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Content Input */}
+          <div className="mb-4">
+            <label className="text-sm font-medium text-alma-text mb-2 block">
+              내용
+            </label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="나누고 싶은 이야기를 편하게 적어주세요. 익명으로 공유됩니다."
+              className="w-full h-40 p-4 border border-alma-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-alma-primary/20 focus:border-alma-primary text-alma-text placeholder:text-alma-text-tertiary"
+              maxLength={1000}
+            />
+            <p className="text-right text-xs text-alma-text-tertiary mt-1">
+              {content.length}/1000
+            </p>
+          </div>
+
+          {/* Tags Input */}
+          <div className="mb-4">
+            <label className="text-sm font-medium text-alma-text mb-2 block">
+              태그 (선택, 최대 5개)
+            </label>
+            <div className="flex gap-2 mb-2">
+              <input
+                type="text"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
+                placeholder="태그 입력 후 Enter"
+                className="flex-1 px-4 py-2 border border-alma-border rounded-xl focus:outline-none focus:ring-2 focus:ring-alma-primary/20 focus:border-alma-primary text-alma-text placeholder:text-alma-text-tertiary"
+              />
+              <button
+                onClick={handleAddTag}
+                className="px-4 py-2 bg-alma-bg text-alma-text-secondary rounded-xl hover:bg-alma-border transition-colors"
+              >
+                추가
+              </button>
+            </div>
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1 px-3 py-1 bg-alma-primary-light text-alma-primary rounded-full text-sm"
+                  >
+                    #{tag}
+                    <button
+                      onClick={() => handleRemoveTag(tag)}
+                      className="w-4 h-4 rounded-full hover:bg-alma-primary/20 flex items-center justify-center"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Privacy Notice */}
+          <div className="bg-alma-bg rounded-xl p-4">
+            <div className="flex items-start gap-3">
+              <span className="text-lg">🔒</span>
+              <div>
+                <p className="text-sm font-medium text-alma-text">익명으로 게시됩니다</p>
+                <p className="text-xs text-alma-text-tertiary mt-1">
+                  자동 생성된 닉네임으로 활동하며, 다른 사용자는 회원님의 실제 정보를 알 수 없어요.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
