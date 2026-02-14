@@ -37,12 +37,12 @@ const journey = [
   },
   {
     step: '02',
-    title: 'AI 맞춤 인사이트',
-    desc: '기록을 분석해서 나만의 패턴을 찾고 맞춤 조언을 받아요.',
-    detail: '패턴 분석 · 주간 리포트 · 맞춤 조언',
-    Icon: SparklesIcon,
+    title: '나와 비슷한 친구 찾기',
+    desc: '비슷한 증상, 비슷한 상황의 여성들과 매칭돼요.',
+    detail: '같은 단계 · 같은 고민 · 안전한 연결',
+    Icon: UsersIcon,
     color: 'bg-alma-accent',
-    href: '/insights',
+    href: '/match',
   },
   {
     step: '03',
@@ -55,12 +55,12 @@ const journey = [
   },
   {
     step: '04',
-    title: '나만의 대시보드',
-    desc: '기록 현황, 통계, 인사이트를 한눈에 확인해요.',
-    detail: '기록 히스토리 · 통계 분석 · 맞춤 추천',
-    Icon: UsersIcon,
+    title: 'AI 맞춤 솔루션',
+    desc: '기록을 분석해서 나만의 패턴과 맞춤 조언을 받아요.',
+    detail: '패턴 분석 · 주간 리포트 · 초개인화 추천',
+    Icon: SparklesIcon,
     color: 'bg-gradient-to-r from-alma-primary to-alma-accent',
-    href: '/dashboard',
+    href: '/insights',
   },
 ];
 
