@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { symptomSlugMap } from '@/lib/columnsData';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // 신체적 고충 + 정서적 고충
 // Sol 인사이트: 한국 여성 증상 빈도순 재정렬 (관절통 > 수면 > 홍조)
@@ -22,14 +25,16 @@ const struggles = {
 };
 
 export function ProblemSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
+
   return (
     <section>
       {/* Main section with photo */}
-      <div className="bg-alma-bg px-6 md:px-8 py-24 md:py-32">
+      <div ref={sectionRef} className="bg-alma-bg px-6 md:px-8 py-24 md:py-32">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             {/* Left: Photo */}
-            <div className="relative hidden lg:block">
+            <div className={`relative hidden lg:block ${sectionVisible ? 'scroll-visible-x' : 'scroll-hidden-left'}`}>
               <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=750&fit=crop&crop=face"
@@ -49,7 +54,7 @@ export function ProblemSection() {
             </div>
 
             {/* Right: Content */}
-            <div>
+            <div className={`${sectionVisible ? 'scroll-visible-x' : 'scroll-hidden-right'}`}>
               {/* Section header — August 인사이트: "축하할 일" 프레이밍 */}
               <p className="text-alma-accent font-semibold mb-4 tracking-wide uppercase text-sm">
                 두 번째 삶의 시작

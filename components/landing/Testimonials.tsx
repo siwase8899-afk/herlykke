@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const testimonials = [
   {
@@ -53,9 +54,10 @@ const testimonials = [
 
 export function Testimonials() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-alma-bg">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Testimonial section */}
         <div className="bg-white rounded-3xl border border-alma-border p-8 md:p-12">

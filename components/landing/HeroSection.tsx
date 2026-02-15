@@ -15,11 +15,41 @@ const heroCharacters: SymptomCharacter[] = [
   SYMPTOM_CHARACTERS.find(c => c.id === 'weight_change')!,
 ];
 
+const HEADLINE = '나만 그런 거';
+const HEADLINE2 = '아니었어.';
+
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
+  // Typing effect state
+  const [typedCount, setTypedCount] = useState(0);
+  const [typingDone, setTypingDone] = useState(false);
+  const [showSub, setShowSub] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
+  const fullText = HEADLINE + HEADLINE2;
+
+  // Typing animation
   useEffect(() => {
+    if (typedCount < fullText.length) {
+      const timer = setTimeout(() => {
+        setTypedCount(prev => prev + 1);
+      }, 80);
+      return () => clearTimeout(timer);
+    } else {
+      setTypingDone(true);
+      const subTimer = setTimeout(() => setShowSub(true), 300);
+      const ctaTimer = setTimeout(() => setShowCTA(true), 600);
+      return () => {
+        clearTimeout(subTimer);
+        clearTimeout(ctaTimer);
+      };
+    }
+  }, [typedCount, fullText.length]);
+
+  // Character rotation
+  useEffect(() => {
+    if (!typingDone) return;
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
@@ -28,9 +58,14 @@ export function HeroSection() {
       }, 300);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [typingDone]);
 
   const currentChar = heroCharacters[currentIndex];
+
+  // Split typed text into headline parts
+  const typed1 = fullText.slice(0, Math.min(typedCount, HEADLINE.length));
+  const typed2 = typedCount > HEADLINE.length ? fullText.slice(HEADLINE.length, typedCount) : '';
+  const showCursor = !typingDone;
 
   return (
     <section className="relative overflow-hidden">
@@ -49,15 +84,27 @@ export function HeroSection() {
                 <span className="text-sm font-medium text-alma-text-secondary">두 번째 삶의 시작, 함께해요</span>
               </div>
 
-              {/* Main headline */}
+              {/* Main headline with typing effect */}
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-alma-text mb-6">
-                나만 그런 거
-                <br />
-                <span className="text-alma-primary">아니었어.</span>
+                {typed1}
+                {typedCount <= HEADLINE.length && showCursor && (
+                  <span className="typing-cursor text-alma-primary">|</span>
+                )}
+                {typed2 && (
+                  <>
+                    <br />
+                    <span className="text-alma-primary">
+                      {typed2}
+                      {typedCount > HEADLINE.length && showCursor && (
+                        <span className="typing-cursor">|</span>
+                      )}
+                    </span>
+                  </>
+                )}
               </h1>
 
-              {/* Dynamic symptom */}
-              <div className="mb-10">
+              {/* Dynamic symptom — fades in after typing */}
+              <div className={`mb-10 transition-all duration-700 ${showSub ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <p className="text-lg md:text-xl text-alma-text-secondary leading-relaxed mb-2">
                   지금 겪고 있는{' '}
                   <span
@@ -78,11 +125,11 @@ export function HeroSection() {
                 </p>
               </div>
 
-              {/* CTA - 첫 방문자용 */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* CTA — fades in after subtitle */}
+              <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 ${showCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Link
                   href="/checkin"
-                  className="inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 active:scale-[0.98] transition-all shadow-lg shadow-alma-accent/30"
+                  className="inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all animate-subtle-pulse"
                 >
                   지금 나의 상태 확인하기
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +140,7 @@ export function HeroSection() {
                   href="https://open.kakao.com/o/gyF0fwgi"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-8 py-5 bg-[#FEE500] text-[#191919] text-lg font-bold rounded-full hover:bg-[#FEE500]/90 active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center px-8 py-5 bg-[#FEE500] text-[#191919] text-lg font-bold rounded-full hover:bg-[#FEE500]/90 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.97] transition-all"
                 >
                   <svg className="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 3C6.477 3 2 6.463 2 10.691c0 2.72 1.8 5.108 4.509 6.457-.2.744-.723 2.694-.828 3.112-.13.518.19.51.399.371.164-.109 2.612-1.726 3.672-2.424.733.104 1.487.159 2.248.159 5.523 0 10-3.463 10-7.691S17.523 3 12 3z" />
@@ -103,11 +150,11 @@ export function HeroSection() {
               </div>
             </div>
 
-            {/* Right: Character Card */}
+            {/* Right: Character Card — slides in from right */}
             <div className="relative flex justify-center">
               <div
                 className={`relative bg-white rounded-3xl p-8 md:p-10 border border-alma-border shadow-xl max-w-sm w-full transition-all duration-500 ${
-                  isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  isVisible ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-95 translate-x-4'
                 }`}
               >
                 <div className="text-center mb-8">

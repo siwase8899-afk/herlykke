@@ -1,35 +1,35 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ALMA 색상 팔레트 - "Warm Bloom" */
-  /* 틸 그린 정체성 유지 + 밝고 생기있는 리프레시 */
+  /* ALMA 색상 팔레트 - "Soulful Depth" */
+  /* 딥 틸 + 앰버 — 깊이 있고 따뜻한 정체성 */
 
-  /* Primary - Bright Teal (밝고 생기있는 ALMA 영혼) */
-  --color-alma-primary: #2D9F8F;
-  --color-alma-primary-light: #E8F6F3;
-  --color-alma-primary-dark: #1A6B5A;
+  /* Primary - Deep Teal (깊이 있는 ALMA 영혼) */
+  --color-alma-primary: #1A6B5A;
+  --color-alma-primary-light: #E6F5F0;
+  --color-alma-primary-dark: #0E4D3E;
 
-  /* Accent - Warm Coral (산뜻하고 친근한 포인트) */
-  --color-alma-accent: #E8845A;
-  --color-alma-accent-light: #FFF2EB;
-  --color-alma-accent-dark: #D06A3F;
+  /* Accent - Warm Amber (따뜻하고 깊은 포인트) */
+  --color-alma-accent: #D4850A;
+  --color-alma-accent-light: #FFF3E0;
+  --color-alma-accent-dark: #B06E00;
 
   /* Secondary - Warm Charcoal (세련됨, 안정감) */
   --color-alma-secondary: #2D2926;
   --color-alma-secondary-light: #E8E4E0;
 
   /* Backgrounds */
-  --color-alma-bg: #F8FAFA;
+  --color-alma-bg: #FEFCF8;
   --color-alma-surface: #ffffff;
-  --color-alma-surface-warm: #F0F7F5;
+  --color-alma-surface-warm: #FBF5EC;
 
-  /* Text - Teal undertone */
-  --color-alma-text: #1F2D2B;
-  --color-alma-text-secondary: #4A5C58;
-  --color-alma-text-tertiary: #8FA3A0;
+  /* Text - Stone undertone */
+  --color-alma-text: #1C1917;
+  --color-alma-text-secondary: #57534E;
+  --color-alma-text-tertiary: #A8A29E;
 
   /* Border */
-  --color-alma-border: #DDE8E6;
+  --color-alma-border: #E7E5E4;
   --color-alma-border-light: #F5F5F4;
 
   /* Status */
@@ -50,8 +50,8 @@ html {
 }
 
 body {
-  background-color: #F8FAFA;
-  color: #1F2D2B;
+  background-color: #FEFCF8;
+  color: #1C1917;
   line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -70,13 +70,13 @@ input, textarea, select {
 
 /* Selection */
 ::selection {
-  background-color: #E8F6F3;
-  color: #1A6B5A;
+  background-color: #E6F5F0;
+  color: #0E4D3E;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #2D9F8F;
+  outline: 2px solid #1A6B5A;
   outline-offset: 2px;
 }
 
@@ -160,7 +160,7 @@ button, a, input {
 
 /* Calm UX: 성취 표시용 골드 글로우 */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(232, 132, 90, 0.3);
+  box-shadow: 0 0 20px rgba(212, 133, 10, 0.3);
 }
 
 /* Linear 인사이트: 마이크로 애니메이션 */
@@ -310,4 +310,67 @@ button, a, input {
 
 .animate-slide-in-right {
   animation: slideInRight 0.4s ease-out;
+}
+
+/* ===== 스크롤 트리거 애니메이션 ===== */
+
+/* 기본: fadeUp */
+.scroll-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.scroll-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* 방향 변형: slideRight / slideLeft */
+.scroll-hidden-left {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.scroll-hidden-right {
+  opacity: 0;
+  transform: translateX(30px);
+}
+.scroll-visible-x {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* 스케일 인 */
+.scroll-hidden-scale {
+  opacity: 0;
+  transform: scale(0.95);
+}
+.scroll-visible-scale {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* stagger 딜레이 유틸 */
+.stagger-1 { transition-delay: 100ms; }
+.stagger-2 { transition-delay: 200ms; }
+.stagger-3 { transition-delay: 300ms; }
+.stagger-4 { transition-delay: 400ms; }
+
+/* ===== 타이핑 커서 ===== */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor {
+  animation: blink 0.8s infinite;
+}
+
+/* ===== CTA 미세 펄스 ===== */
+@keyframes subtlePulse {
+  0%, 100% { box-shadow: 0 10px 15px -3px rgba(212, 133, 10, 0.3); }
+  50% { box-shadow: 0 10px 25px -3px rgba(212, 133, 10, 0.5); }
+}
+.animate-subtle-pulse {
+  animation: subtlePulse 3s ease-in-out infinite;
 }

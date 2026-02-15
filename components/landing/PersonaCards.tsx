@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // Progressive Disclosure: 접힌 상태(고민) → 펼친 상태(여정 Before→ALMA→After)
 const personas = [
@@ -76,9 +77,10 @@ const personas = [
 
 export function PersonaCards() {
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-alma-bg">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -109,7 +111,7 @@ export function PersonaCards() {
                 className={`bg-white rounded-2xl border p-8 transition-all duration-500 cursor-pointer ${
                   isExpanded
                     ? `${p.borderColor} shadow-xl`
-                    : 'border-alma-border hover:shadow-xl hover:border-alma-primary/20'
+                    : 'border-alma-border hover:shadow-xl hover:border-alma-primary/20 hover:-translate-y-1'
                 }`}
                 onClick={() => setExpandedPersona(isExpanded ? null : p.name)}
               >

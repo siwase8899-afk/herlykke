@@ -2,23 +2,23 @@
 
 export const APP_NAME = 'ALMA';
 
-// 색상 팔레트 - "Warm Bloom" (틸 그린 정체성 + 밝고 생기있는 리프레시)
+// 색상 팔레트 - "Soulful Depth" (딥 틸 + 앰버 — 깊이 있고 따뜻한)
 export const Colors = {
-  primary: '#2D9F8F',       // Bright Teal (밝고 생기있는)
-  primaryLight: '#E8F6F3',
-  primaryDark: '#1A6B5A',
-  accent: '#E8845A',        // Warm Coral (산뜻하고 친근)
-  accentLight: '#FFF2EB',
-  accentDark: '#D06A3F',
+  primary: '#1A6B5A',       // Deep Teal (깊이 있는)
+  primaryLight: '#E6F5F0',
+  primaryDark: '#0E4D3E',
+  accent: '#D4850A',        // Warm Amber (따뜻하고 깊은)
+  accentLight: '#FFF3E0',
+  accentDark: '#B06E00',
   secondary: '#2D2926',     // Warm Charcoal (세련됨)
   secondaryLight: '#E8E4E0',
-  background: '#F8FAFA',
+  background: '#FEFCF8',
   surface: '#FFFFFF',
-  surfaceWarm: '#F0F7F5',
-  text: '#1F2D2B',
-  textSecondary: '#4A5C58',
-  textTertiary: '#8FA3A0',
-  border: '#DDE8E6',
+  surfaceWarm: '#FBF5EC',
+  text: '#1C1917',
+  textSecondary: '#57534E',
+  textTertiary: '#A8A29E',
+  border: '#E7E5E4',
   error: '#DC2626',
   success: '#15803D',
   warning: '#EA580C',

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // August 인사이트: 가족 참여 콘텐츠 포함
 const faqs = [
@@ -40,9 +41,10 @@ const faqs = [
 
 export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-alma-bg">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">

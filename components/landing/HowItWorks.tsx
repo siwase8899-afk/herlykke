@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useAuth } from '@/lib/authContext';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const CareIcon = () => (
   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,9 +84,10 @@ const guestHrefMap: Record<string, string> = {};
 
 export function HowItWorks() {
   const { isLoggedIn } = useAuth();
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-white">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-white ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
@@ -113,9 +115,9 @@ export function HowItWorks() {
             <Link
               key={pillar.id}
               href={href}
-              className={`group relative bg-alma-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-alma-primary/30 ${
+              className={`group relative bg-alma-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-alma-primary/30 hover:-translate-y-1 ${
                 isSupport ? 'border-alma-accent/30' : 'border-alma-border'
-              }`}
+              } ${sectionVisible ? `stagger-${Math.min(pillars.indexOf(pillar) + 1, 4)}` : ''}`}
             >
               {isSupport && (
                 <span className="absolute top-4 right-4 px-2.5 py-1 bg-alma-accent text-white text-[10px] font-bold tracking-wider rounded-full">

@@ -1,8 +1,13 @@
+'use client';
+
 import Image from 'next/image';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 export function FounderSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
+
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-white">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-white ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">

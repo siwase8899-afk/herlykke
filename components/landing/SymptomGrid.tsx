@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { SYMPTOM_CHARACTERS, SYMPTOM_CATEGORIES, type SymptomCategory } from '@/lib/characters';
 import { useSymptomEmpathyStore } from '@/stores/symptomEmpathyStore';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 export function SymptomGrid() {
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<SymptomCategory>('body');
   const { todayEmpathized, empathyCounts, toggleEmpathy, resetIfNewDay } = useSymptomEmpathyStore();
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   useEffect(() => {
     setMounted(true);
@@ -43,7 +45,7 @@ export function SymptomGrid() {
   }
 
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-white border-t border-alma-border">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-white border-t border-alma-border ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-4xl mx-auto">
         {/* 상단 배지 */}
         <div className="flex justify-center mb-8">
@@ -121,7 +123,7 @@ export function SymptomGrid() {
                 className={`group relative text-left rounded-2xl p-5 transition-all duration-300 cursor-pointer ${
                   isEmpathized
                     ? 'shadow-lg scale-[1.02]'
-                    : 'hover:shadow-md hover:-translate-y-1'
+                    : 'hover:shadow-xl hover:-translate-y-1 hover:border-alma-primary/20'
                 }`}
                 style={{
                   backgroundColor: isEmpathized ? char.color : undefined,

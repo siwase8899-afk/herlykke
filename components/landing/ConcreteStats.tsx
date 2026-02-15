@@ -1,3 +1,49 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+
+// 숫자 카운트업 애니메이션
+function useCountUp(target: string, isVisible: boolean) {
+  const [display, setDisplay] = useState(target);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    // 숫자 부분 추출
+    const numMatch = target.match(/[\d.]+/);
+    if (!numMatch) return;
+
+    const endNum = parseFloat(numMatch[0]);
+    const suffix = target.replace(numMatch[0], '');
+    const isFloat = target.includes('.');
+    const duration = 1500;
+    const steps = 30;
+    const stepTime = duration / steps;
+
+    let step = 0;
+    setDisplay(isFloat ? `0${suffix}` : `0${suffix}`);
+
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const current = endNum * eased;
+
+      if (step >= steps) {
+        setDisplay(target);
+        clearInterval(timer);
+      } else {
+        setDisplay(isFloat ? `${current.toFixed(1)}${suffix}` : `${Math.round(current)}${suffix}`);
+      }
+    }, stepTime);
+
+    return () => clearInterval(timer);
+  }, [isVisible, target]);
+
+  return display;
+}
+
 // Evernow 인사이트: 구체적 성과 수치 + Flo 데이터 루프 가치 + Peanut 커뮤니티 활성도
 export function ConcreteStats() {
   const stats = [
@@ -33,8 +79,17 @@ export function ConcreteStats() {
     { text: '갱년기 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'ALMA 시장 조사' },
   ];
 
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
+
+  // Count-up for each stat
+  const count0 = useCountUp(stats[0].number, sectionVisible);
+  const count1 = useCountUp(stats[1].number, sectionVisible);
+  const count2 = useCountUp(stats[2].number, sectionVisible);
+  const count3 = useCountUp(stats[3].number, sectionVisible);
+  const counts = [count0, count1, count2, count3];
+
   return (
-    <section className="px-6 md:px-8 py-24 md:py-32 bg-alma-bg">
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
           <p className="text-sm text-alma-accent font-semibold mb-2 uppercase tracking-wider">
@@ -46,13 +101,13 @@ export function ConcreteStats() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          {stats.map((stat) => (
+          {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className="bg-white rounded-2xl p-8 border border-alma-border text-center hover:shadow-lg transition-shadow"
+              className={`bg-white rounded-2xl p-8 border border-alma-border text-center hover:shadow-xl hover:-translate-y-1 transition-all ${sectionVisible ? `stagger-${Math.min(i + 1, 4)}` : ''}`}
             >
               <p className={`text-4xl md:text-5xl font-black ${stat.color} mb-3`}>
-                {stat.number}
+                {counts[i]}
               </p>
               <p className="font-semibold text-alma-text mb-1">
                 {stat.label}

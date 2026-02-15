@@ -1,8 +1,13 @@
+'use client';
+
 import Link from 'next/link';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 export function CTAFooter() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.15 });
+
   return (
-    <section className="relative overflow-hidden">
+    <section ref={sectionRef} className={`relative overflow-hidden ${sectionVisible ? 'scroll-visible-scale' : 'scroll-hidden-scale'}`}>
       <div className="bg-gradient-to-br from-alma-secondary via-alma-secondary to-[#3d3835] px-6 md:px-8 py-24 md:py-32">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-alma-primary/20 rounded-full blur-3xl" />
@@ -45,7 +50,7 @@ export function CTAFooter() {
 
           <Link
             href="/checkin"
-            className="group inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 hover:shadow-xl active:scale-[0.98] transition-all duration-300 shadow-lg shadow-alma-accent/30"
+            className="group inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 animate-subtle-pulse"
           >
             지금 나의 상태 확인하기
             <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
