@@ -34,10 +34,6 @@ export function FounderSection() {
               <div className="mt-4 text-center md:text-left">
                 <p className="text-xl font-bold text-alma-text">Becca</p>
                 <p className="text-sm text-alma-text-secondary">ALMA 대표</p>
-                <div className="flex flex-wrap gap-2 mt-3 justify-center md:justify-start">
-                  <span className="text-xs px-3 py-1 bg-alma-primary text-white font-medium rounded-full">40대</span>
-                  <span className="text-xs px-3 py-1 bg-alma-accent text-white font-medium rounded-full">갱년기 당사자</span>
-                </div>
               </div>
             </div>
 
