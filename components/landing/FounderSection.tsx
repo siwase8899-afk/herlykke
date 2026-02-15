@@ -13,10 +13,7 @@ export function FounderSection() {
             창업자의 이야기
           </h2>
           <p className="text-lg text-alma-text-secondary">
-            <span className="text-alma-accent font-semibold">딸을 위해</span>,
-            <span className="text-alma-primary font-semibold"> 나를 위해</span>,
-            <span className="text-alma-accent font-semibold"> 어머니를 위해</span> —
-            모든 세대의 여성을 위해
+            같은 시기를 지나는 한 사람으로서, 함께할 누군가를 만들고 싶었어요
           </p>
         </div>
 
@@ -48,37 +45,30 @@ export function FounderSection() {
             <div className="flex-1">
               <blockquote className="text-base md:text-lg text-alma-text leading-[1.9] space-y-4">
                 <p>
-                  &ldquo;어느 날 갑자기 열감이 올라오고, 이유 없이 눈물이 났어요.
-                  검색해봐도 건기식 광고뿐이고, 주변에 말하기도 어려웠어요.
+                  &ldquo;40대에 접어들면서 몸이 보내는 신호가 달라지기 시작했어요.
+                  갑자기 열감이 올라오고, 이유 없이 눈물이 나고.
+                  그런데 주변을 둘러보니, 이 시기를 겪는 여성의 삶은 놀라울 만큼 다양했어요.
+                  비혼, 결혼, 이혼, 사별. 자녀가 독립한 사람, 아이를 낳지 않기로 한 사람. 커리어를 이어가는 사람, 경력이 단절된 사람.
                 </p>
                 <p>
-                  <span className="text-alma-primary font-semibold">20년간 40-50대 여성분들과 직접 소통하며 일해왔는데,</span>{' '}
-                  이 세대 여성들이 갱년기를 얼마나 혼자 겪고 있는지 알게 됐어요.
+                  작년, <span className="text-alma-primary font-semibold">덴마크 호이스콜레</span>에서
+                  작은 독립 서점의 &lsquo;폐경&rsquo; 북토크 공고를 봤을 때 신선한 충격을 받았어요.
+                  그곳에서 만난 Full Moon 모임 — 별것 아닌 공감과 격려가 생각보다 큰 위로가 되더라고요.
                 </p>
                 <p>
-                  갱년기는 끝이 아니에요.{' '}
+                  여성 호르몬의 변화로 나타나는 증상을 대부분의 여성이 겪지만,
+                  받아들이는 방법은 모두 달랐어요. 그런데{' '}
+                  <span className="text-alma-accent font-semibold">한 가지 공통점</span>이 있었어요.
+                  누군가와 이야기하고 싶다는 마음.
+                  나를 이해해주는 사람이 <span className="text-alma-primary font-semibold">단 한 명</span>만 있어도 좋겠다는 마음.
+                </p>
+                <p>
+                  그 한 명이 되고 싶어서, 그리고 그 한 명을 서로 연결해주고 싶어서{' '}
                   <span className="inline-block px-4 py-1.5 bg-alma-accent text-white rounded-lg font-bold">
-                    두 번째 삶의 시작
-                  </span>
-                  이에요. 혼자 겪을 필요 없다는 걸 알려드리고 싶어서 ALMA를 만들었습니다.&rdquo;
+                    ALMA를 만들었습니다
+                  </span>.&rdquo;
                 </p>
               </blockquote>
-
-              {/* Credentials */}
-              <div className="mt-8 pt-6 border-t border-alma-border">
-                <p className="text-sm text-alma-text-tertiary mb-3 font-medium">경력</p>
-                <div className="flex flex-wrap gap-2">
-                  <span className="text-sm px-4 py-2 bg-alma-bg rounded-full text-alma-text-secondary font-medium">
-                    마케팅/브랜딩 20년+
-                  </span>
-                  <span className="text-sm px-4 py-2 bg-alma-bg rounded-full text-alma-text-secondary font-medium">
-                    40-50대 여성 소통 8년
-                  </span>
-                  <span className="text-sm px-4 py-2 bg-alma-bg rounded-full text-alma-text-secondary font-medium">
-                    스타트업 창업자
-                  </span>
-                </div>
-              </div>
 
               {/* ALMA의 5가지 가치 — Elektra 5 Core Values 스타일 */}
               <div className="mt-8 pt-6 border-t border-alma-border">
