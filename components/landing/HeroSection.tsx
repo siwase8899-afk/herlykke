@@ -70,7 +70,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden">
       <div className="bg-gradient-to-br from-alma-primary-light via-white to-alma-accent-light">
-        <div className="max-w-6xl mx-auto px-6 md:px-8 py-24 md:py-32">
+        <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             {/* Left: Copy */}
             <div>

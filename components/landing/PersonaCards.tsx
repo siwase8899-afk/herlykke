@@ -80,7 +80,7 @@ export function PersonaCards() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+    <section ref={sectionRef} className={`px-6 md:px-8 py-16 md:py-24 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">

@@ -45,7 +45,7 @@ export function SymptomGrid() {
   }
 
   return (
-    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-white border-t border-alma-border ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+    <section className="px-6 md:px-8 py-16 md:py-24 bg-white border-t border-alma-border">
       <div className="max-w-4xl mx-auto">
         {/* 상단 배지 */}
         <div className="flex justify-center mb-8">
