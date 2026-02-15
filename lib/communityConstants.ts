@@ -2,11 +2,11 @@
 
 // 원본 카테고리 (게시글 데이터용)
 export const CATEGORIES = [
-  { id: 'daily', label: '일상 이야기', icon: '☀️', color: 'bg-yellow-100 text-yellow-700' },
-  { id: 'symptoms', label: '증상 공유', icon: '💬', color: 'bg-purple-100 text-purple-700' },
-  { id: 'tips', label: '꿀팁 공유', icon: '💡', color: 'bg-green-100 text-green-700' },
-  { id: 'question', label: '질문있어요', icon: '❓', color: 'bg-blue-100 text-blue-700' },
-  { id: 'support', label: '응원해요', icon: '💜', color: 'bg-pink-100 text-pink-700' },
+  { id: 'daily', label: '일상 이야기', icon: '', dot: 'bg-yellow-400', color: 'bg-yellow-100 text-yellow-700' },
+  { id: 'symptoms', label: '증상 공유', icon: '', dot: 'bg-purple-400', color: 'bg-purple-100 text-purple-700' },
+  { id: 'tips', label: '꿀팁 공유', icon: '', dot: 'bg-green-400', color: 'bg-green-100 text-green-700' },
+  { id: 'question', label: '질문있어요', icon: '', dot: 'bg-blue-400', color: 'bg-blue-100 text-blue-700' },
+  { id: 'support', label: '응원해요', icon: '', dot: 'bg-pink-400', color: 'bg-pink-100 text-pink-700' },
 ] as const;
 
 export type CategoryId = typeof CATEGORIES[number]['id'];
@@ -16,13 +16,13 @@ export const TABS = [
   {
     id: 'daily-support',
     label: '일상·응원',
-    icon: '☀️',
+    icon: '',
     categories: ['daily', 'support'] as CategoryId[],
   },
   {
     id: 'info-question',
     label: '정보·질문',
-    icon: '💬',
+    icon: '',
     categories: ['symptoms', 'tips', 'question'] as CategoryId[],
   },
 ] as const;

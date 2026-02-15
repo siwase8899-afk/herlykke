@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { SYMPTOM_CHARACTERS } from '@/lib/characters';
+import { SYMPTOM_CHARACTERS, SYMPTOM_CATEGORIES, type SymptomCategory } from '@/lib/characters';
 import { useSymptomEmpathyStore } from '@/stores/symptomEmpathyStore';
 
 export function SymptomGrid() {
   const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState<SymptomCategory>('body');
   const { todayEmpathized, empathyCounts, toggleEmpathy, resetIfNewDay } = useSymptomEmpathyStore();
 
   useEffect(() => {
@@ -19,6 +20,9 @@ export function SymptomGrid() {
 
   // 내가 오늘 공감한 수
   const myEmpathyCount = todayEmpathized.length;
+
+  // 현재 탭의 증상들
+  const currentSymptoms = SYMPTOM_CHARACTERS.filter((c) => c.category === activeTab);
 
   if (!mounted) {
     return (
@@ -44,7 +48,7 @@ export function SymptomGrid() {
         {/* 상단 배지 */}
         <div className="flex justify-center mb-8">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-alma-accent/10 rounded-full">
-            <span className="text-sm">🤝</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-alma-accent" />
             <span className="text-xs font-bold text-alma-accent uppercase tracking-wider">함께해요</span>
           </span>
         </div>
@@ -52,10 +56,10 @@ export function SymptomGrid() {
         {/* 헤더 */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-alma-text mb-3">
-            오늘 어떤 증상을 겪었나요?
+            오늘 당신의 몸은 뭐라고 했나요?
           </h2>
           <p className="text-alma-text-secondary mb-4">
-            탭하면 "나도!" 공감이 추가돼요
+            탭 한 번이면 &ldquo;나도 그래!&rdquo; — 혼자가 아니에요
           </p>
           {/* 실시간 카운트 */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-alma-primary-light rounded-full">
@@ -69,9 +73,44 @@ export function SymptomGrid() {
           </div>
         </div>
 
-        {/* 증상 그리드 */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          {SYMPTOM_CHARACTERS.map((char) => {
+        {/* 카테고리 탭 */}
+        <div className="flex justify-center gap-2 mb-8">
+          {SYMPTOM_CATEGORIES.map((cat) => {
+            const isActive = activeTab === cat.id;
+            const catCount = SYMPTOM_CHARACTERS
+              .filter((c) => c.category === cat.id)
+              .filter((c) => todayEmpathized.includes(c.id))
+              .length;
+
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setActiveTab(cat.id)}
+                className={`relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                  isActive
+                    ? `bg-${cat.color} text-white shadow-md`
+                    : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                }`}
+                style={isActive ? {
+                  backgroundColor: cat.id === 'body' ? 'var(--color-alma-primary)' : cat.id === 'mind' ? 'var(--color-alma-accent)' : 'var(--color-alma-secondary)',
+                } : undefined}
+              >
+                {cat.label}
+                {catCount > 0 && (
+                  <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
+                    isActive ? 'bg-white/30 text-white' : 'bg-alma-primary text-white'
+                  }`}>
+                    {catCount}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* 증상 그리드 — A+C: 위트 카피 히어로 + 마이크로 인터랙션 */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-8">
+          {currentSymptoms.map((char) => {
             const isEmpathized = todayEmpathized.includes(char.id);
             const count = empathyCounts[char.id] || 0;
 
@@ -79,33 +118,70 @@ export function SymptomGrid() {
               <button
                 key={char.id}
                 onClick={() => toggleEmpathy(char.id)}
-                className={`relative p-4 rounded-2xl border-2 transition-all ${
+                className={`group relative text-left rounded-2xl p-5 transition-all duration-300 cursor-pointer ${
                   isEmpathized
-                    ? 'border-alma-primary bg-alma-primary-light shadow-md scale-[1.02]'
-                    : 'border-alma-border bg-white hover:border-alma-primary/50 hover:shadow-sm'
+                    ? 'shadow-lg scale-[1.02]'
+                    : 'hover:shadow-md hover:-translate-y-1'
                 }`}
+                style={{
+                  backgroundColor: isEmpathized ? char.color : undefined,
+                }}
               >
-                {/* 이모지 */}
-                <div className="text-4xl mb-2">{char.emoji}</div>
+                {/* 배경 — 비선택 시 연한 컬러 */}
+                {!isEmpathized && (
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-[0.08] group-hover:opacity-[0.15] transition-opacity duration-300"
+                    style={{ backgroundColor: char.color }}
+                  />
+                )}
 
-                {/* 증상명 */}
-                <p className={`font-semibold text-sm mb-1 ${
-                  isEmpathized ? 'text-alma-primary' : 'text-alma-text'
+                {/* 상단: 증상명 (작은 레이블) + 컬러 도트 */}
+                <div className="flex items-center gap-1.5 mb-2">
+                  <div
+                    className={`w-2 h-2 rounded-full flex-shrink-0 ${isEmpathized ? 'bg-white/50' : ''}`}
+                    style={!isEmpathized ? { backgroundColor: char.color } : undefined}
+                  />
+                  <p className={`text-[11px] font-semibold uppercase tracking-wide ${
+                    isEmpathized ? 'text-white/60' : 'text-alma-text-tertiary'
+                  }`}>
+                    {char.name}
+                  </p>
+                </div>
+
+                {/* 태그라인 — 히어로 텍스트 (위트 포인트) */}
+                <p className={`text-base md:text-lg font-bold leading-snug mb-3 transition-transform duration-300 group-hover:translate-x-0.5 ${
+                  isEmpathized ? 'text-white' : 'text-alma-text'
                 }`}>
-                  {char.name}
+                  {char.tagline}
                 </p>
 
-                {/* 공감 수 - 항상 표시 */}
-                <p className={`text-xs ${
-                  isEmpathized ? 'text-alma-primary font-medium' : 'text-alma-text-tertiary'
+                {/* 설명 — 호버 시 서서히 나타남 */}
+                <p className={`text-[11px] leading-relaxed mb-2 max-h-0 opacity-0 group-hover:max-h-12 group-hover:opacity-100 transition-all duration-500 overflow-hidden ${
+                  isEmpathized ? 'text-white/70 max-h-12 opacity-100' : 'text-alma-text-secondary'
                 }`}>
-                  {count.toLocaleString()}명
+                  {char.description}
                 </p>
 
-                {/* 나도! 배지 */}
+                {/* 공감 수 */}
+                <p className={`text-[11px] font-medium ${
+                  isEmpathized ? 'text-white/80' : 'text-alma-text-tertiary'
+                }`}>
+                  {count.toLocaleString()}명 공감
+                </p>
+
+                {/* 나도! 배지 — 팝인 애니메이션 */}
                 {isEmpathized && (
-                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-alma-primary text-white text-[10px] font-bold rounded-full">
+                  <div className="absolute top-3 right-3 px-2.5 py-1 bg-white/25 backdrop-blur-sm text-white text-[10px] font-bold rounded-full animate-[popIn_0.3s_ease-out]">
                     나도!
+                  </div>
+                )}
+
+                {/* 호버 힌트 — 비선택 시만 */}
+                {!isEmpathized && (
+                  <div className="absolute bottom-2 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span className="text-[10px] font-medium" style={{ color: char.color }}>
+                      탭해서 공감
+                    </span>
                   </div>
                 )}
               </button>
@@ -113,23 +189,29 @@ export function SymptomGrid() {
           })}
         </div>
 
+        {/* 전체 증상 수 안내 */}
+        <p className="text-center text-xs text-alma-text-tertiary mb-8">
+          총 {SYMPTOM_CHARACTERS.length}개 증상 · {SYMPTOM_CATEGORIES.map((c) =>
+            `${c.label} ${SYMPTOM_CHARACTERS.filter((s) => s.category === c.id).length}개`
+          ).join(' · ')}
+        </p>
+
         {/* 하단 CTA 영역 */}
         {myEmpathyCount > 0 ? (
-          // 공감한 경우
           <div className="bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-6 text-center">
             <p className="text-lg font-bold text-alma-text mb-2">
-              오늘 <span className="text-alma-primary">{myEmpathyCount}개</span> 증상에 공감했어요
+              {myEmpathyCount}개 증상에 <span className="text-alma-primary">&ldquo;나도!&rdquo;</span> 했어요
             </p>
             <p className="text-sm text-alma-text-secondary mb-5">
-              비슷한 경험을 나누고, 상세하게 기록해보세요
+              같은 마음인 사람들이 기다리고 있어요
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/checkin"
+                href="/log/new"
                 className="inline-flex items-center justify-center px-6 py-3 bg-alma-accent text-white font-bold rounded-full hover:bg-alma-accent/90 transition-all shadow-lg shadow-alma-accent/30"
               >
-                나의 상태 확인하기
+                오늘 나의 상황 기록하기
                 <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -143,17 +225,16 @@ export function SymptomGrid() {
             </div>
           </div>
         ) : (
-          // 공감 전
           <div className="text-center">
             <p className="text-sm text-alma-text-tertiary mb-4">
               증상을 탭해서 공감하거나, 바로 기록을 시작해보세요
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/checkin"
+                href="/log/new"
                 className="inline-flex items-center justify-center px-6 py-3 bg-alma-primary text-white font-semibold rounded-full hover:bg-alma-primary-dark transition-all"
               >
-                나의 상태 확인하기
+                오늘 나의 상황 기록하기
               </Link>
               <Link
                 href="/community"

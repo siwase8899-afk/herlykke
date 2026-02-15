@@ -80,31 +80,27 @@ export function FounderSection() {
                 </div>
               </div>
 
-              {/* ALMA의 3가지 약속 */}
+              {/* ALMA의 5가지 가치 — Elektra 5 Core Values 스타일 */}
               <div className="mt-8 pt-6 border-t border-alma-border">
-                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 약속</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="flex items-center gap-3 p-4 bg-alma-primary-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">1</div>
-                    <div>
-                      <p className="text-sm font-medium text-alma-text">진짜 정보만</p>
-                      <p className="text-xs text-alma-text-tertiary">광고 아닌 실제 경험</p>
+                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 가치</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
+                    { title: '진짜 정보만', desc: '광고가 아닌 증상 인증 리뷰와 전문가 콘텐츠', bg: 'bg-alma-primary-light', color: 'bg-alma-primary' },
+                    { title: '완전한 익명', desc: '닉네임만 공개. 실명/나이 절대 비공개', bg: 'bg-alma-primary-light', color: 'bg-alma-primary' },
+                    { title: '당사자가 만든 서비스', desc: '갱년기를 직접 겪는 창업자가 설계', bg: 'bg-alma-accent-light', color: 'bg-alma-accent' },
+                    { title: '혼자가 아닌 함께', desc: '같은 증상의 동료와 안전하게 연결', bg: 'bg-alma-accent-light', color: 'bg-alma-accent' },
+                    { title: '데이터 기반 맞춤', desc: '기록할수록 정확해지는 AI 분석', bg: 'bg-alma-primary-light', color: 'bg-alma-primary', span: true },
+                  ].map((v, i) => (
+                    <div key={v.title} className={`flex items-center gap-3 p-4 ${v.bg} rounded-xl ${v.span ? 'sm:col-span-2' : ''}`}>
+                      <div className={`w-7 h-7 rounded-full ${v.color} flex items-center justify-center flex-shrink-0`}>
+                        <span className="text-white text-xs font-bold">{i + 1}</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-alma-text">{v.title}</p>
+                        <p className="text-xs text-alma-text-tertiary">{v.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-alma-primary-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">2</div>
-                    <div>
-                      <p className="text-sm font-medium text-alma-text">완전한 익명</p>
-                      <p className="text-xs text-alma-text-tertiary">100% 프라이버시 보장</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-alma-accent-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold flex-shrink-0">3</div>
-                    <div>
-                      <p className="text-sm font-medium text-alma-text">당사자가 만든 서비스</p>
-                      <p className="text-xs text-alma-text-tertiary">갱년기를 직접 겪는 사람이</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

@@ -210,25 +210,40 @@ function CommunityContent() {
 
   return (
     <div className="min-h-screen bg-alma-bg">
-      {/* Secret Talks 고정 헤더 */}
+      {/* Secret Talks 고정 헤더 — 라이브 인디케이터 */}
       <div className="sticky top-16 z-40">
         <div className="bg-gradient-to-r from-alma-secondary to-alma-secondary-dark">
           <div className="max-w-2xl mx-auto px-6 md:px-8 py-3 flex items-center justify-between text-white">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">🔐</span>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
+                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <div>
-                <p className="text-sm font-semibold">Secret Talks</p>
-                <p className="text-[10px] text-white/70">100% 익명 · 안전한 공간</p>
+                <p className="text-sm font-bold tracking-wide">Secret Talks</p>
+                <p className="text-[10px] text-white/60">100% 익명 · 안전한 공간</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm font-bold">{posts.length}+</p>
-              <p className="text-[10px] text-white/70">대화 중</p>
+            <div className="flex items-center gap-3">
+              {/* 타이핑 인디케이터 — 누군가 글 쓰는 중 */}
+              <div className="flex items-center gap-1 px-2.5 py-1 bg-white/10 rounded-full">
+                <div className="flex gap-0.5">
+                  <span className="typing-dot w-1 h-1 rounded-full bg-white/80" />
+                  <span className="typing-dot w-1 h-1 rounded-full bg-white/80" />
+                  <span className="typing-dot w-1 h-1 rounded-full bg-white/80" />
+                </div>
+                <span className="text-[10px] text-white/60 ml-1">작성 중</span>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold animate-live-pulse">{posts.length}+</p>
+                <p className="text-[10px] text-white/60">대화 중</p>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Tab Filter - 4개 탭 (투표 | 일상·응원 | 정보·질문 | 친구 찾기) */}
+        {/* Tab Filter - 4개 탭 */}
         <div className="bg-white border-b border-alma-border">
           <div className="max-w-2xl mx-auto px-6 md:px-8 py-3">
             <div className="flex gap-2">
@@ -240,7 +255,7 @@ function CommunityContent() {
                     : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
                 }`}
               >
-                📊 투표
+                투표
               </button>
               {TABS.map(tab => (
                 <button
@@ -252,7 +267,7 @@ function CommunityContent() {
                       : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
                   }`}
                 >
-                  {tab.icon} {tab.label}
+                  {tab.label}
                 </button>
               ))}
               <button
@@ -263,7 +278,7 @@ function CommunityContent() {
                     : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
                 }`}
               >
-                👋 친구 찾기
+                친구 찾기
               </button>
             </div>
           </div>
@@ -272,6 +287,45 @@ function CommunityContent() {
 
       {/* Posts List */}
       <main className="max-w-2xl mx-auto px-6 md:px-8 py-6">
+        {/* 라이브 활동 인디케이터 — 게시글/투표 탭에서만 */}
+        {selectedTab !== 'match' && (
+          <div className="flex items-center justify-between mb-4 px-1">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+              </span>
+              <span className="text-xs text-alma-text-tertiary">
+                지금 <strong className="text-alma-text-secondary">12명</strong>이 읽고 있어요
+              </span>
+            </div>
+            <span className="text-xs text-alma-text-tertiary">
+              오늘 새 글 <strong className="text-alma-accent">3</strong>개
+            </span>
+          </div>
+        )}
+
+        {/* 오늘의 대화 주제 — 대화 시작 유도 (투표/게시글 탭) */}
+        {selectedTab !== 'match' && (
+          <div className="bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-5 mb-6 border border-alma-primary/10">
+            <p className="text-[11px] font-semibold text-alma-primary uppercase tracking-wider mb-2">
+              오늘의 대화 주제
+            </p>
+            <p className="text-base font-bold text-alma-text mb-3">
+              &ldquo;갱년기 증상이 시작된 걸 처음 알아챈 순간은?&rdquo;
+            </p>
+            <button
+              onClick={() => requireAuth(() => setShowWriteModal(true))}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white text-alma-primary text-sm font-semibold rounded-full border border-alma-primary/20 hover:bg-alma-primary hover:text-white transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+              나의 이야기 쓰기
+            </button>
+          </div>
+        )}
+
         {/* 오늘의 투표 탭 */}
         {selectedTab === 'polls' && (
           <div className="mb-6">
@@ -381,11 +435,15 @@ function CommunityContent() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
           <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
-            <div className="text-5xl mb-4">🔐</div>
-            <h2 className="text-xl font-bold text-alma-text mb-2">로그인이 필요해요</h2>
+            <div className="w-16 h-16 rounded-2xl bg-alma-secondary/10 flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-alma-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold text-alma-text mb-2">함께 이야기할 준비 됐나요?</h2>
             <p className="text-sm text-alma-text-secondary mb-6">
               글쓰기, 댓글, 좋아요는 회원만 이용할 수 있어요.<br />
-              무료 가입하고 함께 이야기 나눠요!
+              무료 가입하고 솔직한 대화에 참여해요!
             </p>
             <div className="flex gap-3">
               <button
@@ -410,7 +468,11 @@ function CommunityContent() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowMatchModal(false)} />
           <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
-            <div className="text-6xl mb-4">🎉</div>
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center mx-auto mb-4 animate-[popIn_0.5s_ease-out]">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
             <h2 className="text-2xl font-bold text-alma-text mb-2">매치됐어요!</h2>
             <p className="text-alma-text-secondary mb-6">
               <span className="font-semibold text-alma-primary">{matchedProfile.anonymous_name}</span>님도
@@ -495,7 +557,10 @@ function MatchSection({
           증상 + 상황이 비슷한 여성들과 연결돼요
         </p>
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-alma-accent-light rounded-full">
-          <span className="text-lg">⚡</span>
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alma-accent opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-alma-accent" />
+          </span>
           <span className="text-sm text-alma-accent font-semibold">평균 응답 시간 47분</span>
         </div>
       </div>
@@ -516,14 +581,17 @@ function MatchSection({
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
-            🩺 증상 클러스터
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-alma-primary" />
+            증상 클러스터
           </span>
-          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-accent font-medium">
-            💼 생활 상황
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-accent font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-alma-accent" />
+            생활 상황
           </span>
-          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-secondary font-medium">
-            ⭐ 관심사
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-secondary font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-alma-secondary" />
+            관심사
           </span>
         </div>
       </div>
@@ -608,8 +676,9 @@ function PostCard({
               </span>
             )}
             {category && (
-              <span className={`text-xs px-2 py-0.5 rounded-full ${category.color}`}>
-                {category.icon} {category.label}
+              <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ${category.color}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${category.dot}`} />
+                {category.label}
               </span>
             )}
           </div>
@@ -735,13 +804,14 @@ function WriteModal({
                 <button
                   key={cat.id}
                   onClick={() => setCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-full text-sm transition-all ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm transition-all ${
                     category === cat.id
                       ? 'bg-alma-primary text-white'
                       : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
                   }`}
                 >
-                  {cat.icon} {cat.label}
+                  <span className={`w-1.5 h-1.5 rounded-full ${category === cat.id ? 'bg-white/60' : cat.dot}`} />
+                  {cat.label}
                 </button>
               ))}
             </div>
@@ -808,7 +878,11 @@ function WriteModal({
           {/* Flo 스타일 Privacy Notice */}
           <div className="bg-gradient-to-r from-alma-secondary-light to-alma-primary-light rounded-xl p-4 border border-alma-secondary/20">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🔐</span>
+              <div className="w-6 h-6 rounded bg-alma-secondary/10 flex items-center justify-center flex-shrink-0">
+                <svg className="w-3.5 h-3.5 text-alma-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
               <p className="text-sm font-bold text-alma-text">Secret Talks 익명 보장</p>
             </div>
             <div className="space-y-2">

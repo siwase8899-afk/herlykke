@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { SleepEntry, SLEEP_QUALITY_OPTIONS } from '@/lib/logTypes';
 
 interface SleepInputProps {
@@ -7,38 +8,73 @@ interface SleepInputProps {
   onChange: (sleep: SleepEntry) => void;
 }
 
+const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
+const MINUTES = [0, 15, 30, 45];
+
+function to24h(hour: number, period: 'AM' | 'PM'): number {
+  if (period === 'AM' && hour === 12) return 0;
+  if (period === 'PM' && hour === 12) return 12;
+  return period === 'PM' ? hour + 12 : hour;
+}
+
+function from24h(h24: number): { hour: number; period: 'AM' | 'PM' } {
+  if (h24 === 0) return { hour: 12, period: 'AM' };
+  if (h24 === 12) return { hour: 12, period: 'PM' };
+  if (h24 > 12) return { hour: h24 - 12, period: 'PM' };
+  return { hour: h24, period: 'AM' };
+}
+
+function parseTime(timeStr: string) {
+  const [h, m] = timeStr.split(':').map(Number);
+  const { hour, period } = from24h(h);
+  return { hour, minute: m, period };
+}
+
+function formatTime(hour: number, minute: number, period: 'AM' | 'PM'): string {
+  const h24 = to24h(hour, period);
+  return `${h24.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+}
+
 export function SleepInput({ value, onChange }: SleepInputProps) {
   const sleep = value || { bedTime: '23:00', wakeTime: '07:00', quality: 3 as const };
 
-  const handleChange = (field: keyof SleepEntry, newValue: string | number) => {
+  const bed = parseTime(sleep.bedTime);
+  const wake = parseTime(sleep.wakeTime);
+
+  const [showPicker, setShowPicker] = useState<'bed' | 'wake' | null>(null);
+
+  const handleTimeChange = (
+    field: 'bedTime' | 'wakeTime',
+    hour: number,
+    minute: number,
+    period: 'AM' | 'PM'
+  ) => {
     onChange({
       ...sleep,
-      [field]: newValue,
+      [field]: formatTime(hour, minute, period),
     } as SleepEntry);
+  };
+
+  const handleQualityChange = (quality: number) => {
+    onChange({ ...sleep, quality } as SleepEntry);
   };
 
   // 수면 시간 계산
   const calculateSleepHours = () => {
     if (!sleep.bedTime || !sleep.wakeTime) return null;
-
     const [bedH, bedM] = sleep.bedTime.split(':').map(Number);
     const [wakeH, wakeM] = sleep.wakeTime.split(':').map(Number);
-
     let bedMinutes = bedH * 60 + bedM;
     let wakeMinutes = wakeH * 60 + wakeM;
-
-    if (wakeMinutes < bedMinutes) {
-      wakeMinutes += 24 * 60; // 다음날
-    }
-
+    if (wakeMinutes <= bedMinutes) wakeMinutes += 24 * 60;
     const diffMinutes = wakeMinutes - bedMinutes;
-    const hours = Math.floor(diffMinutes / 60);
-    const minutes = diffMinutes % 60;
-
-    return { hours, minutes };
+    return { hours: Math.floor(diffMinutes / 60), minutes: diffMinutes % 60 };
   };
 
   const sleepDuration = calculateSleepHours();
+
+  const current = showPicker === 'bed' ? bed : wake;
+  const currentField = showPicker === 'bed' ? 'bedTime' : 'wakeTime';
 
   return (
     <div>
@@ -50,39 +86,112 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
       </p>
 
       <div className="max-w-sm mx-auto space-y-6">
-        {/* 취침/기상 시간 */}
+        {/* 취침/기상 시간 버튼 */}
         <div className="bg-white rounded-2xl p-5 border border-alma-border">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-alma-text mb-2">
                 취침 시간
               </label>
-              <input
-                type="time"
-                value={sleep.bedTime}
-                onChange={(e) => handleChange('bedTime', e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-alma-border text-center text-lg font-semibold text-alma-text focus:outline-none focus:border-alma-primary"
-              />
+              <button
+                onClick={() => setShowPicker(showPicker === 'bed' ? null : 'bed')}
+                className={`w-full px-4 py-3 rounded-xl border text-center text-lg font-semibold transition-all ${
+                  showPicker === 'bed'
+                    ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
+                    : 'border-alma-border text-alma-text hover:border-alma-primary/50'
+                }`}
+              >
+                {bed.period === 'AM' ? '오전' : '오후'} {bed.hour}:{bed.minute.toString().padStart(2, '0')}
+              </button>
             </div>
             <div>
               <label className="block text-sm font-medium text-alma-text mb-2">
                 기상 시간
               </label>
-              <input
-                type="time"
-                value={sleep.wakeTime}
-                onChange={(e) => handleChange('wakeTime', e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-alma-border text-center text-lg font-semibold text-alma-text focus:outline-none focus:border-alma-primary"
-              />
+              <button
+                onClick={() => setShowPicker(showPicker === 'wake' ? null : 'wake')}
+                className={`w-full px-4 py-3 rounded-xl border text-center text-lg font-semibold transition-all ${
+                  showPicker === 'wake'
+                    ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
+                    : 'border-alma-border text-alma-text hover:border-alma-primary/50'
+                }`}
+              >
+                {wake.period === 'AM' ? '오전' : '오후'} {wake.hour}:{wake.minute.toString().padStart(2, '0')}
+              </button>
             </div>
           </div>
 
+          {/* 시간 선택 패널 */}
+          {showPicker && (
+            <div className="mt-4 pt-4 border-t border-alma-border">
+              <p className="text-xs text-alma-text-tertiary text-center mb-3">
+                {showPicker === 'bed' ? '취침' : '기상'} 시간 선택
+              </p>
+
+              {/* 오전/오후 */}
+              <div className="flex justify-center gap-2 mb-4">
+                {(['AM', 'PM'] as const).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => handleTimeChange(currentField, current.hour, current.minute, p)}
+                    className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
+                      current.period === p
+                        ? 'bg-alma-primary text-white'
+                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                    }`}
+                  >
+                    {p === 'AM' ? '오전' : '오후'}
+                  </button>
+                ))}
+              </div>
+
+              {/* 시 선택 */}
+              <p className="text-xs text-alma-text-tertiary mb-2">시</p>
+              <div className="grid grid-cols-6 gap-1.5 mb-4">
+                {HOURS.map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => handleTimeChange(currentField, h, current.minute, current.period)}
+                    className={`py-2 rounded-lg text-sm font-medium transition-all ${
+                      current.hour === h
+                        ? 'bg-alma-primary text-white'
+                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                    }`}
+                  >
+                    {h}
+                  </button>
+                ))}
+              </div>
+
+              {/* 분 선택 */}
+              <p className="text-xs text-alma-text-tertiary mb-2">분</p>
+              <div className="grid grid-cols-4 gap-1.5">
+                {MINUTES.map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => {
+                      handleTimeChange(currentField, current.hour, m, current.period);
+                      setShowPicker(null);
+                    }}
+                    className={`py-2 rounded-lg text-sm font-medium transition-all ${
+                      current.minute === m
+                        ? 'bg-alma-primary text-white'
+                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                    }`}
+                  >
+                    {m.toString().padStart(2, '0')}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* 수면 시간 표시 */}
-          {sleepDuration && (
+          {sleepDuration && !showPicker && (
             <div className="mt-4 text-center">
               <p className="text-sm text-alma-text-tertiary">총 수면 시간</p>
               <p className="text-2xl font-bold text-alma-primary">
-                {sleepDuration.hours}시간 {sleepDuration.minutes > 0 && `${sleepDuration.minutes}분`}
+                {sleepDuration.hours}시간{sleepDuration.minutes > 0 ? ` ${sleepDuration.minutes}분` : ''}
               </p>
             </div>
           )}
@@ -97,7 +206,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
             {SLEEP_QUALITY_OPTIONS.map((option) => (
               <button
                 key={option.value}
-                onClick={() => handleChange('quality', option.value)}
+                onClick={() => handleQualityChange(option.value)}
                 className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${
                   sleep.quality === option.value
                     ? 'bg-alma-primary-light border-2 border-alma-primary'

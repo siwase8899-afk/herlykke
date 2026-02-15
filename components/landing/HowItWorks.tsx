@@ -154,6 +154,46 @@ export function HowItWorks() {
             );
           })}
         </div>
+
+        {/* 데이터 플라이휠 — Flo 인사이트: 기록→AI 정확도↑→사용↑ 자기강화 루프 */}
+        <div className="mt-16 bg-gradient-to-r from-alma-primary-light via-white to-alma-accent-light rounded-3xl p-8 md:p-12 border border-alma-border">
+          <div className="text-center mb-8">
+            <p className="text-sm text-alma-primary font-semibold uppercase tracking-wider mb-2">
+              Data Flywheel
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-alma-text">
+              기록할수록 <span className="text-alma-primary">더 정확해져요</span>
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { step: '1', title: '매일 기록', desc: '3분 체크인으로 증상·기분·활동 기록' },
+              { step: '2', title: 'AI 패턴 분석', desc: '데이터가 쌓일수록 정확한 패턴 발견' },
+              { step: '3', title: '맞춤 추천', desc: '나의 증상에 맞는 솔루션과 조언' },
+              { step: '4', title: '변화 확인', desc: '개선 과정을 눈으로 확인하며 동기 부여' },
+            ].map((item, i) => (
+              <div key={item.step} className="text-center relative">
+                <div className="w-10 h-10 rounded-full bg-alma-primary text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">
+                  {item.step}
+                </div>
+                <p className="text-sm font-bold text-alma-text mb-1">{item.title}</p>
+                <p className="text-xs text-alma-text-secondary leading-relaxed">{item.desc}</p>
+                {i < 3 && (
+                  <div className="hidden md:block absolute top-6 -right-3 text-alma-primary/40">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-alma-text-tertiary mt-6">
+            이 순환이 반복될수록 AI가 나를 더 잘 이해하게 돼요
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -1,20 +1,31 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// 증상별 기본 공감 수 (데모용)
+// 증상별 기본 공감 수 (데모용) — Sol 아시아 여성 증상 빈도순 반영
 const BASE_EMPATHY_COUNTS: Record<string, number> = {
+  // 몸의 신호
   hot_flash: 1234,
   night_sweat: 567,
   insomnia: 892,
-  joint_pain: 445,
-  headache: 623,
+  joint_pain: 1445,    // 아시아 여성 1위 증상 (Sol Research)
   fatigue: 1567,
-  dry_skin: 334,
-  palpitation: 289,
-  brain_fog: 756,
-  mood_swings: 934,
-  anxiety: 678,
-  irritability: 512,
+  headache: 623,
+  dry_skin: 734,
+  palpitation: 389,
+  // 마음의 신호
+  brain_fog: 856,
+  mood_swings: 1034,
+  anxiety: 778,
+  irritability: 612,
+  low_confidence: 489,
+  loneliness: 723,
+  // 일상의 변화
+  weight_change: 945,
+  low_libido: 534,
+  hair_change: 412,
+  digestion: 367,
+  urinary: 298,
+  skin_aging: 578,
 };
 
 interface SymptomEmpathyState {

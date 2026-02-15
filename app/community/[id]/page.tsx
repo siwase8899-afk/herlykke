@@ -244,8 +244,9 @@ export default function PostDetailPage() {
           <div className="p-5 border-b border-alma-border">
             <div className="flex items-center justify-between mb-3">
               {category && (
-                <span className={`text-xs px-2 py-0.5 rounded-full ${category.color}`}>
-                  {category.icon} {category.label}
+                <span className={`inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full ${category.color}`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${category.dot}`} />
+                  {category.label}
                 </span>
               )}
               <span className="text-xs text-alma-text-tertiary">
@@ -403,11 +404,15 @@ export default function PostDetailPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
           <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
-            <div className="text-5xl mb-4">🔐</div>
-            <h2 className="text-xl font-bold text-alma-text mb-2">로그인이 필요해요</h2>
+            <div className="w-16 h-16 rounded-2xl bg-alma-secondary/10 flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-alma-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-bold text-alma-text mb-2">함께 이야기할 준비 됐나요?</h2>
             <p className="text-sm text-alma-text-secondary mb-6">
               댓글과 좋아요는 회원만 이용할 수 있어요.<br />
-              무료 가입하고 함께 이야기 나눠요!
+              무료 가입하고 솔직한 대화에 참여해요!
             </p>
             <div className="flex gap-3">
               <button

@@ -158,29 +158,45 @@ export function ProblemSection() {
         </div>
       </div>
 
-      {/* Dark accent section — August 인사이트: 낙인 해소 → 축하 전환 */}
+      {/* Dark accent section — Midi "We See You" + 한국 시장 구조적 공백 */}
       <div className="bg-alma-secondary text-white px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-5xl mx-auto">
-          {/* Transformation message */}
-          <p className="text-center text-white/60 text-sm mb-8 uppercase tracking-wider">
-            갱년기를 다르게 보는 법
-          </p>
-          <div className="grid md:grid-cols-3 gap-10 text-center">
+          {/* Midi 인사이트: 공감 언어 */}
+          <div className="text-center mb-12">
+            <p className="text-white/60 text-sm mb-6 uppercase tracking-wider">
+              We See You. We Hear You.
+            </p>
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              당신의 이야기를 <span className="text-alma-accent">듣고 있어요</span>.
+            </h3>
+            <p className="text-white/70 max-w-xl mx-auto">
+              한국 850만 갱년기 여성에게는 신뢰할 수 있는 정보,
+              같은 경험을 공유할 동료, 맞는 솔루션을 찾을 수 있는
+              <span className="text-alma-primary font-semibold"> 하나의 안전한 공간</span>이 없었어요.
+            </p>
+          </div>
+
+          {/* Before → After 전환 */}
+          <div className="grid md:grid-cols-3 gap-10 text-center mb-12">
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">검색하면 건기식 광고뿐</p>
               <p className="text-xl font-bold text-alma-accent">증상 인증 리뷰만</p>
+              <p className="text-xs text-white/40 mt-2">화해가 성분을 분석하듯, ALMA는 증상을 분석해요</p>
             </div>
             <div className="p-6 border-y md:border-y-0 md:border-x border-white/10">
-              <p className="text-white/50 text-sm line-through mb-3">병원은 무섭고, 비싸고, 귀찮아</p>
-              <p className="text-xl font-bold text-alma-primary">집에서 편하게 체크</p>
+              <p className="text-white/50 text-sm line-through mb-3">병원 3분 진료, "다 그래요"</p>
+              <p className="text-xl font-bold text-alma-primary">AI가 나의 패턴을 분석</p>
+              <p className="text-xs text-white/40 mt-2">기록할수록 더 정확해지는 맞춤 분석</p>
             </div>
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">말할 데가 없어요</p>
-              <p className="text-xl font-bold text-alma-primary">비슷한 친구들과 안전하게</p>
+              <p className="text-xl font-bold text-alma-primary">같은 증상의 친구와 익명으로</p>
+              <p className="text-xs text-white/40 mt-2">블라인드처럼 안전한 익명 커뮤니티</p>
             </div>
           </div>
+
           {/* Positive reframe */}
-          <div className="mt-10 text-center">
+          <div className="text-center">
             <p className="text-white/80">
               갱년기는 <span className="text-alma-accent font-bold">두 번째 사춘기</span>예요.
               <br className="md:hidden" />

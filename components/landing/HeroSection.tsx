@@ -112,10 +112,12 @@ export function HeroSection() {
               >
                 <div className="text-center mb-8">
                   <div
-                    className="text-7xl md:text-8xl mb-5 transition-transform duration-300"
-                    style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}
+                    className="w-20 h-20 md:w-24 md:h-24 rounded-2xl mb-5 mx-auto flex items-center justify-center transition-transform duration-300"
+                    style={{ backgroundColor: currentChar.color }}
                   >
-                    {currentChar.emoji}
+                    <span className="text-white text-3xl md:text-4xl font-black">
+                      {currentChar.name.charAt(0)}
+                    </span>
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-alma-text mb-1">
                     {currentChar.nickname}

@@ -36,34 +36,31 @@ export function SymptomPicker({
         해당되는 증상을 모두 선택해주세요
       </p>
 
-      {/* 증상 그리드 */}
+      {/* 증상 그리드 — 타이포그래피 중심 */}
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-8">
         {SYMPTOMS.map((symptom) => {
-          const selected = isSelected(symptom.id);
+          const sel = isSelected(symptom.id);
           return (
             <button
               key={symptom.id}
               onClick={() => handleToggle(symptom.id)}
-              className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
-                selected
-                  ? 'bg-alma-primary-light border-2 border-alma-primary'
+              className={`relative flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
+                sel
+                  ? 'bg-alma-primary text-white border-2 border-alma-primary shadow-md'
                   : 'bg-white border-2 border-alma-border hover:border-alma-primary/50'
               }`}
             >
-              <span className="text-3xl">{symptom.emoji}</span>
               <span
-                className={`text-xs font-medium text-center ${
-                  selected ? 'text-alma-primary' : 'text-alma-text-secondary'
+                className={`text-sm font-bold text-center ${
+                  sel ? 'text-white' : 'text-alma-text'
                 }`}
               >
                 {symptom.name}
               </span>
-              {selected && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-alma-primary rounded-full flex items-center justify-center">
-                  <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
+              {sel && (
+                <svg className="w-4 h-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
               )}
             </button>
           );
@@ -84,7 +81,6 @@ export function SymptomPicker({
               return (
                 <div key={entry.symptomId} className="flex items-center gap-4">
                   <div className="flex items-center gap-2 w-28">
-                    <span className="text-xl">{symptom.emoji}</span>
                     <span className="text-sm font-medium text-alma-text">
                       {symptom.name}
                     </span>
@@ -122,7 +118,7 @@ export function SymptomPicker({
       {/* 증상 없음 옵션 */}
       {selected.length === 0 && (
         <p className="text-center text-sm text-alma-text-tertiary">
-          증상이 없다면 다음으로 넘어가도 괜찮아요 👍
+          증상이 없다면 다음으로 넘어가도 괜찮아요
         </p>
       )}
     </div>

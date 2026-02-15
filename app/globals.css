@@ -274,3 +274,40 @@ button, a, input {
 .section-enter.visible > *:nth-child(2) { transition-delay: 100ms; }
 .section-enter.visible > *:nth-child(3) { transition-delay: 200ms; }
 .section-enter.visible > *:nth-child(4) { transition-delay: 300ms; }
+
+/* A+C: 마이크로 인터랙션 — 팝인 (공감 배지) */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* A+C: 타이핑 인디케이터 (커뮤니티 라이브 느낌) */
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+.typing-dot:nth-child(1) { animation: typingDot 1.2s infinite 0s; }
+.typing-dot:nth-child(2) { animation: typingDot 1.2s infinite 0.2s; }
+.typing-dot:nth-child(3) { animation: typingDot 1.2s infinite 0.4s; }
+
+/* A+C: 라이브 카운트 펄스 */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-live-pulse {
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+/* A+C: 슬라이드인 (새 글 알림) */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
