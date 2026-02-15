@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 
 export const metadata: Metadata = {
   title: "ALMA - 갱년기, 혼자 겪지 마세요",
@@ -34,7 +35,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        {children}
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );

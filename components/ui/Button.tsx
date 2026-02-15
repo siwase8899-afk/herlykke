@@ -19,7 +19,7 @@ export function Button({
   className = '',
   type = 'button',
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-xl transition-all duration-200 cursor-pointer inline-flex items-center justify-center';
+  const baseStyles = 'font-semibold rounded-full transition-all duration-200 cursor-pointer inline-flex items-center justify-center';
 
   const variants = {
     primary: 'bg-alma-primary text-white hover:bg-alma-primary-dark active:scale-[0.98]',

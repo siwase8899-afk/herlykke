@@ -45,8 +45,8 @@ export default function CheckinSection() {
 
   if (!hydrated || !current || !sectionMeta) {
     return (
-      <div className="min-h-screen bg-[#1a2744] flex items-center justify-center">
-        <div className="text-white/60">불러오는 중...</div>
+      <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light flex items-center justify-center">
+        <div className="text-alma-text-secondary">불러오는 중...</div>
       </div>
     );
   }
@@ -149,47 +149,58 @@ export default function CheckinSection() {
     : null;
 
   return (
-    <div className="min-h-screen bg-[#1a2744]">
-      <div className="max-w-md mx-auto px-5 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light">
+      <div className="max-w-md mx-auto px-6 md:px-8 py-8">
         {/* 헤더 */}
-        <div className="mb-6">
+        <div className="mb-8">
           <button
             onClick={handleBack}
-            className="text-alma-accent text-[15px] font-medium mb-3 cursor-pointer hover:opacity-70 py-1"
+            className="text-alma-primary text-[15px] font-medium mb-3 cursor-pointer hover:opacity-70 py-1"
           >
             ← 뒤로
           </button>
           <ProgressBar current={globalQuestionNum} total={19} />
         </div>
 
-        {/* 섹션 라벨 + 응원 메시지 */}
+        {/* Duolingo 인사이트: 섹션 라벨 + 마일스톤 응원 메시지 */}
         <div className="flex items-center justify-between mb-4">
-          <div className="text-sm text-alma-accent font-semibold">
+          <div className="text-sm text-alma-primary font-semibold">
             {sectionMeta.emoji} 섹션 {sectionNum}: {sectionMeta.label}
           </div>
-          <div className="text-xs text-white/50">
+          <div className="text-xs text-alma-text-tertiary">
             {sectionEncouragement[sectionNum]?.message}
           </div>
         </div>
 
+        {/* Duolingo 인사이트: 7일 마일스톤 미리보기 (첫 섹션에서만) */}
+        {sectionNum === 1 && step === 0 && (
+          <div className="bg-alma-accent-light rounded-xl p-3 mb-4 flex items-center gap-3">
+            <div className="text-2xl">🔥</div>
+            <div>
+              <p className="text-sm font-semibold text-alma-text">7일 연속 체크인 챌린지</p>
+              <p className="text-xs text-alma-text-tertiary">매일 체크인하면 특별한 인사이트를 드려요</p>
+            </div>
+          </div>
+        )}
+
         {/* 캐릭터 팝업 (증상 선택 시) */}
         {activeCharacter && (
           <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-            <div className="bg-[#1a2744]/95 backdrop-blur-sm rounded-3xl p-6 border border-white/20 text-center animate-bounce-in">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 border border-alma-border shadow-xl text-center animate-bounce-in">
               <div className="text-6xl mb-2">{activeCharacter.emoji}</div>
-              <p className="text-white font-bold">{activeCharacter.nickname}</p>
+              <p className="text-alma-text font-bold">{activeCharacter.nickname}</p>
               <p className="text-alma-accent text-sm">&ldquo;{activeCharacter.tagline}&rdquo;</p>
             </div>
           </div>
         )}
 
         {/* 질문 카드 */}
-        <div className="bg-white/5 rounded-2xl p-5 border border-white/10 mb-6">
-          <h2 className="text-xl font-bold text-white leading-snug mb-2">
+        <div className="bg-white rounded-2xl p-5 border border-alma-border shadow-sm mb-6">
+          <h2 className="text-xl font-bold text-alma-text leading-snug mb-2">
             {current.question}
           </h2>
           {current.hint && (
-            <p className="text-sm text-white/60">
+            <p className="text-sm text-alma-text-tertiary">
               {current.hint}
             </p>
           )}
@@ -206,14 +217,14 @@ export default function CheckinSection() {
                   onClick={() => setValue(opt.value)}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                     getValue() === opt.value
-                      ? 'bg-alma-accent/20 border-alma-accent text-white'
-                      : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10'
+                      ? 'bg-alma-primary-light border-alma-primary text-alma-text'
+                      : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
                   }`}
                 >
                   {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                   <span className="text-[15px] text-left">{opt.label}</span>
                   {getValue() === opt.value && (
-                    <svg className="w-5 h-5 ml-auto text-alma-accent" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 ml-auto text-alma-primary" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   )}
@@ -222,7 +233,7 @@ export default function CheckinSection() {
             </div>
           )}
 
-          {/* 다중 선택 */}
+          {/* 다중 선택 — Noom 인사이트: 증상 선택 시 신호등 힌트 */}
           {current.type === 'multi' && current.options && (
             <div className="space-y-3">
               {current.options.map((opt) => {
@@ -233,14 +244,14 @@ export default function CheckinSection() {
                     onClick={() => setValue(opt.value)}
                     className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                       isSelected
-                        ? 'bg-alma-accent/20 border-alma-accent text-white'
-                        : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10'
+                        ? 'bg-alma-primary-light border-alma-primary text-alma-text'
+                        : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
                     }`}
                   >
                     {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                     <span className="text-[15px] text-left flex-1">{opt.label}</span>
                     <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                      isSelected ? 'bg-alma-accent border-alma-accent' : 'border-white/30'
+                      isSelected ? 'bg-alma-primary border-alma-primary' : 'border-alma-border'
                     }`}>
                       {isSelected && (
                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -257,7 +268,7 @@ export default function CheckinSection() {
           {/* 텍스트 입력 */}
           {current.type === 'text' && (
             <textarea
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-[15px] text-white min-h-[100px] resize-none mt-2 focus:outline-none focus:border-alma-accent transition-colors placeholder:text-white/30"
+              className="w-full bg-white border border-alma-border rounded-xl px-4 py-3.5 text-[15px] text-alma-text min-h-[100px] resize-none mt-2 focus:outline-none focus:border-alma-primary transition-colors placeholder:text-alma-text-tertiary"
               placeholder={current.placeholder}
               value={getValue() as string}
               onChange={(e) => setTextValue(e.target.value)}
@@ -267,7 +278,7 @@ export default function CheckinSection() {
 
           {/* 스케일 */}
           {current.type === 'scale' && current.scaleLabels && (
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+            <div className="bg-white rounded-xl p-4 border border-alma-border">
               <SeverityScale
                 value={getValue() as number}
                 onChange={setScaleValue}
@@ -276,7 +287,7 @@ export default function CheckinSection() {
             </div>
           )}
 
-          {/* 불리언 (커뮤니티 참여) */}
+          {/* 불리언 (커뮤니티 참여) — Bumble BFF 인사이트: 코호트 그룹 설명 */}
           {current.type === 'boolean' && current.options && (
             <div className="space-y-3">
               {current.options.map((opt) => (
@@ -285,20 +296,24 @@ export default function CheckinSection() {
                   onClick={() => setValue(opt.value)}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                     String(getValue()) === opt.value
-                      ? 'bg-alma-accent/20 border-alma-accent text-white'
-                      : 'bg-white/5 border-white/10 text-white/80 hover:bg-white/10'
+                      ? 'bg-alma-primary-light border-alma-primary text-alma-text'
+                      : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
                   }`}
                 >
                   {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                   <span className="text-[15px] text-left">{opt.label}</span>
                 </button>
               ))}
+              {/* Bumble BFF: 6명 코호트 설명 */}
+              <p className="text-xs text-alma-text-tertiary text-center mt-2">
+                비슷한 증상의 6명과 함께하는 작은 서클에 배정돼요
+              </p>
             </div>
           )}
 
           {/* 닉네임 유효성 */}
           {current.storeField === 'nickname' && (getValue() as string).length > 0 && (getValue() as string).length < 2 && (
-            <p className="text-sm text-red-400 mt-2 text-center">
+            <p className="text-sm text-alma-error mt-2 text-center">
               2자 이상 입력해 주세요
             </p>
           )}
@@ -310,17 +325,17 @@ export default function CheckinSection() {
           size="lg"
           onClick={handleNext}
           disabled={!canNext()}
-          className="w-full bg-alma-accent hover:bg-alma-accent/90 disabled:bg-white/10 disabled:text-white/30"
+          className="w-full bg-alma-accent hover:bg-alma-accent/90 text-white shadow-lg shadow-alma-accent/30 disabled:bg-alma-border disabled:text-alma-text-tertiary disabled:shadow-none"
         >
           {nextLabel()}
         </Button>
 
-        {/* 유머러스한 하단 텍스트 */}
-        <p className="text-center text-white/30 text-xs mt-4">
-          {globalQuestionNum <= 5 && '천천히 하셔도 돼요 🐢'}
-          {globalQuestionNum > 5 && globalQuestionNum <= 12 && '절반 넘었어요! 👏'}
-          {globalQuestionNum > 12 && globalQuestionNum <= 17 && '거의 다 왔어요! 🏃‍♀️'}
-          {globalQuestionNum > 17 && '마지막 스퍼트! 🎯'}
+        {/* Duolingo 인사이트: 따뜻한 응원 메시지 (경쟁적 X, 지지적 O) */}
+        <p className="text-center text-alma-text-tertiary text-xs mt-4">
+          {globalQuestionNum <= 5 && '천천히, 나의 속도로 해도 괜찮아요 🐢'}
+          {globalQuestionNum > 5 && globalQuestionNum <= 12 && '절반 넘었어요! 잘하고 계세요 👏'}
+          {globalQuestionNum > 12 && globalQuestionNum <= 17 && '거의 다 왔어요! 조금만 더 🌱'}
+          {globalQuestionNum > 17 && '마지막이에요! 곧 인사이트를 드릴게요 ✨'}
         </p>
       </div>
 

@@ -52,10 +52,15 @@ html {
 body {
   background-color: #FEFCF8;
   color: #1C1917;
-  line-height: 1.6;
+  line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* AZITMAKER 인사이트: 헤딩은 타이트한 행간 → 본문은 넉넉한 행간 */
+h1, h2, h3, h4 {
+  line-height: 1.15;
 }
 
 /* 40-50대 접근성: 최소 폰트 16px */
@@ -75,9 +80,23 @@ input, textarea, select {
   outline-offset: 2px;
 }
 
-/* Smooth transitions */
+/* Calm UX 인사이트: 300ms+ 부드러운 전환 */
 button, a, input {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease-out;
+}
+
+/* Calm UX: 카드, 섹션 전환 */
+.transition-calm {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Calm UX: 호버 효과 */
+.hover-lift {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
 }
 
 /* 증상 순환 애니메이션 */
@@ -95,3 +114,163 @@ button, a, input {
 .symptom-cycle-enter {
   animation: fadeInUp 0.4s ease-out;
 }
+
+/* Ritual 인사이트: 시각적 은유 — ALMA 연결된 원 모티프 */
+.alma-motif {
+  display: flex;
+  gap: -4px;
+}
+
+.alma-motif-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: -4px;
+}
+
+.alma-motif-circle:first-child {
+  margin-left: 0;
+  background-color: var(--color-alma-primary);
+}
+
+.alma-motif-circle:nth-child(2) {
+  background-color: var(--color-alma-accent);
+}
+
+.alma-motif-circle:nth-child(3) {
+  background-color: var(--color-alma-primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* August 인사이트: 축하/마일스톤 애니메이션 */
+@keyframes celebrate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.celebrate {
+  animation: celebrate 0.5s ease-out;
+}
+
+/* Calm UX: 성취 표시용 골드 글로우 */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(212, 133, 10, 0.3);
+}
+
+/* Linear 인사이트: 마이크로 애니메이션 */
+/* 섹션 진입 애니메이션 */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* 스케일 인 애니메이션 */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+/* 그라데이션 배경 애니메이션 (Linear Warm Light 디자인) */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* 버튼 호버 시 화살표 바운스 */
+@keyframes arrowBounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+.group:hover .animate-arrow-bounce {
+  animation: arrowBounce 0.6s ease infinite;
+}
+
+/* 페이드 인 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Linear 인사이트: 카드 호버 효과 */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.1);
+}
+
+/* Hims/Hers 인사이트: 끊김 없는 페이지 전환 */
+.page-transition {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* 스크롤 프로그레스 바 */
+.scroll-progress-bar {
+  background: linear-gradient(90deg,
+    var(--color-alma-primary) 0%,
+    var(--color-alma-accent) 50%,
+    var(--color-alma-primary) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* AZITMAKER 인사이트: Intersection Observer 기반 섹션 진입 애니메이션 */
+.section-enter {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.section-enter.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+/* 자식 요소 순차 진입 (stagger) */
+.section-enter.visible > *:nth-child(1) { transition-delay: 0ms; }
+.section-enter.visible > *:nth-child(2) { transition-delay: 100ms; }
+.section-enter.visible > *:nth-child(3) { transition-delay: 200ms; }
+.section-enter.visible > *:nth-child(4) { transition-delay: 300ms; }

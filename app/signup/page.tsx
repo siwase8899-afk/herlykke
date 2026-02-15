@@ -32,7 +32,7 @@ export default function SignupPage() {
 
   // 체크인 안 했으면 체크인으로
   if (!store.ageRange) {
-    router.push('/checkin');
+    router.push('/checkin?from=signup');
     return null;
   }
 
@@ -132,9 +132,9 @@ export default function SignupPage() {
 
       setSuccess(true);
 
-      // 3초 후 커뮤니티로 이동
+      // 3초 후 대시보드로 이동
       setTimeout(() => {
-        router.push('/community');
+        router.push('/dashboard');
       }, 3000);
     } catch {
       setError('네트워크 오류가 발생했어요. 인터넷 연결을 확인해주세요.');
@@ -155,7 +155,7 @@ export default function SignupPage() {
               체크인 결과가 안전하게 저장되었어요.
             </p>
             <p className="text-sm text-alma-text-tertiary">
-              잠시 후 커뮤니티로 이동합니다...
+              잠시 후 대시보드로 이동합니다...
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function SignupPage() {
         {/* 건너뛰기 */}
         <Link href="/community" className="block">
           <Button variant="ghost" size="md" className="w-full">
-            나중에 할게요 → 커뮤니티 먼저 보기
+            나중에 할게요 → 먼저 둘러보기
           </Button>
         </Link>
       </div>

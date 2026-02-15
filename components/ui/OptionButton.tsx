@@ -14,8 +14,8 @@ export function OptionButton({ label, emoji, selected, onClick, multi = false }:
       type="button"
       onClick={onClick}
       className={`
-        w-full text-left px-4 py-3.5 rounded-xl border-[1.5px] transition-all duration-150
-        cursor-pointer flex items-center gap-3 min-h-[52px]
+        w-full text-left px-5 py-4 rounded-xl border-[1.5px] transition-all duration-150
+        cursor-pointer flex items-center gap-3 min-h-[56px]
         ${selected
           ? 'border-alma-primary bg-alma-primary-light text-alma-primary-dark font-semibold'
           : 'border-alma-border bg-alma-surface text-alma-text hover:border-alma-primary/40'

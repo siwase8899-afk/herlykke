@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+// August 인사이트: 가족 참여 콘텐츠 포함
 const faqs = [
   {
     q: '갱년기는 언제 시작되나요?',
@@ -17,11 +18,11 @@ const faqs = [
   },
   {
     q: '비용이 있나요?',
-    a: '체크인과 기본 커뮤니티 참여는 무료예요. 앞으로 프리미엄 기능이 추가될 수 있지만, 핵심 기능은 계속 무료로 유지할 예정이에요.',
+    a: '지금은 0원이에요! 체크인, AI 분석, 커뮤니티 참여 모두 무료예요. 앞으로 프리미엄 기능이 추가될 수 있지만, 핵심 기능은 계속 무료로 유지할 예정이에요.',
   },
   {
-    q: '남편/가족도 볼 수 있나요?',
-    a: '커뮤니티는 갱년기를 경험하는 여성 전용이에요. 하지만 체크인 결과는 가족에게 보여줘서 나의 상태를 이해시키는 데 활용할 수 있어요.',
+    q: '남편/가족이 엄마의 갱년기를 이해하려면?',
+    a: '체크인 결과를 가족과 공유하면 "엄마가 왜 그러시는지" 이해하는 데 도움이 돼요. ALMA는 갱년기를 겪는 분만을 위한 공간이지만, 가족이 함께 이해하면 더 큰 힘이 됩니다. 곧 "가족을 위한 가이드" 콘텐츠도 준비 중이에요.',
   },
   {
     q: '한국 여성의 갱년기는 서양과 다른가요?',
@@ -41,10 +42,10 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="px-5 py-20 bg-alma-bg">
+    <section className="px-6 md:px-8 py-24 md:py-32 bg-alma-bg">
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 bg-alma-primary-light text-alma-primary text-sm font-semibold rounded-full mb-4">
             FAQ
           </span>
@@ -54,7 +55,7 @@ export function FAQSection() {
         </div>
 
         {/* FAQ items */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={faq.q}

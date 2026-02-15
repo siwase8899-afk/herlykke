@@ -1,0 +1,119 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { Poll, DEMO_POLLS } from '@/lib/pollData';
+import { PollCard } from './PollCard';
+
+interface PollSectionProps {
+  limit?: number;
+  defaultExpanded?: boolean;
+}
+
+// 로컬스토리지 키
+const VOTED_POLLS_KEY = 'alma-voted-polls';
+
+export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionProps) {
+  const [polls] = useState<Poll[]>(DEMO_POLLS);
+  const [votedPolls, setVotedPolls] = useState<Record<string, string>>({});
+  const [mounted, setMounted] = useState(false);
+  const [expanded, setExpanded] = useState(defaultExpanded);
+
+  useEffect(() => {
+    setMounted(true);
+    // 로컬스토리지에서 투표 기록 불러오기
+    const saved = localStorage.getItem(VOTED_POLLS_KEY);
+    if (saved) {
+      setVotedPolls(JSON.parse(saved));
+    }
+  }, []);
+
+  const handleVote = (pollId: string, optionId: string) => {
+    const newVotedPolls = { ...votedPolls, [pollId]: optionId };
+    setVotedPolls(newVotedPolls);
+    localStorage.setItem(VOTED_POLLS_KEY, JSON.stringify(newVotedPolls));
+  };
+
+  // 아직 투표하지 않은 투표 우선 표시
+  const sortedPolls = [...polls].sort((a, b) => {
+    const aVoted = !!votedPolls[a.id];
+    const bVoted = !!votedPolls[b.id];
+    if (aVoted === bVoted) return 0;
+    return aVoted ? 1 : -1;
+  });
+
+  // 투표 안 한 것 개수
+  const unvotedCount = polls.filter(p => !votedPolls[p.id]).length;
+
+  // 컴팩트 모드: 1개만, 확장시: limit개
+  const displayPolls = expanded ? sortedPolls.slice(0, limit) : sortedPolls.slice(0, 1);
+
+  if (!mounted) {
+    return (
+      <div className="bg-white rounded-2xl border border-alma-border p-4 animate-pulse">
+        <div className="h-5 bg-alma-bg rounded w-1/4 mb-3" />
+        <div className="h-12 bg-alma-bg rounded-xl" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+      {/* 컴팩트 헤더 */}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-full p-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-lg">📊</span>
+          <div className="text-left">
+            <div className="flex items-center gap-2">
+              <span className="font-semibold text-alma-text text-sm">오늘의 투표</span>
+              {unvotedCount > 0 && (
+                <span className="px-1.5 py-0.5 bg-alma-accent text-white text-[10px] font-bold rounded-full">
+                  {unvotedCount}개 참여 가능
+                </span>
+              )}
+            </div>
+            <p className="text-xs text-alma-text-tertiary mt-0.5">
+              {polls.length}개 진행 중
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* 확장 아이콘 */}
+          <svg
+            className={`w-5 h-5 text-alma-text-tertiary transition-transform ${expanded ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </button>
+
+      {/* 투표 카드들 */}
+      <div className="px-4 pb-4 space-y-3">
+        {displayPolls.map((poll) => (
+          <PollCard
+            key={poll.id}
+            poll={poll}
+            votedOptionId={votedPolls[poll.id]}
+            onVote={handleVote}
+          />
+        ))}
+
+        {/* 더보기/접기 버튼 */}
+        {polls.length > 1 && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="w-full py-2 text-xs text-alma-primary font-medium hover:bg-alma-primary-light rounded-lg transition-colors"
+          >
+            {expanded ? '접기' : `투표 더보기 (${polls.length - 1}개)`}
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}

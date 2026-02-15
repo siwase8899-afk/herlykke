@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { useAuth } from '@/lib/authContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { isLoggedIn, isLoading: authLoading } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +16,17 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+
+  // 이미 로그인 상태면 대시보드로 리다이렉트
+  useEffect(() => {
+    if (!authLoading && isLoggedIn) {
+      router.replace('/dashboard');
+    }
+  }, [authLoading, isLoggedIn, router]);
+
+  if (authLoading || isLoggedIn) {
+    return <div className="min-h-screen bg-alma-bg" />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,20 +76,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-alma-bg flex flex-col">
-      {/* Header */}
-      <header className="px-5 py-4 border-b border-alma-border bg-white">
-        <div className="max-w-6xl mx-auto">
-          <Link href="/" className="text-2xl font-bold text-alma-primary">
-            ALMA
-          </Link>
-        </div>
-      </header>
-
       {/* Main */}
-      <main className="flex-1 flex items-center justify-center px-5 py-12">
+      <main className="flex-1 flex items-center justify-center px-6 md:px-8 py-16">
         <div className="w-full max-w-md">
           {/* Card */}
-          <div className="bg-white rounded-3xl p-8 shadow-sm border border-alma-border">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-alma-border">
             {/* Title */}
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold text-alma-text mb-2">

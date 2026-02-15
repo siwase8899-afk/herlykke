@@ -5,7 +5,7 @@ export default function CheckinLayout({
 }) {
   return (
     <div className="min-h-screen bg-alma-bg">
-      <div className="max-w-lg mx-auto px-5 py-6">
+      <div className="max-w-lg mx-auto px-6 md:px-8 py-10">
         {children}
       </div>
     </div>

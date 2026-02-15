@@ -2,21 +2,27 @@ import Image from 'next/image';
 
 export function FounderSection() {
   return (
-    <section className="px-5 py-20 bg-white">
+    <section className="px-6 md:px-8 py-24 md:py-32 bg-white">
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 bg-alma-primary-light text-alma-primary text-sm font-semibold rounded-full mb-4">
             왜 ALMA를 만들었나요?
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-alma-text">
+          <h2 className="text-3xl md:text-4xl font-bold text-alma-text mb-4">
             창업자의 이야기
           </h2>
+          <p className="text-lg text-alma-text-secondary">
+            <span className="text-alma-accent font-semibold">딸을 위해</span>,
+            <span className="text-alma-primary font-semibold"> 나를 위해</span>,
+            <span className="text-alma-accent font-semibold"> 어머니를 위해</span> —
+            모든 세대의 여성을 위해
+          </p>
         </div>
 
         {/* Founder card */}
         <div className="bg-gradient-to-br from-alma-primary-light/50 via-white to-alma-accent-light/50 rounded-3xl p-8 md:p-12 border border-alma-border shadow-sm">
-          <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="flex flex-col md:flex-row gap-10 items-start">
             {/* Avatar and info */}
             <div className="flex-shrink-0">
               <div className="w-28 h-28 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
@@ -50,10 +56,11 @@ export function FounderSection() {
                   이 세대 여성들이 갱년기를 얼마나 혼자 겪고 있는지 알게 됐어요.
                 </p>
                 <p>
-                  <span className="inline-block px-4 py-1.5 bg-alma-primary text-white rounded-lg font-bold">
-                    혼자 겪을 필요 없다는 걸 알려드리고 싶어서
+                  갱년기는 끝이 아니에요.{' '}
+                  <span className="inline-block px-4 py-1.5 bg-alma-accent text-white rounded-lg font-bold">
+                    두 번째 삶의 시작
                   </span>
-                  {' '}ALMA를 만들었습니다.&rdquo;
+                  이에요. 혼자 겪을 필요 없다는 걸 알려드리고 싶어서 ALMA를 만들었습니다.&rdquo;
                 </p>
               </blockquote>
 
@@ -73,43 +80,29 @@ export function FounderSection() {
                 </div>
               </div>
 
-              {/* ALMA의 5가지 약속 — Elektra Core Values 한국화 */}
+              {/* ALMA의 3가지 약속 */}
               <div className="mt-8 pt-6 border-t border-alma-border">
-                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 5가지 약속</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="flex items-center gap-3 p-3 bg-alma-primary-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold">1</div>
+                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 약속</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="flex items-center gap-3 p-4 bg-alma-primary-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">1</div>
                     <div>
                       <p className="text-sm font-medium text-alma-text">진짜 정보만</p>
                       <p className="text-xs text-alma-text-tertiary">광고 아닌 실제 경험</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-alma-primary-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold">2</div>
+                  <div className="flex items-center gap-3 p-4 bg-alma-primary-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-primary flex items-center justify-center text-white text-sm font-bold flex-shrink-0">2</div>
                     <div>
                       <p className="text-sm font-medium text-alma-text">완전한 익명</p>
                       <p className="text-xs text-alma-text-tertiary">100% 프라이버시 보장</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-3 bg-alma-accent-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold">3</div>
-                    <div>
-                      <p className="text-sm font-medium text-alma-text">광고 없는 공간</p>
-                      <p className="text-xs text-alma-text-tertiary">순수한 커뮤니티</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 bg-alma-accent-light rounded-xl">
-                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold">4</div>
-                    <div>
-                      <p className="text-sm font-medium text-alma-text">AI 기반 맞춤</p>
-                      <p className="text-xs text-alma-text-tertiary">데이터로 정확하게</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-3 bg-alma-secondary-light rounded-xl sm:col-span-2 sm:justify-center">
-                    <div className="w-8 h-8 rounded-full bg-alma-secondary flex items-center justify-center text-white text-sm font-bold">5</div>
+                  <div className="flex items-center gap-3 p-4 bg-alma-accent-light rounded-xl">
+                    <div className="w-8 h-8 rounded-full bg-alma-accent flex items-center justify-center text-white text-sm font-bold flex-shrink-0">3</div>
                     <div>
                       <p className="text-sm font-medium text-alma-text">당사자가 만든 서비스</p>
-                      <p className="text-xs text-alma-text-tertiary">갱년기를 직접 겪고 있는 사람이 만들었어요</p>
+                      <p className="text-xs text-alma-text-tertiary">갱년기를 직접 겪는 사람이</p>
                     </div>
                   </div>
                 </div>
