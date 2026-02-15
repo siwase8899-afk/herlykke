@@ -9,6 +9,7 @@ import { SymptomPicker } from '@/components/log/SymptomPicker';
 import { SleepInput } from '@/components/log/SleepInput';
 import { ActivityTags } from '@/components/log/ActivityTags';
 import { SYMPTOMS } from '@/lib/logTypes';
+import { MOOD_TAGS } from '@/lib/dailyLogConstants';
 
 const STEPS = ['mood', 'symptoms', 'sleep', 'activities', 'note'] as const;
 type Step = (typeof STEPS)[number];
@@ -21,6 +22,7 @@ export default function NewLogPage() {
   const {
     draft,
     setMood,
+    toggleMoodTag,
     addSymptom,
     removeSymptom,
     updateSymptomSeverity,
@@ -119,7 +121,12 @@ export default function NewLogPage() {
       {/* Content */}
       <main className="max-w-lg mx-auto px-5 py-8">
         {currentStep === 'mood' && (
-          <MoodSelector value={draft.mood} onChange={setMood} />
+          <MoodSelector
+            value={draft.mood}
+            onChange={setMood}
+            selectedTags={draft.moodTags}
+            onToggleTag={toggleMoodTag}
+          />
         )}
 
         {currentStep === 'symptoms' && (
@@ -161,11 +168,25 @@ export default function NewLogPage() {
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-alma-text-tertiary">기분</span>
+                  <span className="text-alma-text-tertiary">컨디션</span>
                   <span className="text-alma-text">
                     {draft.mood ? ['😫', '😕', '😐', '🙂', '😊'][draft.mood - 1] : '-'}
                   </span>
                 </div>
+
+                {draft.moodTags.length > 0 && (
+                  <div className="flex justify-between items-start">
+                    <span className="text-alma-text-tertiary flex-shrink-0">감정</span>
+                    <div className="flex flex-wrap justify-end gap-1 ml-2">
+                      {draft.moodTags.map((tagId) => {
+                        const tag = MOOD_TAGS.find((t) => t.id === tagId);
+                        return tag ? (
+                          <span key={tagId} className="text-xs">{tag.emoji} {tag.label}</span>
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex justify-between">
                   <span className="text-alma-text-tertiary">증상</span>

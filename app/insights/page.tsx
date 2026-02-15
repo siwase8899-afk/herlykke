@@ -24,43 +24,43 @@ import { columns } from '@/lib/columnsData';
 // 데모 데이터 (7일)
 const DEMO_LOGS: DailyLog[] = [
   {
-    id: 'demo_1', date: '2026-02-15', mood: 4,
+    id: 'demo_1', date: '2026-02-15', mood: 4, moodTags: ['calm', 'grateful'],
     symptoms: [{ symptomId: 'fatigue', severity: 2 }],
     sleep: { bedTime: '23:00', wakeTime: '07:00', quality: 4 },
     activities: ['exercise', 'meditation'], createdAt: '2026-02-15T08:00:00Z'
   },
   {
-    id: 'demo_2', date: '2026-02-14', mood: 3,
+    id: 'demo_2', date: '2026-02-14', mood: 3, moodTags: ['tired', 'anxious'],
     symptoms: [{ symptomId: 'hot_flash', severity: 3 }, { symptomId: 'insomnia', severity: 2 }],
     sleep: { bedTime: '00:00', wakeTime: '06:00', quality: 2 },
     activities: ['caffeine'], createdAt: '2026-02-14T08:00:00Z'
   },
   {
-    id: 'demo_3', date: '2026-02-13', mood: 4,
+    id: 'demo_3', date: '2026-02-13', mood: 4, moodTags: ['energetic'],
     symptoms: [{ symptomId: 'fatigue', severity: 2 }],
     sleep: { bedTime: '22:30', wakeTime: '06:30', quality: 4 },
     activities: ['exercise', 'walk'], createdAt: '2026-02-13T08:00:00Z'
   },
   {
-    id: 'demo_4', date: '2026-02-12', mood: 2,
+    id: 'demo_4', date: '2026-02-12', mood: 2, moodTags: ['irritable', 'tearful', 'frustrated'],
     symptoms: [{ symptomId: 'mood_swings', severity: 4 }, { symptomId: 'anxiety', severity: 3 }, { symptomId: 'brain_fog', severity: 3 }],
     sleep: { bedTime: '01:00', wakeTime: '05:00', quality: 1 },
     activities: ['stress', 'alcohol'], createdAt: '2026-02-12T08:00:00Z'
   },
   {
-    id: 'demo_5', date: '2026-02-11', mood: 3,
+    id: 'demo_5', date: '2026-02-11', mood: 3, moodTags: ['listless'],
     symptoms: [{ symptomId: 'brain_fog', severity: 2 }],
     sleep: { bedTime: '23:30', wakeTime: '06:30', quality: 3 },
     activities: ['walk'], createdAt: '2026-02-11T08:00:00Z'
   },
   {
-    id: 'demo_6', date: '2026-02-10', mood: 5,
+    id: 'demo_6', date: '2026-02-10', mood: 5, moodTags: ['happy', 'energetic', 'proud'],
     symptoms: [],
     sleep: { bedTime: '22:00', wakeTime: '06:30', quality: 5 },
     activities: ['exercise', 'meditation', 'walk'], createdAt: '2026-02-10T08:00:00Z'
   },
   {
-    id: 'demo_7', date: '2026-02-09', mood: 3,
+    id: 'demo_7', date: '2026-02-09', mood: 3, moodTags: ['tired'],
     symptoms: [{ symptomId: 'hot_flash', severity: 2 }, { symptomId: 'fatigue', severity: 2 }],
     sleep: { bedTime: '23:00', wakeTime: '06:00', quality: 3 },
     activities: ['caffeine'], createdAt: '2026-02-09T08:00:00Z'

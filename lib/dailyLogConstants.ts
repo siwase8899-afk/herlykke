@@ -24,16 +24,24 @@ export const ACTIVITIES = [
   { id: 'healthy_meal', label: '건강한 식사', icon: '🥗' },
 ] as const;
 
-// 기분 태그
+// 감정 태그 (2레이어: 컨디션 선택 후 구체적 감정 복수 선택)
 export const MOOD_TAGS = [
-  { id: 'happy', label: '행복해요', color: 'bg-yellow-100 text-yellow-700' },
-  { id: 'calm', label: '평온해요', color: 'bg-green-100 text-green-700' },
-  { id: 'energetic', label: '활력있어요', color: 'bg-orange-100 text-orange-700' },
-  { id: 'tired', label: '피곤해요', color: 'bg-gray-100 text-gray-700' },
-  { id: 'anxious', label: '불안해요', color: 'bg-purple-100 text-purple-700' },
-  { id: 'irritable', label: '예민해요', color: 'bg-red-100 text-red-700' },
-  { id: 'sad', label: '우울해요', color: 'bg-blue-100 text-blue-700' },
-  { id: 'hopeful', label: '희망적이에요', color: 'bg-pink-100 text-pink-700' },
+  // 긍정
+  { id: 'happy', label: '행복해요', emoji: '😊', tone: 'positive' as const, color: 'bg-yellow-100 text-yellow-700 border-yellow-200' },
+  { id: 'calm', label: '평온해요', emoji: '😌', tone: 'positive' as const, color: 'bg-green-100 text-green-700 border-green-200' },
+  { id: 'energetic', label: '활력있어요', emoji: '💪', tone: 'positive' as const, color: 'bg-orange-100 text-orange-700 border-orange-200' },
+  { id: 'grateful', label: '감사해요', emoji: '🙏', tone: 'positive' as const, color: 'bg-amber-100 text-amber-700 border-amber-200' },
+  { id: 'proud', label: '뿌듯해요', emoji: '🌟', tone: 'positive' as const, color: 'bg-lime-100 text-lime-700 border-lime-200' },
+  { id: 'hopeful', label: '희망적이에요', emoji: '🌈', tone: 'positive' as const, color: 'bg-pink-100 text-pink-700 border-pink-200' },
+  // 부정
+  { id: 'tired', label: '피곤해요', emoji: '😮‍💨', tone: 'negative' as const, color: 'bg-gray-100 text-gray-700 border-gray-200' },
+  { id: 'anxious', label: '불안해요', emoji: '😰', tone: 'negative' as const, color: 'bg-purple-100 text-purple-700 border-purple-200' },
+  { id: 'irritable', label: '예민해요', emoji: '😤', tone: 'negative' as const, color: 'bg-red-100 text-red-700 border-red-200' },
+  { id: 'sad', label: '우울해요', emoji: '😢', tone: 'negative' as const, color: 'bg-blue-100 text-blue-700 border-blue-200' },
+  { id: 'tearful', label: '눈물이 나요', emoji: '🥲', tone: 'negative' as const, color: 'bg-sky-100 text-sky-700 border-sky-200' },
+  { id: 'listless', label: '무기력해요', emoji: '🫠', tone: 'negative' as const, color: 'bg-slate-100 text-slate-700 border-slate-200' },
+  { id: 'lonely', label: '외로워요', emoji: '🏝️', tone: 'negative' as const, color: 'bg-indigo-100 text-indigo-700 border-indigo-200' },
+  { id: 'frustrated', label: '답답해요', emoji: '😶‍🌫️', tone: 'negative' as const, color: 'bg-stone-100 text-stone-700 border-stone-200' },
 ] as const;
 
 // 컨디션 레벨

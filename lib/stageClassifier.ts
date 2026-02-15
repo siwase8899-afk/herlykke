@@ -15,6 +15,89 @@ interface ClassifierResult {
   tips: string[];
 }
 
+// ─── 쿠퍼만 갱년기 지수 (Kupperman Menopausal Index) ───
+
+// 쿠퍼만 11개 증상 → ALMA 체크인 키 매핑 + 가중치
+const KUPPERMAN_SYMPTOMS: {
+  key: string;        // ALMA physicalSymptoms/emotionalSymptoms 키
+  label: string;
+  weight: number;     // 쿠퍼만 가중치
+  source: 'physical' | 'emotional';
+}[] = [
+  { key: 'hot_flash',    label: '안면홍조/발한',     weight: 4, source: 'physical' },
+  { key: 'paresthesia',  label: '감각이상',          weight: 2, source: 'physical' },
+  { key: 'insomnia',     label: '불면증',            weight: 2, source: 'physical' },
+  { key: 'anxiety',      label: '신경과민',          weight: 2, source: 'emotional' },
+  { key: 'depression',   label: '우울감',            weight: 1, source: 'emotional' },
+  { key: 'dizziness',    label: '어지러움',          weight: 1, source: 'physical' },
+  { key: 'fatigue',      label: '피로감',            weight: 1, source: 'physical' },
+  { key: 'joint_pain',   label: '관절/근육통',       weight: 1, source: 'physical' },
+  { key: 'headache',     label: '두통',              weight: 1, source: 'physical' },
+  { key: 'palpitation',  label: '심장 두근거림',      weight: 1, source: 'physical' },
+  { key: 'formication',  label: '개미가 기는 느낌',   weight: 1, source: 'physical' },
+];
+
+export type KuppermanLevel = 'normal' | 'mild' | 'moderate' | 'severe';
+
+export interface KuppermanResult {
+  score: number;
+  maxScore: number;
+  level: KuppermanLevel;
+  levelLabel: string;
+  details: { key: string; label: string; severity: number; weight: number; score: number }[];
+}
+
+const KUPPERMAN_LEVELS: { max: number; level: KuppermanLevel; label: string }[] = [
+  { max: 6,  level: 'normal',   label: '정상' },
+  { max: 15, level: 'mild',     label: '경미' },
+  { max: 30, level: 'moderate', label: '중등도' },
+  { max: 51, level: 'severe',   label: '중증' },
+];
+
+/**
+ * 쿠퍼만 갱년기 지수 계산
+ * @param physicalSymptoms - 선택한 신체 증상 키 배열
+ * @param emotionalSymptoms - 선택한 감정 증상 키 배열
+ * @param severityMap - 증상별 심각도 (0-3). 없으면 선택한 증상은 1로 처리
+ */
+export function calculateKuppermanIndex(
+  physicalSymptoms: string[],
+  emotionalSymptoms: string[],
+  severityMap: Record<string, number> = {},
+): KuppermanResult {
+  const allSymptoms = [...physicalSymptoms, ...emotionalSymptoms];
+  let totalScore = 0;
+  const details: KuppermanResult['details'] = [];
+
+  for (const symptom of KUPPERMAN_SYMPTOMS) {
+    const isSelected = allSymptoms.includes(symptom.key);
+    // 심각도: severityMap에 있으면 사용, 선택만 했으면 1, 선택 안 했으면 0
+    const severity = severityMap[symptom.key] ?? (isSelected ? 1 : 0);
+    const score = symptom.weight * severity;
+    totalScore += score;
+    details.push({
+      key: symptom.key,
+      label: symptom.label,
+      severity,
+      weight: symptom.weight,
+      score,
+    });
+  }
+
+  // 최대 점수: 모든 증상 심각도 3
+  const maxScore = KUPPERMAN_SYMPTOMS.reduce((sum, s) => sum + s.weight * 3, 0); // 51
+
+  const levelInfo = KUPPERMAN_LEVELS.find((l) => totalScore <= l.max) ?? KUPPERMAN_LEVELS[KUPPERMAN_LEVELS.length - 1];
+
+  return {
+    score: totalScore,
+    maxScore,
+    level: levelInfo.level,
+    levelLabel: levelInfo.label,
+    details,
+  };
+}
+
 // 갱년기 단계 자동 분류 알고리즘
 // 연령 + 증상 패턴 + 심각도 + 발현 시기를 종합 분석
 export function classifyStage(input: ClassifierInput): ClassifierResult {

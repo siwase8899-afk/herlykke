@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
 import { useCheckinStore } from '../../stores/checkinStore';
-import { classifyStage, classifySymptomCluster, classifyLifeContext } from '../../lib/stageClassifier';
+import { classifyStage, classifySymptomCluster, classifyLifeContext, calculateKuppermanIndex } from '../../lib/stageClassifier';
 import { StageCard } from '../../components/result/StageCard';
+import { KuppermanCard } from '../../components/result/KuppermanCard';
 import { SymptomSummary } from '../../components/result/SymptomSummary';
 import { TipsList } from '../../components/result/TipsList';
 import { GroupRecommendation } from '../../components/result/GroupRecommendation';
@@ -47,6 +48,13 @@ export default function ResultPage() {
 
   const cluster = classifySymptomCluster(store.physicalSymptoms, store.emotionalSymptoms);
   const lifeContext = classifyLifeContext(store.employment, store.maritalStatus, store.livingSituation);
+
+  // 쿠퍼만 갱년기 지수 계산
+  const kuppermanResult = calculateKuppermanIndex(
+    store.physicalSymptoms,
+    store.emotionalSymptoms,
+    store.symptomSeverityMap,
+  );
 
   return (
     <div className="min-h-screen bg-alma-bg">
@@ -95,6 +103,7 @@ export default function ResultPage() {
             confidence={stageResult.confidence}
             description={stageResult.description}
           />
+          <KuppermanCard result={kuppermanResult} />
           <SymptomSummary
             physicalSymptoms={store.physicalSymptoms}
             emotionalSymptoms={store.emotionalSymptoms}
@@ -218,7 +227,7 @@ export default function ResultPage() {
                 </div>
               </div>
               <Link href="/signup" className="block">
-                <Button variant="primary" size="lg" className="w-full bg-white text-alma-primary hover:bg-white/90 font-black">
+                <Button variant="secondary" size="lg" className="w-full border-white bg-white text-alma-primary hover:bg-white/90 font-black">
                   내 결과 저장하기
                 </Button>
               </Link>

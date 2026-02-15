@@ -9,6 +9,7 @@ interface LogState {
   // 현재 작성 중인 로그 (임시)
   draft: {
     mood: 1 | 2 | 3 | 4 | 5 | null;
+    moodTags: string[];
     symptoms: SymptomEntry[];
     sleep: SleepEntry | null;
     activities: string[];
@@ -20,6 +21,7 @@ interface LogState {
 
   // Actions
   setMood: (mood: 1 | 2 | 3 | 4 | 5) => void;
+  toggleMoodTag: (tagId: string) => void;
   addSymptom: (symptomId: string, severity: 1 | 2 | 3 | 4 | 5) => void;
   removeSymptom: (symptomId: string) => void;
   updateSymptomSeverity: (symptomId: string, severity: 1 | 2 | 3 | 4 | 5) => void;
@@ -49,6 +51,7 @@ export const useLogStore = create<LogState>()(
 
       draft: {
         mood: null,
+        moodTags: [],
         symptoms: [],
         sleep: null,
         activities: [],
@@ -61,6 +64,15 @@ export const useLogStore = create<LogState>()(
         set((state) => ({
           draft: { ...state.draft, mood },
         }));
+      },
+
+      toggleMoodTag: (tagId) => {
+        set((state) => {
+          const tags = state.draft.moodTags.includes(tagId)
+            ? state.draft.moodTags.filter((t) => t !== tagId)
+            : [...state.draft.moodTags, tagId];
+          return { draft: { ...state.draft, moodTags: tags } };
+        });
       },
 
       addSymptom: (symptomId, severity) => {
@@ -129,6 +141,7 @@ export const useLogStore = create<LogState>()(
           id: existingLogIndex >= 0 ? state.logs[existingLogIndex].id : generateId(),
           date: today,
           mood: draft.mood,
+          moodTags: draft.moodTags,
           symptoms: draft.symptoms,
           sleep: draft.sleep || { bedTime: '', wakeTime: '', quality: 3 },
           activities: draft.activities,
@@ -150,6 +163,7 @@ export const useLogStore = create<LogState>()(
           logs: newLogs,
           draft: {
             mood: null,
+            moodTags: [],
             symptoms: [],
             sleep: null,
             activities: [],
@@ -163,6 +177,7 @@ export const useLogStore = create<LogState>()(
         set({
           draft: {
             mood: null,
+            moodTags: [],
             symptoms: [],
             sleep: null,
             activities: [],

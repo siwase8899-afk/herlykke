@@ -14,6 +14,7 @@ interface CheckinState {
 
   // 섹션 2: 신체 증상 (Q5-Q8)
   physicalSymptoms: string[];
+  symptomSeverityMap: Record<string, number>; // 증상별 심각도 (0-3)
   worstPhysicalSymptom: string;
   symptomSeverity: number;
   symptomOnset: string;
@@ -39,6 +40,7 @@ interface CheckinState {
   setSection: (section: number) => void;
   setField: <K extends keyof CheckinState>(key: K, value: CheckinState[K]) => void;
   toggleSymptom: (type: 'physical' | 'emotional', symptom: string) => void;
+  setSymptomSeverity: (symptom: string, severity: number) => void;
   toggleManagement: (item: string) => void;
   toggleDesiredHelp: (item: string) => void;
   reset: () => void;
@@ -51,6 +53,7 @@ const initialState = {
   livingSituation: '',
   employment: '' as const,
   physicalSymptoms: [] as string[],
+  symptomSeverityMap: {} as Record<string, number>,
   worstPhysicalSymptom: '',
   symptomSeverity: 3,
   symptomOnset: '',
@@ -82,7 +85,19 @@ export const useCheckinStore = create<CheckinState>()(
         const updated = current.includes(symptom)
           ? current.filter((s) => s !== symptom)
           : [...current, symptom];
-        set({ [key]: updated });
+        // 증상 제거 시 심각도도 제거
+        if (type === 'physical' && current.includes(symptom)) {
+          const { [symptom]: _, ...rest } = get().symptomSeverityMap;
+          set({ [key]: updated, symptomSeverityMap: rest });
+        } else {
+          set({ [key]: updated });
+        }
+      },
+
+      setSymptomSeverity: (symptom, severity) => {
+        set({
+          symptomSeverityMap: { ...get().symptomSeverityMap, [symptom]: severity },
+        });
       },
 
       toggleManagement: (item) => {

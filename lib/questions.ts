@@ -1,6 +1,6 @@
 import { PhysicalSymptoms, EmotionalSymptoms } from './constants';
 
-export type QuestionType = 'single' | 'multi' | 'text' | 'scale' | 'boolean';
+export type QuestionType = 'single' | 'multi' | 'text' | 'scale' | 'boolean' | 'severity';
 
 export interface QuestionOption {
   value: string;
@@ -27,7 +27,7 @@ export interface QuestionConfig {
 // 섹션 메타데이터
 export const SECTIONS = [
   { id: 1, label: '나에 대해', emoji: '👤', questionCount: 4 },
-  { id: 2, label: '신체 변화', emoji: '🩺', questionCount: 4 },
+  { id: 2, label: '신체 변화', emoji: '🩺', questionCount: 5 },
   { id: 3, label: '감정 변화', emoji: '💭', questionCount: 3 },
   { id: 4, label: '현재 관리', emoji: '🌿', questionCount: 5 },
   { id: 5, label: '커뮤니티', emoji: '🤝', questionCount: 3 },
@@ -121,13 +121,23 @@ export const QUESTIONS: QuestionConfig[] = [
     id: 6,
     section: 2,
     sectionLabel: '신체 변화',
+    type: 'severity',
+    question: '선택한 증상이 얼마나 자주 나타나나요?',
+    hint: '각 증상의 빈도를 선택해 주세요',
+    storeField: 'symptomSeverityMap',
+    storeAction: 'setSymptomSeverity',
+  },
+  {
+    id: 7,
+    section: 2,
+    sectionLabel: '신체 변화',
     type: 'text',
     question: '가장 힘든 신체 증상은 무엇인가요?',
     placeholder: '예: 밤에 열감이 심해서 잠을 못 자요',
     storeField: 'worstPhysicalSymptom',
   },
   {
-    id: 7,
+    id: 8,
     section: 2,
     sectionLabel: '신체 변화',
     type: 'scale',
@@ -136,7 +146,7 @@ export const QUESTIONS: QuestionConfig[] = [
     scaleLabels: ['전혀 없음', '약간', '보통', '심함', '매우 심함'],
   },
   {
-    id: 8,
+    id: 9,
     section: 2,
     sectionLabel: '신체 변화',
     type: 'single',
@@ -152,9 +162,9 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
 
-  // ── 섹션 3: 감정 변화 (Q9-Q11) ──
+  // ── 섹션 3: 감정 변화 (Q10-Q12) ──
   {
-    id: 9,
+    id: 10,
     section: 3,
     sectionLabel: '감정 변화',
     type: 'multi',
@@ -170,7 +180,7 @@ export const QUESTIONS: QuestionConfig[] = [
     })),
   },
   {
-    id: 10,
+    id: 11,
     section: 3,
     sectionLabel: '감정 변화',
     type: 'text',
@@ -179,7 +189,7 @@ export const QUESTIONS: QuestionConfig[] = [
     storeField: 'worstEmotionalSymptom',
   },
   {
-    id: 11,
+    id: 12,
     section: 3,
     sectionLabel: '감정 변화',
     type: 'single',
@@ -195,9 +205,9 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
 
-  // ── 섹션 4: 현재 관리 (Q12-Q16) ──
+  // ── 섹션 4: 현재 관리 (Q13-Q17) ──
   {
-    id: 12,
+    id: 13,
     section: 4,
     sectionLabel: '현재 관리',
     type: 'multi',
@@ -219,7 +229,7 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
   {
-    id: 13,
+    id: 14,
     section: 4,
     sectionLabel: '현재 관리',
     type: 'scale',
@@ -228,7 +238,7 @@ export const QUESTIONS: QuestionConfig[] = [
     scaleLabels: ['매우 불만', '불만', '보통', '만족', '매우 만족'],
   },
   {
-    id: 14,
+    id: 15,
     section: 4,
     sectionLabel: '현재 관리',
     type: 'text',
@@ -237,7 +247,7 @@ export const QUESTIONS: QuestionConfig[] = [
     storeField: 'mostWantedInfo',
   },
   {
-    id: 15,
+    id: 16,
     section: 4,
     sectionLabel: '현재 관리',
     type: 'multi',
@@ -254,7 +264,7 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
   {
-    id: 16,
+    id: 17,
     section: 4,
     sectionLabel: '현재 관리',
     type: 'single',
@@ -269,9 +279,9 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
 
-  // ── 섹션 5: 커뮤니티 (Q17-Q19) ──
+  // ── 섹션 5: 커뮤니티 (Q18-Q20) ──
   {
-    id: 17,
+    id: 18,
     section: 5,
     sectionLabel: '커뮤니티',
     type: 'boolean',
@@ -284,7 +294,7 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
   {
-    id: 18,
+    id: 19,
     section: 5,
     sectionLabel: '커뮤니티',
     type: 'single',
@@ -301,7 +311,7 @@ export const QUESTIONS: QuestionConfig[] = [
     ],
   },
   {
-    id: 19,
+    id: 20,
     section: 5,
     sectionLabel: '커뮤니티',
     type: 'text',

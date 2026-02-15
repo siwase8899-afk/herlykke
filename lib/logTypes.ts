@@ -15,8 +15,11 @@ export interface DailyLog {
   id: string;
   date: string; // "2026-02-15"
 
-  // 기분 (1-5)
+  // 컨디션 (1-5)
   mood: 1 | 2 | 3 | 4 | 5;
+
+  // 감정 태그 (복수 선택)
+  moodTags: string[];
 
   // 증상
   symptoms: SymptomEntry[];
