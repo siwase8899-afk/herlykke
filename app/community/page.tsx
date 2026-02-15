@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { PollSection } from '@/components/community/PollSection';
 import { TodaySymptomsWidget } from '@/components/community/TodaySymptomsWidget';
 
 // Match 데모 프로필 데이터
@@ -97,6 +96,15 @@ const DEMO_PROFILES = [
 
 type Profile = typeof DEMO_PROFILES[number];
 
+// 탭 정의
+type TabId = 'empathy' | 'kakao' | 'match';
+
+const TABS: { id: TabId; label: string; emoji: string }[] = [
+  { id: 'empathy', label: '증상 공감', emoji: '\uD83D\uDC9C' },
+  { id: 'kakao', label: '카톡 토크방', emoji: '\uD83D\uDCAC' },
+  { id: 'match', label: '친구 찾기', emoji: '\uD83E\uDD1D' },
+];
+
 // 카카오 토크방 데이터
 const KAKAO_ROOMS = [
   {
@@ -140,6 +148,7 @@ export default function CommunityPage() {
 function CommunityContent() {
   const [user, setUser] = useState<{ id: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedTab, setSelectedTab] = useState<TabId>('empathy');
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Match 상태
@@ -165,7 +174,6 @@ function CommunityContent() {
     setLoading(false);
   };
 
-  // 게스트 액션 가드
   const requireAuth = (action: () => void) => {
     if (!user) {
       setShowLoginModal(true);
@@ -174,7 +182,6 @@ function CommunityContent() {
     action();
   };
 
-  // Match 핸들러
   const handleLike = (profile: Profile) => {
     requireAuth(() => {
       setLikedProfiles([...likedProfiles, profile.id]);
@@ -195,100 +202,98 @@ function CommunityContent() {
 
   return (
     <div className="min-h-screen bg-alma-bg">
-      {/* 페이지 헤더 */}
-      <div className="bg-gradient-to-r from-alma-primary to-alma-accent">
-        <div className="max-w-2xl mx-auto px-6 md:px-8 py-8 text-white">
-          <h1 className="text-2xl font-bold mb-1">함께하기</h1>
-          <p className="text-white/80 text-sm">
-            같은 경험을 나누는 가장 편한 방법
-          </p>
+      {/* 페이지 헤더 + 탭 */}
+      <div className="sticky top-16 z-40">
+        <div className="bg-gradient-to-r from-alma-primary to-alma-accent">
+          <div className="max-w-2xl mx-auto px-6 md:px-8 py-5 text-white">
+            <h1 className="text-xl font-bold mb-0.5">함께하기</h1>
+            <p className="text-white/70 text-xs">같은 경험을 나누는 가장 편한 방법</p>
+          </div>
+        </div>
+
+        {/* 탭 네비게이션 */}
+        <div className="bg-white border-b border-alma-border">
+          <div className="max-w-2xl mx-auto px-6 md:px-8 py-2.5">
+            <div className="flex gap-2">
+              {TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedTab(tab.id)}
+                  className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    selectedTab === tab.id
+                      ? 'bg-alma-primary text-white shadow-sm'
+                      : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                  }`}
+                >
+                  <span>{tab.emoji}</span>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 단일 스크롤 페이지 — 4개 섹션 */}
-      <main className="max-w-2xl mx-auto px-6 md:px-8 py-6 space-y-6">
+      {/* 탭 콘텐츠 */}
+      <main className="max-w-2xl mx-auto px-6 md:px-8 py-6">
 
-        {/* 섹션 1: 오늘의 투표 */}
-        <section>
-          <PollSection limit={5} defaultExpanded />
-        </section>
-
-        {/* 섹션 2: 오늘 나도! (증상 공감) */}
-        <section>
+        {/* 증상 공감 탭 */}
+        {selectedTab === 'empathy' && (
           <TodaySymptomsWidget defaultExpanded />
-        </section>
+        )}
 
-        {/* 섹션 3: 카카오 토크방 */}
-        <section className="bg-white rounded-2xl border border-alma-border overflow-hidden">
-          <div className="p-4 pb-3">
-            <div className="flex items-center gap-3 mb-1">
-              <div className="w-7 h-7 rounded-lg bg-[#FEE500]/30 flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-[#3C1E1E]" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-semibold text-alma-text text-sm">카카오 토크방</span>
-                <p className="text-xs text-alma-text-tertiary">실시간 대화는 여기서</p>
+        {/* 카톡 토크방 탭 */}
+        {selectedTab === 'kakao' && (
+          <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+            <div className="p-5 pb-3">
+              <h2 className="font-bold text-alma-text mb-1">증상별 카카오 토크방</h2>
+              <p className="text-xs text-alma-text-secondary">
+                같은 증상을 겪고 있는 분들과 실시간으로 이야기해요
+              </p>
+            </div>
+
+            <div className="px-4 pb-4 space-y-2">
+              {KAKAO_ROOMS.map((room) => (
+                <a
+                  key={room.id}
+                  href={room.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:shadow-sm ${room.color}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg">{room.emoji}</span>
+                    <span className="text-sm font-medium">{room.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs opacity-70">{room.members}명</span>
+                    <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </a>
+              ))}
+
+              <div className="pt-3 border-t border-alma-border mt-3">
+                <p className="text-center text-[11px] text-alma-text-tertiary">
+                  카톡 닉네임으로 편하게 참여하세요
+                </p>
               </div>
             </div>
           </div>
+        )}
 
-          <div className="px-4 pb-4 space-y-2">
-            {KAKAO_ROOMS.map((room) => (
-              <a
-                key={room.id}
-                href={room.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center justify-between p-3.5 rounded-xl border transition-all hover:shadow-sm ${room.color}`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">{room.emoji}</span>
-                  <span className="text-sm font-medium">{room.name}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs opacity-70">{room.members}명</span>
-                  <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </a>
-            ))}
-
-            <p className="text-center text-[11px] text-alma-text-tertiary pt-2">
-              카톡 닉네임으로 편하게 참여하세요
-            </p>
-          </div>
-        </section>
-
-        {/* 섹션 4: 친구 찾기 */}
-        <section className="bg-white rounded-2xl border border-alma-border overflow-hidden">
-          <div className="p-4 pb-0">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-alma-accent/10 flex items-center justify-center flex-shrink-0">
-                <svg className="w-4 h-4 text-alma-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-semibold text-alma-text text-sm">친구 찾기</span>
-                <p className="text-xs text-alma-text-tertiary">증상+상황 기반 3축 매칭</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="px-4 pb-4">
-            <MatchSection
-              profiles={DEMO_PROFILES}
-              likedProfiles={likedProfiles}
-              onLike={handleLike}
-            />
-          </div>
-        </section>
+        {/* 친구 찾기 탭 */}
+        {selectedTab === 'match' && (
+          <MatchSection
+            profiles={DEMO_PROFILES}
+            likedProfiles={likedProfiles}
+            onLike={handleLike}
+          />
+        )}
       </main>
 
-      {/* Login Prompt Modal (게스트용) */}
+      {/* Login Prompt Modal */}
       {showLoginModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
@@ -321,7 +326,7 @@ function CommunityContent() {
         </div>
       )}
 
-      {/* Match Modal — 매칭 성공 + 카톡 오픈채팅 연결 */}
+      {/* Match Modal — 매칭 성공 + 1:1 카톡 대화 */}
       {showMatchModal && matchedProfile && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowMatchModal(false)} />
@@ -358,37 +363,24 @@ function CommunityContent() {
               </div>
             </div>
 
-            {/* 카카오톡 오픈채팅 연결 */}
-            <div className="bg-[#FEE500]/20 rounded-xl p-4 mb-5">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <div className="w-6 h-6 rounded-md bg-[#3C1E1E] flex items-center justify-center">
-                  <svg className="w-3.5 h-3.5 text-[#FEE500]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-semibold text-alma-text">더 편하게 대화하고 싶다면</p>
-              </div>
-              <p className="text-[11px] text-alma-text-tertiary mb-3">
-                같은 증상 토크방에서 실시간으로 이야기해요
-              </p>
-              <a
-                href="#kakao-symptom-chat"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FEE500] text-[#3C1E1E] text-sm font-bold rounded-full hover:bg-[#FDD835] transition-colors"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
-                </svg>
-                카카오톡 토크방 참여하기
-              </a>
-            </div>
+            {/* 1:1 카카오톡 대화 연결 */}
+            <a
+              href="#kakao-1on1-chat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full py-3 bg-[#FEE500] text-[#3C1E1E] text-sm font-bold rounded-xl hover:bg-[#FDD835] transition-colors mb-3"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
+              </svg>
+              카카오톡으로 1:1 대화하기
+            </a>
 
             <button
               onClick={() => setShowMatchModal(false)}
               className="w-full py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
             >
-              닫기
+              나중에
             </button>
           </div>
         </div>
@@ -397,7 +389,7 @@ function CommunityContent() {
   );
 }
 
-// Match Section Component — 프로필 그리드
+// Match Section Component
 function MatchSection({
   profiles,
   likedProfiles,
@@ -409,9 +401,14 @@ function MatchSection({
 }) {
   return (
     <div>
-      {/* 3축 매칭 설명 */}
-      <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-xl p-3.5 mb-4">
-        <div className="flex flex-wrap gap-2">
+      {/* 소개 + 3축 매칭 설명 */}
+      <div className="text-center mb-5">
+        <h2 className="text-lg font-bold text-alma-text mb-1">나를 이해하는 친구 찾기</h2>
+        <p className="text-sm text-alma-text-secondary">증상 + 상황이 비슷한 여성들과 연결돼요</p>
+      </div>
+
+      <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-xl p-3.5 mb-5">
+        <div className="flex flex-wrap gap-2 justify-center">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-alma-primary" />
             증상 클러스터
@@ -432,7 +429,7 @@ function MatchSection({
         {profiles.map((profile) => (
           <div
             key={profile.id}
-            className="bg-alma-bg rounded-xl overflow-hidden border border-alma-border hover:shadow-md transition-all"
+            className="bg-white rounded-xl overflow-hidden border border-alma-border hover:shadow-md transition-all"
           >
             <div className="relative aspect-square">
               <Image

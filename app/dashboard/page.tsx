@@ -7,7 +7,7 @@ import { useAuth } from '@/lib/authContext';
 import { supabase } from '@/lib/supabase';
 import { CONDITION_LEVELS } from '@/lib/dailyLogConstants';
 import { columns } from '@/lib/columnsData';
-import { PollSection } from '@/components/community/PollSection';
+import { TodaySymptomsWidget } from '@/components/community/TodaySymptomsWidget';
 
 // 데모 데이터
 const DEMO_LOGS = [
@@ -173,8 +173,8 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="space-y-3">
-            {/* 오늘의 투표 미리보기 */}
-            <PollSection limit={2} />
+            {/* 오늘의 증상 공감 */}
+            <TodaySymptomsWidget />
 
             {/* 카톡 토크방 참여 CTA */}
             <div className="bg-white rounded-2xl border border-alma-border p-5">
