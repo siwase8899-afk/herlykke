@@ -20,14 +20,14 @@ export function CTAFooter() {
             </svg>
             <span className="flex items-center gap-2 text-white/70 text-sm">
               <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">2</span>
-              맞춤 솔루션
+              커뮤니티
             </span>
             <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="flex items-center gap-2 text-white/70 text-sm">
               <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">3</span>
-              커뮤니티
+              맞춤 솔루션
             </span>
           </div>
 
