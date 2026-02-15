@@ -100,10 +100,10 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="#solve"
+                    href="/columns?category=body"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-primary hover:text-alma-primary-dark transition-colors"
                   >
-                    ALMA는 어떻게 도와줄까?
+                    전문가가 알려주는 몸의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -143,10 +143,10 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="#solve"
+                    href="/columns?category=mind"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-accent hover:text-alma-accent-dark transition-colors"
                   >
-                    ALMA는 어떻게 도와줄까?
+                    전문가가 알려주는 마음의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -177,7 +177,7 @@ export function ProblemSection() {
           </div>
 
           {/* Before → After 전환 */}
-          <div className="grid md:grid-cols-3 gap-10 text-center mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 text-center mb-12">
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">검색하면 건기식 광고뿐</p>
               <p className="text-xl font-bold text-alma-accent">증상 인증 리뷰만</p>
@@ -188,11 +188,22 @@ export function ProblemSection() {
               <p className="text-xl font-bold text-alma-primary">AI가 나의 패턴을 분석</p>
               <p className="text-xs text-white/40 mt-2">기록할수록 더 정확해지는 맞춤 분석</p>
             </div>
-            <div className="p-6">
+            <div className="p-6 lg:border-r border-white/10">
               <p className="text-white/50 text-sm line-through mb-3">말할 데가 없어요</p>
               <p className="text-xl font-bold text-alma-primary">같은 증상의 친구와 익명으로</p>
               <p className="text-xs text-white/40 mt-2">블라인드처럼 안전한 익명 커뮤니티</p>
             </div>
+            <Link href="/solutions" className="group p-6 rounded-2xl hover:bg-white/5 transition-colors">
+              <p className="text-white/50 text-sm line-through mb-3">뭘 해야 할지 모르겠어요</p>
+              <p className="text-xl font-bold text-alma-accent">나에게 맞는 솔루션 추천</p>
+              <p className="text-xs text-white/40 mt-2">코칭, 명상, 운동, 영양 맞춤 큐레이션</p>
+              <span className="inline-flex items-center gap-1 text-xs text-alma-accent/70 mt-3 group-hover:text-alma-accent transition-colors">
+                솔루션 둘러보기
+                <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            </Link>
           </div>
 
           {/* Positive reframe */}

@@ -108,12 +108,20 @@ export function HowItWorks() {
             const href = !isLoggedIn && guestHrefMap[pillar.href]
               ? guestHrefMap[pillar.href]
               : pillar.href;
+            const isSupport = pillar.id === 'support';
             return (
             <Link
               key={pillar.id}
               href={href}
-              className="group relative bg-alma-bg rounded-3xl p-10 border border-alma-border hover:shadow-xl hover:border-alma-primary/30 transition-all overflow-hidden"
+              className={`group relative bg-alma-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-alma-primary/30 ${
+                isSupport ? 'border-alma-accent/30' : 'border-alma-border'
+              }`}
             >
+              {isSupport && (
+                <span className="absolute top-4 right-4 px-2.5 py-1 bg-alma-accent text-white text-[10px] font-bold tracking-wider rounded-full">
+                  추천
+                </span>
+              )}
               <div className={`inline-block px-3 py-1 ${pillar.color} rounded-full text-white text-xs font-bold tracking-wider mb-6`}>
                 {pillar.pillar}
               </div>
