@@ -80,7 +80,7 @@ export const PhysicalSymptoms = [
   { key: 'digestion', label: '소화 장애', emoji: '🤢' },
   { key: 'paresthesia', label: '감각이상 (저림/따끔)', emoji: '🫠' },
   { key: 'dizziness', label: '어지러움', emoji: '💫' },
-  { key: 'formication', label: '개미가 기는 느낌', emoji: '🐜' },
+  { key: 'formication', label: '피부 감각이상 (간지러움/기는 느낌)', emoji: '✨' },
 ] as const;
 
 export const EmotionalSymptoms = [

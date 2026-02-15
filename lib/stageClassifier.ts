@@ -34,7 +34,7 @@ const KUPPERMAN_SYMPTOMS: {
   { key: 'joint_pain',   label: '관절/근육통',       weight: 1, source: 'physical' },
   { key: 'headache',     label: '두통',              weight: 1, source: 'physical' },
   { key: 'palpitation',  label: '심장 두근거림',      weight: 1, source: 'physical' },
-  { key: 'formication',  label: '개미가 기는 느낌',   weight: 1, source: 'physical' },
+  { key: 'formication',  label: '피부 감각이상',   weight: 1, source: 'physical' },
 ];
 
 export type KuppermanLevel = 'normal' | 'mild' | 'moderate' | 'severe';
