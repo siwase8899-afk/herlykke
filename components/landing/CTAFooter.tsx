@@ -32,15 +32,15 @@ export function CTAFooter() {
           </div>
 
           <p className="text-alma-secondary-light mb-3">
-            한국 갱년기 전용 디지털 커뮤니티, 처음입니다
+            &lsquo;나만 이런가?&rsquo; 싶었다면, 아니에요 — 다 그래요
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            나와 비슷한 여성들이
+            여기, &lsquo;나도 그래&rsquo; 하는
             <br />
-            기다리고 있어요
+            사람들이 모여 있어요
           </h2>
           <p className="text-alma-secondary-light/80 mb-12">
-            3분이면 충분해요. 지금 바로 시작해 보세요.
+            3분이면 충분해요. 혼자 끙끙대던 밤, 이제 끝내볼까요?
           </p>
 
           <Link
