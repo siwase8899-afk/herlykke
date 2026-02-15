@@ -225,6 +225,18 @@ export const useLogStore = create<LogState>()(
     }),
     {
       name: 'alma-log-storage',
+      merge: (persisted, current) => {
+        const p = persisted as Partial<LogState> | undefined;
+        return {
+          ...current,
+          ...p,
+          draft: {
+            ...current.draft,
+            ...(p?.draft ?? {}),
+            moodTags: p?.draft?.moodTags ?? [],
+          },
+        };
+      },
     }
   )
 );

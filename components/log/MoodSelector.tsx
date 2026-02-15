@@ -10,7 +10,7 @@ interface MoodSelectorProps {
   onToggleTag: (tagId: string) => void;
 }
 
-export function MoodSelector({ value, onChange, selectedTags, onToggleTag }: MoodSelectorProps) {
+export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }: MoodSelectorProps) {
   return (
     <div className="text-center">
       {/* Layer 1: 전반적 컨디션 */}
