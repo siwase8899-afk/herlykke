@@ -100,10 +100,10 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="/columns?category=body"
+                    href="#solve"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-primary hover:text-alma-primary-dark transition-colors"
                   >
-                    전문가 컬럼 보기
+                    ALMA는 어떻게 도와줄까?
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -143,10 +143,10 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="/columns?category=mind"
+                    href="#solve"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-accent hover:text-alma-accent-dark transition-colors"
                   >
-                    전문가 컬럼 보기
+                    ALMA는 어떻게 도와줄까?
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

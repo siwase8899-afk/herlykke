@@ -77,7 +77,11 @@ export default function InsightsPage() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    // 실제 데이터가 없으면 데모 자동 활성화
+    if (logs.length === 0) {
+      setShowDemo(true);
+    }
+  }, [logs.length]);
 
   // 데모 모드일 때는 데모 데이터 사용
   const displayLogs = showDemo ? DEMO_LOGS : logs;
@@ -139,10 +143,20 @@ export default function InsightsPage() {
 
       {/* 데모 모드 안내 */}
       {showDemo && (
-        <div className="bg-amber-50 border-b border-amber-200 px-5 py-2">
-          <p className="max-w-lg mx-auto text-xs text-amber-700 text-center">
-            데모 데이터로 보고 있어요. 실제 기록을 보려면 "데모" 버튼을 눌러주세요.
-          </p>
+        <div className="bg-alma-accent-light border-b border-alma-accent/20 px-5 py-3">
+          <div className="max-w-lg mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span>✨</span>
+              <p className="text-xs text-alma-text-secondary">
+                {logs.length === 0 ? '미리보기 모드 — 데모 데이터로 서비스를 체험 중이에요' : '데모 데이터로 보고 있어요'}
+              </p>
+            </div>
+            {logs.length === 0 && (
+              <Link href="/checkin" className="px-3 py-1.5 bg-alma-accent text-white text-xs font-bold rounded-full hover:bg-alma-accent/90 transition-colors flex-shrink-0">
+                시작하기
+              </Link>
+            )}
+          </div>
         </div>
       )}
 

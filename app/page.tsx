@@ -33,21 +33,21 @@ export default function Home() {
       {/* Hero */}
       <HeroSection />
 
-      {/* PHASE 1: UNDERSTAND */}
+      {/* PHASE 1: UNDERSTAND — 공감 + 문제 인식 */}
       <div id="understand" className="scroll-mt-20">
         <SymptomGrid />
         <ProblemSection />
       </div>
 
-      {/* PHASE 2: CONNECT — 숫자+후기(감정 피크) 먼저, 기능 소개는 공감 후 */}
-      <div id="connect" className="scroll-mt-20">
-        <ConcreteStats />
-        <SocialProof />
+      {/* PHASE 2: SOLVE — 문제 직후 솔루션 제시, 후기(감정)→숫자(이성) 순 */}
+      <div id="solve" className="scroll-mt-20">
         <HowItWorks />
+        <SocialProof />
+        <ConcreteStats />
       </div>
 
-      {/* PHASE 3: TRANSFORM */}
-      <div id="transform" className="scroll-mt-20">
+      {/* PHASE 3: TRUST — 신뢰 + 전환 */}
+      <div id="trust" className="scroll-mt-20">
         <FounderSection />
         <FAQSection />
         <CTAFooter />

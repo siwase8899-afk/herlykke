@@ -78,11 +78,8 @@ const pillars = [
   },
 ];
 
-// 게스트: auth-gated 페이지(/log, /insights)는 /checkin으로 우회
-const guestHrefMap: Record<string, string> = {
-  '/log': '/checkin',
-  '/insights': '/checkin',
-};
+// 게스트도 각 서비스 페이지를 직접 볼 수 있도록 리다이렉트 없음
+const guestHrefMap: Record<string, string> = {};
 
 export function HowItWorks() {
   const { isLoggedIn } = useAuth();

@@ -126,10 +126,10 @@ export function SymptomGrid() {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/log/new"
+                href="/checkin"
                 className="inline-flex items-center justify-center px-6 py-3 bg-alma-accent text-white font-bold rounded-full hover:bg-alma-accent/90 transition-all shadow-lg shadow-alma-accent/30"
               >
-                오늘 기록하기
+                나의 상태 확인하기
                 <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -150,10 +150,10 @@ export function SymptomGrid() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
-                href="/log/new"
+                href="/checkin"
                 className="inline-flex items-center justify-center px-6 py-3 bg-alma-primary text-white font-semibold rounded-full hover:bg-alma-primary-dark transition-all"
               >
-                오늘 기록 시작하기
+                나의 상태 확인하기
               </Link>
               <Link
                 href="/community"

@@ -6,6 +6,17 @@ import { useSearchParams } from 'next/navigation';
 import { useLogStore } from '@/stores/logStore';
 import { SYMPTOMS, MOOD_OPTIONS } from '@/lib/logTypes';
 
+// 게스트/빈 데이터용 데모 로그
+const DEMO_LOGS = [
+  { id: 'demo_1', date: '2026-02-15', mood: 4, symptoms: [{ symptomId: 'fatigue', severity: 2 }], sleep: { bedTime: '23:00', wakeTime: '07:00', quality: 4 }, activities: ['exercise', 'meditation'] },
+  { id: 'demo_2', date: '2026-02-14', mood: 3, symptoms: [{ symptomId: 'hot_flash', severity: 3 }, { symptomId: 'insomnia', severity: 2 }], sleep: { bedTime: '00:00', wakeTime: '06:00', quality: 2 }, activities: ['caffeine'] },
+  { id: 'demo_3', date: '2026-02-13', mood: 4, symptoms: [{ symptomId: 'fatigue', severity: 2 }], sleep: { bedTime: '22:30', wakeTime: '06:30', quality: 4 }, activities: ['exercise', 'walk'] },
+  { id: 'demo_4', date: '2026-02-12', mood: 2, symptoms: [{ symptomId: 'mood_swings', severity: 4 }, { symptomId: 'anxiety', severity: 3 }], sleep: { bedTime: '01:00', wakeTime: '05:00', quality: 1 }, activities: ['stress'] },
+  { id: 'demo_5', date: '2026-02-11', mood: 3, symptoms: [{ symptomId: 'brain_fog', severity: 2 }], sleep: { bedTime: '23:30', wakeTime: '06:30', quality: 3 }, activities: ['walk'] },
+  { id: 'demo_6', date: '2026-02-10', mood: 5, symptoms: [], sleep: { bedTime: '22:00', wakeTime: '06:30', quality: 5 }, activities: ['exercise', 'meditation', 'walk'] },
+  { id: 'demo_7', date: '2026-02-09', mood: 3, symptoms: [{ symptomId: 'hot_flash', severity: 2 }, { symptomId: 'fatigue', severity: 2 }], sleep: { bedTime: '23:00', wakeTime: '06:00', quality: 3 }, activities: ['caffeine'] },
+];
+
 function LogDashboardContent() {
   const searchParams = useSearchParams();
   const justSaved = searchParams.get('saved') === 'true';
@@ -25,8 +36,12 @@ function LogDashboardContent() {
     );
   }
 
-  const todayLog = getTodayLog();
-  const streakCount = calculateStreak();
+  // 실제 데이터가 없으면 데모 데이터 자동 표시
+  const isDemo = logs.length === 0;
+  const displayLogs = isDemo ? DEMO_LOGS : logs;
+
+  const todayLog = isDemo ? null : getTodayLog();
+  const streakCount = isDemo ? 7 : calculateStreak();
 
   // 오늘 날짜
   const today = new Date();
@@ -38,7 +53,7 @@ function LogDashboardContent() {
   });
 
   // 최근 7일 로그
-  const recentLogs = [...logs]
+  const recentLogs = [...displayLogs]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 7);
 
@@ -54,6 +69,22 @@ function LogDashboardContent() {
             <div>
               <p className="font-semibold text-green-800">기록 완료!</p>
               <p className="text-sm text-green-600">오늘도 잘 기록했어요</p>
+            </div>
+          </div>
+        )}
+
+        {/* 데모 안내 배너 */}
+        {isDemo && (
+          <div className="mb-6 p-4 bg-alma-accent-light border border-alma-accent/20 rounded-2xl">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">✨</span>
+              <div>
+                <p className="text-sm font-semibold text-alma-accent">미리보기 모드</p>
+                <p className="text-xs text-alma-text-secondary">데모 데이터로 서비스를 체험하고 있어요</p>
+              </div>
+              <Link href="/checkin" className="ml-auto px-4 py-2 bg-alma-accent text-white text-xs font-bold rounded-full hover:bg-alma-accent/90 transition-colors flex-shrink-0">
+                시작하기
+              </Link>
             </div>
           </div>
         )}
