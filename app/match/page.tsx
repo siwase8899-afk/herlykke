@@ -7,7 +7,7 @@ export default function MatchRedirectPage() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/community?tab=match');
+    router.replace('/community');
   }, [router]);
 
   return (

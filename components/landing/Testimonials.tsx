@@ -171,7 +171,7 @@ export function Testimonials() {
               href="/community"
               className="px-8 py-3 bg-white text-alma-text font-semibold rounded-full border border-alma-border hover:border-alma-primary/30 hover:text-alma-primary transition-colors"
             >
-              커뮤니티 둘러보기
+              함께하기 둘러보기
             </Link>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { useAuth } from '@/lib/authContext';
 import { supabase } from '@/lib/supabase';
 import { CONDITION_LEVELS } from '@/lib/dailyLogConstants';
 import { columns } from '@/lib/columnsData';
-import { DEMO_POSTS, CATEGORIES, formatTimeAgo } from '@/lib/communityConstants';
+import { PollSection } from '@/components/community/PollSection';
 
 // 데모 데이터
 const DEMO_LOGS = [
@@ -67,9 +67,6 @@ export default function DashboardPage() {
     );
     return columns[dayOfYear % columns.length];
   }, []);
-
-  // 커뮤니티 미리보기 — 최근 3개
-  const recentPosts = DEMO_POSTS.slice(0, 3);
 
   const getConditionEmoji = (condition: number) =>
     CONDITION_LEVELS.find(c => c.value === condition)?.emoji || '😐';
@@ -167,45 +164,41 @@ export default function DashboardPage() {
           </Link>
         </div>
 
-        {/* Section 3: 커뮤니티 미리보기 */}
+        {/* Section 3: 함께하기 미리보기 */}
         <div className="mb-10">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-alma-text">커뮤니티</h2>
+            <h2 className="text-lg font-bold text-alma-text">함께하기</h2>
             <Link href="/community" className="text-sm text-alma-primary hover:underline">
               전체 보기
             </Link>
           </div>
           <div className="space-y-3">
-            {recentPosts.map((post) => {
-              const category = CATEGORIES.find(c => c.id === post.category);
-              return (
-                <Link
-                  key={post.id}
-                  href={`/community/${post.id}`}
-                  className="block bg-white rounded-2xl border border-alma-border p-5 hover:shadow-md transition-all"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${category?.color || ''}`}>
-                          {category?.icon} {category?.label}
-                        </span>
-                        <span className="text-xs text-alma-text-tertiary">
-                          {formatTimeAgo(post.created_at)}
-                        </span>
-                      </div>
-                      <p className="text-sm text-alma-text leading-relaxed line-clamp-2">
-                        {post.content}
-                      </p>
-                      <div className="flex items-center gap-4 mt-2 text-xs text-alma-text-tertiary">
-                        <span>💜 {post.like_count}</span>
-                        <span>💬 {post.comment_count}</span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+            {/* 오늘의 투표 미리보기 */}
+            <PollSection limit={2} />
+
+            {/* 카톡 토크방 참여 CTA */}
+            <div className="bg-white rounded-2xl border border-alma-border p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#FEE500]/30 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-5 h-5 text-[#3C1E1E]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-alma-text">카카오 토크방</p>
+                  <p className="text-xs text-alma-text-secondary">증상별 소그룹에서 실시간 대화</p>
+                </div>
+              </div>
+              <Link
+                href="/community"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#FEE500] text-[#3C1E1E] text-sm font-bold rounded-xl hover:bg-[#FDD835] transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3C6.48 3 2 6.58 2 10.94c0 2.8 1.86 5.27 4.66 6.67-.15.53-.96 3.4-.99 3.62 0 0-.02.16.08.22.1.06.22.01.22.01.29-.04 3.37-2.2 3.9-2.57.69.1 1.4.15 2.13.15 5.52 0 10-3.58 10-7.94S17.52 3 12 3z" />
+                </svg>
+                토크방 참여하기
+              </Link>
+            </div>
           </div>
         </div>
 
