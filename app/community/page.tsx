@@ -1,25 +1,139 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import {
   CATEGORIES,
+  TABS,
   DEMO_POSTS,
   formatTimeAgo,
   generateAnonymousName,
   type Post,
   type CategoryId,
+  type TabId,
 } from '@/lib/communityConstants';
+import { PollSection } from '@/components/community/PollSection';
+
+// Match 데모 프로필 데이터
+const DEMO_PROFILES = [
+  {
+    id: '1',
+    anonymous_name: '따뜻한 햇살',
+    age_group: '40대 초반',
+    stage: '갱년기 전기',
+    situation: '직장인',
+    main_symptoms: ['열감', '수면장애', '피로감'],
+    interests: ['요가', '명상', '독서'],
+    bio: '비슷한 경험을 나눌 친구를 찾고 있어요. 함께 이야기하며 위로받고 싶어요.',
+    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=400&fit=crop&crop=face',
+    match_percent: 92,
+    online: true,
+    match_reason: '같은 증상 3개 · 같은 상황',
+  },
+  {
+    id: '2',
+    anonymous_name: '포근한 바람',
+    age_group: '40대 중반',
+    stage: '갱년기',
+    situation: '직장인',
+    main_symptoms: ['브레인포그', '감정기복', '열감'],
+    interests: ['운동', '요리', '정원가꾸기'],
+    bio: '직장 생활하면서 갱년기 겪고 있어요. 같은 상황인 분들과 소통하고 싶어요.',
+    image: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=400&h=400&fit=crop&crop=face',
+    match_percent: 87,
+    online: false,
+    match_reason: '같은 증상 2개 · 같은 관심사',
+  },
+  {
+    id: '3',
+    anonymous_name: '밝은 달빛',
+    age_group: '50대 초반',
+    stage: '갱년기 후기',
+    situation: '자녀 독립 후',
+    main_symptoms: ['관절통', '피로감', '수면장애'],
+    interests: ['산책', '명상', '뜨개질'],
+    bio: '갱년기 끝자락에 있어요. 경험을 나누고 후배들에게 도움이 되고 싶어요.',
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=400&fit=crop&crop=face',
+    match_percent: 78,
+    online: true,
+    match_reason: '멘토링 가능 · 경험 공유',
+  },
+  {
+    id: '4',
+    anonymous_name: '싱그러운 아침',
+    age_group: '40대 후반',
+    stage: '갱년기',
+    situation: '1인가구',
+    main_symptoms: ['열감', '불안', '피부건조'],
+    interests: ['필라테스', '카페투어', '영화'],
+    bio: '혼자 고민하다가 ALMA를 알게 됐어요. 솔직하게 이야기 나눌 수 있는 친구를 찾아요.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
+    match_percent: 85,
+    online: true,
+    match_reason: '같은 증상 2개 · 같은 상황',
+  },
+  {
+    id: '5',
+    anonymous_name: '고운 꽃잎',
+    age_group: '40대 초반',
+    stage: '갱년기 전기',
+    situation: '재취업 준비',
+    main_symptoms: ['생리불순', '피로감', '두통'],
+    interests: ['요가', '독서', '음악감상'],
+    bio: '최근에 증상이 시작됐어요. 선배님들의 조언이 필요해요!',
+    image: 'https://images.unsplash.com/photo-1606122017369-d782bbb78f32?w=400&h=400&fit=crop&crop=face',
+    match_percent: 90,
+    online: false,
+    match_reason: '같은 단계 · 조언 필요',
+  },
+  {
+    id: '6',
+    anonymous_name: '향기로운 봄',
+    age_group: '50대 초반',
+    stage: '갱년기 후기',
+    situation: '자영업/창업',
+    main_symptoms: ['수면장애', '열감', '관절통'],
+    interests: ['등산', '요가', '봉사활동'],
+    bio: '긍정적인 마인드로 이 시기를 보내고 있어요. 함께 응원해요!',
+    image: 'https://images.unsplash.com/photo-1601288496920-b6154fe3626a?w=400&h=400&fit=crop&crop=face',
+    match_percent: 75,
+    online: true,
+    match_reason: '비슷한 관심사 · 긍정 에너지',
+  },
+];
+
+type Profile = typeof DEMO_PROFILES[number];
 
 export default function CommunityPage() {
-  const router = useRouter();
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
+        <div className="text-alma-text-secondary">로딩 중...</div>
+      </div>
+    }>
+      <CommunityContent />
+    </Suspense>
+  );
+}
+
+function CommunityContent() {
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get('tab') === 'match' ? 'match' : 'polls';
+
   const [posts, setPosts] = useState<Post[]>(DEMO_POSTS);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<CategoryId | 'all'>('all');
+  const [selectedTab, setSelectedTab] = useState<TabId | 'polls' | 'match'>(initialTab);
   const [showWriteModal, setShowWriteModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [user, setUser] = useState<{ id: string } | null>(null);
+
+  // Match 상태
+  const [likedProfiles, setLikedProfiles] = useState<string[]>([]);
+  const [showMatchModal, setShowMatchModal] = useState(false);
+  const [matchedProfile, setMatchedProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
     loadData();
@@ -35,7 +149,6 @@ export default function CommunityPage() {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setUser(user);
-      // Load real posts from Supabase
       const { data } = await supabase
         .from('posts')
         .select('*')
@@ -48,12 +161,37 @@ export default function CommunityPage() {
         setPosts(data);
       }
     }
+    // 게스트도 데모 데이터로 볼 수 있도록 user 없어도 로딩 완료
     setLoading(false);
   };
 
-  const filteredPosts = selectedCategory === 'all'
-    ? posts
-    : posts.filter(post => post.category === selectedCategory);
+  // 게스트 액션 가드: 로그인 필요 시 모달 표시
+  const requireAuth = (action: () => void) => {
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
+    action();
+  };
+
+  // Match 핸들러
+  const handleLike = (profile: Profile) => {
+    requireAuth(() => {
+      setLikedProfiles([...likedProfiles, profile.id]);
+      if (Math.random() > 0.5) {
+        setMatchedProfile(profile);
+        setShowMatchModal(true);
+      }
+    });
+  };
+
+  // 선택된 탭에 해당하는 카테고리들 가져오기
+  const selectedTabData = TABS.find(tab => tab.id === selectedTab);
+  const filteredPosts = selectedTab === 'polls' || selectedTab === 'match'
+    ? []
+    : selectedTabData
+      ? posts.filter(post => selectedTabData.categories.includes(post.category))
+      : [];
 
   const pinnedPosts = filteredPosts.filter(post => post.is_pinned);
   const regularPosts = filteredPosts.filter(post => !post.is_pinned);
@@ -72,120 +210,120 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen bg-alma-bg">
-      {/* Header */}
-      <header className="sticky top-0 z-50 px-5 py-4 border-b border-alma-border bg-white/80 backdrop-blur-lg">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <Link href="/dashboard" className="text-alma-text-tertiary hover:text-alma-text transition-colors">
-            ← 대시보드
-          </Link>
-          <h1 className="font-bold text-alma-text">커뮤니티</h1>
-          <button
-            onClick={() => setShowWriteModal(true)}
-            className="text-alma-primary font-medium hover:underline"
-          >
-            글쓰기
-          </button>
+      {/* Secret Talks 고정 헤더 */}
+      <div className="sticky top-16 z-40">
+        <div className="bg-gradient-to-r from-alma-secondary to-alma-secondary-dark">
+          <div className="max-w-2xl mx-auto px-6 md:px-8 py-3 flex items-center justify-between text-white">
+            <div className="flex items-center gap-2">
+              <span className="text-lg">🔐</span>
+              <div>
+                <p className="text-sm font-semibold">Secret Talks</p>
+                <p className="text-[10px] text-white/70">100% 익명 · 안전한 공간</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-sm font-bold">{posts.length}+</p>
+              <p className="text-[10px] text-white/70">대화 중</p>
+            </div>
+          </div>
         </div>
-      </header>
 
-      {/* Category Filter */}
-      <div className="sticky top-[57px] z-40 bg-white border-b border-alma-border">
-        <div className="max-w-2xl mx-auto px-5 py-3">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === 'all'
-                  ? 'bg-alma-primary text-white'
-                  : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
-              }`}
-            >
-              전체
-            </button>
-            {CATEGORIES.map(category => (
+        {/* Tab Filter - 4개 탭 (투표 | 일상·응원 | 정보·질문 | 친구 찾기) */}
+        <div className="bg-white border-b border-alma-border">
+          <div className="max-w-2xl mx-auto px-6 md:px-8 py-3">
+            <div className="flex gap-2">
               <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedCategory === category.id
+                onClick={() => setSelectedTab('polls')}
+                className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedTab === 'polls'
                     ? 'bg-alma-primary text-white'
                     : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
                 }`}
               >
-                {category.icon} {category.label}
+                📊 투표
               </button>
-            ))}
+              {TABS.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedTab(tab.id)}
+                  className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                    selectedTab === tab.id
+                      ? 'bg-alma-primary text-white'
+                      : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                  }`}
+                >
+                  {tab.icon} {tab.label}
+                </button>
+              ))}
+              <button
+                onClick={() => setSelectedTab('match')}
+                className={`flex-1 px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedTab === 'match'
+                    ? 'bg-alma-primary text-white'
+                    : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                }`}
+              >
+                👋 친구 찾기
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Posts List */}
-      <main className="max-w-2xl mx-auto px-5 py-4">
-        {/* Flo 인사이트: Secret Chats 스타일 익명 커뮤니티 배너 */}
-        <div className="bg-gradient-to-br from-alma-secondary to-alma-secondary-dark rounded-2xl p-5 mb-4 text-white">
-          {/* 헤더 */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🔐</span>
-              <div>
-                <p className="text-sm font-bold">Secret Talks</p>
-                <p className="text-xs text-white/70">익명 대화 공간</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className="text-lg font-bold text-alma-accent">{posts.length}+</p>
-              <p className="text-xs text-white/70">대화 중</p>
-            </div>
-          </div>
-
-          {/* 핵심 메시지 */}
-          <p className="text-sm text-white/90 mb-4 leading-relaxed">
-            솔직하게 말하기 어려웠던 이야기들,
-            <br />
-            <span className="font-semibold text-alma-accent">여기서는 편하게 나눌 수 있어요.</span>
-          </p>
-
-          {/* 익명 보장 태그 */}
-          <div className="flex flex-wrap gap-2">
-            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
-              🔒 100% 익명
-            </span>
-            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
-              👤 자동 닉네임
-            </span>
-            <span className="px-3 py-1 bg-white/10 rounded-full text-xs">
-              🛡️ 안전한 공간
-            </span>
-          </div>
-        </div>
-
-        {/* Pinned Posts */}
-        {pinnedPosts.length > 0 && (
-          <div className="mb-4">
-            {pinnedPosts.map(post => (
-              <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} isPinned />
-            ))}
+      <main className="max-w-2xl mx-auto px-6 md:px-8 py-6">
+        {/* 오늘의 투표 탭 */}
+        {selectedTab === 'polls' && (
+          <div className="mb-6">
+            <PollSection limit={5} defaultExpanded />
           </div>
         )}
 
-        {/* Regular Posts */}
-        <div className="space-y-3">
-          {regularPosts.length === 0 ? (
-            <div className="bg-white rounded-2xl p-8 border border-alma-border text-center">
-              <p className="text-alma-text-secondary">아직 게시글이 없어요.</p>
-              <button
-                onClick={() => setShowWriteModal(true)}
-                className="mt-4 px-6 py-2 bg-alma-primary text-white rounded-full text-sm font-medium"
-              >
-                첫 글 작성하기
-              </button>
+        {/* 친구 찾기 탭 (기존 /match 통합) */}
+        {selectedTab === 'match' && (
+          <MatchSection
+            profiles={DEMO_PROFILES}
+            likedProfiles={likedProfiles}
+            onLike={handleLike}
+            onShowMatchModal={(profile) => {
+              setMatchedProfile(profile);
+              setShowMatchModal(true);
+            }}
+          />
+        )}
+
+        {/* 게시글 목록 - 투표/매치 탭이 아닐 때만 */}
+        {selectedTab !== 'polls' && selectedTab !== 'match' && (
+          <>
+            {/* Pinned Posts */}
+            {pinnedPosts.length > 0 && (
+              <div className="mb-4">
+                {pinnedPosts.map(post => (
+                  <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} isPinned />
+                ))}
+              </div>
+            )}
+
+            {/* Regular Posts */}
+            <div className="space-y-3">
+              {regularPosts.length === 0 ? (
+                <div className="bg-white rounded-2xl p-8 border border-alma-border text-center">
+                  <p className="text-alma-text-secondary">아직 게시글이 없어요.</p>
+                  <button
+                    onClick={() => requireAuth(() => setShowWriteModal(true))}
+                    className="mt-4 px-6 py-2 bg-alma-primary text-white rounded-full text-sm font-medium"
+                  >
+                    첫 글 작성하기
+                  </button>
+                </div>
+              ) : (
+                regularPosts.map(post => (
+                  <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} />
+                ))
+              )}
             </div>
-          ) : (
-            regularPosts.map(post => (
-              <PostCard key={post.id} post={post} getCategoryInfo={getCategoryInfo} />
-            ))
-          )}
-        </div>
+          </>
+        )}
       </main>
 
       {/* Write Modal */}
@@ -194,7 +332,6 @@ export default function CommunityPage() {
           onClose={() => setShowWriteModal(false)}
           onSubmit={async (newPost) => {
             if (!isSupabaseConfigured) {
-              // Demo mode - add locally
               const demoPost: Post = {
                 id: `demo-${Date.now()}`,
                 user_id: 'demo',
@@ -217,9 +354,8 @@ export default function CommunityPage() {
               return;
             }
 
-            // Real Supabase insert
             if (user) {
-              const { data, error } = await supabase
+              const { data } = await supabase
                 .from('posts')
                 .insert({
                   user_id: user.id,
@@ -240,15 +376,208 @@ export default function CommunityPage() {
         />
       )}
 
-      {/* Floating Write Button (Mobile) */}
-      <button
-        onClick={() => setShowWriteModal(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 bg-alma-primary text-white rounded-full shadow-lg hover:bg-alma-primary-dark transition-all flex items-center justify-center md:hidden"
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-      </button>
+      {/* Login Prompt Modal (게스트용) */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
+          <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
+            <div className="text-5xl mb-4">🔐</div>
+            <h2 className="text-xl font-bold text-alma-text mb-2">로그인이 필요해요</h2>
+            <p className="text-sm text-alma-text-secondary mb-6">
+              글쓰기, 댓글, 좋아요는 회원만 이용할 수 있어요.<br />
+              무료 가입하고 함께 이야기 나눠요!
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="flex-1 py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
+              >
+                둘러볼게요
+              </button>
+              <Link
+                href="/signup"
+                className="flex-1 py-3 bg-alma-primary text-white font-medium rounded-xl hover:bg-alma-primary-dark transition-colors text-center"
+              >
+                로그인하기
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Match Modal */}
+      {showMatchModal && matchedProfile && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowMatchModal(false)} />
+          <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
+            <div className="text-6xl mb-4">🎉</div>
+            <h2 className="text-2xl font-bold text-alma-text mb-2">매치됐어요!</h2>
+            <p className="text-alma-text-secondary mb-6">
+              <span className="font-semibold text-alma-primary">{matchedProfile.anonymous_name}</span>님도
+              회원님에게 관심을 보였어요!
+            </p>
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-alma-primary">
+                <Image
+                  src={matchedProfile.image}
+                  alt={matchedProfile.anonymous_name}
+                  width={80}
+                  height={80}
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="bg-alma-bg rounded-xl p-4 mb-6">
+              <p className="text-xs text-alma-text-tertiary mb-2">공통 관심 증상</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {matchedProfile.main_symptoms.slice(0, 2).map((symptom, i) => (
+                  <span key={i} className="px-3 py-1 bg-alma-primary-light text-alma-primary rounded-full text-sm">
+                    {symptom}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowMatchModal(false)}
+                className="flex-1 py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
+              >
+                나중에
+              </button>
+              <button
+                onClick={() => {
+                  setShowMatchModal(false);
+                  setSelectedTab('daily-support');
+                }}
+                className="flex-1 py-3 bg-alma-primary text-white font-medium rounded-xl hover:bg-alma-primary-dark transition-colors"
+              >
+                대화하기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Write Button (Mobile) - 게스트일 때 로그인 유도 */}
+      {selectedTab !== 'match' && (
+        <button
+          onClick={() => requireAuth(() => setShowWriteModal(true))}
+          className="fixed bottom-6 right-6 w-14 h-14 bg-alma-primary text-white rounded-full shadow-lg hover:bg-alma-primary-dark transition-all flex items-center justify-center md:hidden"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+      )}
+    </div>
+  );
+}
+
+// Match Section Component (기존 /match 페이지 내용을 탭으로)
+function MatchSection({
+  profiles,
+  likedProfiles,
+  onLike,
+}: {
+  profiles: Profile[];
+  likedProfiles: string[];
+  onLike: (profile: Profile) => void;
+  onShowMatchModal: (profile: Profile) => void;
+}) {
+  return (
+    <div>
+      {/* 매칭 소개 */}
+      <div className="text-center mb-6">
+        <h2 className="text-xl font-bold text-alma-text mb-1">
+          나를 이해하는 친구 찾기
+        </h2>
+        <p className="text-sm text-alma-text-secondary mb-3">
+          증상 + 상황이 비슷한 여성들과 연결돼요
+        </p>
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-alma-accent-light rounded-full">
+          <span className="text-lg">⚡</span>
+          <span className="text-sm text-alma-accent font-semibold">평균 응답 시간 47분</span>
+        </div>
+      </div>
+
+      {/* 3축 매칭 설명 */}
+      <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-2xl p-4 mb-6">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-10 h-10 rounded-full bg-alma-primary flex items-center justify-center flex-shrink-0">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-sm font-bold text-alma-text">3축 매칭 시스템</p>
+            <p className="text-xs text-alma-text-secondary">
+              체크인 데이터 기반 증상 + 상황 + 관심사 매칭
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
+            🩺 증상 클러스터
+          </span>
+          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-accent font-medium">
+            💼 생활 상황
+          </span>
+          <span className="px-3 py-1 bg-white/80 rounded-full text-xs text-alma-secondary font-medium">
+            ⭐ 관심사
+          </span>
+        </div>
+      </div>
+
+      {/* 프로필 그리드 */}
+      <div className="grid grid-cols-2 gap-4">
+        {profiles.map((profile) => (
+          <div
+            key={profile.id}
+            className="bg-white rounded-2xl overflow-hidden border border-alma-border hover:shadow-lg transition-all"
+          >
+            <div className="relative aspect-square">
+              <Image
+                src={profile.image}
+                alt={profile.anonymous_name}
+                fill
+                className="object-cover"
+              />
+              {profile.online && (
+                <span className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+              )}
+              <div className="absolute top-2 left-2 bg-alma-primary px-2 py-0.5 rounded-full">
+                <span className="text-xs font-bold text-white">{profile.match_percent}%</span>
+              </div>
+            </div>
+            <div className="p-3">
+              <h3 className="font-semibold text-alma-text text-sm truncate">{profile.anonymous_name}</h3>
+              <p className="text-xs text-alma-text-tertiary">{profile.age_group}</p>
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <span className="text-xs px-2 py-0.5 bg-alma-accent-light text-alma-accent rounded-full">
+                  {profile.situation}
+                </span>
+                <span className="text-xs text-alma-text-tertiary">{profile.stage}</span>
+              </div>
+              <p className="text-xs text-alma-primary mt-2 line-clamp-1">
+                ✓ {profile.match_reason}
+              </p>
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={() => onLike(profile)}
+                  disabled={likedProfiles.includes(profile.id)}
+                  className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
+                    likedProfiles.includes(profile.id)
+                      ? 'bg-green-100 text-green-600'
+                      : 'bg-alma-primary text-white hover:bg-alma-primary-dark'
+                  }`}
+                >
+                  {likedProfiles.includes(profile.id) ? '좋아요!' : '좋아요'}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

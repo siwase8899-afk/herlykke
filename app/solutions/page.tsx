@@ -505,7 +505,7 @@ export default function SolutionsPage() {
             오늘 기록하기
           </Link>
           <Link
-            href="/match"
+            href="/community?tab=match"
             className="flex-1 py-3 bg-alma-primary text-white font-bold rounded-xl text-center hover:bg-alma-primary-dark transition-all"
           >
             비슷한 친구 찾기

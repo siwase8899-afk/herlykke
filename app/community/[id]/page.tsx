@@ -27,6 +27,7 @@ export default function PostDetailPage() {
   const [newComment, setNewComment] = useState('');
   const [replyTo, setReplyTo] = useState<{ id: string; name: string } | null>(null);
   const [isLiked, setIsLiked] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -34,7 +35,7 @@ export default function PostDetailPage() {
 
   const loadData = async () => {
     if (!isSupabaseConfigured) {
-      // Demo mode
+      // Demo mode - 게스트/회원 모두 데모 데이터로 접근 가능
       setUser({ id: 'demo' });
       const demoPost = DEMO_POSTS.find(p => p.id === postId);
       if (demoPost) {
@@ -45,27 +46,30 @@ export default function PostDetailPage() {
       return;
     }
 
+    // Supabase 모드: 게스트도 게시글 읽기 가능
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setUser(user);
+    }
 
-      // Load post
-      const { data: postData } = await supabase
+    // 게시글 로드 (로그인 여부와 관계없이)
+    const { data: postData } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', postId)
+      .single();
+
+    if (postData) {
+      setPost(postData);
+
+      // Increment view count
+      await supabase
         .from('posts')
-        .select('*')
-        .eq('id', postId)
-        .single();
+        .update({ view_count: postData.view_count + 1 })
+        .eq('id', postId);
 
-      if (postData) {
-        setPost(postData);
-
-        // Increment view count
-        await supabase
-          .from('posts')
-          .update({ view_count: postData.view_count + 1 })
-          .eq('id', postId);
-
-        // Check if user liked this post
+      // 로그인된 경우만 좋아요 확인
+      if (user) {
         const { data: likeData } = await supabase
           .from('likes')
           .select('id')
@@ -74,98 +78,107 @@ export default function PostDetailPage() {
           .single();
 
         setIsLiked(!!likeData);
+      }
 
-        // Load comments
-        const { data: commentsData } = await supabase
-          .from('comments')
-          .select('*')
-          .eq('post_id', postId)
-          .eq('is_hidden', false)
-          .order('created_at', { ascending: true });
+      // Load comments (모두 접근 가능)
+      const { data: commentsData } = await supabase
+        .from('comments')
+        .select('*')
+        .eq('post_id', postId)
+        .eq('is_hidden', false)
+        .order('created_at', { ascending: true });
 
-        if (commentsData) {
-          setComments(commentsData);
-        }
+      if (commentsData) {
+        setComments(commentsData);
       }
     }
     setLoading(false);
   };
 
-  const handleLike = async () => {
-    if (!user || !post) return;
-
-    if (!isSupabaseConfigured) {
-      // Demo mode
-      setIsLiked(!isLiked);
-      setPost({
-        ...post,
-        like_count: isLiked ? post.like_count - 1 : post.like_count + 1,
-      });
+  // 게스트 액션 가드
+  const requireAuth = (action: () => void) => {
+    if (!user) {
+      setShowLoginModal(true);
       return;
     }
+    action();
+  };
 
-    if (isLiked) {
-      // Unlike
-      await supabase
-        .from('likes')
-        .delete()
-        .eq('user_id', user.id)
-        .eq('post_id', post.id);
+  const handleLike = async () => {
+    requireAuth(async () => {
+      if (!user || !post) return;
 
-      setIsLiked(false);
-      setPost({ ...post, like_count: post.like_count - 1 });
-    } else {
-      // Like
-      await supabase
-        .from('likes')
-        .insert({ user_id: user.id, post_id: post.id });
+      if (!isSupabaseConfigured) {
+        setIsLiked(!isLiked);
+        setPost({
+          ...post,
+          like_count: isLiked ? post.like_count - 1 : post.like_count + 1,
+        });
+        return;
+      }
 
-      setIsLiked(true);
-      setPost({ ...post, like_count: post.like_count + 1 });
-    }
+      if (isLiked) {
+        await supabase
+          .from('likes')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('post_id', post.id);
+
+        setIsLiked(false);
+        setPost({ ...post, like_count: post.like_count - 1 });
+      } else {
+        await supabase
+          .from('likes')
+          .insert({ user_id: user.id, post_id: post.id });
+
+        setIsLiked(true);
+        setPost({ ...post, like_count: post.like_count + 1 });
+      }
+    });
   };
 
   const handleSubmitComment = async () => {
-    if (!user || !post || !newComment.trim()) return;
+    requireAuth(async () => {
+      if (!user || !post || !newComment.trim()) return;
 
-    const commentData = {
-      post_id: post.id,
-      user_id: user.id,
-      parent_id: replyTo?.id || null,
-      anonymous_name: generateAnonymousName(),
-      content: newComment.trim(),
-    };
-
-    if (!isSupabaseConfigured) {
-      // Demo mode
-      const demoComment: Comment = {
-        id: `demo-${Date.now()}`,
-        ...commentData,
-        like_count: 0,
-        is_hidden: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        is_mine: true,
+      const commentData = {
+        post_id: post.id,
+        user_id: user.id,
+        parent_id: replyTo?.id || null,
+        anonymous_name: generateAnonymousName(),
+        content: newComment.trim(),
       };
-      setComments([...comments, demoComment]);
-      setPost({ ...post, comment_count: post.comment_count + 1 });
-      setNewComment('');
-      setReplyTo(null);
-      return;
-    }
 
-    const { data, error } = await supabase
-      .from('comments')
-      .insert(commentData)
-      .select()
-      .single();
+      if (!isSupabaseConfigured) {
+        const demoComment: Comment = {
+          id: `demo-${Date.now()}`,
+          ...commentData,
+          like_count: 0,
+          is_hidden: false,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          is_mine: true,
+        };
+        setComments([...comments, demoComment]);
+        setPost({ ...post, comment_count: post.comment_count + 1 });
+        setNewComment('');
+        setReplyTo(null);
+        return;
+      }
 
-    if (data) {
-      setComments([...comments, { ...data, is_mine: true }]);
-      setPost({ ...post, comment_count: post.comment_count + 1 });
-      setNewComment('');
-      setReplyTo(null);
-    }
+      const { data } = await supabase
+        .from('comments')
+        .insert(commentData)
+        .select()
+        .single();
+
+      if (data) {
+        setComments([...comments, { ...data, is_mine: true }]);
+        setPost({ ...post, comment_count: post.comment_count + 1 });
+        setNewComment('');
+        setReplyTo(null);
+      }
+    });
   };
 
   const getCategoryInfo = (categoryId: CategoryId) => {
@@ -313,7 +326,7 @@ export default function PostDetailPage() {
                 <div key={comment.id}>
                   <CommentCard
                     comment={comment}
-                    onReply={() => setReplyTo({ id: comment.id, name: comment.anonymous_name })}
+                    onReply={() => requireAuth(() => setReplyTo({ id: comment.id, name: comment.anonymous_name }))}
                   />
                   {/* Replies */}
                   {repliesMap[comment.id] && (
@@ -334,45 +347,85 @@ export default function PostDetailPage() {
         </section>
       </main>
 
-      {/* Comment Input */}
+      {/* Comment Input - 게스트일 때 가입 유도 메시지 */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-alma-border px-5 py-3 z-50">
         <div className="max-w-2xl mx-auto">
-          {replyTo && (
-            <div className="flex items-center justify-between mb-2 px-2">
-              <span className="text-xs text-alma-text-secondary">
-                <span className="text-alma-primary">{replyTo.name}</span>님에게 답글 작성 중
-              </span>
-              <button
-                onClick={() => setReplyTo(null)}
-                className="text-xs text-alma-text-tertiary hover:text-alma-text"
-              >
-                취소
-              </button>
-            </div>
-          )}
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSubmitComment()}
-              placeholder={replyTo ? '답글을 입력하세요...' : '댓글을 입력하세요...'}
-              className="flex-1 px-4 py-3 bg-alma-bg border border-alma-border rounded-xl focus:outline-none focus:ring-2 focus:ring-alma-primary/20 focus:border-alma-primary text-alma-text placeholder:text-alma-text-tertiary"
-            />
-            <button
-              onClick={handleSubmitComment}
-              disabled={!newComment.trim()}
-              className={`px-5 py-3 rounded-xl font-medium transition-all ${
-                newComment.trim()
-                  ? 'bg-alma-primary text-white hover:bg-alma-primary-dark'
-                  : 'bg-alma-border text-alma-text-tertiary'
-              }`}
+          {!user ? (
+            <Link
+              href="/signup"
+              className="block w-full py-3 bg-alma-primary text-white font-medium rounded-xl text-center hover:bg-alma-primary-dark transition-colors"
             >
-              등록
-            </button>
-          </div>
+              로그인하고 이야기 나누기
+            </Link>
+          ) : (
+            <>
+              {replyTo && (
+                <div className="flex items-center justify-between mb-2 px-2">
+                  <span className="text-xs text-alma-text-secondary">
+                    <span className="text-alma-primary">{replyTo.name}</span>님에게 답글 작성 중
+                  </span>
+                  <button
+                    onClick={() => setReplyTo(null)}
+                    className="text-xs text-alma-text-tertiary hover:text-alma-text"
+                  >
+                    취소
+                  </button>
+                </div>
+              )}
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSubmitComment()}
+                  placeholder={replyTo ? '답글을 입력하세요...' : '댓글을 입력하세요...'}
+                  className="flex-1 px-4 py-3 bg-alma-bg border border-alma-border rounded-xl focus:outline-none focus:ring-2 focus:ring-alma-primary/20 focus:border-alma-primary text-alma-text placeholder:text-alma-text-tertiary"
+                />
+                <button
+                  onClick={handleSubmitComment}
+                  disabled={!newComment.trim()}
+                  className={`px-5 py-3 rounded-xl font-medium transition-all ${
+                    newComment.trim()
+                      ? 'bg-alma-primary text-white hover:bg-alma-primary-dark'
+                      : 'bg-alma-border text-alma-text-tertiary'
+                  }`}
+                >
+                  등록
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
+
+      {/* Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
+          <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
+            <div className="text-5xl mb-4">🔐</div>
+            <h2 className="text-xl font-bold text-alma-text mb-2">로그인이 필요해요</h2>
+            <p className="text-sm text-alma-text-secondary mb-6">
+              댓글과 좋아요는 회원만 이용할 수 있어요.<br />
+              무료 가입하고 함께 이야기 나눠요!
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowLoginModal(false)}
+                className="flex-1 py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
+              >
+                둘러볼게요
+              </button>
+              <Link
+                href="/signup"
+                className="flex-1 py-3 bg-alma-primary text-white font-medium rounded-xl hover:bg-alma-primary-dark transition-colors text-center"
+              >
+                로그인하기
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

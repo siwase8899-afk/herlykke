@@ -1,10 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { useAuth } from '@/lib/authContext';
+import { supabase } from '@/lib/supabase';
 import { CONDITION_LEVELS } from '@/lib/dailyLogConstants';
+import { columns } from '@/lib/columnsData';
+import { DEMO_POSTS, CATEGORIES, formatTimeAgo } from '@/lib/communityConstants';
 
 // 데모 데이터
 const DEMO_LOGS = [
@@ -17,71 +20,72 @@ const DEMO_LOGS = [
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<{ email?: string; user_metadata?: { name?: string } } | null>(null);
+  const { user, isLoggedIn, isLoading: authLoading, isDemo } = useAuth();
   const [logs, setLogs] = useState(DEMO_LOGS);
-  const [loading, setLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
   const [todayLogged, setTodayLogged] = useState(false);
 
+  // 비로그인 → /login 리다이렉트
   useEffect(() => {
-    checkUser();
+    if (!authLoading && !isLoggedIn) {
+      router.replace('/login');
+    }
+  }, [authLoading, isLoggedIn, router]);
+
+  // 로그 데이터 로드
+  useEffect(() => {
+    if (authLoading || !isLoggedIn) return;
+
+    if (isDemo) {
+      setDataLoading(false);
+      return;
+    }
+
+    const fetchLogs = async () => {
+      const { data } = await supabase
+        .from('daily_logs')
+        .select('*')
+        .eq('user_id', user!.id)
+        .order('log_date', { ascending: false })
+        .limit(30);
+
+      if (data) {
+        setLogs(data);
+        const today = new Date().toISOString().split('T')[0];
+        setTodayLogged(data.some(log => log.log_date === today));
+      }
+      setDataLoading(false);
+    };
+
+    fetchLogs();
+  }, [authLoading, isLoggedIn, isDemo, user]);
+
+  // 오늘의 컬럼 — 날짜 기반 1개 추천
+  const todayColumn = useMemo(() => {
+    const dayOfYear = Math.floor(
+      (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
+    );
+    return columns[dayOfYear % columns.length];
   }, []);
 
-  const checkUser = async () => {
-    if (!isSupabaseConfigured) {
-      // Demo mode
-      setUser({ email: 'demo@alma.com', user_metadata: { name: '데모 사용자' } });
-      setLoading(false);
-      return;
-    }
+  // 커뮤니티 미리보기 — 최근 3개
+  const recentPosts = DEMO_POSTS.slice(0, 3);
 
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      router.push('/login');
-      return;
-    }
-    setUser(user);
+  const getConditionEmoji = (condition: number) =>
+    CONDITION_LEVELS.find(c => c.value === condition)?.emoji || '😐';
 
-    // Fetch logs
-    const { data } = await supabase
-      .from('daily_logs')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('log_date', { ascending: false })
-      .limit(30);
+  const getConditionColor = (condition: number) =>
+    CONDITION_LEVELS.find(c => c.value === condition)?.color || 'bg-gray-300';
 
-    if (data) {
-      setLogs(data);
-      // Check if today is logged
-      const today = new Date().toISOString().split('T')[0];
-      setTodayLogged(data.some(log => log.log_date === today));
-    }
-
-    setLoading(false);
-  };
-
-  const handleLogout = async () => {
-    if (isSupabaseConfigured) {
-      await supabase.auth.signOut();
-    }
-    router.push('/');
-  };
-
-  const getConditionEmoji = (condition: number) => {
-    return CONDITION_LEVELS.find(c => c.value === condition)?.emoji || '😐';
-  };
-
-  const getConditionColor = (condition: number) => {
-    return CONDITION_LEVELS.find(c => c.value === condition)?.color || 'bg-gray-300';
-  };
-
-  // Calculate stats
+  // Stats
   const avgCondition = logs.length > 0
     ? (logs.reduce((sum, log) => sum + (log.overall_condition || 0), 0) / logs.length).toFixed(1)
     : '-';
+  const streakDays = logs.length;
 
-  const streakDays = logs.length; // Simplified
+  const displayName = user?.user_metadata?.name || '회원';
 
-  if (loading) {
+  if (authLoading || !isLoggedIn || dataLoading) {
     return (
       <div className="min-h-screen bg-alma-bg flex items-center justify-center">
         <div className="text-alma-text-secondary">로딩 중...</div>
@@ -91,32 +95,11 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-alma-bg">
-      {/* Header */}
-      <header className="sticky top-0 z-50 px-5 py-4 border-b border-alma-border bg-white/80 backdrop-blur-lg">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-2xl font-bold text-alma-primary">
-            ALMA
-          </Link>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-alma-text-secondary">
-              {user?.user_metadata?.name || user?.email?.split('@')[0]}님
-            </span>
-            <button
-              onClick={handleLogout}
-              className="text-sm text-alma-text-tertiary hover:text-alma-text transition-colors"
-            >
-              로그아웃
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main */}
-      <main className="max-w-4xl mx-auto px-5 py-8">
-        {/* Welcome & CTA */}
-        <div className="bg-gradient-to-br from-alma-primary to-alma-accent rounded-3xl p-8 text-white mb-8">
+      <main className="max-w-4xl mx-auto px-6 md:px-8 py-10">
+        {/* Section 1: 환영 + 오늘 기록하기 CTA */}
+        <div className="bg-gradient-to-br from-alma-primary to-alma-accent rounded-3xl p-8 md:p-10 text-white mb-10">
           <h1 className="text-2xl font-bold mb-2">
-            안녕하세요, {user?.user_metadata?.name || '회원'}님!
+            안녕하세요, {displayName}님!
           </h1>
           <p className="text-white/80 mb-6">
             {todayLogged
@@ -125,7 +108,7 @@ export default function DashboardPage() {
           </p>
           {!todayLogged && (
             <Link
-              href="/log"
+              href="/log/new"
               className="inline-flex items-center gap-2 px-6 py-3 bg-white text-alma-primary font-bold rounded-xl hover:bg-white/90 transition-all"
             >
               오늘 기록하기
@@ -136,77 +119,172 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="bg-white rounded-2xl p-5 border border-alma-border text-center">
-            <p className="text-3xl font-bold text-alma-primary">{logs.length}</p>
-            <p className="text-sm text-alma-text-secondary mt-1">기록 횟수</p>
-          </div>
-          <div className="bg-white rounded-2xl p-5 border border-alma-border text-center">
-            <p className="text-3xl font-bold text-alma-accent">{avgCondition}</p>
-            <p className="text-sm text-alma-text-secondary mt-1">평균 컨디션</p>
-          </div>
-          <div className="bg-white rounded-2xl p-5 border border-alma-border text-center">
-            <p className="text-3xl font-bold text-alma-secondary">{streakDays}일</p>
-            <p className="text-sm text-alma-text-secondary mt-1">연속 기록</p>
-          </div>
-        </div>
-
-        {/* Recent Logs */}
-        <div className="bg-white rounded-3xl border border-alma-border overflow-hidden">
-          <div className="px-6 py-4 border-b border-alma-border flex items-center justify-between">
-            <h2 className="font-bold text-alma-text">최근 기록</h2>
-            <Link href="/log/history" className="text-sm text-alma-primary hover:underline">
+        {/* Section 2: 오늘의 전문가 컬럼 */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-alma-text">오늘의 전문가 컬럼</h2>
+            <Link href="/columns" className="text-sm text-alma-primary hover:underline">
               전체 보기
             </Link>
           </div>
-
-          {logs.length === 0 ? (
-            <div className="p-12 text-center text-alma-text-tertiary">
-              아직 기록이 없어요. 첫 기록을 시작해보세요!
-            </div>
-          ) : (
-            <div className="divide-y divide-alma-border">
-              {logs.slice(0, 7).map((log) => (
-                <div
-                  key={log.log_date}
-                  className="px-6 py-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+          <Link
+            href={`/columns/${todayColumn.slug}`}
+            className="block bg-white rounded-2xl border border-alma-border overflow-hidden hover:shadow-md transition-all"
+          >
+            <div className="p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span
+                  className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
+                    todayColumn.category === 'body'
+                      ? 'bg-alma-primary/10 text-alma-primary'
+                      : 'bg-alma-accent/10 text-alma-accent'
+                  }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl ${getConditionColor(log.overall_condition)} flex items-center justify-center text-xl`}>
-                      {getConditionEmoji(log.overall_condition)}
-                    </div>
-                    <div>
-                      <p className="font-medium text-alma-text">
-                        {new Date(log.log_date).toLocaleDateString('ko-KR', {
-                          month: 'long',
-                          day: 'numeric',
-                          weekday: 'short',
-                        })}
+                  {todayColumn.symptom}
+                </span>
+                <span className="text-xs text-alma-text-tertiary">
+                  {todayColumn.readTime}분 읽기
+                </span>
+              </div>
+              <h3 className="text-lg font-bold text-alma-text leading-snug mb-2">
+                {todayColumn.title}
+              </h3>
+              <p className="text-sm text-alma-text-secondary leading-relaxed line-clamp-2 mb-4">
+                {todayColumn.subtitle}
+              </p>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-alma-secondary-light flex items-center justify-center">
+                  <span className="text-xs font-bold text-alma-text">
+                    {todayColumn.expert.name.charAt(0)}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-alma-text">{todayColumn.expert.name}</p>
+                  <p className="text-xs text-alma-text-tertiary">{todayColumn.expert.title}</p>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Section 3: 커뮤니티 미리보기 */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-alma-text">커뮤니티</h2>
+            <Link href="/community" className="text-sm text-alma-primary hover:underline">
+              전체 보기
+            </Link>
+          </div>
+          <div className="space-y-3">
+            {recentPosts.map((post) => {
+              const category = CATEGORIES.find(c => c.id === post.category);
+              return (
+                <Link
+                  key={post.id}
+                  href={`/community/${post.id}`}
+                  className="block bg-white rounded-2xl border border-alma-border p-5 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${category?.color || ''}`}>
+                          {category?.icon} {category?.label}
+                        </span>
+                        <span className="text-xs text-alma-text-tertiary">
+                          {formatTimeAgo(post.created_at)}
+                        </span>
+                      </div>
+                      <p className="text-sm text-alma-text leading-relaxed line-clamp-2">
+                        {post.content}
                       </p>
-                      <p className="text-sm text-alma-text-tertiary">
-                        {log.symptoms?.length > 0
-                          ? `${log.symptoms.length}개 증상 기록`
-                          : '증상 없음'}
-                      </p>
+                      <div className="flex items-center gap-4 mt-2 text-xs text-alma-text-tertiary">
+                        <span>💜 {post.like_count}</span>
+                        <span>💬 {post.comment_count}</span>
+                      </div>
                     </div>
                   </div>
-                  <Link
-                    href={`/log/${log.log_date}`}
-                    className="text-sm text-alma-text-tertiary hover:text-alma-primary transition-colors"
-                  >
-                    상세 보기 →
-                  </Link>
-                </div>
-              ))}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Section 4: 주간 통계 + 스트릭 + 최근 기록 */}
+        <div className="mb-10">
+          <h2 className="text-lg font-bold text-alma-text mb-4">나의 기록</h2>
+
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-6 mb-6">
+            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
+              <p className="text-3xl font-bold text-alma-primary">{logs.length}</p>
+              <p className="text-sm text-alma-text-secondary mt-1">기록 횟수</p>
             </div>
-          )}
+            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
+              <p className="text-3xl font-bold text-alma-accent">{avgCondition}</p>
+              <p className="text-sm text-alma-text-secondary mt-1">평균 컨디션</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
+              <p className="text-3xl font-bold text-alma-secondary">{streakDays}일</p>
+              <p className="text-sm text-alma-text-secondary mt-1">연속 기록</p>
+            </div>
+          </div>
+
+          {/* Recent Logs */}
+          <div className="bg-white rounded-3xl border border-alma-border overflow-hidden">
+            <div className="px-6 py-4 border-b border-alma-border flex items-center justify-between">
+              <h3 className="font-bold text-alma-text">최근 기록</h3>
+              <Link href="/log/history" className="text-sm text-alma-primary hover:underline">
+                전체 보기
+              </Link>
+            </div>
+
+            {logs.length === 0 ? (
+              <div className="p-12 text-center text-alma-text-tertiary">
+                아직 기록이 없어요. 첫 기록을 시작해보세요!
+              </div>
+            ) : (
+              <div className="divide-y divide-alma-border">
+                {logs.slice(0, 5).map((log) => (
+                  <div
+                    key={log.log_date}
+                    className="px-6 py-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-xl ${getConditionColor(log.overall_condition)} flex items-center justify-center text-xl`}>
+                        {getConditionEmoji(log.overall_condition)}
+                      </div>
+                      <div>
+                        <p className="font-medium text-alma-text">
+                          {new Date(log.log_date).toLocaleDateString('ko-KR', {
+                            month: 'long',
+                            day: 'numeric',
+                            weekday: 'short',
+                          })}
+                        </p>
+                        <p className="text-sm text-alma-text-tertiary">
+                          {log.symptoms?.length > 0
+                            ? `${log.symptoms.length}개 증상 기록`
+                            : '증상 없음'}
+                        </p>
+                      </div>
+                    </div>
+                    <Link
+                      href={`/log/${log.log_date}`}
+                      className="text-sm text-alma-text-tertiary hover:text-alma-primary transition-colors"
+                    >
+                      상세 보기 →
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* AI Insights Preview */}
         <Link
           href="/insights"
-          className="mt-8 block bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-5 border border-alma-border hover:shadow-md transition-all"
+          className="block bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-5 border border-alma-border hover:shadow-md transition-all mb-10"
         >
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center flex-shrink-0">
@@ -224,33 +302,56 @@ export default function DashboardPage() {
           </div>
         </Link>
 
-        {/* Quick Actions */}
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          <Link
-            href="/insights"
-            className="bg-white rounded-2xl p-5 border border-alma-border hover:border-alma-primary/30 hover:shadow-md transition-all"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-alma-primary/20 to-alma-accent/20 flex items-center justify-center mb-3">
-              <svg className="w-5 h-5 text-alma-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            </div>
-            <p className="font-semibold text-alma-text">AI 인사이트</p>
-            <p className="text-sm text-alma-text-tertiary mt-1">맞춤 조언 확인</p>
-          </Link>
+        {/* 추천 솔루션 미리보기 */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-alma-text">추천 솔루션</h2>
+            <Link href="/solutions" className="text-sm text-alma-primary hover:underline">
+              전체 보기
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {(() => {
+              // 최근 기록 증상 기반 솔루션 추천
+              const recentSymptoms = logs.flatMap(log => log.symptoms || []);
+              const hasHotFlash = recentSymptoms.includes('hot_flash');
+              const hasInsomnia = recentSymptoms.includes('insomnia');
+              const hasFatigue = recentSymptoms.includes('fatigue');
 
-          <Link
-            href="/community"
-            className="bg-white rounded-2xl p-5 border border-alma-border hover:border-alma-primary/30 hover:shadow-md transition-all"
-          >
-            <div className="w-10 h-10 rounded-xl bg-alma-accent-light flex items-center justify-center mb-3">
-              <svg className="w-5 h-5 text-alma-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
-              </svg>
-            </div>
-            <p className="font-semibold text-alma-text">커뮤니티</p>
-            <p className="text-sm text-alma-text-tertiary mt-1">비슷한 친구들과 대화</p>
-          </Link>
+              const recommendedSolutions = [
+                hasHotFlash || (!hasInsomnia && !hasFatigue)
+                  ? { title: '갱년기 전용 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료', match: 95 }
+                  : hasInsomnia
+                    ? { title: '숙면을 위한 요가 니드라', desc: '깊은 이완으로 수면의 질을 높이는 가이드', icon: '🌙', price: '월 9,900원', match: 92 }
+                    : { title: '아침 10분 스트레칭', desc: '활기찬 하루를 시작하는 간단한 루틴', icon: '🏃‍♀️', price: '무료', match: 85 },
+                hasFatigue
+                  ? { title: '여성 갱년기 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원', match: 94 }
+                  : { title: '1:1 갱년기 코칭 프로그램', desc: '전문 코치와 8주간 맞춤 관리', icon: '🤝', price: '월 120,000원', match: 96 },
+              ];
+
+              return recommendedSolutions.map((sol, i) => (
+                <Link
+                  key={i}
+                  href="/solutions"
+                  className="block bg-white rounded-2xl border border-alma-border p-5 hover:shadow-md transition-all"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-alma-primary-light flex items-center justify-center flex-shrink-0 text-2xl">
+                      {sol.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-sm font-bold text-alma-text truncate">{sol.title}</h3>
+                        <span className="flex-shrink-0 text-xs bg-alma-primary text-white px-2 py-0.5 rounded-full">{sol.match}%</span>
+                      </div>
+                      <p className="text-xs text-alma-text-secondary line-clamp-1 mb-2">{sol.desc}</p>
+                      <span className="text-sm font-semibold text-alma-primary">{sol.price}</span>
+                    </div>
+                  </div>
+                </Link>
+              ));
+            })()}
+          </div>
         </div>
       </main>
     </div>

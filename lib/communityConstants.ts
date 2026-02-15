@@ -1,6 +1,6 @@
 // 커뮤니티 상수 및 타입
 
-// 카테고리
+// 원본 카테고리 (게시글 데이터용)
 export const CATEGORIES = [
   { id: 'daily', label: '일상 이야기', icon: '☀️', color: 'bg-yellow-100 text-yellow-700' },
   { id: 'symptoms', label: '증상 공유', icon: '💬', color: 'bg-purple-100 text-purple-700' },
@@ -10,6 +10,24 @@ export const CATEGORIES = [
 ] as const;
 
 export type CategoryId = typeof CATEGORIES[number]['id'];
+
+// 탭용 통합 카테고리 (UI 표시용)
+export const TABS = [
+  {
+    id: 'daily-support',
+    label: '일상·응원',
+    icon: '☀️',
+    categories: ['daily', 'support'] as CategoryId[],
+  },
+  {
+    id: 'info-question',
+    label: '정보·질문',
+    icon: '💬',
+    categories: ['symptoms', 'tips', 'question'] as CategoryId[],
+  },
+] as const;
+
+export type TabId = typeof TABS[number]['id'];
 
 // 익명 닉네임 생성용
 const ADJECTIVES = [
