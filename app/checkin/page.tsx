@@ -131,11 +131,10 @@ export default function CheckinIntro() {
             ))}
           </div>
 
-          {/* CTA — Headspace/Linear 인사이트: "0원" 강조 */}
+          {/* CTA */}
           <Link href="/checkin/1" className="w-full">
             <Button variant="primary" size="lg" className="w-full bg-alma-accent hover:bg-alma-accent/90 text-white shadow-lg shadow-alma-accent/30">
-              <span className="text-xl font-black mr-2">0원</span>
-              시작하기
+              나의 상태 알아보기
             </Button>
           </Link>
 

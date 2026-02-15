@@ -219,8 +219,7 @@ export default function ResultPage() {
               </div>
               <Link href="/signup" className="block">
                 <Button variant="primary" size="lg" className="w-full bg-white text-alma-primary hover:bg-white/90 font-black">
-                  <span className="text-xl mr-2">0원</span>
-                  결과 저장하기
+                  내 결과 저장하기
                 </Button>
               </Link>
             </div>

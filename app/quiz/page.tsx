@@ -107,8 +107,7 @@ export default function QuizPage() {
               href="/checkin"
               className="block w-full px-8 py-4 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 active:scale-[0.98] transition-all shadow-lg shadow-alma-accent/30 mb-3"
             >
-              <span className="text-xl font-black mr-2">0원</span>
-              체크인으로 시작하기
+              체크인으로 알아보기
             </Link>
 
             <a
