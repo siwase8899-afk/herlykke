@@ -135,7 +135,7 @@ function ColumnsContent() {
         <div className="max-w-5xl mx-auto">
           {/* Result count */}
           <p className="text-sm text-alma-text-tertiary mb-6">
-            <span className="font-semibold text-alma-text">{activeLabel}</span> 관련 컬럼{' '}
+            <span className="font-semibold text-alma-text">{activeLabel}</span> 관련 전문가 컬럼{' '}
             <span className="text-alma-primary font-bold">{filteredColumns.length}</span>편
           </p>
 
@@ -202,13 +202,13 @@ function ColumnsContent() {
           {filteredColumns.length === 0 && (
             <div className="text-center py-20">
               <p className="text-alma-text-tertiary text-lg">
-                해당 카테고리의 컬럼이 아직 없어요.
+                해당 카테고리의 전문가 컬럼이 아직 없어요.
               </p>
               <button
                 onClick={() => setActiveFilter('all')}
                 className="mt-4 text-alma-primary font-semibold hover:underline"
               >
-                전체 컬럼 보기
+                전체 전문가 컬럼 보기
               </button>
             </div>
           )}

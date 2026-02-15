@@ -122,7 +122,7 @@ export default async function ColumnDetailPage({
         {relatedColumns.length > 0 && (
           <div className="pb-12">
             <h3 className="text-lg font-bold text-alma-text mb-5">
-              {column.symptom} 관련 다른 컬럼
+              {column.symptom} 관련 다른 전문가 컬럼
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {relatedColumns.map((related) => (
@@ -154,7 +154,7 @@ export default async function ColumnDetailPage({
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            전체 컬럼 목록으로
+            전체 전문가 컬럼 목록으로
           </Link>
         </div>
       </article>
