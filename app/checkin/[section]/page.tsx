@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { ProgressBar } from '../../../components/ui/ProgressBar';
 import { SeverityScale } from '../../../components/ui/SeverityScale';
 import { Button } from '../../../components/ui/Button';
 import { useCheckinStore } from '../../../stores/checkinStore';
 import { getQuestionsBySection, SECTIONS } from '../../../lib/questions';
 import { SYMPTOM_CHARACTERS } from '@/lib/characters';
+import { PhysicalSymptoms } from '@/lib/constants';
 
 // 섹션별 유머러스한 응원 메시지
 const sectionEncouragement: Record<number, { emoji: string; message: string }> = {
@@ -112,6 +114,8 @@ export default function CheckinSection() {
         return true;
       case 'boolean':
         return true;
+      case 'severity':
+        return true; // 심각도는 기본값 0이므로 항상 진행 가능
       default:
         return false;
     }
@@ -159,7 +163,7 @@ export default function CheckinSection() {
           >
             ← 뒤로
           </button>
-          <ProgressBar current={globalQuestionNum} total={19} />
+          <ProgressBar current={globalQuestionNum} total={20} />
         </div>
 
         {/* Duolingo 인사이트: 섹션 라벨 + 마일스톤 응원 메시지 */}
@@ -187,7 +191,19 @@ export default function CheckinSection() {
         {activeCharacter && (
           <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
             <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 border border-alma-border shadow-xl text-center animate-bounce-in">
-              <div className="text-6xl mb-2">{activeCharacter.emoji}</div>
+              {activeCharacter.image ? (
+                <div className="w-24 h-24 mx-auto mb-2">
+                  <Image
+                    src={activeCharacter.image}
+                    alt={activeCharacter.nickname}
+                    width={96}
+                    height={96}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="text-6xl mb-2">{activeCharacter.emoji}</div>
+              )}
               <p className="text-alma-text font-bold">{activeCharacter.nickname}</p>
               <p className="text-alma-accent text-sm">&ldquo;{activeCharacter.tagline}&rdquo;</p>
             </div>
@@ -287,6 +303,53 @@ export default function CheckinSection() {
             </div>
           )}
 
+          {/* 증상별 심각도 (쿠퍼만 지수용) */}
+          {current.type === 'severity' && (() => {
+            const selectedSymptoms = store.physicalSymptoms;
+            const severityLabels = ['없음', '가끔', '자주', '매일'];
+            if (selectedSymptoms.length === 0) {
+              return (
+                <div className="bg-white rounded-xl p-6 border border-alma-border text-center">
+                  <p className="text-alma-text-tertiary text-sm">선택한 증상이 없어요. 이전 단계에서 증상을 선택해 주세요.</p>
+                </div>
+              );
+            }
+            return (
+              <div className="space-y-3">
+                {selectedSymptoms.map((symptomKey) => {
+                  const symptomInfo = PhysicalSymptoms.find(s => s.key === symptomKey);
+                  const currentSeverity = store.symptomSeverityMap[symptomKey] ?? 0;
+                  return (
+                    <div key={symptomKey} className="bg-white rounded-xl p-4 border border-alma-border">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-lg">{symptomInfo?.emoji}</span>
+                        <span className="text-sm font-medium text-alma-text">{symptomInfo?.label ?? symptomKey}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        {severityLabels.map((label, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => store.setSymptomSeverity(symptomKey, idx)}
+                            className={`
+                              flex-1 py-2.5 rounded-lg border text-xs font-medium transition-all
+                              ${currentSeverity === idx
+                                ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
+                                : 'border-alma-border bg-white text-alma-text-tertiary hover:border-alma-primary/40'
+                              }
+                            `}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
+
           {/* 불리언 (커뮤니티 참여) — Bumble BFF 인사이트: 코호트 그룹 설명 */}
           {current.type === 'boolean' && current.options && (
             <div className="space-y-3">
@@ -334,8 +397,8 @@ export default function CheckinSection() {
         <p className="text-center text-alma-text-tertiary text-xs mt-4">
           {globalQuestionNum <= 5 && '천천히, 나의 속도로 해도 괜찮아요 🐢'}
           {globalQuestionNum > 5 && globalQuestionNum <= 12 && '절반 넘었어요! 잘하고 계세요 👏'}
-          {globalQuestionNum > 12 && globalQuestionNum <= 17 && '거의 다 왔어요! 조금만 더 🌱'}
-          {globalQuestionNum > 17 && '마지막이에요! 곧 인사이트를 드릴게요 ✨'}
+          {globalQuestionNum > 12 && globalQuestionNum <= 18 && '거의 다 왔어요! 조금만 더 🌱'}
+          {globalQuestionNum > 18 && '마지막이에요! 곧 인사이트를 드릴게요 ✨'}
         </p>
       </div>
 

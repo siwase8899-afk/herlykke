@@ -1,35 +1,35 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* ALMA 색상 팔레트 - "Soulful Depth" */
-  /* 8사 경쟁 분석 기반: 핑크/파스텔 클리셰 의도적 거부 */
+  /* ALMA 색상 팔레트 - "Warm Bloom" */
+  /* 틸 그린 정체성 유지 + 밝고 생기있는 리프레시 */
 
-  /* Primary - Deep Teal (깊이, 차분한 자신감, 자연 = ALMA 영혼) */
-  --color-alma-primary: #1A6B5A;
-  --color-alma-primary-light: #E6F5F0;
-  --color-alma-primary-dark: #0E4D3E;
+  /* Primary - Bright Teal (밝고 생기있는 ALMA 영혼) */
+  --color-alma-primary: #2D9F8F;
+  --color-alma-primary-light: #E8F6F3;
+  --color-alma-primary-dark: #1A6B5A;
 
-  /* Accent - Warm Amber (따뜻함, 활력, 골드에서 진화) */
-  --color-alma-accent: #D4850A;
-  --color-alma-accent-light: #FFF3E0;
-  --color-alma-accent-dark: #B06E00;
+  /* Accent - Warm Coral (산뜻하고 친근한 포인트) */
+  --color-alma-accent: #E8845A;
+  --color-alma-accent-light: #FFF2EB;
+  --color-alma-accent-dark: #D06A3F;
 
   /* Secondary - Warm Charcoal (세련됨, 안정감) */
   --color-alma-secondary: #2D2926;
   --color-alma-secondary-light: #E8E4E0;
 
   /* Backgrounds */
-  --color-alma-bg: #FEFCF8;
+  --color-alma-bg: #F8FAFA;
   --color-alma-surface: #ffffff;
-  --color-alma-surface-warm: #FBF5EC;
+  --color-alma-surface-warm: #F0F7F5;
 
-  /* Text - Warm near-black */
-  --color-alma-text: #1C1917;
-  --color-alma-text-secondary: #57534E;
-  --color-alma-text-tertiary: #A8A29E;
+  /* Text - Teal undertone */
+  --color-alma-text: #1F2D2B;
+  --color-alma-text-secondary: #4A5C58;
+  --color-alma-text-tertiary: #8FA3A0;
 
   /* Border */
-  --color-alma-border: #E7E5E4;
+  --color-alma-border: #DDE8E6;
   --color-alma-border-light: #F5F5F4;
 
   /* Status */
@@ -50,8 +50,8 @@ html {
 }
 
 body {
-  background-color: #FEFCF8;
-  color: #1C1917;
+  background-color: #F8FAFA;
+  color: #1F2D2B;
   line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -70,13 +70,13 @@ input, textarea, select {
 
 /* Selection */
 ::selection {
-  background-color: #E6F5F0;
-  color: #0E4D3E;
+  background-color: #E8F6F3;
+  color: #1A6B5A;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #1A6B5A;
+  outline: 2px solid #2D9F8F;
   outline-offset: 2px;
 }
 
@@ -160,7 +160,7 @@ button, a, input {
 
 /* Calm UX: 성취 표시용 골드 글로우 */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(212, 133, 10, 0.3);
+  box-shadow: 0 0 20px rgba(232, 132, 90, 0.3);
 }
 
 /* Linear 인사이트: 마이크로 애니메이션 */

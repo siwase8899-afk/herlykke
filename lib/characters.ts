@@ -13,6 +13,9 @@ export type SymptomId =
   | 'headache'
   | 'dry_skin'
   | 'palpitation'
+  | 'paresthesia'
+  | 'dizziness'
+  | 'formication'
   // 마음의 신호
   | 'brain_fog'
   | 'mood_swings'
@@ -56,6 +59,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '에어컨 앞은 내 자리',
     description: '갑자기 확 오르는 열기, 냉장고가 내 베프',
     category: 'body',
+    image: '/characters/hot_flash.png',
     color: '#FF6B6B',
   },
   {
@@ -66,6 +70,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '잠옷이 빨래감',
     description: '새벽에 깨보면 이미 흠뻑, 이불도 교체',
     category: 'body',
+    image: '/characters/night_sweat.png',
     color: '#4DABF7',
   },
   {
@@ -76,6 +81,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '양들도 다 잠들었는데...',
     description: '999마리 세다가 포기, 천장이 친숙해요',
     category: 'body',
+    image: '/characters/insomnia.png',
     color: '#748FFC',
   },
   {
@@ -86,6 +92,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '기름칠 좀 해주세요',
     description: '아침마다 WD-40 필요, 삐걱삐걱',
     category: 'body',
+    image: '/characters/joint_pain.png',
     color: '#20C997',
   },
   {
@@ -96,6 +103,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '충전해도 20%가 맥스',
     description: '풀충전이 뭐였더라, 항상 저전력 모드',
     category: 'body',
+    image: '/characters/fatigue.png',
     color: '#868E96',
   },
   {
@@ -106,6 +114,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '누가 머리에서 공사를...',
     description: '타이레놀이 친구, 지끈지끈 일상',
     category: 'body',
+    image: '/characters/headache.png',
     color: '#FA5252',
   },
   {
@@ -116,6 +125,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '수분크림이 증발해요',
     description: '피부도 점막도 사막화 진행 중',
     category: 'body',
+    image: '/characters/dry_skin.png',
     color: '#E8590C',
   },
   {
@@ -126,7 +136,41 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '설렘이 아닌데 왜 뛰지',
     description: '가만히 있어도 심장이 비트 타는 중',
     category: 'body',
+    image: '/characters/palpitation.png',
     color: '#E64980',
+  },
+  {
+    id: 'paresthesia',
+    name: '감각이상',
+    emoji: '🫠',
+    nickname: '저림 요정',
+    tagline: '손끝이 남의 손 같아',
+    description: '따끔따끔 저릿저릿, 감각이 제멋대로',
+    category: 'body',
+    image: '/characters/paresthesia.png',
+    color: '#9775FA',
+  },
+  {
+    id: 'dizziness',
+    name: '어지러움',
+    emoji: '💫',
+    nickname: '빙글빙글 세상',
+    tagline: '세상이 잠깐 흔들려요',
+    description: '갑자기 핑~ 도는 느낌, 천천히 일어나야 해요',
+    category: 'body',
+    image: '/characters/dizziness.png',
+    color: '#339AF0',
+  },
+  {
+    id: 'formication',
+    name: '개미감각',
+    emoji: '🐜',
+    nickname: '개미 행진',
+    tagline: '피부 위에 뭔가 기어다녀요',
+    description: '보이지 않는 개미가 피부를 산책 중',
+    category: 'body',
+    image: '/characters/formication.png',
+    color: '#82C91E',
   },
 
   // ─── 마음의 신호 (Emotional/Cognitive) ───
@@ -138,6 +182,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '방금 뭐 하려고 했더라?',
     description: '손에 열쇠 들고 열쇠 찾는 중',
     category: 'mind',
+    image: '/characters/brain_fog.png',
     color: '#A9A9A9',
   },
   {
@@ -148,6 +193,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '오늘 하루에 사계절',
     description: '웃다가 울다가, 감정이 운전 중',
     category: 'mind',
+    image: '/characters/mood_swings.png',
     color: '#F59F00',
   },
   {
@@ -158,6 +204,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '새벽 3시 걱정 대잔치',
     description: '별거 아닌 일도 거대하게 느껴져요',
     category: 'mind',
+    image: '/characters/anxiety.png',
     color: '#845EF7',
   },
   {
@@ -168,6 +215,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '건드리지 마세요, 제발',
     description: '작은 일에도 화가 폭발, 내 성격이 아닌데',
     category: 'mind',
+    image: '/characters/irritability.png',
     color: '#FF922B',
   },
   {
@@ -178,6 +226,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '나... 누구였더라',
     description: '예전의 당당했던 내가 낯설어요',
     category: 'mind',
+    image: '/characters/low_confidence.png',
     color: '#DEE2E6',
   },
   {
@@ -200,6 +249,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '똑같이 먹었는데?',
     description: '물만 마셔도 늘어나는 신비의 몸',
     category: 'life',
+    image: '/characters/weight_change.png',
     color: '#E64980',
   },
   {
@@ -210,6 +260,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '관심이 사라졌어요',
     description: '파트너에게 미안하지만 어쩔 수 없어요',
     category: 'life',
+    image: '/characters/low_libido.png',
     color: '#9775FA',
   },
   {
@@ -220,6 +271,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '배수구가 무서워요',
     description: '샤워할 때마다 머리카락이 한 움큼',
     category: 'life',
+    image: '/characters/hair_change.png',
     color: '#862E9C',
   },
   {
@@ -230,6 +282,7 @@ export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [
     tagline: '뭘 먹어도 더부룩',
     description: '속이 부글부글, 장이 파업 중',
     category: 'life',
+    image: '/characters/digestion.png',
     color: '#82C91E',
   },
   {

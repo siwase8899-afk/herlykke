@@ -2,23 +2,23 @@
 
 export const APP_NAME = 'ALMA';
 
-// 색상 팔레트 - "Soulful Depth" (8사 경쟁 분석 기반 리프레시)
+// 색상 팔레트 - "Warm Bloom" (틸 그린 정체성 + 밝고 생기있는 리프레시)
 export const Colors = {
-  primary: '#1A6B5A',       // Deep Teal (깊이, 자신감)
-  primaryLight: '#E6F5F0',
-  primaryDark: '#0E4D3E',
-  accent: '#D4850A',        // Warm Amber (따뜻함, 활력)
-  accentLight: '#FFF3E0',
-  accentDark: '#B06E00',
+  primary: '#2D9F8F',       // Bright Teal (밝고 생기있는)
+  primaryLight: '#E8F6F3',
+  primaryDark: '#1A6B5A',
+  accent: '#E8845A',        // Warm Coral (산뜻하고 친근)
+  accentLight: '#FFF2EB',
+  accentDark: '#D06A3F',
   secondary: '#2D2926',     // Warm Charcoal (세련됨)
   secondaryLight: '#E8E4E0',
-  background: '#FEFCF8',
+  background: '#F8FAFA',
   surface: '#FFFFFF',
-  surfaceWarm: '#FBF5EC',
-  text: '#1C1917',
-  textSecondary: '#57534E',
-  textTertiary: '#A8A29E',
-  border: '#E7E5E4',
+  surfaceWarm: '#F0F7F5',
+  text: '#1F2D2B',
+  textSecondary: '#4A5C58',
+  textTertiary: '#8FA3A0',
+  border: '#DDE8E6',
   error: '#DC2626',
   success: '#15803D',
   warning: '#EA580C',
@@ -78,6 +78,9 @@ export const PhysicalSymptoms = [
   { key: 'headache', label: '두통', emoji: '🤕' },
   { key: 'palpitation', label: '심장 두근거림', emoji: '💓' },
   { key: 'digestion', label: '소화 장애', emoji: '🤢' },
+  { key: 'paresthesia', label: '감각이상 (저림/따끔)', emoji: '🫠' },
+  { key: 'dizziness', label: '어지러움', emoji: '💫' },
+  { key: 'formication', label: '개미가 기는 느낌', emoji: '🐜' },
 ] as const;
 
 export const EmotionalSymptoms = [
