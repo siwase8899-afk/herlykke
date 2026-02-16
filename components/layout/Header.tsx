@@ -37,7 +37,7 @@ export function Header() {
                 href={isLoggedIn ? '/dashboard' : '/'}
                 className="text-xl font-bold text-alma-primary tracking-tight"
               >
-                ALMA
+                HERLYKKE
               </Link>
 
               {/* Desktop Nav */}

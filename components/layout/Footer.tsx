@@ -7,9 +7,9 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           {/* Logo and tagline */}
           <div>
-            <p className="text-xl font-bold text-white mb-2">ALMA</p>
+            <p className="text-xl font-bold text-white mb-2">HERLYKKE</p>
             <p className="text-sm text-gray-400 leading-relaxed">
-              갱년기 여성의 두 번째 삶을 함께하는 커뮤니티
+              당신의 변화를 이해하는 곳에서, 같은 경험의 동료를 만나세요
             </p>
           </div>
 
@@ -34,7 +34,7 @@ export function Footer() {
             체크인 결과는 참고용이며, 정확한 진단을 위해서는 전문의 상담을 권장합니다.
           </p>
           <p className="text-xs text-gray-500">
-            &copy; 2026 ALMA. All rights reserved.
+            &copy; 2026 HERLYKKE. All rights reserved.
           </p>
         </div>
       </div>

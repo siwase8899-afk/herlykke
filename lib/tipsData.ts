@@ -228,7 +228,7 @@ export const TIPS_DATABASE: Tip[] = [
     symptomId: 'mood_swings',
     category: 'lifestyle',
     title: '신뢰하는 사람과 대화하기',
-    description: '감정을 나누는 것만으로도 마음이 가벼워져요. ALMA 커뮤니티도 좋은 선택이에요.',
+    description: '감정을 나누는 것만으로도 마음이 가벼워져요. HERLYKKE 커뮤니티도 좋은 선택이에요.',
     emoji: '💬',
     difficulty: 'easy',
     timeToEffect: '즉시',

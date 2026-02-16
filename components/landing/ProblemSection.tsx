@@ -186,7 +186,7 @@ export function ProblemSection() {
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">검색하면 건기식 광고뿐</p>
               <p className="text-xl font-bold text-alma-accent">증상 인증 리뷰만</p>
-              <p className="text-xs text-white/40 mt-2">화해가 성분을 분석하듯, ALMA는 증상을 분석해요</p>
+              <p className="text-xs text-white/40 mt-2">화해가 성분을 분석하듯, HERLYKKE는 증상을 분석해요</p>
             </div>
             <div className="p-6 border-y md:border-y-0 md:border-x border-white/10">
               <p className="text-white/50 text-sm line-through mb-3">병원 3분 진료, "다 그래요"</p>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
-// Progressive Disclosure: 접힌 상태(고민) → 펼친 상태(여정 Before→ALMA→After)
+// Progressive Disclosure: 접힌 상태(고민) → 펼친 상태(여정 Before→HERLYKKE→After)
 const personas = [
   {
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face',
@@ -182,16 +182,16 @@ export function PersonaCards() {
                       </div>
                     </div>
 
-                    {/* ALMA */}
+                    {/* HERLYKKE */}
                     <div className="flex gap-3">
                       <div className="flex flex-col items-center">
                         <div className={`w-7 h-7 rounded-full ${p.bgColor} flex items-center justify-center flex-shrink-0`}>
-                          <span className={`text-[10px] font-bold ${p.accentColor}`}>A</span>
+                          <span className={`text-[10px] font-bold ${p.accentColor}`}>H</span>
                         </div>
                         <div className="w-px flex-1 bg-alma-border mt-1" />
                       </div>
                       <div className="pb-2">
-                        <p className={`text-[11px] font-semibold ${p.accentColor} uppercase tracking-wider mb-1`}>ALMA 시작</p>
+                        <p className={`text-[11px] font-semibold ${p.accentColor} uppercase tracking-wider mb-1`}>HERLYKKE 시작</p>
                         <ul className="space-y-1.5">
                           {p.journey.alma.map((step, i) => (
                             <li key={i} className="flex items-start gap-2 text-sm text-alma-text leading-relaxed">

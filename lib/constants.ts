@@ -1,6 +1,6 @@
-// ALMA App 상수
+// HERLYKKE App 상수
 
-export const APP_NAME = 'ALMA';
+export const APP_NAME = 'HERLYKKE';
 
 // 색상 팔레트 - "Soulful Depth" (딥 틸 + 앰버 — 깊이 있고 따뜻한)
 export const Colors = {

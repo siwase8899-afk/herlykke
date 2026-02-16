@@ -12,7 +12,7 @@ export function FounderSection() {
         {/* Section header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 bg-alma-primary-light text-alma-primary text-sm font-semibold rounded-full mb-4">
-            왜 ALMA를 만들었나요?
+            왜 HERLYKKE를 만들었나요?
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-alma-text mb-4">
             창업자의 이야기
@@ -30,7 +30,7 @@ export function FounderSection() {
               <div className="w-28 h-28 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
                 <Image
                   src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop&crop=face"
-                  alt="Becca - ALMA Founder"
+                  alt="Becca - HERLYKKE Founder"
                   width={112}
                   height={112}
                   className="object-cover w-full h-full"
@@ -38,7 +38,7 @@ export function FounderSection() {
               </div>
               <div className="mt-4 text-center md:text-left">
                 <p className="text-xl font-bold text-alma-text">Becca</p>
-                <p className="text-sm text-alma-text-secondary">ALMA 대표</p>
+                <p className="text-sm text-alma-text-secondary">HERLYKKE 대표</p>
               </div>
             </div>
 
@@ -66,14 +66,14 @@ export function FounderSection() {
                 <p>
                   그 한 명이 되고 싶어서, 그리고 그 한 명을 서로 연결해주고 싶어서{' '}
                   <span className="inline-block px-4 py-1.5 bg-alma-accent text-white rounded-lg font-bold">
-                    ALMA를 만들었습니다
+                    HERLYKKE를 만들었습니다
                   </span>.&rdquo;
                 </p>
               </blockquote>
 
-              {/* ALMA의 5가지 가치 — Elektra 5 Core Values 스타일 */}
+              {/* HERLYKKE의 5가지 가치 — Elektra 5 Core Values 스타일 */}
               <div className="mt-8 pt-6 border-t border-alma-border">
-                <p className="text-sm font-bold text-alma-text mb-4">ALMA의 가치</p>
+                <p className="text-sm font-bold text-alma-text mb-4">HERLYKKE의 가치</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
                     { title: '진짜 정보만', desc: '광고가 아닌 증상 인증 리뷰와 전문가 콘텐츠', bg: 'bg-alma-primary-light', color: 'bg-alma-primary' },

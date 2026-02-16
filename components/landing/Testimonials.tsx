@@ -69,7 +69,7 @@ export function Testimonials() {
               실제 사용자 후기
             </h3>
             <p className="text-sm text-alma-text-secondary">
-              ALMA와 함께한 여성들의 진짜 이야기
+              HERLYKKE와 함께한 여성들의 진짜 이야기
             </p>
           </div>
 

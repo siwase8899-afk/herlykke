@@ -97,7 +97,7 @@ export const DEMO_POLLS: Poll[] = [
       { id: 'opt_5_1', text: '인터넷 검색', emoji: '🔍', votes: 378 },
       { id: 'opt_5_2', text: '주변 언니/친구', emoji: '👭', votes: 156 },
       { id: 'opt_5_3', text: '병원/의사 상담', emoji: '👩‍⚕️', votes: 89 },
-      { id: 'opt_5_4', text: 'ALMA 같은 앱', emoji: '📱', votes: 67 },
+      { id: 'opt_5_4', text: 'HERLYKKE 같은 앱', emoji: '📱', votes: 67 },
     ],
     totalVotes: 690,
     category: 'general',

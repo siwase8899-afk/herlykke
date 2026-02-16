@@ -81,7 +81,7 @@ export const PATTERN_RESULTS: Record<PatternType, PatternResult> = {
     type: 'complex',
     icon: '🌀',
     name: '복합형 패턴',
-    description: '감정, 수면, 신체 여러 영역에 걸쳐 증상이 나타나요. 종합적인 접근이 필요하지만, 그만큼 ALMA의 4-Pillar 시스템이 효과적이에요.',
+    description: '감정, 수면, 신체 여러 영역에 걸쳐 증상이 나타나요. 종합적인 접근이 필요하지만, 그만큼 HERLYKKE의 4-Pillar 시스템이 효과적이에요.',
     stat: '이 패턴의 여성 91%가 4주 후 전반적 개선 경험',
     recommendation: '종합 웰니스 프로그램 + AI 맞춤 분석 + 전문가 상담',
     userCount: 312,

@@ -17,9 +17,9 @@ interface ClassifierResult {
 
 // ─── 쿠퍼만 갱년기 지수 (Kupperman Menopausal Index) ───
 
-// 쿠퍼만 11개 증상 → ALMA 체크인 키 매핑 + 가중치
+// 쿠퍼만 11개 증상 → HERLYKKE 체크인 키 매핑 + 가중치
 const KUPPERMAN_SYMPTOMS: {
-  key: string;        // ALMA physicalSymptoms/emotionalSymptoms 키
+  key: string;        // HERLYKKE physicalSymptoms/emotionalSymptoms 키
   label: string;
   weight: number;     // 쿠퍼만 가중치
   source: 'physical' | 'emotional';

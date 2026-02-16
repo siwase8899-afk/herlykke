@@ -76,7 +76,7 @@ export function ConcreteStats() {
   const insights = [
     { text: '아시아 여성 평균 폐경 연령 48-49세 (서양 51세보다 빠름)', source: 'Sol Research' },
     { text: '한국 여성 1위 증상: 관절통/근육통 (서양은 핫플래시)', source: 'Sol Asia Data' },
-    { text: '갱년기 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'ALMA 시장 조사' },
+    { text: '갱년기 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'HERLYKKE 시장 조사' },
   ];
 
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
@@ -96,7 +96,7 @@ export function ConcreteStats() {
             Real Results
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-alma-text">
-            숫자가 말해주는 ALMA
+            숫자가 말해주는 HERLYKKE
           </h2>
         </div>
 

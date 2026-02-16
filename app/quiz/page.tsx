@@ -99,7 +99,7 @@ export default function QuizPage() {
 
             {/* Social proof */}
             <p className="text-xs text-alma-text-tertiary mb-8">
-              같은 {result.name} <span className="font-bold text-alma-accent">{result.userCount}명</span>이 ALMA에서 케어 중
+              같은 {result.name} <span className="font-bold text-alma-accent">{result.userCount}명</span>이 HERLYKKE에서 케어 중
             </p>
 
             {/* CTAs */}
@@ -135,7 +135,7 @@ export default function QuizPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="text-xl font-bold text-alma-primary">
-            ALMA
+            HERLYKKE
           </Link>
           <p className="text-sm text-alma-text-tertiary mt-2">갱년기 패턴 분석</p>
         </div>

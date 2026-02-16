@@ -240,7 +240,7 @@ export default function SignupPage() {
         {/* 개인정보 안내 */}
         <p className="text-xs text-alma-text-tertiary text-center mb-6 px-4">
           입력한 이메일은 결과 저장과 로그인에만 사용됩니다.<br />
-          ALMA는 개인정보를 안전하게 보호합니다.
+          HERLYKKE는 개인정보를 안전하게 보호합니다.
         </p>
 
         {/* 건너뛰기 */}

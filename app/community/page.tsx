@@ -58,7 +58,7 @@ const DEMO_PROFILES = [
     situation: '1인가구',
     main_symptoms: ['열감', '불안', '피부건조'],
     interests: ['필라테스', '카페투어', '영화'],
-    bio: '혼자 고민하다가 ALMA를 알게 됐어요. 솔직하게 이야기 나눌 수 있는 친구를 찾아요.',
+    bio: '혼자 고민하다가 HERLYKKE를 알게 됐어요. 솔직하게 이야기 나눌 수 있는 친구를 찾아요.',
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face',
     match_percent: 85,
     online: true,

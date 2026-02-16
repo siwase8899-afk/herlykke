@@ -92,10 +92,10 @@ export function HowItWorks() {
         {/* Section header */}
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-1.5 bg-alma-accent-light text-alma-accent-dark text-xs font-semibold tracking-wide uppercase rounded-full mb-6">
-            ALMA 4-Pillar
+            HERLYKKE 4-Pillar
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-alma-text mb-6">
-            ALMA의 <span className="text-alma-primary">4가지 약속</span>
+            HERLYKKE의 <span className="text-alma-primary">4가지 약속</span>
           </h2>
           <p className="text-lg text-alma-text-secondary max-w-2xl mx-auto">
             Care · Education · Support · Community
