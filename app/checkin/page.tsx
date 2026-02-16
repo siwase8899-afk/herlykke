@@ -68,11 +68,11 @@ export default function CheckinIntro() {
         </Suspense>
 
         <div className="flex flex-col items-center text-center">
-          {/* Calm 인사이트: 첫 화면 = 감정 — 따뜻한 인사 */}
+          {/* 체크인 시작 — 감정 훅 */}
           <div className="mb-6">
-            <p className="text-lg text-alma-text-secondary mb-2">안녕하세요 👋</p>
-            <h2 className="text-2xl font-bold text-alma-text">
-              오늘 <span className="text-alma-primary">어떤 하루</span>였나요?
+            <h2 className="text-2xl font-bold text-alma-text leading-relaxed">
+              지금, 나에게 <span className="text-alma-primary">3분</span>을<br />
+              허락해보세요.
             </h2>
           </div>
 
@@ -108,13 +108,10 @@ export default function CheckinIntro() {
             </div>
           </div>
 
-          {/* Title — August 인사이트: "두 번째 시작" 프레이밍 */}
-          <h1 className="text-2xl font-bold text-alma-text mb-3">
-            3분 갱년기 체크인
+          {/* 체크인 안내 */}
+          <h1 className="text-xl font-semibold text-alma-text mb-2">
+            나를 위한 체크인
           </h1>
-          <p className="text-alma-primary font-medium leading-relaxed mb-2">
-            두 번째 삶의 시작, 함께 준비해요
-          </p>
           <p className="text-alma-text-tertiary text-sm leading-relaxed mb-8">
             19개 질문에 답하면<br />
             나의 갱년기 단계와 맞춤 관리법을<br />
