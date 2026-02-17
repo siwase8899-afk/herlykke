@@ -65,7 +65,7 @@ export function Header() {
                 {/* CTA Button */}
                 <Link
                   href={ctaHref}
-                  className="px-6 py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
+                  className="btn-fill-hover btn-fill-hover--accent px-6 py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-full hover:-translate-y-0.5"
                 >
                   {ctaLabel}
                 </Link>
@@ -124,10 +124,12 @@ export function Header() {
         </div>
 
         {/* Mobile Menu */}
+        {/* C2MTL 인사이트: 모바일 메뉴 물리 이징으로 부드러운 전개 */}
         <div
-          className={`md:hidden bg-white/95 backdrop-blur-md border-b border-hlk-border transition-all duration-300 overflow-hidden ${
+          className={`md:hidden bg-white/95 backdrop-blur-md border-b border-hlk-border overflow-hidden ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
+          style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
         >
           <div className="px-6 py-6 space-y-4">
             {navItems.map((item) =>
@@ -156,7 +158,7 @@ export function Header() {
             <Link
               href={ctaHref}
               onClick={() => setIsMenuOpen(false)}
-              className="block w-full text-center px-6 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
+              className="btn-fill-hover btn-fill-hover--accent block w-full text-center px-6 py-3 bg-hlk-accent text-white font-semibold rounded-full"
             >
               {ctaLabel}
             </Link>

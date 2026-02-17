@@ -59,7 +59,7 @@ export function ProblemSection() {
               <p className="text-hlk-accent font-semibold mb-4 tracking-wide uppercase text-sm">
                 두 번째 삶의 시작
               </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text mb-6 tracking-tight">
                 그냥 묻어 두었던 것들,
                 <br />
                 <span className="text-hlk-primary">이제 꺼내도 괜찮아요.</span>
@@ -96,8 +96,8 @@ export function ProblemSection() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        {/* 전문가 한마디 — 호버 시 슬라이드 표시 */}
-                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
+                        {/* 전문가 한마디 — C2MTL 물리 이징으로 부드러운 슬라이드 */}
+                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 overflow-hidden" style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}>
                           {item.expertTip}
                         </p>
                       </Link>
@@ -106,7 +106,7 @@ export function ProblemSection() {
                   {/* CTA 링크 */}
                   <Link
                     href="/columns?category=body"
-                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-primary hover:text-hlk-primary-dark transition-colors"
+                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-primary hover:text-hlk-primary-dark"
                   >
                     전문가가 알려주는 몸의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,8 +139,8 @@ export function ProblemSection() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
-                        {/* 전문가 한마디 — 호버 시 슬라이드 표시 */}
-                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
+                        {/* 전문가 한마디 — C2MTL 물리 이징으로 부드러운 슬라이드 */}
+                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 overflow-hidden" style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}>
                           {item.expertTip}
                         </p>
                       </Link>
@@ -149,7 +149,7 @@ export function ProblemSection() {
                   {/* CTA 링크 */}
                   <Link
                     href="/columns?category=mind"
-                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-accent hover:text-hlk-accent-dark transition-colors"
+                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-accent hover:text-hlk-accent-dark"
                   >
                     전문가가 알려주는 마음의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

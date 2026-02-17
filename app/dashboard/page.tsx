@@ -295,6 +295,30 @@ export default function DashboardPage() {
           </div>
         </Link>
 
+        {/* 동료 셀러 1기 모집 배너 */}
+        <Link
+          href="/seller"
+          className="block bg-white rounded-2xl border border-hlk-accent/30 p-5 hover:shadow-md transition-all mb-10"
+        >
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-hlk-accent-light flex items-center justify-center flex-shrink-0">
+              <span className="text-2xl">🤝</span>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h3 className="font-bold text-hlk-text">동료 셀러 1기 모집</h3>
+                <span className="px-2 py-0.5 bg-hlk-accent text-white text-xs font-bold rounded-full">NEW</span>
+              </div>
+              <p className="text-sm text-hlk-text-secondary">
+                갱년기 극복 경험을 나누고, 동료 셀러로 함께 성장해보세요
+              </p>
+            </div>
+            <svg className="w-5 h-5 text-hlk-text-tertiary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </Link>
+
         {/* 추천 솔루션 미리보기 */}
         <div>
           <div className="flex items-center justify-between mb-4">

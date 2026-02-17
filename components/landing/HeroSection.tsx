@@ -84,8 +84,8 @@ export function HeroSection() {
                 <span className="text-sm font-medium text-hlk-text-secondary">두번째 봄을 지나는 당신, 혼자가 아니에요</span>
               </div>
 
-              {/* Main headline with typing effect */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-hlk-text mb-6">
+              {/* Main headline — C2MTL 인사이트: 대담한 크기 + 타이트 행간으로 임팩트 */}
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-hlk-text mb-6 tracking-tight">
                 {typed1}
                 {typedCount <= HEADLINE.length && showCursor && (
                   <span className="typing-cursor text-hlk-primary">|</span>
@@ -125,11 +125,11 @@ export function HeroSection() {
                 </p>
               </div>
 
-              {/* CTA — fades in after subtitle */}
-              <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 ${showCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              {/* CTA — C2MTL 물리 이징으로 부드러운 등장 */}
+              <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 ${showCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' }}>
                 <Link
                   href="/checkin"
-                  className="inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:bg-hlk-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all animate-subtle-pulse"
+                  className="btn-fill-hover btn-fill-hover--accent inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all animate-subtle-pulse"
                 >
                   지금 나의 상태 확인하기
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,9 +153,10 @@ export function HeroSection() {
             {/* Right: Character Card — slides in from right */}
             <div className="relative flex justify-center">
               <div
-                className={`relative bg-white rounded-3xl p-8 md:p-10 border border-hlk-border shadow-xl max-w-sm w-full transition-all duration-500 ${
+                className={`relative bg-white rounded-3xl p-8 md:p-10 border border-hlk-border shadow-xl max-w-sm w-full transition-all duration-600 ${
                   isVisible ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-95 translate-x-4'
                 }`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' }}
               >
                 <div className="text-center mb-8">
                   <div

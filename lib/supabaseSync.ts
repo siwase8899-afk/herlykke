@@ -181,6 +181,100 @@ export async function loadProfileFromServer(userId: string) {
   }
 }
 
+/**
+ * 솔루션 리뷰 제출
+ */
+export async function submitSolutionReview(userId: string, review: {
+  solutionId: string;
+  rating: number;
+  beforeSymptoms: Array<{ symptomId: string; severity: number }>;
+  afterSymptoms: Array<{ symptomId: string; severity: number }>;
+  usageDuration: string;
+  content: string;
+  stage?: string;
+  ageRange?: string;
+}) {
+  if (!isSupabaseConfigured) return { success: true, demo: true };
+
+  try {
+    const { error } = await supabase
+      .from('solution_reviews')
+      .insert({
+        user_id: userId,
+        solution_id: review.solutionId,
+        rating: review.rating,
+        before_symptoms: review.beforeSymptoms,
+        after_symptoms: review.afterSymptoms,
+        usage_duration: review.usageDuration,
+        content: review.content,
+        stage: review.stage || null,
+        age_range: review.ageRange || null,
+        is_verified: true,
+      });
+
+    if (error) throw error;
+    return { success: true };
+  } catch (error) {
+    console.error('[HERLYKKE] Review submit failed:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * 솔루션 리뷰 로드
+ */
+export async function loadSolutionReviews(solutionId: string) {
+  if (!isSupabaseConfigured) return [];
+
+  try {
+    const { data, error } = await supabase
+      .from('solution_reviews')
+      .select('*')
+      .eq('solution_id', solutionId)
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error('[HERLYKKE] Load reviews failed:', error);
+    return [];
+  }
+}
+
+/**
+ * 피어 셀러 사전등록 신청
+ */
+export interface SellerApplication {
+  nickname: string;
+  email: string;
+  experiencedSymptoms: string[];
+  helpfulSolutions: string;
+  introduction: string;
+}
+
+export async function submitSellerApplication(data: SellerApplication) {
+  if (!isSupabaseConfigured) return { success: true, demo: true };
+
+  try {
+    const { error } = await supabase
+      .from('seller_applications')
+      .insert({
+        nickname: data.nickname,
+        email: data.email,
+        experienced_symptoms: data.experiencedSymptoms,
+        helpful_solutions: data.helpfulSolutions || null,
+        introduction: data.introduction || null,
+      });
+
+    if (error) throw error;
+    return { success: true };
+  } catch (error) {
+    console.error('[HERLYKKE] Seller application failed:', error);
+    return { success: false, error };
+  }
+}
+
 // 수면 시간 계산 헬퍼
 function calculateSleepHours(bedTime: string, wakeTime: string): number | null {
   if (!bedTime || !wakeTime) return null;

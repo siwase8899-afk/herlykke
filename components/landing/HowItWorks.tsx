@@ -94,7 +94,7 @@ export function HowItWorks() {
           <span className="inline-block px-4 py-1.5 bg-hlk-accent-light text-hlk-accent-dark text-xs font-semibold tracking-wide uppercase rounded-full mb-6">
             HERLYKKE 4-Pillar
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text mb-6 tracking-tight">
             HERLYKKE의 <span className="text-hlk-primary">4가지 약속</span>
           </h2>
           <p className="text-lg text-hlk-text-secondary max-w-2xl mx-auto">
@@ -115,7 +115,7 @@ export function HowItWorks() {
             <Link
               key={pillar.id}
               href={href}
-              className={`group relative bg-hlk-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-hlk-primary/30 hover:-translate-y-1 ${
+              className={`group relative bg-hlk-bg rounded-3xl p-10 border overflow-hidden hover:shadow-xl hover:border-hlk-primary/30 hover:-translate-y-1 ${
                 isSupport ? 'border-hlk-accent/30' : 'border-hlk-border'
               } ${sectionVisible ? `stagger-${Math.min(pillars.indexOf(pillar) + 1, 4)}` : ''}`}
             >
@@ -129,7 +129,7 @@ export function HowItWorks() {
               </div>
 
               <div className="flex gap-6">
-                <div className={`w-16 h-16 rounded-2xl ${pillar.lightColor} flex items-center justify-center flex-shrink-0 text-hlk-text group-hover:scale-110 transition-transform`}>
+                <div className={`w-16 h-16 rounded-2xl ${pillar.lightColor} flex items-center justify-center flex-shrink-0 text-hlk-text group-hover:scale-110`} style={{ transition: 'transform 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}>
                   <pillar.Icon />
                 </div>
 

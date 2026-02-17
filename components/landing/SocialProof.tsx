@@ -139,7 +139,7 @@ export function SocialProof() {
             </span>
             이런 분들을 위해 만들었어요
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text mb-4 tracking-tight">
             혹시 나의 이야기인가요?
           </h2>
           <p className="text-lg text-hlk-text-secondary">
@@ -155,12 +155,13 @@ export function SocialProof() {
             return (
               <div
                 key={p.name}
-                className={`bg-white rounded-2xl border p-8 transition-all duration-500 cursor-pointer ${
+                className={`bg-white rounded-2xl border p-8 cursor-pointer ${
                   isExpanded
                     ? `${p.borderColor} shadow-xl`
                     : 'border-hlk-border hover:shadow-xl hover:border-hlk-primary/20'
                 }`}
                 onClick={() => setExpandedPersona(isExpanded ? null : p.name)}
+                style={{ transition: 'all 0.6s cubic-bezier(0.19, 1, 0.22, 1)' }}
               >
                 {/* 프로필 헤더 — 항상 표시 */}
                 <div className="flex items-center gap-3 mb-5">
@@ -211,9 +212,9 @@ export function SocialProof() {
                 )}
 
                 {/* 여정 — 펼쳤을 때만 */}
-                <div className={`overflow-hidden transition-all duration-500 ${
+                <div className={`overflow-hidden ${
                   isExpanded ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'
-                }`}>
+                }`} style={{ transition: 'all 0.6s cubic-bezier(0.19, 1, 0.22, 1)' }}>
                   <div className="pt-4 border-t border-hlk-border space-y-5">
                     {/* BEFORE */}
                     <div className="flex gap-3">
@@ -370,11 +371,12 @@ export function SocialProof() {
                 <button
                   key={t.name}
                   onClick={() => setActiveTestimonial(i)}
-                  className={`relative w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
+                  className={`relative w-12 h-12 rounded-full overflow-hidden border-2 ${
                     activeTestimonial === i
                       ? 'border-hlk-primary scale-110 shadow-lg'
                       : 'border-hlk-border opacity-60 hover:opacity-100'
                   }`}
+                  style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
                 >
                   <Image
                     src={t.image}
@@ -396,13 +398,13 @@ export function SocialProof() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/log/new"
-              className="px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
+              className="btn-fill-hover btn-fill-hover--accent px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:-translate-y-0.5"
             >
               오늘 나의 상황 기록하기
             </Link>
             <Link
               href="/community"
-              className="px-8 py-3 bg-white text-hlk-text font-semibold rounded-full border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-primary transition-colors"
+              className="btn-fill-hover btn-fill-hover--secondary px-8 py-3 bg-white text-hlk-text font-semibold rounded-full border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-primary hover:-translate-y-0.5"
             >
               커뮤니티 둘러보기
             </Link>

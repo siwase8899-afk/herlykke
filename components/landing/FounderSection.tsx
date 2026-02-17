@@ -14,7 +14,7 @@ export function FounderSection() {
           <span className="inline-block px-4 py-1.5 bg-hlk-primary-light text-hlk-primary text-sm font-semibold rounded-full mb-4">
             왜 HERLYKKE를 만들었나요?
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text mb-4 tracking-tight">
             창업자의 이야기
           </h2>
           <p className="text-lg text-hlk-text-secondary">

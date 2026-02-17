@@ -95,28 +95,31 @@ export function ConcreteStats() {
           <p className="text-sm text-hlk-accent font-semibold mb-2 uppercase tracking-wider">
             Real Results
           </p>
-          <h2 className="text-2xl md:text-3xl font-bold text-hlk-text">
+          <h2 className="text-2xl md:text-3xl font-bold text-hlk-text tracking-tight">
             숫자가 말해주는 HERLYKKE
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`bg-white rounded-2xl p-8 border border-hlk-border text-center hover:shadow-xl hover:-translate-y-1 transition-all ${sectionVisible ? `stagger-${Math.min(i + 1, 4)}` : ''}`}
-            >
-              <p className={`text-4xl md:text-5xl font-black ${stat.color} mb-3`}>
-                {counts[i]}
-              </p>
-              <p className="font-semibold text-hlk-text mb-1">
-                {stat.label}
-              </p>
-              <p className="text-xs text-hlk-text-tertiary">
-                {stat.detail}
-              </p>
-            </div>
-          ))}
+        {/* C2MTL 인사이트: 카드 대신 세퍼레이터 기반 통계 블록 — 절제된 임팩트 */}
+        <div className="bg-white rounded-2xl border border-hlk-border mb-16 overflow-hidden">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-hlk-border">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`text-center py-10 px-6 ${sectionVisible ? `stagger-${Math.min(i + 1, 4)}` : ''}`}
+              >
+                <p className={`text-5xl md:text-6xl font-black ${stat.color} mb-3 tabular-nums tracking-tight`}>
+                  {counts[i]}
+                </p>
+                <p className="font-semibold text-hlk-text mb-1">
+                  {stat.label}
+                </p>
+                <p className="text-xs text-hlk-text-tertiary">
+                  {stat.detail}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* 한국 갱년기 인사이트 — Sol/경쟁사 분석 기반 */}

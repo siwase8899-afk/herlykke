@@ -58,8 +58,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* AZITMAKER 인사이트: 헤딩은 타이트한 행간 → 본문은 넉넉한 행간 */
-h1, h2, h3, h4 {
+/* C2MTL 인사이트: 헤딩은 타이트한 행간으로 임팩트, 본문은 넉넉한 행간으로 가독성 */
+/* C2MTL은 0.85까지 가지만, HERLYKKE 45-55세 타겟 고려하여 적당히 조임 */
+h1, h2 {
+  line-height: 1.0;
+}
+h3, h4 {
   line-height: 1.15;
 }
 
@@ -80,19 +84,25 @@ input, textarea, select {
   outline-offset: 2px;
 }
 
-/* Calm UX 인사이트: 300ms+ 부드러운 전환 */
+/* ===== C2MTL 물리 기반 이징 함수 ===== */
+/* 관성 있는 자연스러운 감속 — 고급스러운 움직임의 핵심 */
+/* ease-smooth: 부드러운 진입 (C2MTL 메인 이징) */
+/* ease-out-fast: 빠른 퇴장 */
+/* 비대칭 타이밍: 진입 0.6s / 퇴장 0.4s → 자연스러운 무게감 */
+
 button, a, input {
-  transition: all 0.3s ease-out;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Calm UX: 카드, 섹션 전환 */
+/* 카드, 섹션 전환 — C2MTL 물리 이징 */
 .transition-calm {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Calm UX: 호버 효과 */
+/* 호버 효과 — C2MTL 이징 + 비대칭 타이밍 */
 .hover-lift {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .hover-lift:hover {
   transform: translateY(-4px);
@@ -231,9 +241,9 @@ button, a, input {
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Linear 인사이트: 카드 호버 효과 */
+/* C2MTL 이징 적용: 카드 호버 효과 */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .card-hover:hover {
@@ -241,9 +251,9 @@ button, a, input {
   box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.1);
 }
 
-/* Hims/Hers 인사이트: 끊김 없는 페이지 전환 */
+/* C2MTL 비대칭 타이밍: 페이지 전환 (진입 느림, 퇴장 빠름) */
 .page-transition {
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* 스크롤 프로그레스 바 */
@@ -266,7 +276,7 @@ button, a, input {
 .section-enter.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* 자식 요소 순차 진입 (stagger) */
@@ -322,7 +332,7 @@ button, a, input {
 .scroll-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* 방향 변형: slideRight / slideLeft */
@@ -337,7 +347,7 @@ button, a, input {
 .scroll-visible-x {
   opacity: 1;
   transform: translateX(0);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* 스케일 인 */
@@ -348,7 +358,7 @@ button, a, input {
 .scroll-visible-scale {
   opacity: 1;
   transform: scale(1);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 /* stagger 딜레이 유틸 */
@@ -373,4 +383,75 @@ button, a, input {
 }
 .animate-subtle-pulse {
   animation: subtlePulse 3s ease-in-out infinite;
+}
+
+/* ===== C2MTL 버튼 호버: 배경이 아래→위로 채워지는 효과 ===== */
+.btn-fill-hover {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+.btn-fill-hover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: -1;
+  border-radius: inherit;
+}
+.btn-fill-hover:hover::before {
+  transform: scaleY(1);
+}
+/* Primary 버튼: 어두운 배경으로 채워짐 */
+.btn-fill-hover--primary::before {
+  background-color: var(--color-hlk-primary-dark);
+}
+/* Accent 버튼: 어두운 앰버로 채워짐 */
+.btn-fill-hover--accent::before {
+  background-color: var(--color-hlk-accent-dark);
+}
+/* Secondary 버튼: 밝은 배경으로 채워짐 */
+.btn-fill-hover--secondary::before {
+  background-color: var(--color-hlk-primary-light);
+}
+
+/* ===== C2MTL 세퍼레이터 — 카드 대신 얇은 구분선 ===== */
+.separator {
+  height: 1px;
+  background-color: var(--color-hlk-border);
+}
+.separator--dark {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== C2MTL 통계 숫자: 고정폭(tabular-nums) ===== */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== C2MTL 인사이트: prefers-reduced-motion 대응 ===== */
+/* 접근성: 모션 감소 설정 시 모든 애니메이션 비활성화 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-hidden,
+  .scroll-hidden-left,
+  .scroll-hidden-right,
+  .scroll-hidden-scale,
+  .section-enter {
+    opacity: 1;
+    transform: none;
+  }
 }

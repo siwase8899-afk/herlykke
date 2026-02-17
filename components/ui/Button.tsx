@@ -19,11 +19,12 @@ export function Button({
   className = '',
   type = 'button',
 }: ButtonProps) {
-  const baseStyles = 'font-semibold rounded-full transition-all duration-200 cursor-pointer inline-flex items-center justify-center';
+  // C2MTL 인사이트: 물리 이징 + scaleY 배경 채움 효과
+  const baseStyles = 'font-semibold rounded-full cursor-pointer inline-flex items-center justify-center btn-fill-hover';
 
   const variants = {
-    primary: 'bg-hlk-primary text-white hover:bg-hlk-primary-dark active:scale-[0.98]',
-    secondary: 'bg-white text-hlk-primary border-2 border-hlk-primary hover:bg-hlk-primary-light active:scale-[0.98]',
+    primary: 'bg-hlk-primary text-white btn-fill-hover--primary hover:-translate-y-0.5 active:scale-[0.98]',
+    secondary: 'bg-white text-hlk-primary border-2 border-hlk-primary btn-fill-hover--secondary hover:-translate-y-0.5 active:scale-[0.98]',
     ghost: 'bg-transparent text-hlk-primary hover:bg-hlk-primary-light/50',
   };
 

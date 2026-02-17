@@ -139,11 +139,12 @@ export function Testimonials() {
                 <button
                   key={t.name}
                   onClick={() => setActiveTestimonial(i)}
-                  className={`relative w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
+                  className={`relative w-12 h-12 rounded-full overflow-hidden border-2 ${
                     activeTestimonial === i
                       ? 'border-hlk-primary scale-110 shadow-lg'
                       : 'border-hlk-border opacity-60 hover:opacity-100'
                   }`}
+                  style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
                 >
                   <Image
                     src={t.image}
@@ -165,13 +166,13 @@ export function Testimonials() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/log/new"
-              className="px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
+              className="btn-fill-hover btn-fill-hover--accent px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:-translate-y-0.5"
             >
               오늘 나의 상황 기록하기
             </Link>
             <Link
               href="/community"
-              className="px-8 py-3 bg-white text-hlk-text font-semibold rounded-full border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-primary transition-colors"
+              className="btn-fill-hover btn-fill-hover--secondary px-8 py-3 bg-white text-hlk-text font-semibold rounded-full border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-primary hover:-translate-y-0.5"
             >
               함께하기 둘러보기
             </Link>

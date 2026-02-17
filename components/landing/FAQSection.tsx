@@ -51,7 +51,7 @@ export function FAQSection() {
           <span className="inline-block px-4 py-1.5 bg-hlk-primary-light text-hlk-primary text-sm font-semibold rounded-full mb-4">
             FAQ
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text">
+          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text tracking-tight">
             자주 묻는 질문
           </h2>
         </div>
@@ -71,11 +71,12 @@ export function FAQSection() {
                   {faq.q}
                 </span>
                 <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                     openIndex === index
                       ? 'bg-hlk-primary text-white rotate-180'
                       : 'bg-hlk-primary-light text-hlk-primary'
                   }`}
+                  style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -83,9 +84,10 @@ export function FAQSection() {
                 </span>
               </button>
               <div
-                className={`overflow-hidden transition-all duration-200 ${
+                className={`overflow-hidden ${
                   openIndex === index ? 'max-h-48' : 'max-h-0'
                 }`}
+                style={{ transition: 'max-height 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
               >
                 <div className="px-6 pb-5 text-sm text-hlk-text-secondary leading-relaxed">
                   {faq.a}

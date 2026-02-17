@@ -12,17 +12,21 @@ import {
   generateWeeklySummary,
   canGenerateReport,
   getReportProgress,
+  compareWeeklyPeriods,
+  generateMonthlyReport,
 } from '@/lib/patternAnalysis';
 import { MoodChart } from '@/components/report/MoodChart';
 import { SymptomFrequency } from '@/components/report/SymptomFrequency';
 import { WeeklySummaryCard } from '@/components/report/WeeklySummaryCard';
 import { ActivityImpact } from '@/components/report/ActivityImpact';
 import { ReportLocked } from '@/components/report/ReportLocked';
+import { ChangeReport } from '@/components/report/ChangeReport';
 import { TipsSection } from '@/components/tips/TipsSection';
 import { columns } from '@/lib/columnsData';
 
-// 데모 데이터 (7일)
+// 데모 데이터 (14일 — 변화 리포트를 위해 2주)
 const DEMO_LOGS: DailyLog[] = [
+  // 이번 주 (최근 7일)
   {
     id: 'demo_1', date: '2026-02-15', mood: 4, moodTags: ['calm', 'grateful'],
     symptoms: [{ symptomId: 'fatigue', severity: 2 }],
@@ -65,9 +69,52 @@ const DEMO_LOGS: DailyLog[] = [
     sleep: { bedTime: '23:00', wakeTime: '06:00', quality: 3 },
     activities: ['caffeine'], createdAt: '2026-02-09T08:00:00Z'
   },
+  // 지난 주 (이전 7일 — 전반적으로 더 힘든 주)
+  {
+    id: 'demo_8', date: '2026-02-08', mood: 2, moodTags: ['tired', 'anxious'],
+    symptoms: [{ symptomId: 'hot_flash', severity: 4 }, { symptomId: 'fatigue', severity: 3 }],
+    sleep: { bedTime: '00:30', wakeTime: '05:30', quality: 2 },
+    activities: ['caffeine', 'stress'], createdAt: '2026-02-08T08:00:00Z'
+  },
+  {
+    id: 'demo_9', date: '2026-02-07', mood: 3, moodTags: ['listless'],
+    symptoms: [{ symptomId: 'hot_flash', severity: 3 }, { symptomId: 'insomnia', severity: 3 }],
+    sleep: { bedTime: '23:30', wakeTime: '06:00', quality: 2 },
+    activities: ['walk'], createdAt: '2026-02-07T08:00:00Z'
+  },
+  {
+    id: 'demo_10', date: '2026-02-06', mood: 2, moodTags: ['irritable', 'frustrated'],
+    symptoms: [{ symptomId: 'mood_swings', severity: 4 }, { symptomId: 'hot_flash', severity: 3 }],
+    sleep: { bedTime: '01:00', wakeTime: '05:00', quality: 1 },
+    activities: ['alcohol'], createdAt: '2026-02-06T08:00:00Z'
+  },
+  {
+    id: 'demo_11', date: '2026-02-05', mood: 3, moodTags: ['tired'],
+    symptoms: [{ symptomId: 'fatigue', severity: 3 }, { symptomId: 'brain_fog', severity: 2 }],
+    sleep: { bedTime: '23:00', wakeTime: '06:00', quality: 3 },
+    activities: ['caffeine'], createdAt: '2026-02-05T08:00:00Z'
+  },
+  {
+    id: 'demo_12', date: '2026-02-04', mood: 3, moodTags: ['calm'],
+    symptoms: [{ symptomId: 'hot_flash', severity: 2 }],
+    sleep: { bedTime: '22:30', wakeTime: '06:30', quality: 3 },
+    activities: ['exercise'], createdAt: '2026-02-04T08:00:00Z'
+  },
+  {
+    id: 'demo_13', date: '2026-02-03', mood: 2, moodTags: ['tearful', 'anxious'],
+    symptoms: [{ symptomId: 'anxiety', severity: 4 }, { symptomId: 'insomnia', severity: 3 }, { symptomId: 'hot_flash', severity: 3 }],
+    sleep: { bedTime: '00:00', wakeTime: '04:30', quality: 1 },
+    activities: ['stress'], createdAt: '2026-02-03T08:00:00Z'
+  },
+  {
+    id: 'demo_14', date: '2026-02-02', mood: 3, moodTags: ['tired'],
+    symptoms: [{ symptomId: 'fatigue', severity: 3 }, { symptomId: 'hot_flash', severity: 2 }],
+    sleep: { bedTime: '23:30', wakeTime: '06:00', quality: 2 },
+    activities: ['walk'], createdAt: '2026-02-02T08:00:00Z'
+  },
 ];
 
-type Tab = 'report' | 'tips';
+type Tab = 'report' | 'change' | 'tips';
 
 export default function InsightsPage() {
   const { logs, getTodayLog } = useLogStore();
@@ -116,6 +163,10 @@ export default function InsightsPage() {
   const sleepPattern = analyzeSleepPattern(displayLogs);
   const activityCorrelation = analyzeActivityCorrelation(displayLogs);
   const weeklySummary = generateWeeklySummary(displayLogs);
+
+  // 변화 리포트 데이터
+  const weeklyComparison = compareWeeklyPeriods(displayLogs);
+  const monthlyReport = generateMonthlyReport(displayLogs);
 
   return (
     <div className="min-h-screen bg-hlk-bg">
@@ -175,6 +226,16 @@ export default function InsightsPage() {
               패턴 리포트
             </button>
             <button
+              onClick={() => setActiveTab('change')}
+              className={`py-3 px-1 text-sm font-medium border-b-2 transition-colors ${
+                activeTab === 'change'
+                  ? 'border-hlk-primary text-hlk-primary'
+                  : 'border-transparent text-hlk-text-tertiary hover:text-hlk-text'
+              }`}
+            >
+              변화 리포트
+            </button>
+            <button
               onClick={() => setActiveTab('tips')}
               className={`py-3 px-1 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === 'tips'
@@ -190,7 +251,14 @@ export default function InsightsPage() {
 
       {/* Content */}
       <main className="max-w-lg mx-auto px-5 py-6">
-        {activeTab === 'report' ? (
+        {activeTab === 'change' ? (
+          // 변화 리포트 탭
+          <ChangeReport
+            weekly={weeklyComparison}
+            monthly={monthlyReport}
+            totalLogs={displayLogs.length}
+          />
+        ) : activeTab === 'report' ? (
           // 리포트 탭
           <>
             {!hasEnoughData ? (

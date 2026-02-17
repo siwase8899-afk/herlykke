@@ -39,7 +39,7 @@ export function CTAFooter() {
           <p className="text-hlk-secondary-light mb-3">
             &lsquo;나만 이런가?&rsquo; 싶었다면, 아니에요 — 다 그래요
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
             여기, &lsquo;나도 그래&rsquo; 하는
             <br />
             사람들이 모여 있어요
@@ -50,7 +50,7 @@ export function CTAFooter() {
 
           <Link
             href="/checkin"
-            className="group inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:bg-hlk-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 animate-subtle-pulse"
+            className="group btn-fill-hover btn-fill-hover--accent inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] animate-subtle-pulse"
           >
             지금 나의 상태 확인하기
             <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
