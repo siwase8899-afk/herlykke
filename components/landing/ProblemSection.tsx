@@ -11,7 +11,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 const struggles = {
   body: [
     { symptom: '관절통/근육통', desc: '아침에 몸이 뻣뻣해요', expertTip: '에스트로겐 감소가 관절 윤활에 영향을 줘요' },
-    { symptom: '수면 장애', desc: '새벽 3시에 눈이 번쩍', expertTip: '60% 이상의 갱년기 여성이 경험해요' },
+    { symptom: '수면 장애', desc: '새벽 3시에 눈이 번쩍', expertTip: '이 시기를 지나는 여성의 60% 이상이 경험해요' },
     { symptom: '안면 홍조', desc: '갑자기 확 달아오르는 얼굴', expertTip: '체온 조절 중추의 일시적 오작동이에요' },
     { symptom: '만성 피로', desc: '쉬어도 충전이 안 돼요', expertTip: '의지 부족이 아닌 호르몬 변화예요' },
     { symptom: '건조함', desc: '피부도 점막도 마를 때', expertTip: '콜라겐·히알루론산 합성이 줄어들어요' },
@@ -65,7 +65,7 @@ export function ProblemSection() {
                 <span className="text-alma-primary">이제 꺼내도 괜찮아요.</span>
               </h2>
               <p className="text-lg text-alma-text-secondary mb-10">
-                갱년기는 끝이 아니라 <span className="text-alma-accent font-semibold">새로운 시작</span>이에요.
+                이 변화는 끝이 아니라 <span className="text-alma-accent font-semibold">두번째 봄</span>이에요.
                 <br />
                 몸과 마음이 보내는 신호, 이제 함께 읽어봐요.
               </p>
@@ -175,7 +175,7 @@ export function ProblemSection() {
               당신의 이야기를 <span className="text-alma-accent">듣고 있어요</span>.
             </h3>
             <p className="text-white/70 max-w-xl mx-auto">
-              한국 850만 갱년기 여성에게는 신뢰할 수 있는 정보,
+              한국 850만 이 시기를 지나는 여성에게는 신뢰할 수 있는 정보,
               같은 경험을 공유할 동료, 맞는 솔루션을 찾을 수 있는
               <span className="text-alma-primary font-semibold"> 하나의 안전한 공간</span>이 없었어요.
             </p>
@@ -214,7 +214,7 @@ export function ProblemSection() {
           {/* Positive reframe */}
           <div className="text-center">
             <p className="text-white/80">
-              갱년기는 <span className="text-alma-accent font-bold">두 번째 사춘기</span>예요.
+              이 변화는 <span className="text-alma-accent font-bold">두번째 봄</span>이에요.
               <br className="md:hidden" />
               <span className="hidden md:inline"> — </span>
               성장통이 있지만, 그만큼 <span className="text-alma-primary font-bold">새로운 나</span>를 만나게 돼요.

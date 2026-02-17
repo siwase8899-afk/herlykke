@@ -100,7 +100,7 @@ export function HowItWorks() {
           <p className="text-lg text-alma-text-secondary max-w-2xl mx-auto">
             Care · Education · Support · Community
             <br />
-            갱년기 여정의 모든 순간을 함께해요.
+            두번째 봄의 모든 순간을 함께해요.
           </p>
         </div>
 

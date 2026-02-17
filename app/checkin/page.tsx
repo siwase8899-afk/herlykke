@@ -114,7 +114,7 @@ export default function CheckinIntro() {
           </h1>
           <p className="text-alma-text-tertiary text-sm leading-relaxed mb-8">
             19개 질문에 답하면<br />
-            나의 갱년기 단계와 맞춤 관리법을<br />
+            나의 변화 단계와 맞춤 관리법을<br />
             바로 확인할 수 있어요.
           </p>
 

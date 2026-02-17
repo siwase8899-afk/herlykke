@@ -22,7 +22,7 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
     <div className="bg-alma-surface rounded-2xl border border-alma-border p-6">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-lg">📊</span>
-        <h3 className="text-base font-bold text-alma-text">갱년기 지수</h3>
+        <h3 className="text-base font-bold text-alma-text">변화 지수</h3>
         <span className="text-xs text-alma-text-tertiary ml-auto">쿠퍼만 기반</span>
       </div>
 

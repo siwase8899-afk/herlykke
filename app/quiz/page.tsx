@@ -79,7 +79,7 @@ export default function QuizPage() {
         <div className="max-w-lg mx-auto px-5 py-12">
           {/* Result Card */}
           <div className="bg-white rounded-3xl p-8 border border-alma-border shadow-xl text-center">
-            <p className="text-sm text-alma-text-tertiary mb-2">나의 갱년기 패턴</p>
+            <p className="text-sm text-alma-text-tertiary mb-2">나의 변화 패턴</p>
             <div className="text-6xl mb-4">{result.icon}</div>
             <h1 className="text-2xl font-bold text-alma-text mb-2">{result.name}</h1>
             <p className="text-sm text-alma-text-secondary leading-relaxed mb-6">
@@ -137,7 +137,7 @@ export default function QuizPage() {
           <Link href="/" className="text-xl font-bold text-alma-primary">
             HERLYKKE
           </Link>
-          <p className="text-sm text-alma-text-tertiary mt-2">갱년기 패턴 분석</p>
+          <p className="text-sm text-alma-text-tertiary mt-2">변화 패턴 분석</p>
         </div>
 
         {/* Progress bar */}

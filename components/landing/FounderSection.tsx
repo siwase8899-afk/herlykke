@@ -78,7 +78,7 @@ export function FounderSection() {
                   {[
                     { title: '진짜 정보만', desc: '광고가 아닌 증상 인증 리뷰와 전문가 콘텐츠', bg: 'bg-alma-primary-light', color: 'bg-alma-primary' },
                     { title: '완전한 익명', desc: '닉네임만 공개. 실명/나이 절대 비공개', bg: 'bg-alma-primary-light', color: 'bg-alma-primary' },
-                    { title: '당사자가 만든 서비스', desc: '갱년기를 직접 겪는 창업자가 설계', bg: 'bg-alma-accent-light', color: 'bg-alma-accent' },
+                    { title: '당사자가 만든 서비스', desc: '이 시기를 직접 겪는 창업자가 설계', bg: 'bg-alma-accent-light', color: 'bg-alma-accent' },
                     { title: '혼자가 아닌 함께', desc: '같은 증상의 동료와 안전하게 연결', bg: 'bg-alma-accent-light', color: 'bg-alma-accent' },
                     { title: '데이터 기반 맞춤', desc: '기록할수록 정확해지는 AI 분석', bg: 'bg-alma-primary-light', color: 'bg-alma-primary', span: true },
                   ].map((v, i) => (

@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <p className="text-xl font-bold text-white mb-2">HERLYKKE</p>
             <p className="text-sm text-gray-400 leading-relaxed">
-              당신의 변화를 이해하는 곳에서, 같은 경험의 동료를 만나세요
+              두번째 봄, 혼자 지나지 마세요
             </p>
           </div>
 

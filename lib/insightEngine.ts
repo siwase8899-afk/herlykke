@@ -153,7 +153,7 @@ const SYMPTOM_TIPS: Record<SymptomId, Insight[]> = {
       id: 'wc-1',
       type: 'tip',
       title: '대사 변화 이해하기',
-      description: '갱년기에는 기초대사량이 변해요. 같은 양을 먹어도 살이 찔 수 있어요. 단백질 섭취를 늘려보세요.',
+      description: '이 시기에는 기초대사량이 변해요. 같은 양을 먹어도 살이 찔 수 있어요. 단백질 섭취를 늘려보세요.',
       icon: '🥗',
       priority: 3,
     },
@@ -162,7 +162,7 @@ const SYMPTOM_TIPS: Record<SymptomId, Insight[]> = {
 
 // 활동별 긍정 피드백
 const ACTIVITY_FEEDBACK: Record<ActivityId, string> = {
-  exercise: '운동을 하셨네요! 규칙적인 운동은 갱년기 증상 완화에 가장 효과적인 방법 중 하나예요.',
+  exercise: '운동을 하셨네요! 규칙적인 운동은 이 시기 증상 완화에 가장 효과적인 방법 중 하나예요.',
   yoga: '요가/스트레칭 좋아요! 호르몬 균형과 스트레스 관리에 도움이 돼요.',
   meditation: '명상을 하셨군요! 하루 10분 명상은 불안과 수면에 큰 도움이 돼요.',
   walk: '산책 좋아요! 햇빛을 받으며 걷는 것은 기분과 수면에 모두 좋아요.',

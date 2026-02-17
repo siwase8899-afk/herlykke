@@ -150,7 +150,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   if (score <= 3) {
     stage = 'preparation';
     confidence = totalSymptoms === 0 ? 'high' : 'medium';
-    description = '아직 뚜렷한 갱년기 증상이 나타나기 전이에요. 미리 준비하면 더 수월하게 지날 수 있어요.';
+    description = '아직 뚜렷한 증상이 나타나기 전이에요. 미리 준비하면 더 수월하게 지날 수 있어요.';
     tips = [
       '규칙적인 운동 습관 만들기',
       '칼슘, 비타민D 섭취 시작',
@@ -159,7 +159,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   } else if (score <= 7) {
     stage = 'perimenopause';
     confidence = hasHotFlash || hasMoodSwing ? 'high' : 'medium';
-    description = '갱년기 전기에 해당해요. 호르몬 변화가 시작되면서 다양한 증상이 나타날 수 있어요.';
+    description = '변화의 시작 단계에 해당해요. 호르몬 변화가 시작되면서 다양한 증상이 나타날 수 있어요.';
     tips = [
       '산부인과 상담으로 현재 상태 확인',
       '증상 일지 작성 시작하기',
@@ -169,7 +169,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   } else if (score <= 11) {
     stage = 'menopause_active';
     confidence = 'high';
-    description = '갱년기 한가운데에 계세요. 증상이 가장 활발한 시기이지만, 관리하면 충분히 나아질 수 있어요.';
+    description = '변화가 가장 활발한 시기에 계세요. 증상이 활발하지만, 관리하면 충분히 나아질 수 있어요.';
     tips = [
       '호르몬 대체요법(HRT) 상담 고려',
       '증상별 맞춤 관리 시작',

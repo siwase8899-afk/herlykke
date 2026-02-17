@@ -81,7 +81,7 @@ export function HeroSection() {
                   <span className="w-2 h-2 bg-alma-accent rounded-full" />
                   <span className="w-2 h-2 bg-alma-primary rounded-full animate-pulse" />
                 </div>
-                <span className="text-sm font-medium text-alma-text-secondary">당신의 행복을 함께 찾아가는 곳</span>
+                <span className="text-sm font-medium text-alma-text-secondary">두번째 봄을 지나는 당신, 혼자가 아니에요</span>
               </div>
 
               {/* Main headline with typing effect */}

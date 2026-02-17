@@ -74,12 +74,12 @@ function ColumnsContent() {
           <h1 className="text-3xl md:text-4xl font-bold text-alma-text leading-tight mb-4">
             전문가가 알려주는
             <br />
-            <span className="text-alma-primary">갱년기 이야기</span>
+            <span className="text-alma-primary">두번째 봄 이야기</span>
           </h1>
           <p className="text-lg text-alma-text-secondary max-w-2xl">
             산부인과, 정신건강의학과, 수면의학 등 각 분야 전문의가 쉽고 따뜻하게 풀어드려요.
             <br />
-            검색하면 광고뿐인 갱년기 정보, 여기서 제대로 읽어보세요.
+            검색하면 광고뿐인 정보 대신, 여기서 제대로 읽어보세요.
           </p>
         </div>
       </section>
@@ -226,7 +226,7 @@ function ColumnsContent() {
               {isLoggedIn ? (
                 <>매일 기록하면 나만의 패턴이 보여요.<br />오늘의 컨디션을 기록해보세요.</>
               ) : (
-                <>3분 체크인으로 나의 갱년기 단계를 확인하고,<br />나에게 맞는 관리법을 찾아보세요.</>
+                <>3분 체크인으로 나의 변화 단계를 확인하고,<br />나에게 맞는 관리법을 찾아보세요.</>
               )}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

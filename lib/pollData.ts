@@ -92,7 +92,7 @@ export const DEMO_POLLS: Poll[] = [
   {
     id: 'poll_5',
     type: 'empathy',
-    question: '갱년기 정보를 어디서 얻나요?',
+    question: '이 시기 정보를 어디서 얻나요?',
     options: [
       { id: 'opt_5_1', text: '인터넷 검색', emoji: '🔍', votes: 378 },
       { id: 'opt_5_2', text: '주변 언니/친구', emoji: '👭', votes: 156 },

@@ -49,7 +49,7 @@ export function ConcreteStats() {
   const stats = [
     {
       number: '850만',
-      label: '한국 갱년기 여성',
+      label: '이 시기를 지나는 한국 여성',
       detail: '45-60세 여성 인구',
       color: 'text-alma-primary',
     },
@@ -76,7 +76,7 @@ export function ConcreteStats() {
   const insights = [
     { text: '아시아 여성 평균 폐경 연령 48-49세 (서양 51세보다 빠름)', source: 'Sol Research' },
     { text: '한국 여성 1위 증상: 관절통/근육통 (서양은 핫플래시)', source: 'Sol Asia Data' },
-    { text: '갱년기 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'HERLYKKE 시장 조사' },
+    { text: '이 시기를 위한 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'HERLYKKE 시장 조사' },
   ];
 
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });

@@ -313,13 +313,13 @@ export default function DashboardPage() {
 
               const recommendedSolutions = [
                 hasHotFlash || (!hasInsomnia && !hasFatigue)
-                  ? { title: '갱년기 전용 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료', match: 95 }
+                  ? { title: '이 시기를 위한 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료', match: 95 }
                   : hasInsomnia
                     ? { title: '숙면을 위한 요가 니드라', desc: '깊은 이완으로 수면의 질을 높이는 가이드', icon: '🌙', price: '월 9,900원', match: 92 }
                     : { title: '아침 10분 스트레칭', desc: '활기찬 하루를 시작하는 간단한 루틴', icon: '🏃‍♀️', price: '무료', match: 85 },
                 hasFatigue
-                  ? { title: '여성 갱년기 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원', match: 94 }
-                  : { title: '1:1 갱년기 코칭 프로그램', desc: '전문 코치와 8주간 맞춤 관리', icon: '🤝', price: '월 120,000원', match: 96 },
+                  ? { title: '이 시기를 위한 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원', match: 94 }
+                  : { title: '1:1 변화 동반자 코칭', desc: '전문 코치와 8주간 맞춤 관리', icon: '🤝', price: '월 120,000원', match: 96 },
               ];
 
               return recommendedSolutions.map((sol, i) => (

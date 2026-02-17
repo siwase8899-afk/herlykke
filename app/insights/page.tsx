@@ -275,7 +275,7 @@ export default function InsightsPage() {
                       {(() => {
                         const SYMPTOM_SOLUTIONS: Record<string, { title: string; category: string; price: string }[]> = {
                           hot_flash: [
-                            { title: '갱년기 전용 명상 프로그램', category: '명상/요가', price: '무료' },
+                            { title: '이 시기를 위한 명상 프로그램', category: '명상/요가', price: '무료' },
                             { title: '핫플래시 쿨링 스프레이', category: '추천 제품', price: '18,000원' },
                           ],
                           insomnia: [
@@ -284,19 +284,19 @@ export default function InsightsPage() {
                           ],
                           fatigue: [
                             { title: '아침 10분 스트레칭', category: '운동', price: '무료' },
-                            { title: '여성 갱년기 종합 영양제', category: '영양제', price: '월 35,000원' },
+                            { title: '이 시기를 위한 종합 영양제', category: '영양제', price: '월 35,000원' },
                           ],
                           mood_swings: [
                             { title: '감정 조절 마음챙김', category: '명상/요가', price: '무료' },
-                            { title: '갱년기 전문 심리상담', category: '상담', price: '회당 80,000원' },
+                            { title: '이 시기 전문 심리상담', category: '상담', price: '회당 80,000원' },
                           ],
                           anxiety: [
                             { title: '감정 조절 마음챙김', category: '명상/요가', price: '무료' },
-                            { title: '갱년기 전문 심리상담', category: '상담', price: '회당 80,000원' },
+                            { title: '이 시기 전문 심리상담', category: '상담', price: '회당 80,000원' },
                           ],
                           brain_fog: [
-                            { title: '갱년기 맞춤 필라테스', category: '운동', price: '월 29,000원' },
-                            { title: '여성 갱년기 종합 영양제', category: '영양제', price: '월 35,000원' },
+                            { title: '이 시기 맞춤 필라테스', category: '운동', price: '월 29,000원' },
+                            { title: '이 시기를 위한 종합 영양제', category: '영양제', price: '월 35,000원' },
                           ],
                         };
                         const topSymptom = symptomFrequency[0]?.symptomId || 'fatigue';

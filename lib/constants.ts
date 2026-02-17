@@ -59,8 +59,8 @@ export type MenopauseStageType = typeof MenopauseStage[keyof typeof MenopauseSta
 // 갱년기 단계 한국어 라벨
 export const MenopauseStageLabel: Record<MenopauseStageType, string> = {
   preparation: '준비기',
-  perimenopause: '갱년기 전기',
-  menopause_active: '갱년기',
+  perimenopause: '변화 시작기',
+  menopause_active: '변화 활발기',
   postmenopause_early: '폐경 후 초기',
   postmenopause_stable: '폐경 후 안정기',
   unknown: '확인 중',

@@ -9,7 +9,7 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 // 솔루션 카테고리 - Elektra 인사이트: 갱년기 코칭 추가
 const SOLUTION_CATEGORIES = [
   { id: 'all', label: '전체', icon: '✨' },
-  { id: 'coaching', label: '갱년기 코칭', icon: '🤝' },  // Elektra "Menopause Doula"
+  { id: 'coaching', label: '변화 동반자 코칭', icon: '🤝' },  // Elektra "Menopause Doula"
   { id: 'meditation', label: '명상/요가', icon: '🧘‍♀️' },
   { id: 'exercise', label: '운동', icon: '🏃‍♀️' },
   { id: 'nutrition', label: '영양제', icon: '💊' },
@@ -38,9 +38,9 @@ const SOLUTIONS = [
   {
     id: 's0-1',
     category: 'coaching',
-    title: '1:1 갱년기 코칭 프로그램',
+    title: '1:1 변화 동반자 코칭',
     provider: 'HERLYKKE 웰니스',
-    description: '갱년기 전문 코치와 8주간 1:1 동반자 여정. 증상 관리부터 라이프스타일 개선까지 맞춤 가이드.',
+    description: '이 시기 전문 코치와 8주간 1:1 동반자 여정. 증상 관리부터 라이프스타일 개선까지 맞춤 가이드.',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop',
     tags: ['1:1코칭', '8주프로그램', '맞춤관리'],
     rating: 4.9,
@@ -52,9 +52,9 @@ const SOLUTIONS = [
   {
     id: 's0-2',
     category: 'coaching',
-    title: '갱년기 첫걸음 코칭',
+    title: '변화의 첫걸음 코칭',
     provider: 'HERLYKKE 웰니스',
-    description: '갱년기 초기 여성을 위한 4주 입문 코칭. 증상 이해하기, 나만의 관리법 찾기.',
+    description: '변화 초기에 있는 분을 위한 4주 입문 코칭. 증상 이해하기, 나만의 관리법 찾기.',
     image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=300&fit=crop',
     tags: ['입문', '4주', '기초관리'],
     rating: 4.8,
@@ -82,7 +82,7 @@ const SOLUTIONS = [
   {
     id: 's1',
     category: 'meditation',
-    title: '갱년기 전용 명상 프로그램',
+    title: '이 시기를 위한 명상 프로그램',
     provider: 'HERLYKKE 웰니스',
     description: '열감과 불안을 다스리는 10분 호흡 명상. 매일 아침 또는 증상이 나타날 때 활용하세요.',
     image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop',
@@ -126,7 +126,7 @@ const SOLUTIONS = [
   {
     id: 's4',
     category: 'exercise',
-    title: '갱년기 맞춤 필라테스',
+    title: '이 시기 맞춤 필라테스',
     provider: '헬시라이프 스튜디오',
     description: '관절에 무리 없이 코어와 유연성을 강화하는 40대-50대 맞춤 필라테스.',
     image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop',
@@ -170,9 +170,9 @@ const SOLUTIONS = [
   {
     id: 's7',
     category: 'nutrition',
-    title: '여성 갱년기 종합 영양제',
+    title: '이 시기를 위한 종합 영양제',
     provider: '뉴트리웰',
-    description: '이소플라본, 비타민D, 칼슘이 함께 든 갱년기 여성 맞춤 종합 영양제.',
+    description: '이소플라본, 비타민D, 칼슘이 함께 든 이 시기 여성 맞춤 종합 영양제.',
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop',
     tags: ['이소플라본', '비타민D', '칼슘'],
     rating: 4.7,
@@ -214,9 +214,9 @@ const SOLUTIONS = [
   {
     id: 's10',
     category: 'counseling',
-    title: '갱년기 전문 심리상담',
+    title: '이 시기 전문 심리상담',
     provider: '마음돌봄 센터',
-    description: '갱년기 우울, 불안을 전문으로 다루는 심리상담사와 1:1 상담.',
+    description: '이 시기의 우울, 불안을 전문으로 다루는 심리상담사와 1:1 상담.',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop',
     tags: ['심리상담', '우울', '불안'],
     rating: 4.9,
@@ -228,7 +228,7 @@ const SOLUTIONS = [
   {
     id: 's11',
     category: 'counseling',
-    title: '갱년기 영양 컨설팅',
+    title: '변화의 시기 영양 컨설팅',
     provider: '뉴트리 클리닉',
     description: '개인 증상에 맞는 식단과 영양제를 추천받는 1:1 영양 상담.',
     image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop',
@@ -316,7 +316,7 @@ const SOLUTIONS = [
   {
     id: 's17',
     category: 'product',
-    title: '갱년기 전용 보습 크림',
+    title: '이 시기를 위한 보습 크림',
     provider: '더마케어',
     description: '호르몬 변화로 건조해진 피부를 위한 고보습 페이셜 크림.',
     image: 'https://images.unsplash.com/photo-1570194065650-d99fb4b38b15?w=400&h=300&fit=crop',

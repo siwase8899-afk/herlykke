@@ -128,11 +128,11 @@ export default function ResultPage() {
 
               const solutions = [
                 hasPhysical
-                  ? { title: '갱년기 전용 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료' }
+                  ? { title: '이 시기를 위한 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료' }
                   : { title: '아침 10분 스트레칭', desc: '활기찬 하루를 시작하는 루틴', icon: '🏃‍♀️', price: '무료' },
                 hasMoodIssues
-                  ? { title: '갱년기 전문 심리상담', desc: '감정 기복을 전문으로 다루는 1:1 상담', icon: '💬', price: '회당 80,000원' }
-                  : { title: '여성 갱년기 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원' },
+                  ? { title: '이 시기 전문 심리상담', desc: '감정 기복을 전문으로 다루는 1:1 상담', icon: '💬', price: '회당 80,000원' }
+                  : { title: '이 시기를 위한 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원' },
               ];
 
               return solutions.map((sol, i) => (
