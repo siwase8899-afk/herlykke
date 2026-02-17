@@ -57,18 +57,18 @@ export function Testimonials() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-hlk-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Testimonial section */}
-        <div className="bg-white rounded-3xl border border-alma-border p-8 md:p-12">
+        <div className="bg-white rounded-3xl border border-hlk-border p-8 md:p-12">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1.5 bg-alma-accent-light text-alma-accent text-xs font-semibold tracking-wide uppercase rounded-full mb-4">
+            <span className="inline-block px-4 py-1.5 bg-hlk-accent-light text-hlk-accent text-xs font-semibold tracking-wide uppercase rounded-full mb-4">
               Real Stories
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-alma-text mb-2">
+            <h3 className="text-2xl md:text-3xl font-bold text-hlk-text mb-2">
               실제 사용자 후기
             </h3>
-            <p className="text-sm text-alma-text-secondary">
+            <p className="text-sm text-hlk-text-secondary">
               HERLYKKE와 함께한 여성들의 진짜 이야기
             </p>
           </div>
@@ -76,19 +76,19 @@ export function Testimonials() {
           <div className="max-w-3xl mx-auto">
             {/* Before / After */}
             <div className="grid md:grid-cols-2 gap-6 mb-10">
-              <div className="bg-alma-bg rounded-2xl p-6 border border-alma-border relative">
-                <span className="absolute -top-3 left-4 px-3 py-1 bg-alma-text-tertiary text-white text-xs font-bold rounded-full">
+              <div className="bg-hlk-bg rounded-2xl p-6 border border-hlk-border relative">
+                <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-text-tertiary text-white text-xs font-bold rounded-full">
                   BEFORE
                 </span>
-                <p className="text-sm text-alma-text-secondary mt-2 leading-relaxed">
+                <p className="text-sm text-hlk-text-secondary mt-2 leading-relaxed">
                   {testimonials[activeTestimonial].before}
                 </p>
               </div>
-              <div className="bg-alma-accent-light rounded-2xl p-6 border border-alma-accent/20 relative">
-                <span className="absolute -top-3 left-4 px-3 py-1 bg-alma-accent text-white text-xs font-bold rounded-full">
+              <div className="bg-hlk-accent-light rounded-2xl p-6 border border-hlk-accent/20 relative">
+                <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-accent text-white text-xs font-bold rounded-full">
                   AFTER
                 </span>
-                <p className="text-sm text-alma-accent-dark font-medium mt-2 leading-relaxed">
+                <p className="text-sm text-hlk-accent-dark font-medium mt-2 leading-relaxed">
                   {testimonials[activeTestimonial].after}
                 </p>
               </div>
@@ -96,16 +96,16 @@ export function Testimonials() {
 
             {/* Quote */}
             <div className="relative">
-              <div className="absolute -top-4 -left-2 text-6xl text-alma-primary/20 font-serif">
+              <div className="absolute -top-4 -left-2 text-6xl text-hlk-primary/20 font-serif">
                 &ldquo;
               </div>
               <div className="pl-8">
-                <p className="text-lg md:text-xl text-alma-text leading-relaxed mb-8">
+                <p className="text-lg md:text-xl text-hlk-text leading-relaxed mb-8">
                   {testimonials[activeTestimonial].quote}
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-3 border-alma-primary">
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-3 border-hlk-primary">
                     <Image
                       src={testimonials[activeTestimonial].image}
                       alt={testimonials[activeTestimonial].name}
@@ -114,17 +114,17 @@ export function Testimonials() {
                     />
                   </div>
                   <div>
-                    <p className="font-bold text-alma-text">
+                    <p className="font-bold text-hlk-text">
                       {testimonials[activeTestimonial].name}님
-                      <span className="font-normal text-alma-text-tertiary">
+                      <span className="font-normal text-hlk-text-tertiary">
                         {' '}· {testimonials[activeTestimonial].age}세 · {testimonials[activeTestimonial].location}
                       </span>
                     </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs px-2 py-0.5 bg-alma-primary-light text-alma-primary rounded-full">
+                      <span className="text-xs px-2 py-0.5 bg-hlk-primary-light text-hlk-primary rounded-full">
                         {testimonials[activeTestimonial].symptom}
                       </span>
-                      <span className="text-xs text-alma-text-tertiary">
+                      <span className="text-xs text-hlk-text-tertiary">
                         {testimonials[activeTestimonial].weeks}주 사용
                       </span>
                     </div>
@@ -141,8 +141,8 @@ export function Testimonials() {
                   onClick={() => setActiveTestimonial(i)}
                   className={`relative w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
                     activeTestimonial === i
-                      ? 'border-alma-primary scale-110 shadow-lg'
-                      : 'border-alma-border opacity-60 hover:opacity-100'
+                      ? 'border-hlk-primary scale-110 shadow-lg'
+                      : 'border-hlk-border opacity-60 hover:opacity-100'
                   }`}
                 >
                   <Image
@@ -159,19 +159,19 @@ export function Testimonials() {
 
         {/* Community CTA */}
         <div className="mt-12 text-center">
-          <p className="text-alma-text-secondary mb-4">
+          <p className="text-hlk-text-secondary mb-4">
             이 분들처럼 나도 이야기 나누고 싶다면
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/log/new"
-              className="px-8 py-3 bg-alma-accent text-white font-semibold rounded-full hover:bg-alma-accent/90 transition-colors"
+              className="px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
             >
               오늘 나의 상황 기록하기
             </Link>
             <Link
               href="/community"
-              className="px-8 py-3 bg-white text-alma-text font-semibold rounded-full border border-alma-border hover:border-alma-primary/30 hover:text-alma-primary transition-colors"
+              className="px-8 py-3 bg-white text-hlk-text font-semibold rounded-full border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-primary transition-colors"
             >
               함께하기 둘러보기
             </Link>

@@ -84,17 +84,17 @@ export default function DashboardPage() {
 
   if (authLoading || !isLoggedIn || dataLoading) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-secondary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-secondary">로딩 중...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       <main className="max-w-4xl mx-auto px-6 md:px-8 py-10">
         {/* Section 1: 환영 + 오늘 기록하기 CTA */}
-        <div className="bg-gradient-to-br from-alma-primary to-alma-accent rounded-3xl p-8 md:p-10 text-white mb-10">
+        <div className="bg-gradient-to-br from-hlk-primary to-hlk-accent rounded-3xl p-8 md:p-10 text-white mb-10">
           <h1 className="text-2xl font-bold mb-2">
             안녕하세요, {displayName}님!
           </h1>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
           {!todayLogged && (
             <Link
               href="/log/new"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-alma-primary font-bold rounded-xl hover:bg-white/90 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-hlk-primary font-bold rounded-xl hover:bg-white/90 transition-all"
             >
               오늘 기록하기
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,45 +119,45 @@ export default function DashboardPage() {
         {/* Section 2: 오늘의 전문가 컬럼 */}
         <div className="mb-10">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-alma-text">오늘의 전문가 컬럼</h2>
-            <Link href="/columns" className="text-sm text-alma-primary hover:underline">
+            <h2 className="text-lg font-bold text-hlk-text">오늘의 전문가 컬럼</h2>
+            <Link href="/columns" className="text-sm text-hlk-primary hover:underline">
               전체 보기
             </Link>
           </div>
           <Link
             href={`/columns/${todayColumn.slug}`}
-            className="block bg-white rounded-2xl border border-alma-border overflow-hidden hover:shadow-md transition-all"
+            className="block bg-white rounded-2xl border border-hlk-border overflow-hidden hover:shadow-md transition-all"
           >
             <div className="p-6">
               <div className="flex items-center gap-2 mb-3">
                 <span
                   className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
                     todayColumn.category === 'body'
-                      ? 'bg-alma-primary/10 text-alma-primary'
-                      : 'bg-alma-accent/10 text-alma-accent'
+                      ? 'bg-hlk-primary/10 text-hlk-primary'
+                      : 'bg-hlk-accent/10 text-hlk-accent'
                   }`}
                 >
                   {todayColumn.symptom}
                 </span>
-                <span className="text-xs text-alma-text-tertiary">
+                <span className="text-xs text-hlk-text-tertiary">
                   {todayColumn.readTime}분 읽기
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-alma-text leading-snug mb-2">
+              <h3 className="text-lg font-bold text-hlk-text leading-snug mb-2">
                 {todayColumn.title}
               </h3>
-              <p className="text-sm text-alma-text-secondary leading-relaxed line-clamp-2 mb-4">
+              <p className="text-sm text-hlk-text-secondary leading-relaxed line-clamp-2 mb-4">
                 {todayColumn.subtitle}
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-alma-secondary-light flex items-center justify-center">
-                  <span className="text-xs font-bold text-alma-text">
+                <div className="w-8 h-8 rounded-full bg-hlk-secondary-light flex items-center justify-center">
+                  <span className="text-xs font-bold text-hlk-text">
                     {todayColumn.expert.name.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-alma-text">{todayColumn.expert.name}</p>
-                  <p className="text-xs text-alma-text-tertiary">{todayColumn.expert.title}</p>
+                  <p className="text-sm font-semibold text-hlk-text">{todayColumn.expert.name}</p>
+                  <p className="text-xs text-hlk-text-tertiary">{todayColumn.expert.title}</p>
                 </div>
               </div>
             </div>
@@ -167,8 +167,8 @@ export default function DashboardPage() {
         {/* Section 3: 함께하기 미리보기 */}
         <div className="mb-10">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-alma-text">함께하기</h2>
-            <Link href="/community" className="text-sm text-alma-primary hover:underline">
+            <h2 className="text-lg font-bold text-hlk-text">함께하기</h2>
+            <Link href="/community" className="text-sm text-hlk-primary hover:underline">
               전체 보기
             </Link>
           </div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
             <TodaySymptomsWidget />
 
             {/* 카톡 토크방 참여 CTA */}
-            <div className="bg-white rounded-2xl border border-alma-border p-5">
+            <div className="bg-white rounded-2xl border border-hlk-border p-5">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-[#FEE500]/30 flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-[#3C1E1E]" viewBox="0 0 24 24" fill="currentColor">
@@ -185,8 +185,8 @@ export default function DashboardPage() {
                   </svg>
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-bold text-alma-text">카카오 토크방</p>
-                  <p className="text-xs text-alma-text-secondary">증상별 소그룹에서 실시간 대화</p>
+                  <p className="text-sm font-bold text-hlk-text">카카오 토크방</p>
+                  <p className="text-xs text-hlk-text-secondary">증상별 소그룹에서 실시간 대화</p>
                 </div>
               </div>
               <Link
@@ -204,57 +204,57 @@ export default function DashboardPage() {
 
         {/* Section 4: 주간 통계 + 스트릭 + 최근 기록 */}
         <div className="mb-10">
-          <h2 className="text-lg font-bold text-alma-text mb-4">나의 기록</h2>
+          <h2 className="text-lg font-bold text-hlk-text mb-4">나의 기록</h2>
 
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 mb-6">
-            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
-              <p className="text-3xl font-bold text-alma-primary">{logs.length}</p>
-              <p className="text-sm text-alma-text-secondary mt-1">기록 횟수</p>
+            <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
+              <p className="text-3xl font-bold text-hlk-primary">{logs.length}</p>
+              <p className="text-sm text-hlk-text-secondary mt-1">기록 횟수</p>
             </div>
-            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
-              <p className="text-3xl font-bold text-alma-accent">{avgCondition}</p>
-              <p className="text-sm text-alma-text-secondary mt-1">평균 컨디션</p>
+            <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
+              <p className="text-3xl font-bold text-hlk-accent">{avgCondition}</p>
+              <p className="text-sm text-hlk-text-secondary mt-1">평균 컨디션</p>
             </div>
-            <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
-              <p className="text-3xl font-bold text-alma-secondary">{streakDays}일</p>
-              <p className="text-sm text-alma-text-secondary mt-1">연속 기록</p>
+            <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
+              <p className="text-3xl font-bold text-hlk-secondary">{streakDays}일</p>
+              <p className="text-sm text-hlk-text-secondary mt-1">연속 기록</p>
             </div>
           </div>
 
           {/* Recent Logs */}
-          <div className="bg-white rounded-3xl border border-alma-border overflow-hidden">
-            <div className="px-6 py-4 border-b border-alma-border flex items-center justify-between">
-              <h3 className="font-bold text-alma-text">최근 기록</h3>
-              <Link href="/log/history" className="text-sm text-alma-primary hover:underline">
+          <div className="bg-white rounded-3xl border border-hlk-border overflow-hidden">
+            <div className="px-6 py-4 border-b border-hlk-border flex items-center justify-between">
+              <h3 className="font-bold text-hlk-text">최근 기록</h3>
+              <Link href="/log/history" className="text-sm text-hlk-primary hover:underline">
                 전체 보기
               </Link>
             </div>
 
             {logs.length === 0 ? (
-              <div className="p-12 text-center text-alma-text-tertiary">
+              <div className="p-12 text-center text-hlk-text-tertiary">
                 아직 기록이 없어요. 첫 기록을 시작해보세요!
               </div>
             ) : (
-              <div className="divide-y divide-alma-border">
+              <div className="divide-y divide-hlk-border">
                 {logs.slice(0, 5).map((log) => (
                   <div
                     key={log.log_date}
-                    className="px-6 py-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+                    className="px-6 py-4 flex items-center justify-between hover:bg-hlk-bg/50 transition-colors"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`w-12 h-12 rounded-xl ${getConditionColor(log.overall_condition)} flex items-center justify-center text-xl`}>
                         {getConditionEmoji(log.overall_condition)}
                       </div>
                       <div>
-                        <p className="font-medium text-alma-text">
+                        <p className="font-medium text-hlk-text">
                           {new Date(log.log_date).toLocaleDateString('ko-KR', {
                             month: 'long',
                             day: 'numeric',
                             weekday: 'short',
                           })}
                         </p>
-                        <p className="text-sm text-alma-text-tertiary">
+                        <p className="text-sm text-hlk-text-tertiary">
                           {log.symptoms?.length > 0
                             ? `${log.symptoms.length}개 증상 기록`
                             : '증상 없음'}
@@ -263,7 +263,7 @@ export default function DashboardPage() {
                     </div>
                     <Link
                       href={`/log/${log.log_date}`}
-                      className="text-sm text-alma-text-tertiary hover:text-alma-primary transition-colors"
+                      className="text-sm text-hlk-text-tertiary hover:text-hlk-primary transition-colors"
                     >
                       상세 보기 →
                     </Link>
@@ -277,19 +277,19 @@ export default function DashboardPage() {
         {/* AI Insights Preview */}
         <Link
           href="/insights"
-          className="block bg-gradient-to-r from-alma-primary-light to-alma-accent-light rounded-2xl p-5 border border-alma-border hover:shadow-md transition-all mb-10"
+          className="block bg-gradient-to-r from-hlk-primary-light to-hlk-accent-light rounded-2xl p-5 border border-hlk-border hover:shadow-md transition-all mb-10"
         >
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center flex-shrink-0">
               <span className="text-white text-lg">AI</span>
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-alma-text mb-1">나의 AI 맞춤 조언</h3>
-              <p className="text-sm text-alma-text-secondary">
+              <h3 className="font-bold text-hlk-text mb-1">나의 AI 맞춤 조언</h3>
+              <p className="text-sm text-hlk-text-secondary">
                 기록을 분석해서 나만의 패턴과 맞춤 조언을 확인해보세요
               </p>
             </div>
-            <svg className="w-5 h-5 text-alma-text-tertiary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 text-hlk-text-tertiary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
@@ -298,8 +298,8 @@ export default function DashboardPage() {
         {/* 추천 솔루션 미리보기 */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-alma-text">추천 솔루션</h2>
-            <Link href="/solutions" className="text-sm text-alma-primary hover:underline">
+            <h2 className="text-lg font-bold text-hlk-text">추천 솔루션</h2>
+            <Link href="/solutions" className="text-sm text-hlk-primary hover:underline">
               전체 보기
             </Link>
           </div>
@@ -326,19 +326,19 @@ export default function DashboardPage() {
                 <Link
                   key={i}
                   href="/solutions"
-                  className="block bg-white rounded-2xl border border-alma-border p-5 hover:shadow-md transition-all"
+                  className="block bg-white rounded-2xl border border-hlk-border p-5 hover:shadow-md transition-all"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-alma-primary-light flex items-center justify-center flex-shrink-0 text-2xl">
+                    <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center flex-shrink-0 text-2xl">
                       {sol.icon}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-sm font-bold text-alma-text truncate">{sol.title}</h3>
-                        <span className="flex-shrink-0 text-xs bg-alma-primary text-white px-2 py-0.5 rounded-full">{sol.match}%</span>
+                        <h3 className="text-sm font-bold text-hlk-text truncate">{sol.title}</h3>
+                        <span className="flex-shrink-0 text-xs bg-hlk-primary text-white px-2 py-0.5 rounded-full">{sol.match}%</span>
                       </div>
-                      <p className="text-xs text-alma-text-secondary line-clamp-1 mb-2">{sol.desc}</p>
-                      <span className="text-sm font-semibold text-alma-primary">{sol.price}</span>
+                      <p className="text-xs text-hlk-text-secondary line-clamp-1 mb-2">{sol.desc}</p>
+                      <span className="text-sm font-semibold text-hlk-primary">{sol.price}</span>
                     </div>
                   </div>
                 </Link>

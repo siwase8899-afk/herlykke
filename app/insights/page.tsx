@@ -88,8 +88,8 @@ export default function InsightsPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-tertiary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     );
   }
@@ -118,22 +118,22 @@ export default function InsightsPage() {
   const weeklySummary = generateWeeklySummary(displayLogs);
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       {/* Header */}
-      <header className="sticky top-0 z-50 px-5 py-4 border-b border-alma-border bg-white/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-lg mx-auto flex items-center justify-between">
-          <Link href="/log" className="text-alma-text-tertiary hover:text-alma-text transition-colors">
+          <Link href="/log" className="text-hlk-text-tertiary hover:text-hlk-text transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <h1 className="font-bold text-alma-text">패턴 리포트</h1>
+          <h1 className="font-bold text-hlk-text">패턴 리포트</h1>
           <button
             onClick={() => setShowDemo(!showDemo)}
             className={`text-xs px-3 py-1 rounded-full transition-colors ${
               showDemo
-                ? 'bg-alma-accent text-white'
-                : 'bg-alma-bg text-alma-text-tertiary hover:bg-alma-border'
+                ? 'bg-hlk-accent text-white'
+                : 'bg-hlk-bg text-hlk-text-tertiary hover:bg-hlk-border'
             }`}
           >
             {showDemo ? '데모 ON' : '데모'}
@@ -143,16 +143,16 @@ export default function InsightsPage() {
 
       {/* 데모 모드 안내 */}
       {showDemo && (
-        <div className="bg-alma-accent-light border-b border-alma-accent/20 px-5 py-3">
+        <div className="bg-hlk-accent-light border-b border-hlk-accent/20 px-5 py-3">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span>✨</span>
-              <p className="text-xs text-alma-text-secondary">
+              <p className="text-xs text-hlk-text-secondary">
                 {logs.length === 0 ? '미리보기 모드 — 데모 데이터로 서비스를 체험 중이에요' : '데모 데이터로 보고 있어요'}
               </p>
             </div>
             {logs.length === 0 && (
-              <Link href="/checkin" className="px-3 py-1.5 bg-alma-accent text-white text-xs font-bold rounded-full hover:bg-alma-accent/90 transition-colors flex-shrink-0">
+              <Link href="/checkin" className="px-3 py-1.5 bg-hlk-accent text-white text-xs font-bold rounded-full hover:bg-hlk-accent/90 transition-colors flex-shrink-0">
                 시작하기
               </Link>
             )}
@@ -161,15 +161,15 @@ export default function InsightsPage() {
       )}
 
       {/* Tabs */}
-      <div className="sticky top-[57px] z-40 bg-white border-b border-alma-border">
+      <div className="sticky top-[57px] z-40 bg-white border-b border-hlk-border">
         <div className="max-w-lg mx-auto px-5">
           <div className="flex gap-4">
             <button
               onClick={() => setActiveTab('report')}
               className={`py-3 px-1 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === 'report'
-                  ? 'border-alma-primary text-alma-primary'
-                  : 'border-transparent text-alma-text-tertiary hover:text-alma-text'
+                  ? 'border-hlk-primary text-hlk-primary'
+                  : 'border-transparent text-hlk-text-tertiary hover:text-hlk-text'
               }`}
             >
               패턴 리포트
@@ -178,8 +178,8 @@ export default function InsightsPage() {
               onClick={() => setActiveTab('tips')}
               className={`py-3 px-1 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === 'tips'
-                  ? 'border-alma-primary text-alma-primary'
-                  : 'border-transparent text-alma-text-tertiary hover:text-alma-text'
+                  ? 'border-hlk-primary text-hlk-primary'
+                  : 'border-transparent text-hlk-text-tertiary hover:text-hlk-text'
               }`}
             >
               맞춤 팁
@@ -214,39 +214,39 @@ export default function InsightsPage() {
 
                 {/* 수면 패턴 */}
                 {sleepPattern.avgHours > 0 && (
-                  <div className="bg-white rounded-2xl p-5 border border-alma-border">
-                    <h3 className="font-semibold text-alma-text mb-4">수면 패턴</h3>
+                  <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+                    <h3 className="font-semibold text-hlk-text mb-4">수면 패턴</h3>
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-alma-bg rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-alma-primary">
+                      <div className="bg-hlk-bg rounded-xl p-4 text-center">
+                        <p className="text-2xl font-bold text-hlk-primary">
                           {sleepPattern.avgHours.toFixed(1)}
                         </p>
-                        <p className="text-xs text-alma-text-tertiary">평균 수면 시간</p>
+                        <p className="text-xs text-hlk-text-tertiary">평균 수면 시간</p>
                       </div>
-                      <div className="bg-alma-bg rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-alma-primary">
+                      <div className="bg-hlk-bg rounded-xl p-4 text-center">
+                        <p className="text-2xl font-bold text-hlk-primary">
                           {sleepPattern.avgQuality.toFixed(1)}
                         </p>
-                        <p className="text-xs text-alma-text-tertiary">평균 수면 품질</p>
+                        <p className="text-xs text-hlk-text-tertiary">평균 수면 품질</p>
                       </div>
                     </div>
                     <div className="mt-4 flex items-center justify-center gap-2 text-sm">
                       {sleepPattern.qualityTrend === 'improving' && (
                         <>
                           <span className="text-green-500">📈</span>
-                          <span className="text-alma-text-secondary">수면 품질이 개선되고 있어요!</span>
+                          <span className="text-hlk-text-secondary">수면 품질이 개선되고 있어요!</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'declining' && (
                         <>
                           <span className="text-red-500">📉</span>
-                          <span className="text-alma-text-secondary">수면에 신경 써보세요</span>
+                          <span className="text-hlk-text-secondary">수면에 신경 써보세요</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'stable' && (
                         <>
                           <span className="text-amber-500">➡️</span>
-                          <span className="text-alma-text-secondary">수면 패턴이 일정해요</span>
+                          <span className="text-hlk-text-secondary">수면 패턴이 일정해요</span>
                         </>
                       )}
                     </div>
@@ -258,17 +258,17 @@ export default function InsightsPage() {
 
                 {/* 이 증상 관리 솔루션 */}
                 {symptomFrequency.length > 0 && (
-                  <div className="bg-white rounded-2xl p-5 border border-alma-border">
+                  <div className="bg-white rounded-2xl p-5 border border-hlk-border">
                     <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold text-alma-text flex items-center gap-2">
+                      <h3 className="font-semibold text-hlk-text flex items-center gap-2">
                         <span className="text-lg">💊</span>
                         이 증상 관리 솔루션
                       </h3>
-                      <Link href="/solutions" className="text-sm text-alma-primary hover:underline">
+                      <Link href="/solutions" className="text-sm text-hlk-primary hover:underline">
                         더보기
                       </Link>
                     </div>
-                    <p className="text-sm text-alma-text-secondary mb-4">
+                    <p className="text-sm text-hlk-text-secondary mb-4">
                       나의 상위 증상에 맞는 추천 솔루션이에요
                     </p>
                     <div className="space-y-3">
@@ -305,25 +305,25 @@ export default function InsightsPage() {
                           <Link
                             key={i}
                             href="/solutions"
-                            className="flex items-center gap-4 p-3 bg-alma-bg rounded-xl hover:bg-alma-border transition-colors"
+                            className="flex items-center gap-4 p-3 bg-hlk-bg rounded-xl hover:bg-hlk-border transition-colors"
                           >
-                            <div className="w-10 h-10 rounded-lg bg-alma-primary-light flex items-center justify-center flex-shrink-0">
+                            <div className="w-10 h-10 rounded-lg bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
                               <span className="text-lg">
                                 {sol.category === '명상/요가' ? '🧘‍♀️' : sol.category === '영양제' ? '💊' : sol.category === '운동' ? '🏃‍♀️' : sol.category === '상담' ? '💬' : '🛍️'}
                               </span>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-alma-text truncate">{sol.title}</p>
-                              <p className="text-xs text-alma-text-tertiary">{sol.category}</p>
+                              <p className="text-sm font-medium text-hlk-text truncate">{sol.title}</p>
+                              <p className="text-xs text-hlk-text-tertiary">{sol.category}</p>
                             </div>
-                            <span className="text-sm font-semibold text-alma-primary flex-shrink-0">{sol.price}</span>
+                            <span className="text-sm font-semibold text-hlk-primary flex-shrink-0">{sol.price}</span>
                           </Link>
                         ));
                       })()}
                     </div>
                     <Link
                       href="/solutions"
-                      className="block mt-4 py-3 bg-alma-primary-light text-alma-primary font-medium rounded-xl text-center hover:bg-alma-primary hover:text-white transition-all"
+                      className="block mt-4 py-3 bg-hlk-primary-light text-hlk-primary font-medium rounded-xl text-center hover:bg-hlk-primary hover:text-white transition-all"
                     >
                       더 많은 솔루션 보기
                     </Link>
@@ -331,17 +331,17 @@ export default function InsightsPage() {
                 )}
 
                 {/* 전문가 컬럼 추천 */}
-                <div className="bg-white rounded-2xl p-5 border border-alma-border">
+                <div className="bg-white rounded-2xl p-5 border border-hlk-border">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-alma-text flex items-center gap-2">
+                    <h3 className="font-semibold text-hlk-text flex items-center gap-2">
                       <span className="text-lg">📚</span>
                       전문가 컬럼
                     </h3>
-                    <Link href="/columns" className="text-sm text-alma-primary hover:underline">
+                    <Link href="/columns" className="text-sm text-hlk-primary hover:underline">
                       전체 보기
                     </Link>
                   </div>
-                  <p className="text-sm text-alma-text-secondary mb-4">
+                  <p className="text-sm text-hlk-text-secondary mb-4">
                     나의 증상에 맞는 전문가 컬럼으로 깊이 이해해요
                   </p>
                   <div className="space-y-3">
@@ -366,20 +366,20 @@ export default function InsightsPage() {
                         <Link
                           key={col.slug}
                           href={`/columns/${col.slug}`}
-                          className="flex items-start gap-3 p-3 bg-alma-bg rounded-xl hover:bg-alma-border transition-colors"
+                          className="flex items-start gap-3 p-3 bg-hlk-bg rounded-xl hover:bg-hlk-border transition-colors"
                         >
-                          <div className="w-10 h-10 rounded-lg bg-alma-accent-light flex items-center justify-center flex-shrink-0">
+                          <div className="w-10 h-10 rounded-lg bg-hlk-accent-light flex items-center justify-center flex-shrink-0">
                             <span className="text-lg">{col.category === 'body' ? '🩺' : '🧠'}</span>
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-alma-text line-clamp-1">{col.title}</p>
+                            <p className="text-sm font-medium text-hlk-text line-clamp-1">{col.title}</p>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-xs text-alma-text-tertiary">{col.expert.name}</span>
-                              <span className="text-xs text-alma-text-tertiary">·</span>
-                              <span className="text-xs text-alma-text-tertiary">{col.readTime}분 읽기</span>
+                              <span className="text-xs text-hlk-text-tertiary">{col.expert.name}</span>
+                              <span className="text-xs text-hlk-text-tertiary">·</span>
+                              <span className="text-xs text-hlk-text-tertiary">{col.readTime}분 읽기</span>
                             </div>
                           </div>
-                          <svg className="w-4 h-4 text-alma-text-tertiary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-hlk-text-tertiary flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </Link>
@@ -391,19 +391,19 @@ export default function InsightsPage() {
                 {/* 맞춤 팁 바로가기 */}
                 <button
                   onClick={() => setActiveTab('tips')}
-                  className="w-full bg-gradient-to-br from-alma-primary-light to-alma-accent-light rounded-2xl p-5 border border-alma-border text-left"
+                  className="w-full bg-gradient-to-br from-hlk-primary-light to-hlk-accent-light rounded-2xl p-5 border border-hlk-border text-left"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-start gap-3">
                       <span className="text-2xl">💡</span>
                       <div>
-                        <h3 className="font-semibold text-alma-text mb-1">맞춤 케어 팁 보기</h3>
-                        <p className="text-sm text-alma-text-secondary">
+                        <h3 className="font-semibold text-hlk-text mb-1">맞춤 케어 팁 보기</h3>
+                        <p className="text-sm text-hlk-text-secondary">
                           나의 증상에 맞는 케어 방법을 확인해보세요
                         </p>
                       </div>
                     </div>
-                    <svg className="w-5 h-5 text-alma-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-hlk-text-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
@@ -419,11 +419,11 @@ export default function InsightsPage() {
 
       {/* Bottom CTA */}
       {!todayLog && (
-        <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-alma-border">
+        <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-hlk-border">
           <div className="max-w-lg mx-auto">
             <Link
               href="/log/new"
-              className="block w-full py-4 bg-alma-accent text-white font-bold rounded-full text-center hover:bg-alma-accent/90 transition-all"
+              className="block w-full py-4 bg-hlk-accent text-white font-bold rounded-full text-center hover:bg-hlk-accent/90 transition-all"
             >
               오늘 기록하기
             </Link>

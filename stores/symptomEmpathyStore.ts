@@ -102,7 +102,7 @@ export const useSymptomEmpathyStore = create<SymptomEmpathyState>()(
       },
     }),
     {
-      name: 'alma-symptom-empathy',
+      name: 'hlk-symptom-empathy',
     }
   )
 );

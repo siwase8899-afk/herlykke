@@ -30,7 +30,7 @@ export function ProblemSection() {
   return (
     <section>
       {/* Main section with photo */}
-      <div ref={sectionRef} className="bg-alma-bg px-6 md:px-8 py-24 md:py-32">
+      <div ref={sectionRef} className="bg-hlk-bg px-6 md:px-8 py-24 md:py-32">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             {/* Left: Photo */}
@@ -42,30 +42,30 @@ export function ProblemSection() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-alma-secondary/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-hlk-secondary/30 to-transparent" />
               </div>
               {/* Quote card */}
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl max-w-xs">
-                <p className="text-alma-text font-medium leading-relaxed">
+                <p className="text-hlk-text font-medium leading-relaxed">
                   &ldquo;나만 이런 줄 알았는데, 다들 비슷하더라고요&rdquo;
                 </p>
-                <p className="text-sm text-alma-text-tertiary mt-2">— 52세, 직장인</p>
+                <p className="text-sm text-hlk-text-tertiary mt-2">— 52세, 직장인</p>
               </div>
             </div>
 
             {/* Right: Content */}
             <div className={`${sectionVisible ? 'scroll-visible-x' : 'scroll-hidden-right'}`}>
               {/* Section header — August 인사이트: "축하할 일" 프레이밍 */}
-              <p className="text-alma-accent font-semibold mb-4 tracking-wide uppercase text-sm">
+              <p className="text-hlk-accent font-semibold mb-4 tracking-wide uppercase text-sm">
                 두 번째 삶의 시작
               </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-alma-text leading-tight mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text leading-tight mb-6">
                 그냥 묻어 두었던 것들,
                 <br />
-                <span className="text-alma-primary">이제 꺼내도 괜찮아요.</span>
+                <span className="text-hlk-primary">이제 꺼내도 괜찮아요.</span>
               </h2>
-              <p className="text-lg text-alma-text-secondary mb-10">
-                이 변화는 끝이 아니라 <span className="text-alma-accent font-semibold">두번째 봄</span>이에요.
+              <p className="text-lg text-hlk-text-secondary mb-10">
+                이 변화는 끝이 아니라 <span className="text-hlk-accent font-semibold">두번째 봄</span>이에요.
                 <br />
                 몸과 마음이 보내는 신호, 이제 함께 읽어봐요.
               </p>
@@ -73,31 +73,31 @@ export function ProblemSection() {
               {/* Two columns of symptoms */}
               <div className="grid sm:grid-cols-2 gap-8">
                 {/* Body signals */}
-                <div className="bg-white rounded-2xl p-6 border border-alma-border shadow-sm">
+                <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm">
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-xl bg-alma-primary/10 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-alma-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 rounded-xl bg-hlk-primary/10 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-bold text-alma-text">몸의 신호</h3>
+                    <h3 className="text-lg font-bold text-hlk-text">몸의 신호</h3>
                   </div>
                   <div className="space-y-1">
                     {struggles.body.map((item) => (
                       <Link
                         key={item.symptom}
                         href={`/columns?category=${symptomSlugMap[item.symptom]}`}
-                        className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-alma-primary/5 transition-all"
+                        className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-hlk-primary/5 transition-all"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-alma-primary shrink-0" />
-                          <span className="text-sm font-medium text-alma-text group-hover/item:text-alma-primary transition-colors">{item.symptom}</span>
-                          <svg className="w-3.5 h-3.5 text-alma-primary/40 group-hover/item:text-alma-primary group-hover/item:translate-x-0.5 transition-all ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-1.5 h-1.5 rounded-full bg-hlk-primary shrink-0" />
+                          <span className="text-sm font-medium text-hlk-text group-hover/item:text-hlk-primary transition-colors">{item.symptom}</span>
+                          <svg className="w-3.5 h-3.5 text-hlk-primary/40 group-hover/item:text-hlk-primary group-hover/item:translate-x-0.5 transition-all ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
                         {/* 전문가 한마디 — 호버 시 슬라이드 표시 */}
-                        <p className="text-xs text-alma-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
+                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
                           {item.expertTip}
                         </p>
                       </Link>
@@ -106,7 +106,7 @@ export function ProblemSection() {
                   {/* CTA 링크 */}
                   <Link
                     href="/columns?category=body"
-                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-primary hover:text-alma-primary-dark transition-colors"
+                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-primary hover:text-hlk-primary-dark transition-colors"
                   >
                     전문가가 알려주는 몸의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,31 +116,31 @@ export function ProblemSection() {
                 </div>
 
                 {/* Mind signals */}
-                <div className="bg-white rounded-2xl p-6 border border-alma-border shadow-sm">
+                <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm">
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-xl bg-alma-accent/10 flex items-center justify-center">
-                      <svg className="w-5 h-5 text-alma-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 rounded-xl bg-hlk-accent/10 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-hlk-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-bold text-alma-text">마음의 신호</h3>
+                    <h3 className="text-lg font-bold text-hlk-text">마음의 신호</h3>
                   </div>
                   <div className="space-y-1">
                     {struggles.mind.map((item) => (
                       <Link
                         key={item.symptom}
                         href={`/columns?category=${symptomSlugMap[item.symptom]}`}
-                        className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-alma-accent/5 transition-all"
+                        className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-hlk-accent/5 transition-all"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-alma-accent shrink-0" />
-                          <span className="text-sm font-medium text-alma-text group-hover/item:text-alma-accent transition-colors">{item.symptom}</span>
-                          <svg className="w-3.5 h-3.5 text-alma-accent/40 group-hover/item:text-alma-accent group-hover/item:translate-x-0.5 transition-all ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-1.5 h-1.5 rounded-full bg-hlk-accent shrink-0" />
+                          <span className="text-sm font-medium text-hlk-text group-hover/item:text-hlk-accent transition-colors">{item.symptom}</span>
+                          <svg className="w-3.5 h-3.5 text-hlk-accent/40 group-hover/item:text-hlk-accent group-hover/item:translate-x-0.5 transition-all ml-auto shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                         </div>
                         {/* 전문가 한마디 — 호버 시 슬라이드 표시 */}
-                        <p className="text-xs text-alma-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
+                        <p className="text-xs text-hlk-text-tertiary pl-[18px] mt-0 max-h-0 opacity-0 group-hover/item:max-h-8 group-hover/item:opacity-100 group-hover/item:mt-1 transition-all duration-300 overflow-hidden">
                           {item.expertTip}
                         </p>
                       </Link>
@@ -149,7 +149,7 @@ export function ProblemSection() {
                   {/* CTA 링크 */}
                   <Link
                     href="/columns?category=mind"
-                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-alma-border-light text-sm font-semibold text-alma-accent hover:text-alma-accent-dark transition-colors"
+                    className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-accent hover:text-hlk-accent-dark transition-colors"
                   >
                     전문가가 알려주는 마음의 변화
                     <svg className="w-4 h-4 group-hover/cta:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,7 +164,7 @@ export function ProblemSection() {
       </div>
 
       {/* Dark accent section — Midi "We See You" + 한국 시장 구조적 공백 */}
-      <div className="bg-alma-secondary text-white px-6 md:px-8 py-20 md:py-24">
+      <div className="bg-hlk-secondary text-white px-6 md:px-8 py-20 md:py-24">
         <div className="max-w-5xl mx-auto">
           {/* Midi 인사이트: 공감 언어 */}
           <div className="text-center mb-12">
@@ -172,12 +172,12 @@ export function ProblemSection() {
               We See You. We Hear You.
             </p>
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              당신의 이야기를 <span className="text-alma-accent">듣고 있어요</span>.
+              당신의 이야기를 <span className="text-hlk-accent">듣고 있어요</span>.
             </h3>
             <p className="text-white/70 max-w-xl mx-auto">
               한국 850만 이 시기를 지나는 여성에게는 신뢰할 수 있는 정보,
               같은 경험을 공유할 동료, 맞는 솔루션을 찾을 수 있는
-              <span className="text-alma-primary font-semibold"> 하나의 안전한 공간</span>이 없었어요.
+              <span className="text-hlk-primary font-semibold"> 하나의 안전한 공간</span>이 없었어요.
             </p>
           </div>
 
@@ -185,24 +185,24 @@ export function ProblemSection() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 text-center mb-12">
             <div className="p-6">
               <p className="text-white/50 text-sm line-through mb-3">검색하면 건기식 광고뿐</p>
-              <p className="text-xl font-bold text-alma-accent">증상 인증 리뷰만</p>
+              <p className="text-xl font-bold text-hlk-accent">증상 인증 리뷰만</p>
               <p className="text-xs text-white/40 mt-2">화해가 성분을 분석하듯, HERLYKKE는 증상을 분석해요</p>
             </div>
             <div className="p-6 border-y md:border-y-0 md:border-x border-white/10">
               <p className="text-white/50 text-sm line-through mb-3">병원 3분 진료, "다 그래요"</p>
-              <p className="text-xl font-bold text-alma-primary">AI가 나의 패턴을 분석</p>
+              <p className="text-xl font-bold text-hlk-primary">AI가 나의 패턴을 분석</p>
               <p className="text-xs text-white/40 mt-2">기록할수록 더 정확해지는 맞춤 분석</p>
             </div>
             <div className="p-6 lg:border-r border-white/10">
               <p className="text-white/50 text-sm line-through mb-3">말할 데가 없어요</p>
-              <p className="text-xl font-bold text-alma-primary">같은 증상의 친구와 익명으로</p>
+              <p className="text-xl font-bold text-hlk-primary">같은 증상의 친구와 익명으로</p>
               <p className="text-xs text-white/40 mt-2">블라인드처럼 안전한 익명 커뮤니티</p>
             </div>
             <Link href="/solutions" className="group p-6 rounded-2xl hover:bg-white/5 transition-colors">
               <p className="text-white/50 text-sm line-through mb-3">뭘 해야 할지 모르겠어요</p>
-              <p className="text-xl font-bold text-alma-accent">나에게 맞는 솔루션 추천</p>
+              <p className="text-xl font-bold text-hlk-accent">나에게 맞는 솔루션 추천</p>
               <p className="text-xs text-white/40 mt-2">코칭, 명상, 운동, 영양 맞춤 큐레이션</p>
-              <span className="inline-flex items-center gap-1 text-xs text-alma-accent/70 mt-3 group-hover:text-alma-accent transition-colors">
+              <span className="inline-flex items-center gap-1 text-xs text-hlk-accent/70 mt-3 group-hover:text-hlk-accent transition-colors">
                 솔루션 둘러보기
                 <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -214,10 +214,10 @@ export function ProblemSection() {
           {/* Positive reframe */}
           <div className="text-center">
             <p className="text-white/80">
-              이 변화는 <span className="text-alma-accent font-bold">두번째 봄</span>이에요.
+              이 변화는 <span className="text-hlk-accent font-bold">두번째 봄</span>이에요.
               <br className="md:hidden" />
               <span className="hidden md:inline"> — </span>
-              성장통이 있지만, 그만큼 <span className="text-alma-primary font-bold">새로운 나</span>를 만나게 돼요.
+              성장통이 있지만, 그만큼 <span className="text-hlk-primary font-bold">새로운 나</span>를 만나게 돼요.
             </p>
           </div>
         </div>

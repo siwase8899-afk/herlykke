@@ -5,37 +5,37 @@
   /* 딥 틸 + 앰버 — 깊이 있고 따뜻한 정체성 */
 
   /* Primary - Deep Teal */
-  --color-alma-primary: #1A6B5A;
-  --color-alma-primary-light: #E6F5F0;
-  --color-alma-primary-dark: #0E4D3E;
+  --color-hlk-primary: #1A6B5A;
+  --color-hlk-primary-light: #E6F5F0;
+  --color-hlk-primary-dark: #0E4D3E;
 
   /* Accent - Warm Amber */
-  --color-alma-accent: #D4850A;
-  --color-alma-accent-light: #FFF3E0;
-  --color-alma-accent-dark: #B06E00;
+  --color-hlk-accent: #D4850A;
+  --color-hlk-accent-light: #FFF3E0;
+  --color-hlk-accent-dark: #B06E00;
 
   /* Secondary - Warm Charcoal */
-  --color-alma-secondary: #2D2926;
-  --color-alma-secondary-light: #E8E4E0;
+  --color-hlk-secondary: #2D2926;
+  --color-hlk-secondary-light: #E8E4E0;
 
   /* Backgrounds */
-  --color-alma-bg: #FEFCF8;
-  --color-alma-surface: #ffffff;
-  --color-alma-surface-warm: #FBF5EC;
+  --color-hlk-bg: #FEFCF8;
+  --color-hlk-surface: #ffffff;
+  --color-hlk-surface-warm: #FBF5EC;
 
   /* Text - Stone undertone */
-  --color-alma-text: #1C1917;
-  --color-alma-text-secondary: #57534E;
-  --color-alma-text-tertiary: #A8A29E;
+  --color-hlk-text: #1C1917;
+  --color-hlk-text-secondary: #57534E;
+  --color-hlk-text-tertiary: #A8A29E;
 
   /* Border */
-  --color-alma-border: #E7E5E4;
-  --color-alma-border-light: #F5F5F4;
+  --color-hlk-border: #E7E5E4;
+  --color-hlk-border-light: #F5F5F4;
 
   /* Status */
-  --color-alma-success: #15803D;
-  --color-alma-error: #DC2626;
-  --color-alma-warning: #EA580C;
+  --color-hlk-success: #15803D;
+  --color-hlk-error: #DC2626;
+  --color-hlk-warning: #EA580C;
 
   /* 폰트 - 산세리프만 */
   --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -116,29 +116,29 @@ button, a, input {
 }
 
 /* 시각적 은유 — HERLYKKE 연결된 원 모티프 */
-.alma-motif {
+.hlk-motif {
   display: flex;
   gap: -4px;
 }
 
-.alma-motif-circle {
+.hlk-motif-circle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   margin-left: -4px;
 }
 
-.alma-motif-circle:first-child {
+.hlk-motif-circle:first-child {
   margin-left: 0;
-  background-color: var(--color-alma-primary);
+  background-color: var(--color-hlk-primary);
 }
 
-.alma-motif-circle:nth-child(2) {
-  background-color: var(--color-alma-accent);
+.hlk-motif-circle:nth-child(2) {
+  background-color: var(--color-hlk-accent);
 }
 
-.alma-motif-circle:nth-child(3) {
-  background-color: var(--color-alma-primary);
+.hlk-motif-circle:nth-child(3) {
+  background-color: var(--color-hlk-primary);
   animation: pulse 2s infinite;
 }
 
@@ -249,9 +249,9 @@ button, a, input {
 /* 스크롤 프로그레스 바 */
 .scroll-progress-bar {
   background: linear-gradient(90deg,
-    var(--color-alma-primary) 0%,
-    var(--color-alma-accent) 50%,
-    var(--color-alma-primary) 100%
+    var(--color-hlk-primary) 0%,
+    var(--color-hlk-accent) 50%,
+    var(--color-hlk-primary) 100%
   );
   background-size: 200% 100%;
   animation: gradientShift 4s ease infinite;

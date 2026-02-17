@@ -18,7 +18,7 @@ export function TipCard({ tip, reason, showSymptom = true }: TipCardProps) {
 
   return (
     <div
-      className={`bg-white rounded-2xl border border-alma-border overflow-hidden transition-all ${
+      className={`bg-white rounded-2xl border border-hlk-border overflow-hidden transition-all ${
         isExpanded ? 'shadow-md' : 'shadow-sm'
       }`}
     >
@@ -29,18 +29,18 @@ export function TipCard({ tip, reason, showSymptom = true }: TipCardProps) {
       >
         <span className="text-2xl">{tip.emoji}</span>
         <div className="flex-1 min-w-0">
-          <h4 className="font-semibold text-alma-text">{tip.title}</h4>
+          <h4 className="font-semibold text-hlk-text">{tip.title}</h4>
           {reason && (
-            <p className="text-xs text-alma-text-tertiary mt-0.5">{reason}</p>
+            <p className="text-xs text-hlk-text-tertiary mt-0.5">{reason}</p>
           )}
           {showSymptom && symptom && (
-            <span className="inline-flex items-center gap-1 text-xs text-alma-primary mt-1">
+            <span className="inline-flex items-center gap-1 text-xs text-hlk-primary mt-1">
               {symptom.emoji} {symptom.name}
             </span>
           )}
         </div>
         <svg
-          className={`w-5 h-5 text-alma-text-tertiary transition-transform ${
+          className={`w-5 h-5 text-hlk-text-tertiary transition-transform ${
             isExpanded ? 'rotate-180' : ''
           }`}
           fill="none"
@@ -53,8 +53,8 @@ export function TipCard({ tip, reason, showSymptom = true }: TipCardProps) {
 
       {/* 확장된 내용 */}
       {isExpanded && (
-        <div className="px-4 pb-4 border-t border-alma-border">
-          <p className="text-sm text-alma-text-secondary leading-relaxed mt-3">
+        <div className="px-4 pb-4 border-t border-hlk-border">
+          <p className="text-sm text-hlk-text-secondary leading-relaxed mt-3">
             {tip.description}
           </p>
 
@@ -63,10 +63,10 @@ export function TipCard({ tip, reason, showSymptom = true }: TipCardProps) {
             <span className={`text-xs px-2 py-1 rounded-full ${categoryInfo.color}`}>
               {categoryInfo.emoji} {categoryInfo.label}
             </span>
-            <span className="text-xs px-2 py-1 rounded-full bg-alma-bg text-alma-text-secondary">
+            <span className="text-xs px-2 py-1 rounded-full bg-hlk-bg text-hlk-text-secondary">
               난이도: <span className={difficultyInfo.color}>{difficultyInfo.label}</span>
             </span>
-            <span className="text-xs px-2 py-1 rounded-full bg-alma-bg text-alma-text-secondary">
+            <span className="text-xs px-2 py-1 rounded-full bg-hlk-bg text-hlk-text-secondary">
               효과: {tip.timeToEffect}
             </span>
           </div>

@@ -25,7 +25,7 @@ export function WeeklySummaryCard({ summary, dateRange }: WeeklySummaryCardProps
   const trend = getTrendIcon(summary.moodTrend);
 
   return (
-    <div className="bg-gradient-to-br from-alma-primary to-alma-accent rounded-3xl p-6 text-white">
+    <div className="bg-gradient-to-br from-hlk-primary to-hlk-accent rounded-3xl p-6 text-white">
       <div className="flex items-center justify-between mb-4">
         <div>
           <p className="text-white/70 text-sm">{dateRange}</p>

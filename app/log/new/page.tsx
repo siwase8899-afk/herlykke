@@ -72,15 +72,15 @@ export default function NewLogPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light">
+    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light">
       {/* Header */}
-      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-alma-border">
+      <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-hlk-border">
         <div className="max-w-lg mx-auto px-5 py-4">
           <div className="flex items-center justify-between mb-3">
             {currentStepIndex > 0 ? (
               <button
                 onClick={handleBack}
-                className="p-2 -ml-2 text-alma-text-secondary hover:text-alma-text"
+                className="p-2 -ml-2 text-hlk-text-secondary hover:text-hlk-text"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -89,7 +89,7 @@ export default function NewLogPage() {
             ) : (
               <Link
                 href="/log"
-                className="p-2 -ml-2 text-alma-text-secondary hover:text-alma-text"
+                className="p-2 -ml-2 text-hlk-text-secondary hover:text-hlk-text"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -98,21 +98,21 @@ export default function NewLogPage() {
             )}
 
             <div className="text-center">
-              <p className="text-xs text-alma-text-tertiary">{dateStr}</p>
-              <p className="text-sm font-semibold text-alma-text">오늘의 기록</p>
+              <p className="text-xs text-hlk-text-tertiary">{dateStr}</p>
+              <p className="text-sm font-semibold text-hlk-text">오늘의 기록</p>
             </div>
 
             <div className="w-10" /> {/* Spacer */}
           </div>
 
           {/* Progress bar */}
-          <div className="h-1.5 bg-alma-border rounded-full overflow-hidden">
+          <div className="h-1.5 bg-hlk-border rounded-full overflow-hidden">
             <div
-              className="h-full bg-alma-primary rounded-full transition-all duration-300"
+              className="h-full bg-hlk-primary rounded-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs text-alma-text-tertiary text-center mt-2">
+          <p className="text-xs text-hlk-text-tertiary text-center mt-2">
             {currentStepIndex + 1} / {STEPS.length}
           </p>
         </div>
@@ -148,10 +148,10 @@ export default function NewLogPage() {
 
         {currentStep === 'note' && (
           <div>
-            <h2 className="text-2xl font-bold text-alma-text mb-3 text-center">
+            <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
               오늘 기억하고 싶은 것이 있나요?
             </h2>
-            <p className="text-alma-text-secondary mb-8 text-center">
+            <p className="text-hlk-text-secondary mb-8 text-center">
               자유롭게 메모해주세요 (선택)
             </p>
 
@@ -159,24 +159,24 @@ export default function NewLogPage() {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="오늘 특별히 기억하고 싶은 것, 느낀 점 등을 자유롭게 적어주세요..."
-              className="w-full h-40 p-4 rounded-2xl border border-alma-border text-alma-text placeholder-alma-text-tertiary focus:outline-none focus:border-alma-primary resize-none"
+              className="w-full h-40 p-4 rounded-2xl border border-hlk-border text-hlk-text placeholder-hlk-text-tertiary focus:outline-none focus:border-hlk-primary resize-none"
             />
 
             {/* 요약 미리보기 */}
-            <div className="mt-6 bg-white rounded-2xl p-5 border border-alma-border">
-              <p className="text-sm font-semibold text-alma-text mb-4">오늘의 기록 요약</p>
+            <div className="mt-6 bg-white rounded-2xl p-5 border border-hlk-border">
+              <p className="text-sm font-semibold text-hlk-text mb-4">오늘의 기록 요약</p>
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-alma-text-tertiary">컨디션</span>
-                  <span className="text-alma-text">
+                  <span className="text-hlk-text-tertiary">컨디션</span>
+                  <span className="text-hlk-text">
                     {draft.mood ? ['😫', '😕', '😐', '🙂', '😊'][draft.mood - 1] : '-'}
                   </span>
                 </div>
 
                 {draft.moodTags.length > 0 && (
                   <div className="flex justify-between items-start">
-                    <span className="text-alma-text-tertiary flex-shrink-0">감정</span>
+                    <span className="text-hlk-text-tertiary flex-shrink-0">감정</span>
                     <div className="flex flex-wrap justify-end gap-1 ml-2">
                       {draft.moodTags.map((tagId) => {
                         const tag = MOOD_TAGS.find((t) => t.id === tagId);
@@ -189,8 +189,8 @@ export default function NewLogPage() {
                 )}
 
                 <div className="flex justify-between">
-                  <span className="text-alma-text-tertiary">증상</span>
-                  <span className="text-alma-text">
+                  <span className="text-hlk-text-tertiary">증상</span>
+                  <span className="text-hlk-text">
                     {draft.symptoms.length > 0
                       ? draft.symptoms
                           .map((s) => SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji)
@@ -200,8 +200,8 @@ export default function NewLogPage() {
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-alma-text-tertiary">수면</span>
-                  <span className="text-alma-text">
+                  <span className="text-hlk-text-tertiary">수면</span>
+                  <span className="text-hlk-text">
                     {draft.sleep
                       ? `${draft.sleep.bedTime} ~ ${draft.sleep.wakeTime}`
                       : '-'}
@@ -209,8 +209,8 @@ export default function NewLogPage() {
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-alma-text-tertiary">활동</span>
-                  <span className="text-alma-text">
+                  <span className="text-hlk-text-tertiary">활동</span>
+                  <span className="text-hlk-text">
                     {draft.activities.length > 0
                       ? `${draft.activities.length}개`
                       : '없음'}
@@ -223,12 +223,12 @@ export default function NewLogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-alma-border">
+      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-hlk-border">
         <div className="max-w-lg mx-auto px-5 py-4">
           {currentStep === 'note' ? (
             <button
               onClick={handleSave}
-              className="w-full py-4 bg-alma-accent text-white font-bold rounded-full hover:bg-alma-accent/90 active:scale-[0.98] transition-all"
+              className="w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 active:scale-[0.98] transition-all"
             >
               기록 완료하기 🎉
             </button>
@@ -238,8 +238,8 @@ export default function NewLogPage() {
               disabled={!canProceed()}
               className={`w-full py-4 font-bold rounded-full transition-all ${
                 canProceed()
-                  ? 'bg-alma-primary text-white hover:bg-alma-primary-dark active:scale-[0.98]'
-                  : 'bg-alma-border text-alma-text-tertiary cursor-not-allowed'
+                  ? 'bg-hlk-primary text-white hover:bg-hlk-primary-dark active:scale-[0.98]'
+                  : 'bg-hlk-border text-hlk-text-tertiary cursor-not-allowed'
               }`}
             >
               다음

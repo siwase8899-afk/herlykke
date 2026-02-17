@@ -37,8 +37,8 @@ const pillars = [
     desc: '증상, 수면, 기분을 매일 간편하게 기록하고 컨디션 변화를 추적해요.',
     features: ['일일 증상 기록', '수면/활동 추적', '컨디션 변화 추적'],
     Icon: CareIcon,
-    color: 'bg-alma-primary',
-    lightColor: 'bg-alma-primary-light',
+    color: 'bg-hlk-primary',
+    lightColor: 'bg-hlk-primary-light',
     href: '/log',
   },
   {
@@ -49,8 +49,8 @@ const pillars = [
     desc: '축적된 데이터로 나만의 패턴을 발견하고, 전문가 컬럼으로 깊이 이해해요.',
     features: ['AI 패턴 분석', '전문가 컬럼', '맞춤 조언'],
     Icon: EducationIcon,
-    color: 'bg-alma-accent',
-    lightColor: 'bg-alma-accent-light',
+    color: 'bg-hlk-accent',
+    lightColor: 'bg-hlk-accent-light',
     href: '/insights',
   },
   {
@@ -61,8 +61,8 @@ const pillars = [
     desc: '명상, 운동, 영양제, 상담까지. 나에게 맞는 솔루션을 추천받아요.',
     features: ['7개 카테고리', '매치 점수', '리뷰 기반 추천'],
     Icon: SupportIcon,
-    color: 'bg-alma-secondary',
-    lightColor: 'bg-alma-secondary-light',
+    color: 'bg-hlk-secondary',
+    lightColor: 'bg-hlk-secondary-light',
     href: '/solutions',
   },
   {
@@ -73,8 +73,8 @@ const pillars = [
     desc: '같은 증상, 같은 고민을 나누는 친구를 찾아요. 카톡 토크방에서 편하게.',
     features: ['카카오 토크방', '친구 찾기', '오늘의 투표'],
     Icon: CommunityIcon,
-    color: 'bg-gradient-to-r from-alma-primary to-alma-accent',
-    lightColor: 'bg-gradient-to-r from-alma-primary-light to-alma-accent-light',
+    color: 'bg-gradient-to-r from-hlk-primary to-hlk-accent',
+    lightColor: 'bg-gradient-to-r from-hlk-primary-light to-hlk-accent-light',
     href: '/community',
   },
 ];
@@ -91,13 +91,13 @@ export function HowItWorks() {
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 bg-alma-accent-light text-alma-accent-dark text-xs font-semibold tracking-wide uppercase rounded-full mb-6">
+          <span className="inline-block px-4 py-1.5 bg-hlk-accent-light text-hlk-accent-dark text-xs font-semibold tracking-wide uppercase rounded-full mb-6">
             HERLYKKE 4-Pillar
           </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-alma-text mb-6">
-            HERLYKKE의 <span className="text-alma-primary">4가지 약속</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-hlk-text mb-6">
+            HERLYKKE의 <span className="text-hlk-primary">4가지 약속</span>
           </h2>
-          <p className="text-lg text-alma-text-secondary max-w-2xl mx-auto">
+          <p className="text-lg text-hlk-text-secondary max-w-2xl mx-auto">
             Care · Education · Support · Community
             <br />
             두번째 봄의 모든 순간을 함께해요.
@@ -115,12 +115,12 @@ export function HowItWorks() {
             <Link
               key={pillar.id}
               href={href}
-              className={`group relative bg-alma-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-alma-primary/30 hover:-translate-y-1 ${
-                isSupport ? 'border-alma-accent/30' : 'border-alma-border'
+              className={`group relative bg-hlk-bg rounded-3xl p-10 border transition-all overflow-hidden hover:shadow-xl hover:border-hlk-primary/30 hover:-translate-y-1 ${
+                isSupport ? 'border-hlk-accent/30' : 'border-hlk-border'
               } ${sectionVisible ? `stagger-${Math.min(pillars.indexOf(pillar) + 1, 4)}` : ''}`}
             >
               {isSupport && (
-                <span className="absolute top-4 right-4 px-2.5 py-1 bg-alma-accent text-white text-[10px] font-bold tracking-wider rounded-full">
+                <span className="absolute top-4 right-4 px-2.5 py-1 bg-hlk-accent text-white text-[10px] font-bold tracking-wider rounded-full">
                   추천
                 </span>
               )}
@@ -129,16 +129,16 @@ export function HowItWorks() {
               </div>
 
               <div className="flex gap-6">
-                <div className={`w-16 h-16 rounded-2xl ${pillar.lightColor} flex items-center justify-center flex-shrink-0 text-alma-text group-hover:scale-110 transition-transform`}>
+                <div className={`w-16 h-16 rounded-2xl ${pillar.lightColor} flex items-center justify-center flex-shrink-0 text-hlk-text group-hover:scale-110 transition-transform`}>
                   <pillar.Icon />
                 </div>
 
                 <div className="flex-1">
-                  <p className="text-sm text-alma-text-tertiary mb-1">{pillar.title}</p>
-                  <h3 className="text-xl font-bold text-alma-text mb-3 group-hover:text-alma-primary transition-colors">
+                  <p className="text-sm text-hlk-text-tertiary mb-1">{pillar.title}</p>
+                  <h3 className="text-xl font-bold text-hlk-text mb-3 group-hover:text-hlk-primary transition-colors">
                     {pillar.headline}
                   </h3>
-                  <p className="text-sm text-alma-text-secondary leading-relaxed mb-5">
+                  <p className="text-sm text-hlk-text-secondary leading-relaxed mb-5">
                     {pillar.desc}
                   </p>
 
@@ -146,7 +146,7 @@ export function HowItWorks() {
                     {pillar.features.map((feature) => (
                       <span
                         key={feature}
-                        className="px-3 py-1 bg-white rounded-full text-xs text-alma-text-secondary border border-alma-border"
+                        className="px-3 py-1 bg-white rounded-full text-xs text-hlk-text-secondary border border-hlk-border"
                       >
                         {feature}
                       </span>
@@ -155,8 +155,8 @@ export function HowItWorks() {
                 </div>
               </div>
 
-              <div className="absolute top-10 right-10 w-10 h-10 rounded-full bg-alma-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg className="w-5 h-5 text-alma-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute top-10 right-10 w-10 h-10 rounded-full bg-hlk-primary/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg className="w-5 h-5 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </div>
@@ -166,13 +166,13 @@ export function HowItWorks() {
         </div>
 
         {/* 데이터 플라이휠 — Flo 인사이트: 기록→AI 정확도↑→사용↑ 자기강화 루프 */}
-        <div className="mt-16 bg-gradient-to-r from-alma-primary-light via-white to-alma-accent-light rounded-3xl p-8 md:p-12 border border-alma-border">
+        <div className="mt-16 bg-gradient-to-r from-hlk-primary-light via-white to-hlk-accent-light rounded-3xl p-8 md:p-12 border border-hlk-border">
           <div className="text-center mb-8">
-            <p className="text-sm text-alma-primary font-semibold uppercase tracking-wider mb-2">
+            <p className="text-sm text-hlk-primary font-semibold uppercase tracking-wider mb-2">
               Data Flywheel
             </p>
-            <h3 className="text-2xl md:text-3xl font-bold text-alma-text">
-              기록할수록 <span className="text-alma-primary">더 정확해져요</span>
+            <h3 className="text-2xl md:text-3xl font-bold text-hlk-text">
+              기록할수록 <span className="text-hlk-primary">더 정확해져요</span>
             </h3>
           </div>
 
@@ -184,13 +184,13 @@ export function HowItWorks() {
               { step: '4', title: '변화 확인', desc: '개선 과정을 눈으로 확인하며 동기 부여' },
             ].map((item, i) => (
               <div key={item.step} className="text-center relative">
-                <div className="w-10 h-10 rounded-full bg-alma-primary text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">
+                <div className="w-10 h-10 rounded-full bg-hlk-primary text-white text-sm font-bold flex items-center justify-center mx-auto mb-3">
                   {item.step}
                 </div>
-                <p className="text-sm font-bold text-alma-text mb-1">{item.title}</p>
-                <p className="text-xs text-alma-text-secondary leading-relaxed">{item.desc}</p>
+                <p className="text-sm font-bold text-hlk-text mb-1">{item.title}</p>
+                <p className="text-xs text-hlk-text-secondary leading-relaxed">{item.desc}</p>
                 {i < 3 && (
-                  <div className="hidden md:block absolute top-6 -right-3 text-alma-primary/40">
+                  <div className="hidden md:block absolute top-6 -right-3 text-hlk-primary/40">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -200,7 +200,7 @@ export function HowItWorks() {
             ))}
           </div>
 
-          <p className="text-center text-xs text-alma-text-tertiary mt-6">
+          <p className="text-center text-xs text-hlk-text-tertiary mt-6">
             이 순환이 반복될수록 AI가 나를 더 잘 이해하게 돼요
           </p>
         </div>

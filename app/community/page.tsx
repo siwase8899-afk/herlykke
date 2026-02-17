@@ -194,17 +194,17 @@ function CommunityContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-secondary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-secondary">로딩 중...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       {/* 페이지 헤더 + 탭 */}
       <div className="sticky top-16 z-40">
-        <div className="bg-gradient-to-r from-alma-primary to-alma-accent">
+        <div className="bg-gradient-to-r from-hlk-primary to-hlk-accent">
           <div className="max-w-2xl mx-auto px-6 md:px-8 py-5 text-white">
             <h1 className="text-xl font-bold mb-0.5">함께하기</h1>
             <p className="text-white/70 text-xs">같은 경험을 나누는 가장 편한 방법</p>
@@ -212,7 +212,7 @@ function CommunityContent() {
         </div>
 
         {/* 탭 네비게이션 */}
-        <div className="bg-white border-b border-alma-border">
+        <div className="bg-white border-b border-hlk-border">
           <div className="max-w-2xl mx-auto px-6 md:px-8 py-2.5">
             <div className="flex gap-2">
               {TABS.map((tab) => (
@@ -221,8 +221,8 @@ function CommunityContent() {
                   onClick={() => setSelectedTab(tab.id)}
                   className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     selectedTab === tab.id
-                      ? 'bg-alma-primary text-white shadow-sm'
-                      : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                      ? 'bg-hlk-primary text-white shadow-sm'
+                      : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
                   }`}
                 >
                   <span>{tab.emoji}</span>
@@ -244,10 +244,10 @@ function CommunityContent() {
 
         {/* 카톡 토크방 탭 */}
         {selectedTab === 'kakao' && (
-          <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+          <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
             <div className="p-5 pb-3">
-              <h2 className="font-bold text-alma-text mb-1">증상별 카카오 토크방</h2>
-              <p className="text-xs text-alma-text-secondary">
+              <h2 className="font-bold text-hlk-text mb-1">증상별 카카오 토크방</h2>
+              <p className="text-xs text-hlk-text-secondary">
                 같은 증상을 겪고 있는 분들과 실시간으로 이야기해요
               </p>
             </div>
@@ -274,8 +274,8 @@ function CommunityContent() {
                 </a>
               ))}
 
-              <div className="pt-3 border-t border-alma-border mt-3">
-                <p className="text-center text-[11px] text-alma-text-tertiary">
+              <div className="pt-3 border-t border-hlk-border mt-3">
+                <p className="text-center text-[11px] text-hlk-text-tertiary">
                   카톡 닉네임으로 편하게 참여하세요
                 </p>
               </div>
@@ -298,26 +298,26 @@ function CommunityContent() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/50" onClick={() => setShowLoginModal(false)} />
           <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-alma-accent/10 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-alma-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-16 h-16 rounded-2xl bg-hlk-accent/10 flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-hlk-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h2 className="text-xl font-bold text-alma-text mb-2">함께하기에 참여하세요</h2>
-            <p className="text-sm text-alma-text-secondary mb-6">
+            <h2 className="text-xl font-bold text-hlk-text mb-2">함께하기에 참여하세요</h2>
+            <p className="text-sm text-hlk-text-secondary mb-6">
               친구 찾기와 매칭은 회원만 이용할 수 있어요.<br />
               무료 가입하고 비슷한 친구를 만나보세요!
             </p>
             <div className="flex gap-3">
               <button
                 onClick={() => setShowLoginModal(false)}
-                className="flex-1 py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
+                className="flex-1 py-3 border border-hlk-border rounded-xl text-hlk-text-secondary hover:bg-hlk-bg transition-colors"
               >
                 둘러볼게요
               </button>
               <Link
                 href="/signup"
-                className="flex-1 py-3 bg-alma-primary text-white font-medium rounded-xl hover:bg-alma-primary-dark transition-colors text-center"
+                className="flex-1 py-3 bg-hlk-primary text-white font-medium rounded-xl hover:bg-hlk-primary-dark transition-colors text-center"
               >
                 로그인하기
               </Link>
@@ -331,18 +331,18 @@ function CommunityContent() {
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60" onClick={() => setShowMatchModal(false)} />
           <div className="relative bg-white rounded-3xl p-8 max-w-sm mx-4 text-center">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center mx-auto mb-4 animate-[popIn_0.5s_ease-out]">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center mx-auto mb-4 animate-[popIn_0.5s_ease-out]">
               <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-alma-text mb-2">매치됐어요!</h2>
-            <p className="text-alma-text-secondary mb-4">
-              <span className="font-semibold text-alma-primary">{matchedProfile.anonymous_name}</span>님도
+            <h2 className="text-2xl font-bold text-hlk-text mb-2">매치됐어요!</h2>
+            <p className="text-hlk-text-secondary mb-4">
+              <span className="font-semibold text-hlk-primary">{matchedProfile.anonymous_name}</span>님도
               회원님에게 관심을 보였어요!
             </p>
             <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-alma-primary">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-hlk-primary">
                 <Image
                   src={matchedProfile.image}
                   alt={matchedProfile.anonymous_name}
@@ -352,11 +352,11 @@ function CommunityContent() {
                 />
               </div>
             </div>
-            <div className="bg-alma-bg rounded-xl p-4 mb-4">
-              <p className="text-xs text-alma-text-tertiary mb-2">공통 관심 증상</p>
+            <div className="bg-hlk-bg rounded-xl p-4 mb-4">
+              <p className="text-xs text-hlk-text-tertiary mb-2">공통 관심 증상</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {matchedProfile.main_symptoms.slice(0, 2).map((symptom, i) => (
-                  <span key={i} className="px-3 py-1 bg-alma-primary-light text-alma-primary rounded-full text-sm">
+                  <span key={i} className="px-3 py-1 bg-hlk-primary-light text-hlk-primary rounded-full text-sm">
                     {symptom}
                   </span>
                 ))}
@@ -378,7 +378,7 @@ function CommunityContent() {
 
             <button
               onClick={() => setShowMatchModal(false)}
-              className="w-full py-3 border border-alma-border rounded-xl text-alma-text-secondary hover:bg-alma-bg transition-colors"
+              className="w-full py-3 border border-hlk-border rounded-xl text-hlk-text-secondary hover:bg-hlk-bg transition-colors"
             >
               나중에
             </button>
@@ -403,22 +403,22 @@ function MatchSection({
     <div>
       {/* 소개 + 3축 매칭 설명 */}
       <div className="text-center mb-5">
-        <h2 className="text-lg font-bold text-alma-text mb-1">나를 이해하는 친구 찾기</h2>
-        <p className="text-sm text-alma-text-secondary">증상 + 상황이 비슷한 여성들과 연결돼요</p>
+        <h2 className="text-lg font-bold text-hlk-text mb-1">나를 이해하는 친구 찾기</h2>
+        <p className="text-sm text-hlk-text-secondary">증상 + 상황이 비슷한 여성들과 연결돼요</p>
       </div>
 
-      <div className="bg-gradient-to-r from-alma-accent-light to-alma-primary-light rounded-xl p-3.5 mb-5">
+      <div className="bg-gradient-to-r from-hlk-accent-light to-hlk-primary-light rounded-xl p-3.5 mb-5">
         <div className="flex flex-wrap gap-2 justify-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-primary font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-alma-primary" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-hlk-primary font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-hlk-primary" />
             증상 클러스터
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-accent font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-alma-accent" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-hlk-accent font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-hlk-accent" />
             생활 상황
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-alma-secondary font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-alma-secondary" />
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/80 rounded-full text-xs text-hlk-secondary font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-hlk-secondary" />
             관심사
           </span>
         </div>
@@ -429,7 +429,7 @@ function MatchSection({
         {profiles.map((profile) => (
           <div
             key={profile.id}
-            className="bg-white rounded-xl overflow-hidden border border-alma-border hover:shadow-md transition-all"
+            className="bg-white rounded-xl overflow-hidden border border-hlk-border hover:shadow-md transition-all"
           >
             <div className="relative aspect-square">
               <Image
@@ -441,20 +441,20 @@ function MatchSection({
               {profile.online && (
                 <span className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
               )}
-              <div className="absolute top-2 left-2 bg-alma-primary px-2 py-0.5 rounded-full">
+              <div className="absolute top-2 left-2 bg-hlk-primary px-2 py-0.5 rounded-full">
                 <span className="text-xs font-bold text-white">{profile.match_percent}%</span>
               </div>
             </div>
             <div className="p-3">
-              <h3 className="font-semibold text-alma-text text-sm truncate">{profile.anonymous_name}</h3>
-              <p className="text-xs text-alma-text-tertiary">{profile.age_group}</p>
+              <h3 className="font-semibold text-hlk-text text-sm truncate">{profile.anonymous_name}</h3>
+              <p className="text-xs text-hlk-text-tertiary">{profile.age_group}</p>
               <div className="flex items-center gap-1.5 mt-1.5">
-                <span className="text-xs px-2 py-0.5 bg-alma-accent-light text-alma-accent rounded-full">
+                <span className="text-xs px-2 py-0.5 bg-hlk-accent-light text-hlk-accent rounded-full">
                   {profile.situation}
                 </span>
-                <span className="text-xs text-alma-text-tertiary">{profile.stage}</span>
+                <span className="text-xs text-hlk-text-tertiary">{profile.stage}</span>
               </div>
-              <p className="text-xs text-alma-primary mt-2 line-clamp-1">
+              <p className="text-xs text-hlk-primary mt-2 line-clamp-1">
                 {profile.match_reason}
               </p>
               <div className="flex gap-2 mt-3">
@@ -464,7 +464,7 @@ function MatchSection({
                   className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
                     likedProfiles.includes(profile.id)
                       ? 'bg-green-100 text-green-600'
-                      : 'bg-alma-primary text-white hover:bg-alma-primary-dark'
+                      : 'bg-hlk-primary text-white hover:bg-hlk-primary-dark'
                   }`}
                 >
                   {likedProfiles.includes(profile.id) ? '좋아요!' : '좋아요'}

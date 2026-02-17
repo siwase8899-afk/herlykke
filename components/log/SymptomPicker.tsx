@@ -29,10 +29,10 @@ export function SymptomPicker({
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-alma-text mb-3 text-center">
+      <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
         오늘 겪은 증상이 있나요?
       </h2>
-      <p className="text-alma-text-secondary mb-8 text-center">
+      <p className="text-hlk-text-secondary mb-8 text-center">
         해당되는 증상을 모두 선택해주세요
       </p>
 
@@ -46,13 +46,13 @@ export function SymptomPicker({
               onClick={() => handleToggle(symptom.id)}
               className={`relative flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
                 sel
-                  ? 'bg-alma-primary text-white border-2 border-alma-primary shadow-md'
-                  : 'bg-white border-2 border-alma-border hover:border-alma-primary/50'
+                  ? 'bg-hlk-primary text-white border-2 border-hlk-primary shadow-md'
+                  : 'bg-white border-2 border-hlk-border hover:border-hlk-primary/50'
               }`}
             >
               <span
                 className={`text-sm font-bold text-center ${
-                  sel ? 'text-white' : 'text-alma-text'
+                  sel ? 'text-white' : 'text-hlk-text'
                 }`}
               >
                 {symptom.name}
@@ -69,8 +69,8 @@ export function SymptomPicker({
 
       {/* 선택된 증상 강도 조절 */}
       {selected.length > 0 && (
-        <div className="bg-alma-bg rounded-2xl p-5 border border-alma-border">
-          <p className="text-sm font-semibold text-alma-text mb-4">
+        <div className="bg-hlk-bg rounded-2xl p-5 border border-hlk-border">
+          <p className="text-sm font-semibold text-hlk-text mb-4">
             증상 강도를 조절해주세요
           </p>
           <div className="space-y-4">
@@ -81,12 +81,12 @@ export function SymptomPicker({
               return (
                 <div key={entry.symptomId} className="flex items-center gap-4">
                   <div className="flex items-center gap-2 w-28">
-                    <span className="text-sm font-medium text-alma-text">
+                    <span className="text-sm font-medium text-hlk-text">
                       {symptom.name}
                     </span>
                   </div>
                   <div className="flex-1 flex items-center gap-2">
-                    <span className="text-xs text-alma-text-tertiary">약함</span>
+                    <span className="text-xs text-hlk-text-tertiary">약함</span>
                     <div className="flex-1 flex gap-1">
                       {[1, 2, 3, 4, 5].map((level) => (
                         <button
@@ -101,12 +101,12 @@ export function SymptomPicker({
                                 : level <= 3
                                 ? 'bg-yellow-400'
                                 : 'bg-red-400'
-                              : 'bg-alma-border'
+                              : 'bg-hlk-border'
                           }`}
                         />
                       ))}
                     </div>
-                    <span className="text-xs text-alma-text-tertiary">심함</span>
+                    <span className="text-xs text-hlk-text-tertiary">심함</span>
                   </div>
                 </div>
               );
@@ -117,7 +117,7 @@ export function SymptomPicker({
 
       {/* 증상 없음 옵션 */}
       {selected.length === 0 && (
-        <p className="text-center text-sm text-alma-text-tertiary">
+        <p className="text-center text-sm text-hlk-text-tertiary">
           증상이 없다면 다음으로 넘어가도 괜찮아요
         </p>
       )}

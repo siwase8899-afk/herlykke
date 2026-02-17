@@ -8,16 +8,16 @@ export function CTAFooter() {
 
   return (
     <section ref={sectionRef} className={`relative overflow-hidden ${sectionVisible ? 'scroll-visible-scale' : 'scroll-hidden-scale'}`}>
-      <div className="bg-gradient-to-br from-alma-secondary via-alma-secondary to-[#3d3835] px-6 md:px-8 py-24 md:py-32">
+      <div className="bg-gradient-to-br from-hlk-secondary via-hlk-secondary to-[#3d3835] px-6 md:px-8 py-24 md:py-32">
         {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-alma-primary/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-hlk-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-2xl mx-auto text-center">
           {/* Step preview */}
           <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur rounded-full mb-10">
-            <span className="flex items-center gap-2 text-alma-accent text-sm font-medium">
-              <span className="w-6 h-6 rounded-full bg-alma-accent flex items-center justify-center text-white text-xs font-bold">1</span>
+            <span className="flex items-center gap-2 text-hlk-accent text-sm font-medium">
+              <span className="w-6 h-6 rounded-full bg-hlk-accent flex items-center justify-center text-white text-xs font-bold">1</span>
               체크인
             </span>
             <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@ export function CTAFooter() {
             </span>
           </div>
 
-          <p className="text-alma-secondary-light mb-3">
+          <p className="text-hlk-secondary-light mb-3">
             &lsquo;나만 이런가?&rsquo; 싶었다면, 아니에요 — 다 그래요
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -44,13 +44,13 @@ export function CTAFooter() {
             <br />
             사람들이 모여 있어요
           </h2>
-          <p className="text-alma-secondary-light/80 mb-12">
+          <p className="text-hlk-secondary-light/80 mb-12">
             3분이면 충분해요. 혼자 끙끙대던 밤, 이제 끝내볼까요?
           </p>
 
           <Link
             href="/checkin"
-            className="group inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 animate-subtle-pulse"
+            className="group inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:bg-hlk-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-300 animate-subtle-pulse"
           >
             지금 나의 상태 확인하기
             <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,27 +75,27 @@ export function CTAFooter() {
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-sm text-alma-secondary-light/70">
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-sm text-hlk-secondary-light/70">
             <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-alma-accent" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               설정할 것 없어요
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-alma-accent" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               3분이면 충분
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-alma-accent" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               100% 익명 보장
             </span>
             <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-alma-accent" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               언제든 멈출 수 있어요

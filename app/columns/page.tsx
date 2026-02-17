@@ -14,7 +14,7 @@ type FilterType = 'all' | ColumnCategory | string;
 
 export default function ColumnsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-alma-bg" />}>
+    <Suspense fallback={<div className="min-h-screen bg-hlk-bg" />}>
       <ColumnsContent />
     </Suspense>
   );
@@ -64,19 +64,19 @@ function ColumnsContent() {
           : symptomLabels[activeFilter] || activeFilter;
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       {/* Hero */}
-      <section className="bg-alma-primary-light px-6 md:px-8 pt-12 pb-16">
+      <section className="bg-hlk-primary-light px-6 md:px-8 pt-12 pb-16">
         <div className="max-w-5xl mx-auto">
-          <p className="text-alma-primary font-semibold text-sm uppercase tracking-wider mb-3">
+          <p className="text-hlk-primary font-semibold text-sm uppercase tracking-wider mb-3">
             Expert Columns
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold text-alma-text leading-tight mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-hlk-text leading-tight mb-4">
             전문가가 알려주는
             <br />
-            <span className="text-alma-primary">두번째 봄 이야기</span>
+            <span className="text-hlk-primary">두번째 봄 이야기</span>
           </h1>
-          <p className="text-lg text-alma-text-secondary max-w-2xl">
+          <p className="text-lg text-hlk-text-secondary max-w-2xl">
             산부인과, 정신건강의학과, 수면의학 등 각 분야 전문의가 쉽고 따뜻하게 풀어드려요.
             <br />
             검색하면 광고뿐인 정보 대신, 여기서 제대로 읽어보세요.
@@ -85,7 +85,7 @@ function ColumnsContent() {
       </section>
 
       {/* Filters */}
-      <section className="sticky top-16 md:top-18 z-40 bg-white/95 backdrop-blur-md border-b border-alma-border">
+      <section className="sticky top-16 md:top-18 z-40 bg-white/95 backdrop-blur-md border-b border-hlk-border">
         <div className="max-w-5xl mx-auto px-6 md:px-8 py-4">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
             {/* 전체 */}
@@ -113,7 +113,7 @@ function ColumnsContent() {
               color="accent"
             />
 
-            <div className="w-px bg-alma-border mx-1 shrink-0" />
+            <div className="w-px bg-hlk-border mx-1 shrink-0" />
 
             {/* 증상별 */}
             {Object.entries(symptomGroups).map(([slug, info]) => (
@@ -134,9 +134,9 @@ function ColumnsContent() {
       <section className="px-6 md:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           {/* Result count */}
-          <p className="text-sm text-alma-text-tertiary mb-6">
-            <span className="font-semibold text-alma-text">{activeLabel}</span> 관련 전문가 컬럼{' '}
-            <span className="text-alma-primary font-bold">{filteredColumns.length}</span>편
+          <p className="text-sm text-hlk-text-tertiary mb-6">
+            <span className="font-semibold text-hlk-text">{activeLabel}</span> 관련 전문가 컬럼{' '}
+            <span className="text-hlk-primary font-bold">{filteredColumns.length}</span>편
           </p>
 
           {/* Grid */}
@@ -145,7 +145,7 @@ function ColumnsContent() {
               <Link
                 key={column.slug}
                 href={`/columns/${column.slug}`}
-                className="group block bg-white rounded-2xl border border-alma-border overflow-hidden card-hover"
+                className="group block bg-white rounded-2xl border border-hlk-border overflow-hidden card-hover"
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
                 {/* Category badge */}
@@ -154,41 +154,41 @@ function ColumnsContent() {
                     <span
                       className={`inline-block px-2.5 py-1 rounded-full text-xs font-semibold ${
                         column.category === 'body'
-                          ? 'bg-alma-primary/10 text-alma-primary'
-                          : 'bg-alma-accent/10 text-alma-accent'
+                          ? 'bg-hlk-primary/10 text-hlk-primary'
+                          : 'bg-hlk-accent/10 text-hlk-accent'
                       }`}
                     >
                       {column.symptom}
                     </span>
-                    <span className="text-xs text-alma-text-tertiary">
+                    <span className="text-xs text-hlk-text-tertiary">
                       {column.readTime}분 읽기
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-alma-text leading-snug mb-2 group-hover:text-alma-primary transition-colors line-clamp-2">
+                  <h3 className="text-lg font-bold text-hlk-text leading-snug mb-2 group-hover:text-hlk-primary transition-colors line-clamp-2">
                     {column.title}
                   </h3>
 
                   {/* Subtitle */}
-                  <p className="text-sm text-alma-text-secondary leading-relaxed line-clamp-2 mb-4">
+                  <p className="text-sm text-hlk-text-secondary leading-relaxed line-clamp-2 mb-4">
                     {column.subtitle}
                   </p>
                 </div>
 
                 {/* Expert */}
-                <div className="px-6 pb-6 pt-3 border-t border-alma-border-light">
+                <div className="px-6 pb-6 pt-3 border-t border-hlk-border-light">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-alma-secondary-light flex items-center justify-center shrink-0">
-                      <span className="text-sm font-bold text-alma-text">
+                    <div className="w-9 h-9 rounded-full bg-hlk-secondary-light flex items-center justify-center shrink-0">
+                      <span className="text-sm font-bold text-hlk-text">
                         {column.expert.name.charAt(0)}
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-alma-text truncate">
+                      <p className="text-sm font-semibold text-hlk-text truncate">
                         {column.expert.name}
                       </p>
-                      <p className="text-xs text-alma-text-tertiary truncate">
+                      <p className="text-xs text-hlk-text-tertiary truncate">
                         {column.expert.title}
                       </p>
                     </div>
@@ -201,12 +201,12 @@ function ColumnsContent() {
           {/* Empty state */}
           {filteredColumns.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-alma-text-tertiary text-lg">
+              <p className="text-hlk-text-tertiary text-lg">
                 해당 카테고리의 전문가 컬럼이 아직 없어요.
               </p>
               <button
                 onClick={() => setActiveFilter('all')}
-                className="mt-4 text-alma-primary font-semibold hover:underline"
+                className="mt-4 text-hlk-primary font-semibold hover:underline"
               >
                 전체 전문가 컬럼 보기
               </button>
@@ -218,7 +218,7 @@ function ColumnsContent() {
       {/* CTA Banner — Elektra 인사이트: 콘텐츠 끝에 항상 다음 액션 */}
       <section className="px-6 md:px-8 pb-16">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-alma-secondary rounded-2xl p-8 md:p-12 text-center">
+          <div className="bg-hlk-secondary rounded-2xl p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
               {isLoggedIn ? '오늘의 컨디션은 어떠세요?' : '읽는 것만으로는 부족하다면'}
             </h2>
@@ -232,7 +232,7 @@ function ColumnsContent() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href={isLoggedIn ? '/log/new' : '/checkin'}
-                className="px-8 py-3 bg-alma-accent text-white font-semibold rounded-full hover:bg-alma-accent/90 transition-colors"
+                className="px-8 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
               >
                 {isLoggedIn ? '오늘 기록하기' : '나의 상태 확인하기'}
               </Link>
@@ -271,13 +271,13 @@ function FilterChip({
 
   const activeClass =
     color === 'primary'
-      ? 'bg-alma-primary text-white shadow-sm'
+      ? 'bg-hlk-primary text-white shadow-sm'
       : color === 'accent'
-        ? 'bg-alma-accent text-white shadow-sm'
-        : 'bg-alma-secondary text-white shadow-sm';
+        ? 'bg-hlk-accent text-white shadow-sm'
+        : 'bg-hlk-secondary text-white shadow-sm';
 
   const inactiveClass =
-    'bg-white text-alma-text-secondary border border-alma-border hover:border-alma-primary/30 hover:text-alma-text';
+    'bg-white text-hlk-text-secondary border border-hlk-border hover:border-hlk-primary/30 hover:text-hlk-text';
 
   return (
     <button
@@ -296,7 +296,7 @@ function FilterChip({
       )}
       {label}
       <span
-        className={`text-xs ${active ? 'text-white/70' : 'text-alma-text-tertiary'}`}
+        className={`text-xs ${active ? 'text-white/70' : 'text-hlk-text-tertiary'}`}
       >
         {count}
       </span>

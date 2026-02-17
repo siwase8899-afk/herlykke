@@ -26,8 +26,8 @@ function SignupBanner() {
   if (!fromSignup) return null;
 
   return (
-    <div className="bg-alma-primary/10 border border-alma-primary/20 rounded-xl px-4 py-3 mb-6 text-center">
-      <p className="text-sm text-alma-text-secondary">
+    <div className="bg-hlk-primary/10 border border-hlk-primary/20 rounded-xl px-4 py-3 mb-6 text-center">
+      <p className="text-sm text-hlk-text-secondary">
         💡 회원가입을 위해 먼저 간단한 체크인을 완료해주세요
       </p>
     </div>
@@ -52,10 +52,10 @@ export default function CheckinIntro() {
   const activeChar = featuredChars[activeCharIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light">
+    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light">
       <div className="max-w-md mx-auto px-6 md:px-8 py-10">
         {/* Back link */}
-        <Link href="/" className="inline-flex items-center text-alma-text-secondary hover:text-alma-text mb-10">
+        <Link href="/" className="inline-flex items-center text-hlk-text-secondary hover:text-hlk-text mb-10">
           <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -70,8 +70,8 @@ export default function CheckinIntro() {
         <div className="flex flex-col items-center text-center">
           {/* 체크인 시작 — 감정 훅 */}
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-alma-text leading-relaxed">
-              지금, 나에게 <span className="text-alma-primary">3분</span>을<br />
+            <h2 className="text-2xl font-bold text-hlk-text leading-relaxed">
+              지금, 나에게 <span className="text-hlk-primary">3분</span>을<br />
               허락해보세요.
             </h2>
           </div>
@@ -79,17 +79,17 @@ export default function CheckinIntro() {
           {/* Animated Character Display */}
           <div className="relative mb-8">
             {/* Background glow */}
-            <div className="absolute inset-0 bg-alma-primary/10 rounded-full blur-3xl scale-150" />
+            <div className="absolute inset-0 bg-hlk-primary/10 rounded-full blur-3xl scale-150" />
 
             {/* Character carousel */}
-            <div className="relative bg-white rounded-3xl p-6 border border-alma-border shadow-lg w-64">
+            <div className="relative bg-white rounded-3xl p-6 border border-hlk-border shadow-lg w-64">
               <div className="text-6xl mb-3 transition-all duration-300">
                 {activeChar?.emoji}
               </div>
-              <p className="text-lg font-bold text-alma-text mb-1">
+              <p className="text-lg font-bold text-hlk-text mb-1">
                 {activeChar?.nickname}
               </p>
-              <p className="text-sm text-alma-accent">
+              <p className="text-sm text-hlk-accent">
                 &ldquo;{activeChar?.tagline}&rdquo;
               </p>
 
@@ -100,7 +100,7 @@ export default function CheckinIntro() {
                     key={char.id}
                     onClick={() => setActiveCharIndex(idx)}
                     className={`w-2 h-2 rounded-full transition-all ${
-                      idx === activeCharIndex ? 'bg-alma-primary w-6' : 'bg-alma-border'
+                      idx === activeCharIndex ? 'bg-hlk-primary w-6' : 'bg-hlk-border'
                     }`}
                   />
                 ))}
@@ -109,10 +109,10 @@ export default function CheckinIntro() {
           </div>
 
           {/* 체크인 안내 */}
-          <h1 className="text-xl font-semibold text-alma-text mb-2">
+          <h1 className="text-xl font-semibold text-hlk-text mb-2">
             나를 위한 체크인
           </h1>
-          <p className="text-alma-text-tertiary text-sm leading-relaxed mb-8">
+          <p className="text-hlk-text-tertiary text-sm leading-relaxed mb-8">
             19개 질문에 답하면<br />
             나의 변화 단계와 맞춤 관리법을<br />
             바로 확인할 수 있어요.
@@ -121,36 +121,36 @@ export default function CheckinIntro() {
           {/* Info items */}
           <div className="w-full space-y-4 mb-10 text-left">
             {infoItems.map((item) => (
-              <div key={item.text} className="flex items-center gap-4 px-5 py-4 bg-white rounded-xl border border-alma-border shadow-sm">
+              <div key={item.text} className="flex items-center gap-4 px-5 py-4 bg-white rounded-xl border border-hlk-border shadow-sm">
                 <span className="text-xl">{item.emoji}</span>
-                <span className="text-sm text-alma-text-secondary">{item.text}</span>
+                <span className="text-sm text-hlk-text-secondary">{item.text}</span>
               </div>
             ))}
           </div>
 
           {/* CTA */}
           <Link href="/checkin/1" className="w-full">
-            <Button variant="primary" size="lg" className="w-full bg-alma-accent hover:bg-alma-accent/90 text-white shadow-lg shadow-alma-accent/30">
+            <Button variant="primary" size="lg" className="w-full bg-hlk-accent hover:bg-hlk-accent/90 text-white shadow-lg shadow-hlk-accent/30">
               나의 상태 알아보기
             </Button>
           </Link>
 
           {/* Trust markers */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs text-alma-text-tertiary">
+          <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs text-hlk-text-tertiary">
             <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-alma-primary" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               설정 없이 바로
             </span>
             <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-alma-primary" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               100% 익명
             </span>
             <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-alma-primary" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
               언제든 멈춤 가능

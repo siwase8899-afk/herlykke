@@ -26,7 +26,7 @@ export default function Home() {
 
   // 로딩 중이거나 리다이렉트 직전이면 빈 화면 (플래시 방지)
   if (isLoading || isLoggedIn) {
-    return <div className="min-h-screen bg-alma-bg" />;
+    return <div className="min-h-screen bg-hlk-bg" />;
   }
 
   return (

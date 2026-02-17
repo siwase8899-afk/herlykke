@@ -69,31 +69,31 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="bg-gradient-to-br from-alma-primary-light via-white to-alma-accent-light">
+      <div className="bg-gradient-to-br from-hlk-primary-light via-white to-hlk-accent-light">
         <div className="max-w-6xl mx-auto px-6 md:px-8 py-20 md:py-28">
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             {/* Left: Copy */}
             <div>
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full border border-alma-border mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur rounded-full border border-hlk-border mb-8">
                 <div className="flex -space-x-1">
-                  <span className="w-2 h-2 bg-alma-primary rounded-full" />
-                  <span className="w-2 h-2 bg-alma-accent rounded-full" />
-                  <span className="w-2 h-2 bg-alma-primary rounded-full animate-pulse" />
+                  <span className="w-2 h-2 bg-hlk-primary rounded-full" />
+                  <span className="w-2 h-2 bg-hlk-accent rounded-full" />
+                  <span className="w-2 h-2 bg-hlk-primary rounded-full animate-pulse" />
                 </div>
-                <span className="text-sm font-medium text-alma-text-secondary">두번째 봄을 지나는 당신, 혼자가 아니에요</span>
+                <span className="text-sm font-medium text-hlk-text-secondary">두번째 봄을 지나는 당신, 혼자가 아니에요</span>
               </div>
 
               {/* Main headline with typing effect */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-alma-text mb-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-hlk-text mb-6">
                 {typed1}
                 {typedCount <= HEADLINE.length && showCursor && (
-                  <span className="typing-cursor text-alma-primary">|</span>
+                  <span className="typing-cursor text-hlk-primary">|</span>
                 )}
                 {typed2 && (
                   <>
                     <br />
-                    <span className="text-alma-primary">
+                    <span className="text-hlk-primary">
                       {typed2}
                       {typedCount > HEADLINE.length && showCursor && (
                         <span className="typing-cursor">|</span>
@@ -105,10 +105,10 @@ export function HeroSection() {
 
               {/* Dynamic symptom — fades in after typing */}
               <div className={`mb-10 transition-all duration-700 ${showSub ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <p className="text-lg md:text-xl text-alma-text-secondary leading-relaxed mb-2">
+                <p className="text-lg md:text-xl text-hlk-text-secondary leading-relaxed mb-2">
                   지금 겪고 있는{' '}
                   <span
-                    className={`inline-block font-bold text-alma-accent transition-all duration-300 ${
+                    className={`inline-block font-bold text-hlk-accent transition-all duration-300 ${
                       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
                     }`}
                   >
@@ -117,7 +117,7 @@ export function HeroSection() {
                   ,
                 </p>
                 <p
-                  className={`text-base text-alma-text-tertiary transition-all duration-300 ${
+                  className={`text-base text-hlk-text-tertiary transition-all duration-300 ${
                     isVisible ? 'opacity-100' : 'opacity-0'
                   }`}
                 >
@@ -129,7 +129,7 @@ export function HeroSection() {
               <div className={`flex flex-col sm:flex-row gap-4 transition-all duration-700 ${showCTA ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <Link
                   href="/checkin"
-                  className="inline-flex items-center justify-center px-10 py-5 bg-alma-accent text-white text-lg font-bold rounded-full hover:bg-alma-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all animate-subtle-pulse"
+                  className="inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:bg-hlk-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] transition-all animate-subtle-pulse"
                 >
                   지금 나의 상태 확인하기
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,7 +153,7 @@ export function HeroSection() {
             {/* Right: Character Card — slides in from right */}
             <div className="relative flex justify-center">
               <div
-                className={`relative bg-white rounded-3xl p-8 md:p-10 border border-alma-border shadow-xl max-w-sm w-full transition-all duration-500 ${
+                className={`relative bg-white rounded-3xl p-8 md:p-10 border border-hlk-border shadow-xl max-w-sm w-full transition-all duration-500 ${
                   isVisible ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-95 translate-x-4'
                 }`}
               >
@@ -166,27 +166,27 @@ export function HeroSection() {
                       {currentChar.name.charAt(0)}
                     </span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-alma-text mb-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-hlk-text mb-1">
                     {currentChar.nickname}
                   </h3>
-                  <p className="text-sm text-alma-primary font-medium">
+                  <p className="text-sm text-hlk-primary font-medium">
                     {currentChar.name}
                   </p>
                 </div>
 
-                <div className="bg-alma-bg rounded-2xl p-5 border border-alma-border">
-                  <p className="text-center text-alma-text-secondary text-sm md:text-base leading-relaxed">
+                <div className="bg-hlk-bg rounded-2xl p-5 border border-hlk-border">
+                  <p className="text-center text-hlk-text-secondary text-sm md:text-base leading-relaxed">
                     &ldquo;{currentChar.description}&rdquo;
                   </p>
                 </div>
 
-                <div className="absolute -top-3 -right-3 bg-alma-accent text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                <div className="absolute -top-3 -right-3 bg-hlk-accent text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                   공감 1,234
                 </div>
               </div>
 
               {/* Background decoration */}
-              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full bg-alma-primary/10 blur-3xl" />
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full bg-hlk-primary/10 blur-3xl" />
             </div>
           </div>
 
@@ -204,8 +204,8 @@ export function HeroSection() {
                 }}
                 className={`w-2.5 h-2.5 rounded-full transition-all ${
                   idx === currentIndex
-                    ? 'bg-alma-primary w-8'
-                    : 'bg-alma-border hover:bg-alma-text-tertiary'
+                    ? 'bg-hlk-primary w-8'
+                    : 'bg-hlk-border hover:bg-hlk-text-tertiary'
                 }`}
                 aria-label={char.name}
               />

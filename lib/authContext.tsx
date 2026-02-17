@@ -14,7 +14,7 @@ interface AuthContextType {
 
 const DEMO_USER = {
   id: 'demo-user',
-  email: 'demo@alma.com',
+  email: 'demo@herlykke.com',
   user_metadata: { name: '데모 사용자' },
 } as unknown as User;
 

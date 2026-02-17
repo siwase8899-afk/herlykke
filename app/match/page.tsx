@@ -11,8 +11,8 @@ export default function MatchRedirectPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-      <div className="text-alma-text-secondary">이동 중...</div>
+    <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+      <div className="text-hlk-text-secondary">이동 중...</div>
     </div>
   );
 }

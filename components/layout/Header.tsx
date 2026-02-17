@@ -29,13 +29,13 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="bg-white/90 backdrop-blur-md border-b border-alma-border">
+        <div className="bg-white/90 backdrop-blur-md border-b border-hlk-border">
           <div className="max-w-6xl mx-auto px-6 md:px-8">
             <div className="flex items-center justify-between h-16 md:h-18">
               {/* Logo */}
               <Link
                 href={isLoggedIn ? '/dashboard' : '/'}
-                className="text-xl font-bold text-alma-primary tracking-tight"
+                className="text-xl font-bold text-hlk-primary tracking-tight"
               >
                 HERLYKKE
               </Link>
@@ -47,7 +47,7 @@ export function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="text-sm font-medium text-alma-text-secondary hover:text-alma-primary transition-colors"
+                      className="text-sm font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -55,7 +55,7 @@ export function Header() {
                     <a
                       key={item.href}
                       href={item.href}
-                      className="text-sm font-medium text-alma-text-secondary hover:text-alma-primary transition-colors"
+                      className="text-sm font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors"
                     >
                       {item.label}
                     </a>
@@ -65,7 +65,7 @@ export function Header() {
                 {/* CTA Button */}
                 <Link
                   href={ctaHref}
-                  className="px-6 py-2.5 bg-alma-accent text-white text-sm font-semibold rounded-full hover:bg-alma-accent/90 transition-colors"
+                  className="px-6 py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
                 >
                   {ctaLabel}
                 </Link>
@@ -74,12 +74,12 @@ export function Header() {
                 {!isLoading && (
                   isLoggedIn ? (
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-alma-text">
+                      <span className="text-sm font-medium text-hlk-text">
                         {displayName}
                       </span>
                       <button
                         onClick={logout}
-                        className="text-sm text-alma-text-tertiary hover:text-alma-text transition-colors"
+                        className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
                       >
                         로그아웃
                       </button>
@@ -87,7 +87,7 @@ export function Header() {
                   ) : (
                     <Link
                       href="/login"
-                      className="text-sm font-medium text-alma-text-tertiary hover:text-alma-primary transition-colors"
+                      className="text-sm font-medium text-hlk-text-tertiary hover:text-hlk-primary transition-colors"
                     >
                       이미 회원이신가요?
                     </Link>
@@ -103,17 +103,17 @@ export function Header() {
               >
                 <div className="w-5 flex flex-col gap-1.5">
                   <span
-                    className={`block h-0.5 bg-alma-text transition-all duration-300 ${
+                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
                       isMenuOpen ? 'rotate-45 translate-y-2' : ''
                     }`}
                   />
                   <span
-                    className={`block h-0.5 bg-alma-text transition-all duration-300 ${
+                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
                       isMenuOpen ? 'opacity-0' : ''
                     }`}
                   />
                   <span
-                    className={`block h-0.5 bg-alma-text transition-all duration-300 ${
+                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
                       isMenuOpen ? '-rotate-45 -translate-y-2' : ''
                     }`}
                   />
@@ -125,7 +125,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden bg-white/95 backdrop-blur-md border-b border-alma-border transition-all duration-300 overflow-hidden ${
+          className={`md:hidden bg-white/95 backdrop-blur-md border-b border-hlk-border transition-all duration-300 overflow-hidden ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
@@ -136,7 +136,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-base font-medium text-alma-text-secondary hover:text-alma-primary transition-colors py-2"
+                  className="block text-base font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors py-2"
                 >
                   {item.label}
                 </Link>
@@ -145,7 +145,7 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-base font-medium text-alma-text-secondary hover:text-alma-primary transition-colors py-2"
+                  className="block text-base font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors py-2"
                 >
                   {item.label}
                 </a>
@@ -156,7 +156,7 @@ export function Header() {
             <Link
               href={ctaHref}
               onClick={() => setIsMenuOpen(false)}
-              className="block w-full text-center px-6 py-3 bg-alma-accent text-white font-semibold rounded-full hover:bg-alma-accent/90 transition-colors"
+              className="block w-full text-center px-6 py-3 bg-hlk-accent text-white font-semibold rounded-full hover:bg-hlk-accent/90 transition-colors"
             >
               {ctaLabel}
             </Link>
@@ -164,8 +164,8 @@ export function Header() {
             {/* Mobile Profile / Login */}
             {!isLoading && (
               isLoggedIn ? (
-                <div className="flex items-center justify-between pt-2 border-t border-alma-border">
-                  <span className="text-sm font-medium text-alma-text">
+                <div className="flex items-center justify-between pt-2 border-t border-hlk-border">
+                  <span className="text-sm font-medium text-hlk-text">
                     {displayName}
                   </span>
                   <button
@@ -173,7 +173,7 @@ export function Header() {
                       setIsMenuOpen(false);
                       logout();
                     }}
-                    className="text-sm text-alma-text-tertiary hover:text-alma-text transition-colors"
+                    className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
                   >
                     로그아웃
                   </button>
@@ -182,7 +182,7 @@ export function Header() {
                 <Link
                   href="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-center text-sm font-medium text-alma-text-tertiary hover:text-alma-primary transition-colors py-2"
+                  className="block text-center text-sm font-medium text-hlk-text-tertiary hover:text-hlk-primary transition-colors py-2"
                 >
                   이미 회원이신가요?
                 </Link>

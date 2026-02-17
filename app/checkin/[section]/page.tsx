@@ -47,8 +47,8 @@ export default function CheckinSection() {
 
   if (!hydrated || !current || !sectionMeta) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light flex items-center justify-center">
-        <div className="text-alma-text-secondary">불러오는 중...</div>
+      <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light flex items-center justify-center">
+        <div className="text-hlk-text-secondary">불러오는 중...</div>
       </div>
     );
   }
@@ -153,13 +153,13 @@ export default function CheckinSection() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-alma-primary-light via-alma-bg to-alma-accent-light">
+    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light">
       <div className="max-w-md mx-auto px-6 md:px-8 py-8">
         {/* 헤더 */}
         <div className="mb-8">
           <button
             onClick={handleBack}
-            className="text-alma-primary text-[15px] font-medium mb-3 cursor-pointer hover:opacity-70 py-1"
+            className="text-hlk-primary text-[15px] font-medium mb-3 cursor-pointer hover:opacity-70 py-1"
           >
             ← 뒤로
           </button>
@@ -168,21 +168,21 @@ export default function CheckinSection() {
 
         {/* Duolingo 인사이트: 섹션 라벨 + 마일스톤 응원 메시지 */}
         <div className="flex items-center justify-between mb-4">
-          <div className="text-sm text-alma-primary font-semibold">
+          <div className="text-sm text-hlk-primary font-semibold">
             {sectionMeta.emoji} 섹션 {sectionNum}: {sectionMeta.label}
           </div>
-          <div className="text-xs text-alma-text-tertiary">
+          <div className="text-xs text-hlk-text-tertiary">
             {sectionEncouragement[sectionNum]?.message}
           </div>
         </div>
 
         {/* Duolingo 인사이트: 7일 마일스톤 미리보기 (첫 섹션에서만) */}
         {sectionNum === 1 && step === 0 && (
-          <div className="bg-alma-accent-light rounded-xl p-3 mb-4 flex items-center gap-3">
+          <div className="bg-hlk-accent-light rounded-xl p-3 mb-4 flex items-center gap-3">
             <div className="text-2xl">🔥</div>
             <div>
-              <p className="text-sm font-semibold text-alma-text">7일 연속 체크인 챌린지</p>
-              <p className="text-xs text-alma-text-tertiary">매일 체크인하면 특별한 인사이트를 드려요</p>
+              <p className="text-sm font-semibold text-hlk-text">7일 연속 체크인 챌린지</p>
+              <p className="text-xs text-hlk-text-tertiary">매일 체크인하면 특별한 인사이트를 드려요</p>
             </div>
           </div>
         )}
@@ -190,7 +190,7 @@ export default function CheckinSection() {
         {/* 캐릭터 팝업 (증상 선택 시) */}
         {activeCharacter && (
           <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 border border-alma-border shadow-xl text-center animate-bounce-in">
+            <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 border border-hlk-border shadow-xl text-center animate-bounce-in">
               {activeCharacter.image ? (
                 <div className="w-24 h-24 mx-auto mb-2">
                   <Image
@@ -204,19 +204,19 @@ export default function CheckinSection() {
               ) : (
                 <div className="text-6xl mb-2">{activeCharacter.emoji}</div>
               )}
-              <p className="text-alma-text font-bold">{activeCharacter.nickname}</p>
-              <p className="text-alma-accent text-sm">&ldquo;{activeCharacter.tagline}&rdquo;</p>
+              <p className="text-hlk-text font-bold">{activeCharacter.nickname}</p>
+              <p className="text-hlk-accent text-sm">&ldquo;{activeCharacter.tagline}&rdquo;</p>
             </div>
           </div>
         )}
 
         {/* 질문 카드 */}
-        <div className="bg-white rounded-2xl p-5 border border-alma-border shadow-sm mb-6">
-          <h2 className="text-xl font-bold text-alma-text leading-snug mb-2">
+        <div className="bg-white rounded-2xl p-5 border border-hlk-border shadow-sm mb-6">
+          <h2 className="text-xl font-bold text-hlk-text leading-snug mb-2">
             {current.question}
           </h2>
           {current.hint && (
-            <p className="text-sm text-alma-text-tertiary">
+            <p className="text-sm text-hlk-text-tertiary">
               {current.hint}
             </p>
           )}
@@ -233,14 +233,14 @@ export default function CheckinSection() {
                   onClick={() => setValue(opt.value)}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                     getValue() === opt.value
-                      ? 'bg-alma-primary-light border-alma-primary text-alma-text'
-                      : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
+                      ? 'bg-hlk-primary-light border-hlk-primary text-hlk-text'
+                      : 'bg-white border-hlk-border text-hlk-text-secondary hover:bg-hlk-bg'
                   }`}
                 >
                   {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                   <span className="text-[15px] text-left">{opt.label}</span>
                   {getValue() === opt.value && (
-                    <svg className="w-5 h-5 ml-auto text-alma-primary" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 ml-auto text-hlk-primary" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   )}
@@ -260,14 +260,14 @@ export default function CheckinSection() {
                     onClick={() => setValue(opt.value)}
                     className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                       isSelected
-                        ? 'bg-alma-primary-light border-alma-primary text-alma-text'
-                        : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
+                        ? 'bg-hlk-primary-light border-hlk-primary text-hlk-text'
+                        : 'bg-white border-hlk-border text-hlk-text-secondary hover:bg-hlk-bg'
                     }`}
                   >
                     {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
                     <span className="text-[15px] text-left flex-1">{opt.label}</span>
                     <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
-                      isSelected ? 'bg-alma-primary border-alma-primary' : 'border-alma-border'
+                      isSelected ? 'bg-hlk-primary border-hlk-primary' : 'border-hlk-border'
                     }`}>
                       {isSelected && (
                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,7 +284,7 @@ export default function CheckinSection() {
           {/* 텍스트 입력 */}
           {current.type === 'text' && (
             <textarea
-              className="w-full bg-white border border-alma-border rounded-xl px-4 py-3.5 text-[15px] text-alma-text min-h-[100px] resize-none mt-2 focus:outline-none focus:border-alma-primary transition-colors placeholder:text-alma-text-tertiary"
+              className="w-full bg-white border border-hlk-border rounded-xl px-4 py-3.5 text-[15px] text-hlk-text min-h-[100px] resize-none mt-2 focus:outline-none focus:border-hlk-primary transition-colors placeholder:text-hlk-text-tertiary"
               placeholder={current.placeholder}
               value={getValue() as string}
               onChange={(e) => setTextValue(e.target.value)}
@@ -294,7 +294,7 @@ export default function CheckinSection() {
 
           {/* 스케일 */}
           {current.type === 'scale' && current.scaleLabels && (
-            <div className="bg-white rounded-xl p-4 border border-alma-border">
+            <div className="bg-white rounded-xl p-4 border border-hlk-border">
               <SeverityScale
                 value={getValue() as number}
                 onChange={setScaleValue}
@@ -309,8 +309,8 @@ export default function CheckinSection() {
             const severityLabels = ['없음', '가끔', '자주', '매일'];
             if (selectedSymptoms.length === 0) {
               return (
-                <div className="bg-white rounded-xl p-6 border border-alma-border text-center">
-                  <p className="text-alma-text-tertiary text-sm">선택한 증상이 없어요. 이전 단계에서 증상을 선택해 주세요.</p>
+                <div className="bg-white rounded-xl p-6 border border-hlk-border text-center">
+                  <p className="text-hlk-text-tertiary text-sm">선택한 증상이 없어요. 이전 단계에서 증상을 선택해 주세요.</p>
                 </div>
               );
             }
@@ -320,10 +320,10 @@ export default function CheckinSection() {
                   const symptomInfo = PhysicalSymptoms.find(s => s.key === symptomKey);
                   const currentSeverity = store.symptomSeverityMap[symptomKey] ?? 0;
                   return (
-                    <div key={symptomKey} className="bg-white rounded-xl p-4 border border-alma-border">
+                    <div key={symptomKey} className="bg-white rounded-xl p-4 border border-hlk-border">
                       <div className="flex items-center gap-2 mb-3">
                         <span className="text-lg">{symptomInfo?.emoji}</span>
-                        <span className="text-sm font-medium text-alma-text">{symptomInfo?.label ?? symptomKey}</span>
+                        <span className="text-sm font-medium text-hlk-text">{symptomInfo?.label ?? symptomKey}</span>
                       </div>
                       <div className="flex gap-2">
                         {severityLabels.map((label, idx) => (
@@ -334,8 +334,8 @@ export default function CheckinSection() {
                             className={`
                               flex-1 py-2.5 rounded-lg border text-xs font-medium transition-all
                               ${currentSeverity === idx
-                                ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
-                                : 'border-alma-border bg-white text-alma-text-tertiary hover:border-alma-primary/40'
+                                ? 'border-hlk-primary bg-hlk-primary-light text-hlk-primary'
+                                : 'border-hlk-border bg-white text-hlk-text-tertiary hover:border-hlk-primary/40'
                               }
                             `}
                           >
@@ -359,8 +359,8 @@ export default function CheckinSection() {
                   onClick={() => setValue(opt.value)}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-all ${
                     String(getValue()) === opt.value
-                      ? 'bg-alma-primary-light border-alma-primary text-alma-text'
-                      : 'bg-white border-alma-border text-alma-text-secondary hover:bg-alma-bg'
+                      ? 'bg-hlk-primary-light border-hlk-primary text-hlk-text'
+                      : 'bg-white border-hlk-border text-hlk-text-secondary hover:bg-hlk-bg'
                   }`}
                 >
                   {opt.emoji && <span className="text-xl">{opt.emoji}</span>}
@@ -368,7 +368,7 @@ export default function CheckinSection() {
                 </button>
               ))}
               {/* Bumble BFF: 6명 코호트 설명 */}
-              <p className="text-xs text-alma-text-tertiary text-center mt-2">
+              <p className="text-xs text-hlk-text-tertiary text-center mt-2">
                 비슷한 증상의 6명과 함께하는 작은 서클에 배정돼요
               </p>
             </div>
@@ -376,7 +376,7 @@ export default function CheckinSection() {
 
           {/* 닉네임 유효성 */}
           {current.storeField === 'nickname' && (getValue() as string).length > 0 && (getValue() as string).length < 2 && (
-            <p className="text-sm text-alma-error mt-2 text-center">
+            <p className="text-sm text-hlk-error mt-2 text-center">
               2자 이상 입력해 주세요
             </p>
           )}
@@ -388,13 +388,13 @@ export default function CheckinSection() {
           size="lg"
           onClick={handleNext}
           disabled={!canNext()}
-          className="w-full bg-alma-accent hover:bg-alma-accent/90 text-white shadow-lg shadow-alma-accent/30 disabled:bg-alma-border disabled:text-alma-text-tertiary disabled:shadow-none"
+          className="w-full bg-hlk-accent hover:bg-hlk-accent/90 text-white shadow-lg shadow-hlk-accent/30 disabled:bg-hlk-border disabled:text-hlk-text-tertiary disabled:shadow-none"
         >
           {nextLabel()}
         </Button>
 
         {/* Duolingo 인사이트: 따뜻한 응원 메시지 (경쟁적 X, 지지적 O) */}
-        <p className="text-center text-alma-text-tertiary text-xs mt-4">
+        <p className="text-center text-hlk-text-tertiary text-xs mt-4">
           {globalQuestionNum <= 5 && '천천히, 나의 속도로 해도 괜찮아요 🐢'}
           {globalQuestionNum > 5 && globalQuestionNum <= 12 && '절반 넘었어요! 잘하고 계세요 👏'}
           {globalQuestionNum > 12 && globalQuestionNum <= 18 && '거의 다 왔어요! 조금만 더 🌱'}

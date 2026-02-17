@@ -14,8 +14,8 @@ export function MoodChart({ data }: MoodChartProps) {
   const recentData = data.slice(-14); // 최근 14일
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-alma-border">
-      <h3 className="font-semibold text-alma-text mb-4">기분 변화</h3>
+    <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <h3 className="font-semibold text-hlk-text mb-4">기분 변화</h3>
 
       {/* 차트 */}
       <div className="flex items-end gap-1 h-32 mb-3">
@@ -39,7 +39,7 @@ export function MoodChart({ data }: MoodChartProps) {
                   style={{ height: `${height}%`, minHeight: '4px' }}
                 />
               </div>
-              <span className="text-[10px] text-alma-text-tertiary mt-1">
+              <span className="text-[10px] text-hlk-text-tertiary mt-1">
                 {item.dayOfWeek}
               </span>
             </div>
@@ -48,7 +48,7 @@ export function MoodChart({ data }: MoodChartProps) {
       </div>
 
       {/* 범례 */}
-      <div className="flex justify-center gap-4 text-xs text-alma-text-tertiary">
+      <div className="flex justify-center gap-4 text-xs text-hlk-text-tertiary">
         <span className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-green-400" />
           좋음

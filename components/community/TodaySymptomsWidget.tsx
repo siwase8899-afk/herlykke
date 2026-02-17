@@ -39,31 +39,31 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
 
   if (!mounted) {
     return (
-      <div className="bg-white rounded-2xl border border-alma-border p-4 animate-pulse">
-        <div className="h-5 bg-alma-bg rounded w-1/3 mb-2" />
-        <div className="h-8 bg-alma-bg rounded w-2/3" />
+      <div className="bg-white rounded-2xl border border-hlk-border p-4 animate-pulse">
+        <div className="h-5 bg-hlk-bg rounded w-1/3 mb-2" />
+        <div className="h-8 bg-hlk-bg rounded w-2/3" />
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
       {/* 컴팩트 헤더 - 항상 표시 */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-hlk-bg/50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-lg bg-alma-accent/10 flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4 text-alma-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-7 h-7 rounded-lg bg-hlk-accent/10 flex items-center justify-center flex-shrink-0">
+            <svg className="w-4 h-4 text-hlk-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
           </div>
           <div className="text-left">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-alma-text text-sm">오늘의 증상</span>
+              <span className="font-semibold text-hlk-text text-sm">오늘의 증상</span>
               {myCount > 0 && (
-                <span className="px-1.5 py-0.5 bg-alma-primary text-white text-[10px] font-bold rounded-full">
+                <span className="px-1.5 py-0.5 bg-hlk-primary text-white text-[10px] font-bold rounded-full">
                   {myCount}개 공감
                 </span>
               )}
@@ -75,14 +75,14 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
                   key={symptom.id}
                   className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                     symptom.isEmpathized
-                      ? 'bg-alma-primary-light text-alma-primary font-medium'
-                      : 'bg-alma-bg text-alma-text-secondary'
+                      ? 'bg-hlk-primary-light text-hlk-primary font-medium'
+                      : 'bg-hlk-bg text-hlk-text-secondary'
                   }`}
                 >
                   {symptom.emoji} {symptom.name}
                 </span>
               ))}
-              <span className="text-xs text-alma-text-tertiary">
+              <span className="text-xs text-hlk-text-tertiary">
                 +{remainingCount}개
               </span>
             </div>
@@ -97,14 +97,14 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
               </span>
-              <span className="text-xs text-alma-text-tertiary">
+              <span className="text-xs text-hlk-text-tertiary">
                 {totalCount.toLocaleString()}명
               </span>
             </div>
           </div>
           {/* 확장 아이콘 */}
           <svg
-            className={`w-5 h-5 text-alma-text-tertiary transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-hlk-text-tertiary transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -116,8 +116,8 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
 
       {/* 확장된 컨텐츠 */}
       {expanded && (
-        <div className="px-4 pb-4 border-t border-alma-border">
-          <p className="text-xs text-alma-text-secondary py-3">
+        <div className="px-4 pb-4 border-t border-hlk-border">
+          <p className="text-xs text-hlk-text-secondary py-3">
             탭해서 &quot;나도!&quot; 공감하기
           </p>
 
@@ -132,25 +132,25 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
                 }}
                 className={`relative p-2.5 rounded-xl text-center transition-all ${
                   symptom.isEmpathized
-                    ? 'bg-alma-primary-light border-2 border-alma-primary'
-                    : 'bg-alma-bg border-2 border-transparent hover:border-alma-border'
+                    ? 'bg-hlk-primary-light border-2 border-hlk-primary'
+                    : 'bg-hlk-bg border-2 border-transparent hover:border-hlk-border'
                 }`}
               >
                 <div className="text-xl mb-0.5">{symptom.emoji}</div>
                 <p className={`text-[10px] font-medium truncate ${
-                  symptom.isEmpathized ? 'text-alma-primary' : 'text-alma-text-secondary'
+                  symptom.isEmpathized ? 'text-hlk-primary' : 'text-hlk-text-secondary'
                 }`}>
                   {symptom.name}
                 </p>
                 <p className={`text-[9px] ${
-                  symptom.isEmpathized ? 'text-alma-primary' : 'text-alma-text-tertiary'
+                  symptom.isEmpathized ? 'text-hlk-primary' : 'text-hlk-text-tertiary'
                 }`}>
                   {symptom.count.toLocaleString()}명
                 </p>
 
                 {/* 나도! 표시 */}
                 {symptom.isEmpathized && (
-                  <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-alma-primary rounded-full flex items-center justify-center">
+                  <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-hlk-primary rounded-full flex items-center justify-center">
                     <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -163,7 +163,7 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
           {/* CTA */}
           <Link
             href="/log/new"
-            className="flex items-center justify-center gap-2 w-full py-2.5 bg-alma-accent text-white text-sm font-semibold rounded-xl hover:bg-alma-accent/90 transition-all"
+            className="flex items-center justify-center gap-2 w-full py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-xl hover:bg-hlk-accent/90 transition-all"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

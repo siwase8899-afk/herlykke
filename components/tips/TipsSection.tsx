@@ -42,7 +42,7 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xl">💡</span>
-            <h3 className="font-semibold text-alma-text">오늘을 위한 팁</h3>
+            <h3 className="font-semibold text-hlk-text">오늘을 위한 팁</h3>
           </div>
           <div className="space-y-3">
             {todayTips.map((tip) => (
@@ -57,9 +57,9 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">📚</span>
-            <h3 className="font-semibold text-alma-text">나를 위한 맞춤 팁</h3>
+            <h3 className="font-semibold text-hlk-text">나를 위한 맞춤 팁</h3>
           </div>
-          <span className="text-xs text-alma-text-tertiary">
+          <span className="text-xs text-hlk-text-tertiary">
             {filteredTips.length}개
           </span>
         </div>
@@ -72,8 +72,8 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
               onClick={() => setFilter(btn.key)}
               className={`flex-shrink-0 text-xs px-3 py-1.5 rounded-full transition-colors ${
                 filter === btn.key
-                  ? 'bg-alma-primary text-white'
-                  : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                  ? 'bg-hlk-primary text-white'
+                  : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
               }`}
             >
               {btn.emoji} {btn.label}
@@ -89,7 +89,7 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 text-alma-text-tertiary">
+          <div className="text-center py-8 text-hlk-text-tertiary">
             <p>해당 카테고리의 팁이 없어요</p>
           </div>
         )}
@@ -97,10 +97,10 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
 
       {/* 팁이 없을 때 */}
       {personalizedTips.length === 0 && todayTips.length === 0 && (
-        <div className="bg-white rounded-2xl p-6 border border-alma-border text-center">
+        <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
           <span className="text-4xl mb-3 block">💡</span>
-          <h3 className="font-semibold text-alma-text mb-2">맞춤 팁을 준비 중이에요</h3>
-          <p className="text-sm text-alma-text-secondary">
+          <h3 className="font-semibold text-hlk-text mb-2">맞춤 팁을 준비 중이에요</h3>
+          <p className="text-sm text-hlk-text-secondary">
             증상을 기록하면 나에게 맞는 케어 팁을 추천해드릴게요
           </p>
         </div>

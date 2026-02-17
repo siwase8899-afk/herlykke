@@ -20,10 +20,10 @@ const CATEGORY_ORDER: (keyof typeof CATEGORY_CONFIG)[] = ['physical', 'mental', 
 export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-alma-text mb-3 text-center">
+      <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
         오늘 어떤 활동을 했나요?
       </h2>
-      <p className="text-alma-text-secondary mb-8 text-center">
+      <p className="text-hlk-text-secondary mb-8 text-center">
         해당되는 활동을 모두 선택해주세요
       </p>
 
@@ -35,7 +35,7 @@ export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
 
           return (
             <div key={cat}>
-              <p className={`text-sm font-semibold ${cat === 'trigger' ? 'text-alma-accent' : 'text-alma-primary'} mb-3 flex items-center gap-2`}>
+              <p className={`text-sm font-semibold ${cat === 'trigger' ? 'text-hlk-accent' : 'text-hlk-primary'} mb-3 flex items-center gap-2`}>
                 <span className={`w-2 h-2 rounded-full ${config.dot}`} />
                 {config.label}
               </p>
@@ -49,7 +49,7 @@ export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
                       className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full transition-all ${
                         isSelected
                           ? `${config.selected} border-2`
-                          : `bg-white border-2 border-alma-border text-alma-text-secondary ${config.hover}`
+                          : `bg-white border-2 border-hlk-border text-hlk-text-secondary ${config.hover}`
                       }`}
                     >
                       <span className="text-sm font-medium">{activity.name}</span>
@@ -67,7 +67,7 @@ export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
         })}
 
         {/* 안내 */}
-        <p className="text-center text-xs text-alma-text-tertiary">
+        <p className="text-center text-xs text-hlk-text-tertiary">
           활동 기록은 나중에 AI가 증상 패턴을 분석하는 데 도움이 돼요
         </p>
       </div>

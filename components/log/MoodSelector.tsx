@@ -14,10 +14,10 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
   return (
     <div className="text-center">
       {/* Layer 1: 전반적 컨디션 */}
-      <h2 className="text-2xl font-bold text-alma-text mb-3">
+      <h2 className="text-2xl font-bold text-hlk-text mb-3">
         오늘 전반적인 컨디션은 어때요?
       </h2>
-      <p className="text-alma-text-secondary mb-8">
+      <p className="text-hlk-text-secondary mb-8">
         몸과 마음을 종합해서 선택해주세요
       </p>
 
@@ -28,14 +28,14 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
             onClick={() => onChange(option.value as 1 | 2 | 3 | 4 | 5)}
             className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
               value === option.value
-                ? 'bg-alma-primary-light border-2 border-alma-primary scale-110'
-                : 'bg-white border-2 border-alma-border hover:border-alma-primary/50'
+                ? 'bg-hlk-primary-light border-2 border-hlk-primary scale-110'
+                : 'bg-white border-2 border-hlk-border hover:border-hlk-primary/50'
             }`}
           >
             <span className="text-4xl">{option.emoji}</span>
             <span
               className={`text-xs font-medium ${
-                value === option.value ? 'text-alma-primary' : 'text-alma-text-tertiary'
+                value === option.value ? 'text-hlk-primary' : 'text-hlk-text-tertiary'
               }`}
             >
               {option.label}
@@ -47,10 +47,10 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
       {/* Layer 2: 감정 태그 (컨디션 선택 후 표시) */}
       {value !== null && (
         <div className="mt-10 animate-fade-in">
-          <h3 className="text-lg font-bold text-alma-text mb-2">
+          <h3 className="text-lg font-bold text-hlk-text mb-2">
             좀 더 구체적으로, 지금 어떤 느낌이에요?
           </h3>
-          <p className="text-sm text-alma-text-tertiary mb-5">
+          <p className="text-sm text-hlk-text-tertiary mb-5">
             해당되는 것을 모두 선택해주세요 (선택)
           </p>
 
@@ -66,7 +66,7 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
                     border transition-all
                     ${isSelected
                       ? tag.color + ' border-current scale-105'
-                      : 'bg-white text-alma-text-secondary border-alma-border hover:border-alma-primary/40'
+                      : 'bg-white text-hlk-text-secondary border-hlk-border hover:border-hlk-primary/40'
                     }
                   `}
                 >

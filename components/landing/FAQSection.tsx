@@ -44,14 +44,14 @@ export function FAQSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
 
   return (
-    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-hlk-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="inline-block px-4 py-1.5 bg-alma-primary-light text-alma-primary text-sm font-semibold rounded-full mb-4">
+          <span className="inline-block px-4 py-1.5 bg-hlk-primary-light text-hlk-primary text-sm font-semibold rounded-full mb-4">
             FAQ
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-alma-text">
+          <h2 className="text-3xl md:text-4xl font-bold text-hlk-text">
             자주 묻는 질문
           </h2>
         </div>
@@ -61,20 +61,20 @@ export function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={faq.q}
-              className="bg-alma-surface rounded-2xl border border-alma-border overflow-hidden"
+              className="bg-hlk-surface rounded-2xl border border-hlk-border overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-5 text-left flex items-center justify-between gap-4"
               >
-                <span className="text-[15px] font-semibold text-alma-text">
+                <span className="text-[15px] font-semibold text-hlk-text">
                   {faq.q}
                 </span>
                 <span
                   className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
                     openIndex === index
-                      ? 'bg-alma-primary text-white rotate-180'
-                      : 'bg-alma-primary-light text-alma-primary'
+                      ? 'bg-hlk-primary text-white rotate-180'
+                      : 'bg-hlk-primary-light text-hlk-primary'
                   }`}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,7 +87,7 @@ export function FAQSection() {
                   openIndex === index ? 'max-h-48' : 'max-h-0'
                 }`}
               >
-                <div className="px-6 pb-5 text-sm text-alma-text-secondary leading-relaxed">
+                <div className="px-6 pb-5 text-sm text-hlk-text-secondary leading-relaxed">
                   {faq.a}
                 </div>
               </div>

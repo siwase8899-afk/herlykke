@@ -36,13 +36,13 @@ export function GroupRecommendation({ cluster }: GroupRecommendationProps) {
   const group = GROUP_INFO[cluster] || GROUP_INFO.mixed;
 
   return (
-    <div className="bg-alma-surface rounded-2xl border-2 border-alma-primary/30 p-6">
-      <p className="text-xs text-alma-primary font-semibold mb-3">추천 커뮤니티 그룹</p>
+    <div className="bg-hlk-surface rounded-2xl border-2 border-hlk-primary/30 p-6">
+      <p className="text-xs text-hlk-primary font-semibold mb-3">추천 커뮤니티 그룹</p>
       <div className="flex items-center gap-3 mb-3">
         <span className="text-3xl">{group.emoji}</span>
-        <h3 className="text-lg font-bold text-alma-text">{group.name}</h3>
+        <h3 className="text-lg font-bold text-hlk-text">{group.name}</h3>
       </div>
-      <p className="text-sm text-alma-text-secondary leading-relaxed">
+      <p className="text-sm text-hlk-text-secondary leading-relaxed">
         {group.desc}
       </p>
     </div>

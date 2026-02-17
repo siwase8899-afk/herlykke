@@ -33,18 +33,18 @@ export default async function ColumnDetailPage({
   const paragraphs = column.content.split('\n\n');
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       {/* Breadcrumb */}
-      <div className="bg-alma-primary-light border-b border-alma-border">
+      <div className="bg-hlk-primary-light border-b border-hlk-border">
         <div className="max-w-3xl mx-auto px-6 md:px-8 py-4">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/columns" className="text-alma-text-tertiary hover:text-alma-primary transition-colors">
+            <Link href="/columns" className="text-hlk-text-tertiary hover:text-hlk-primary transition-colors">
               전문가 컬럼
             </Link>
-            <span className="text-alma-text-tertiary">/</span>
+            <span className="text-hlk-text-tertiary">/</span>
             <Link
               href={`/columns?category=${column.symptomSlug}`}
-              className="text-alma-text-tertiary hover:text-alma-primary transition-colors"
+              className="text-hlk-text-tertiary hover:text-hlk-primary transition-colors"
             >
               {column.symptom}
             </Link>
@@ -54,49 +54,49 @@ export default async function ColumnDetailPage({
 
       {/* Article Header */}
       <article className="max-w-3xl mx-auto px-6 md:px-8">
-        <header className="pt-10 pb-8 border-b border-alma-border">
+        <header className="pt-10 pb-8 border-b border-hlk-border">
           {/* Category + Read time */}
           <div className="flex items-center gap-3 mb-5">
             <span
               className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                 column.category === 'body'
-                  ? 'bg-alma-primary/10 text-alma-primary'
-                  : 'bg-alma-accent/10 text-alma-accent'
+                  ? 'bg-hlk-primary/10 text-hlk-primary'
+                  : 'bg-hlk-accent/10 text-hlk-accent'
               }`}
             >
               {column.symptom}
             </span>
-            <span className="text-sm text-alma-text-tertiary">{column.readTime}분 읽기</span>
+            <span className="text-sm text-hlk-text-tertiary">{column.readTime}분 읽기</span>
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-alma-text leading-tight mb-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-hlk-text leading-tight mb-4">
             {column.title}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg text-alma-text-secondary leading-relaxed">
+          <p className="text-lg text-hlk-text-secondary leading-relaxed">
             {column.subtitle}
           </p>
 
           {/* Expert Card */}
-          <div className="mt-8 flex items-center gap-4 p-5 bg-white rounded-xl border border-alma-border">
-            <div className="w-14 h-14 rounded-full bg-alma-secondary-light flex items-center justify-center shrink-0">
-              <span className="text-xl font-bold text-alma-text">
+          <div className="mt-8 flex items-center gap-4 p-5 bg-white rounded-xl border border-hlk-border">
+            <div className="w-14 h-14 rounded-full bg-hlk-secondary-light flex items-center justify-center shrink-0">
+              <span className="text-xl font-bold text-hlk-text">
                 {column.expert.name.charAt(0)}
               </span>
             </div>
             <div>
-              <p className="font-bold text-alma-text">{column.expert.name}</p>
-              <p className="text-sm text-alma-text-secondary">{column.expert.title}</p>
-              <p className="text-xs text-alma-text-tertiary">{column.expert.credential}</p>
+              <p className="font-bold text-hlk-text">{column.expert.name}</p>
+              <p className="text-sm text-hlk-text-secondary">{column.expert.title}</p>
+              <p className="text-xs text-hlk-text-tertiary">{column.expert.credential}</p>
             </div>
           </div>
         </header>
 
         {/* Article Body */}
         <div className="py-10">
-          <div className="prose-alma space-y-6">
+          <div className="prose-hlk space-y-6">
             {paragraphs.map((para, idx) => (
               <ContentBlock key={idx} content={para} />
             ))}
@@ -104,11 +104,11 @@ export default async function ColumnDetailPage({
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 pb-8 border-b border-alma-border">
+        <div className="flex flex-wrap gap-2 pb-8 border-b border-hlk-border">
           {column.tags.map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1.5 bg-alma-surface-warm rounded-full text-sm text-alma-text-secondary"
+              className="px-3 py-1.5 bg-hlk-surface-warm rounded-full text-sm text-hlk-text-secondary"
             >
               #{tag}
             </span>
@@ -121,7 +121,7 @@ export default async function ColumnDetailPage({
         {/* Related Columns — Flo: 관련 콘텐츠로 체류시간 증가 */}
         {relatedColumns.length > 0 && (
           <div className="pb-12">
-            <h3 className="text-lg font-bold text-alma-text mb-5">
+            <h3 className="text-lg font-bold text-hlk-text mb-5">
               {column.symptom} 관련 다른 전문가 컬럼
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -129,12 +129,12 @@ export default async function ColumnDetailPage({
                 <Link
                   key={related.slug}
                   href={`/columns/${related.slug}`}
-                  className="group block p-5 bg-white rounded-xl border border-alma-border hover:border-alma-primary/30 transition-all"
+                  className="group block p-5 bg-white rounded-xl border border-hlk-border hover:border-hlk-primary/30 transition-all"
                 >
-                  <h4 className="font-bold text-alma-text group-hover:text-alma-primary transition-colors line-clamp-2 mb-2">
+                  <h4 className="font-bold text-hlk-text group-hover:text-hlk-primary transition-colors line-clamp-2 mb-2">
                     {related.title}
                   </h4>
-                  <div className="flex items-center gap-2 text-xs text-alma-text-tertiary">
+                  <div className="flex items-center gap-2 text-xs text-hlk-text-tertiary">
                     <span>{related.expert.name}</span>
                     <span>·</span>
                     <span>{related.readTime}분 읽기</span>
@@ -149,7 +149,7 @@ export default async function ColumnDetailPage({
         <div className="pb-16 text-center">
           <Link
             href="/columns"
-            className="inline-flex items-center gap-2 text-sm text-alma-text-secondary hover:text-alma-primary transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-hlk-text-secondary hover:text-hlk-primary transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -170,7 +170,7 @@ function ContentBlock({ content }: { content: string }) {
   if (trimmed.startsWith('**') && trimmed.endsWith('**') && !trimmed.includes('\n')) {
     const text = trimmed.replace(/\*\*/g, '');
     return (
-      <h3 className="text-xl font-bold text-alma-text mt-2">{text}</h3>
+      <h3 className="text-xl font-bold text-hlk-text mt-2">{text}</h3>
     );
   }
 
@@ -182,11 +182,11 @@ function ContentBlock({ content }: { content: string }) {
 
     return (
       <div>
-        {title && <BoldText text={title} className="text-base font-semibold text-alma-text mb-3" />}
+        {title && <BoldText text={title} className="text-base font-semibold text-hlk-text mb-3" />}
         <ul className="space-y-2">
           {items.map((item, i) => (
-            <li key={i} className="flex gap-3 text-base text-alma-text-secondary leading-relaxed">
-              <span className="text-alma-primary mt-1.5 shrink-0">
+            <li key={i} className="flex gap-3 text-base text-hlk-text-secondary leading-relaxed">
+              <span className="text-hlk-primary mt-1.5 shrink-0">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <circle cx="10" cy="10" r="3" />
                 </svg>
@@ -207,11 +207,11 @@ function ContentBlock({ content }: { content: string }) {
 
     return (
       <div>
-        {title && <BoldText text={title} className="text-base font-semibold text-alma-text mb-3" />}
+        {title && <BoldText text={title} className="text-base font-semibold text-hlk-text mb-3" />}
         <ol className="space-y-3">
           {items.map((item, i) => (
-            <li key={i} className="flex gap-3 text-base text-alma-text-secondary leading-relaxed">
-              <span className="w-6 h-6 rounded-full bg-alma-primary/10 text-alma-primary text-sm font-bold flex items-center justify-center shrink-0 mt-0.5">
+            <li key={i} className="flex gap-3 text-base text-hlk-text-secondary leading-relaxed">
+              <span className="w-6 h-6 rounded-full bg-hlk-primary/10 text-hlk-primary text-sm font-bold flex items-center justify-center shrink-0 mt-0.5">
                 {i + 1}
               </span>
               <BoldText text={item.replace(/^\d+\.\s*/, '')} />
@@ -225,7 +225,7 @@ function ContentBlock({ content }: { content: string }) {
   // 테이블 (| 포함)
   if (trimmed.includes('|') && trimmed.split('\n').length > 2) {
     const lines = trimmed.split('\n').filter((l) => l.trim() && !l.trim().match(/^\|[-\s|]+\|$/));
-    if (lines.length < 2) return <BoldText text={trimmed} className="text-base text-alma-text-secondary leading-relaxed" />;
+    if (lines.length < 2) return <BoldText text={trimmed} className="text-base text-hlk-text-secondary leading-relaxed" />;
     const headers = lines[0].split('|').map((h) => h.trim()).filter(Boolean);
     const rows = lines.slice(1).map((row) =>
       row.split('|').map((cell) => cell.trim()).filter(Boolean)
@@ -237,7 +237,7 @@ function ContentBlock({ content }: { content: string }) {
           <thead>
             <tr>
               {headers.map((h, i) => (
-                <th key={i} className="text-left p-3 bg-alma-surface-warm font-semibold text-alma-text border-b border-alma-border">
+                <th key={i} className="text-left p-3 bg-hlk-surface-warm font-semibold text-hlk-text border-b border-hlk-border">
                   {h}
                 </th>
               ))}
@@ -247,7 +247,7 @@ function ContentBlock({ content }: { content: string }) {
             {rows.map((row, i) => (
               <tr key={i}>
                 {row.map((cell, j) => (
-                  <td key={j} className="p-3 text-alma-text-secondary border-b border-alma-border-light">
+                  <td key={j} className="p-3 text-hlk-text-secondary border-b border-hlk-border-light">
                     {cell}
                   </td>
                 ))}
@@ -260,7 +260,7 @@ function ContentBlock({ content }: { content: string }) {
   }
 
   // 일반 단락
-  return <BoldText text={trimmed} className="text-base text-alma-text-secondary leading-relaxed" />;
+  return <BoldText text={trimmed} className="text-base text-hlk-text-secondary leading-relaxed" />;
 }
 
 // 볼드 텍스트 인라인 처리 (**text**)
@@ -270,7 +270,7 @@ function BoldText({ text, className = '' }: { text: string; className?: string }
     <p className={className}>
       {parts.map((part, i) =>
         part.startsWith('**') && part.endsWith('**') ? (
-          <strong key={i} className="font-semibold text-alma-text">
+          <strong key={i} className="font-semibold text-hlk-text">
             {part.replace(/\*\*/g, '')}
           </strong>
         ) : (

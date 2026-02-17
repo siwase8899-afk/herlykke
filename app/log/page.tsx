@@ -30,8 +30,8 @@ function LogDashboardContent() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-tertiary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     );
   }
@@ -58,7 +58,7 @@ function LogDashboardContent() {
     .slice(0, 7);
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       <div className="max-w-lg mx-auto px-5 py-8">
         {/* 저장 완료 메시지 */}
         {justSaved && (
@@ -75,14 +75,14 @@ function LogDashboardContent() {
 
         {/* 데모 안내 배너 */}
         {isDemo && (
-          <div className="mb-6 p-4 bg-alma-accent-light border border-alma-accent/20 rounded-2xl">
+          <div className="mb-6 p-4 bg-hlk-accent-light border border-hlk-accent/20 rounded-2xl">
             <div className="flex items-center gap-3">
               <span className="text-xl">✨</span>
               <div>
-                <p className="text-sm font-semibold text-alma-accent">미리보기 모드</p>
-                <p className="text-xs text-alma-text-secondary">데모 데이터로 서비스를 체험하고 있어요</p>
+                <p className="text-sm font-semibold text-hlk-accent">미리보기 모드</p>
+                <p className="text-xs text-hlk-text-secondary">데모 데이터로 서비스를 체험하고 있어요</p>
               </div>
-              <Link href="/checkin" className="ml-auto px-4 py-2 bg-alma-accent text-white text-xs font-bold rounded-full hover:bg-alma-accent/90 transition-colors flex-shrink-0">
+              <Link href="/checkin" className="ml-auto px-4 py-2 bg-hlk-accent text-white text-xs font-bold rounded-full hover:bg-hlk-accent/90 transition-colors flex-shrink-0">
                 시작하기
               </Link>
             </div>
@@ -91,17 +91,17 @@ function LogDashboardContent() {
 
         {/* CARE pillar 인사말 */}
         <div className="mb-8">
-          <p className="text-sm text-alma-text-tertiary mb-1">{dateStr}</p>
-          <h1 className="text-2xl font-bold text-alma-text mb-1">
+          <p className="text-sm text-hlk-text-tertiary mb-1">{dateStr}</p>
+          <h1 className="text-2xl font-bold text-hlk-text mb-1">
             나를 돌보기 💚
           </h1>
-          <p className="text-sm text-alma-text-secondary">
+          <p className="text-sm text-hlk-text-secondary">
             매일 3분, 몸과 마음을 체크인해요
           </p>
         </div>
 
         {/* 오늘 기록 상태 카드 */}
-        <div className="bg-white rounded-2xl p-6 border border-alma-border shadow-sm mb-6">
+        <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm mb-6">
           {todayLog ? (
             // 오늘 기록 완료
             <div>
@@ -113,29 +113,29 @@ function LogDashboardContent() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-semibold text-alma-text">오늘 기록 완료!</p>
-                    <p className="text-sm text-alma-text-tertiary">수고했어요 💚</p>
+                    <p className="font-semibold text-hlk-text">오늘 기록 완료!</p>
+                    <p className="text-sm text-hlk-text-tertiary">수고했어요 💚</p>
                   </div>
                 </div>
                 <Link
                   href="/log/new"
-                  className="text-sm text-alma-primary font-medium hover:underline"
+                  className="text-sm text-hlk-primary font-medium hover:underline"
                 >
                   수정하기
                 </Link>
               </div>
 
               {/* 오늘 기록 요약 */}
-              <div className="bg-alma-bg rounded-xl p-4 space-y-3">
+              <div className="bg-hlk-bg rounded-xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-alma-text-tertiary">기분</span>
+                  <span className="text-sm text-hlk-text-tertiary">기분</span>
                   <span className="text-xl">
                     {MOOD_OPTIONS.find((m) => m.value === todayLog.mood)?.emoji}
                   </span>
                 </div>
                 {todayLog.symptoms.length > 0 && (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-alma-text-tertiary">증상</span>
+                    <span className="text-sm text-hlk-text-tertiary">증상</span>
                     <div className="flex gap-1">
                       {todayLog.symptoms.slice(0, 4).map((s) => (
                         <span key={s.symptomId} className="text-lg">
@@ -143,7 +143,7 @@ function LogDashboardContent() {
                         </span>
                       ))}
                       {todayLog.symptoms.length > 4 && (
-                        <span className="text-sm text-alma-text-tertiary">
+                        <span className="text-sm text-hlk-text-tertiary">
                           +{todayLog.symptoms.length - 4}
                         </span>
                       )}
@@ -152,8 +152,8 @@ function LogDashboardContent() {
                 )}
                 {todayLog.sleep && (
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-alma-text-tertiary">수면</span>
-                    <span className="text-sm font-medium text-alma-text">
+                    <span className="text-sm text-hlk-text-tertiary">수면</span>
+                    <span className="text-sm font-medium text-hlk-text">
                       {todayLog.sleep.bedTime} ~ {todayLog.sleep.wakeTime}
                     </span>
                   </div>
@@ -163,18 +163,18 @@ function LogDashboardContent() {
           ) : (
             // 오늘 기록 안 함
             <div className="text-center py-4">
-              <div className="w-16 h-16 rounded-full bg-alma-primary-light flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-full bg-hlk-primary-light flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl">📝</span>
               </div>
-              <h2 className="text-lg font-bold text-alma-text mb-2">
+              <h2 className="text-lg font-bold text-hlk-text mb-2">
                 오늘의 기록을 시작해볼까요?
               </h2>
-              <p className="text-sm text-alma-text-secondary mb-6">
+              <p className="text-sm text-hlk-text-secondary mb-6">
                 3분이면 충분해요
               </p>
               <Link
                 href="/log/new"
-                className="inline-flex items-center justify-center w-full py-4 bg-alma-accent text-white font-bold rounded-full hover:bg-alma-accent/90 active:scale-[0.98] transition-all shadow-lg shadow-alma-accent/30"
+                className="inline-flex items-center justify-center w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 active:scale-[0.98] transition-all shadow-lg shadow-hlk-accent/30"
               >
                 오늘 기록하기
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,7 +186,7 @@ function LogDashboardContent() {
         </div>
 
         {/* 스트릭 카드 */}
-        <div className="bg-gradient-to-r from-alma-accent to-amber-500 rounded-2xl p-6 text-white mb-6">
+        <div className="bg-gradient-to-r from-hlk-accent to-amber-500 rounded-2xl p-6 text-white mb-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/80 text-sm mb-1">연속 기록</p>
@@ -218,9 +218,9 @@ function LogDashboardContent() {
 
         {/* 컨디션 변화 추적 - 최근 7일 기분 트렌드 */}
         {recentLogs.length >= 2 && (
-          <div className="bg-white rounded-2xl p-6 border border-alma-border mb-6">
-            <h3 className="font-semibold text-alma-text mb-1">컨디션 변화</h3>
-            <p className="text-xs text-alma-text-tertiary mb-4">최근 {recentLogs.length}일간 기분 추이</p>
+          <div className="bg-white rounded-2xl p-6 border border-hlk-border mb-6">
+            <h3 className="font-semibold text-hlk-text mb-1">컨디션 변화</h3>
+            <p className="text-xs text-hlk-text-tertiary mb-4">최근 {recentLogs.length}일간 기분 추이</p>
             <div className="flex items-end justify-between gap-1 h-24 px-2">
               {[...recentLogs].reverse().map((log) => {
                 const mood = log.mood;
@@ -231,7 +231,7 @@ function LogDashboardContent() {
                 return (
                   <div key={log.id} className="flex-1 flex flex-col items-center gap-1">
                     <span className="text-sm">{moodEmoji}</span>
-                    <div className="w-full max-w-[32px] bg-alma-bg rounded-full overflow-hidden" style={{ height: '60px' }}>
+                    <div className="w-full max-w-[32px] bg-hlk-bg rounded-full overflow-hidden" style={{ height: '60px' }}>
                       <div
                         className="w-full rounded-full transition-all"
                         style={{
@@ -241,7 +241,7 @@ function LogDashboardContent() {
                         }}
                       />
                     </div>
-                    <span className="text-[10px] text-alma-text-tertiary">{dayLabel}</span>
+                    <span className="text-[10px] text-hlk-text-tertiary">{dayLabel}</span>
                   </div>
                 );
               })}
@@ -252,9 +252,9 @@ function LogDashboardContent() {
                 ? recentLogs[0].mood - recentLogs[recentLogs.length - 1].mood
                 : 0;
               return (
-                <div className="mt-4 pt-3 border-t border-alma-border flex items-center justify-between">
-                  <div className="text-sm text-alma-text-secondary">
-                    평균 기분: <span className="font-semibold text-alma-primary">{avgMood.toFixed(1)}</span>/5
+                <div className="mt-4 pt-3 border-t border-hlk-border flex items-center justify-between">
+                  <div className="text-sm text-hlk-text-secondary">
+                    평균 기분: <span className="font-semibold text-hlk-primary">{avgMood.toFixed(1)}</span>/5
                   </div>
                   <div className="text-sm">
                     {trend > 0 ? (
@@ -262,7 +262,7 @@ function LogDashboardContent() {
                     ) : trend < 0 ? (
                       <span className="text-amber-600">📉 관리 필요</span>
                     ) : (
-                      <span className="text-alma-text-tertiary">➡️ 유지 중</span>
+                      <span className="text-hlk-text-tertiary">➡️ 유지 중</span>
                     )}
                   </div>
                 </div>
@@ -274,17 +274,17 @@ function LogDashboardContent() {
         {/* 수면/활동 요약 */}
         {recentLogs.length >= 2 && (
           <div className="grid grid-cols-2 gap-3 mb-6">
-            <div className="bg-white rounded-2xl p-4 border border-alma-border text-center">
+            <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
               <span className="text-2xl mb-1 block">😴</span>
-              <p className="text-xs text-alma-text-tertiary">수면 추적</p>
-              <p className="text-sm font-semibold text-alma-text mt-1">
+              <p className="text-xs text-hlk-text-tertiary">수면 추적</p>
+              <p className="text-sm font-semibold text-hlk-text mt-1">
                 {recentLogs.filter(l => l.sleep).length}/{recentLogs.length}일 기록
               </p>
             </div>
-            <div className="bg-white rounded-2xl p-4 border border-alma-border text-center">
+            <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
               <span className="text-2xl mb-1 block">🏃‍♀️</span>
-              <p className="text-xs text-alma-text-tertiary">활동 추적</p>
-              <p className="text-sm font-semibold text-alma-text mt-1">
+              <p className="text-xs text-hlk-text-tertiary">활동 추적</p>
+              <p className="text-sm font-semibold text-hlk-text mt-1">
                 {recentLogs.filter(l => l.activities && l.activities.length > 0).length}/{recentLogs.length}일 기록
               </p>
             </div>
@@ -293,8 +293,8 @@ function LogDashboardContent() {
 
         {/* 최근 기록 */}
         {recentLogs.length > 0 && (
-          <div className="bg-white rounded-2xl p-6 border border-alma-border">
-            <h3 className="font-semibold text-alma-text mb-4">최근 기록</h3>
+          <div className="bg-white rounded-2xl p-6 border border-hlk-border">
+            <h3 className="font-semibold text-hlk-text mb-4">최근 기록</h3>
             <div className="space-y-3">
               {recentLogs.map((log) => {
                 const logDate = new Date(log.date);
@@ -304,7 +304,7 @@ function LogDashboardContent() {
                   <div
                     key={log.id}
                     className={`flex items-center justify-between p-3 rounded-xl ${
-                      isToday ? 'bg-alma-primary-light' : 'bg-alma-bg'
+                      isToday ? 'bg-hlk-primary-light' : 'bg-hlk-bg'
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -312,14 +312,14 @@ function LogDashboardContent() {
                         {MOOD_OPTIONS.find((m) => m.value === log.mood)?.emoji}
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-alma-text">
+                        <p className="text-sm font-medium text-hlk-text">
                           {logDate.toLocaleDateString('ko-KR', {
                             month: 'short',
                             day: 'numeric',
                             weekday: 'short',
                           })}
                         </p>
-                        <p className="text-xs text-alma-text-tertiary">
+                        <p className="text-xs text-hlk-text-tertiary">
                           {log.symptoms.length > 0
                             ? `증상 ${log.symptoms.length}개`
                             : '증상 없음'}
@@ -341,7 +341,7 @@ function LogDashboardContent() {
             {logs.length > 7 && (
               <Link
                 href="/insights"
-                className="block mt-4 text-center text-sm text-alma-primary font-medium hover:underline"
+                className="block mt-4 text-center text-sm text-hlk-primary font-medium hover:underline"
               >
                 전체 기록 보기 →
               </Link>
@@ -351,14 +351,14 @@ function LogDashboardContent() {
 
         {/* 빈 상태 */}
         {recentLogs.length === 0 && (
-          <div className="bg-white rounded-2xl p-8 border border-alma-border text-center">
-            <div className="w-16 h-16 rounded-full bg-alma-bg flex items-center justify-center mx-auto mb-4">
+          <div className="bg-white rounded-2xl p-8 border border-hlk-border text-center">
+            <div className="w-16 h-16 rounded-full bg-hlk-bg flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">📊</span>
             </div>
-            <h3 className="font-semibold text-alma-text mb-2">
+            <h3 className="font-semibold text-hlk-text mb-2">
               아직 기록이 없어요
             </h3>
-            <p className="text-sm text-alma-text-secondary">
+            <p className="text-sm text-hlk-text-secondary">
               첫 기록을 시작해보세요!
               <br />
               7일 연속 기록하면 패턴 리포트를 볼 수 있어요
@@ -370,7 +370,7 @@ function LogDashboardContent() {
         <div className="mt-8 text-center">
           <Link
             href="/insights"
-            className="inline-flex items-center gap-2 text-sm text-alma-primary font-medium hover:underline"
+            className="inline-flex items-center gap-2 text-sm text-hlk-primary font-medium hover:underline"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -386,8 +386,8 @@ function LogDashboardContent() {
 export default function LogDashboardPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-tertiary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     }>
       <LogDashboardContent />

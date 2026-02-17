@@ -48,20 +48,20 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
   const winningOption = getWinningOption();
 
   return (
-    <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
       {/* 헤더 */}
-      <div className="p-4 border-b border-alma-border">
+      <div className="p-4 border-b border-hlk-border">
         <div className="flex items-center justify-between mb-2">
           <span className={`text-xs px-2 py-0.5 rounded-full ${categoryInfo.color}`}>
             {categoryInfo.emoji} {categoryInfo.label}
           </span>
-          <span className="text-xs text-alma-text-tertiary">
+          <span className="text-xs text-hlk-text-tertiary">
             {localPoll.totalVotes.toLocaleString()}명 참여
           </span>
         </div>
-        <h3 className="font-semibold text-alma-text">{poll.question}</h3>
+        <h3 className="font-semibold text-hlk-text">{poll.question}</h3>
         {poll.description && (
-          <p className="text-sm text-alma-text-tertiary mt-1">{poll.description}</p>
+          <p className="text-sm text-hlk-text-tertiary mt-1">{poll.description}</p>
         )}
       </div>
 
@@ -80,18 +80,18 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
               className={`w-full relative overflow-hidden rounded-xl transition-all ${
                 hasVoted
                   ? 'cursor-default'
-                  : 'hover:border-alma-primary cursor-pointer'
+                  : 'hover:border-hlk-primary cursor-pointer'
               } ${
                 isSelected
-                  ? 'border-2 border-alma-primary bg-alma-primary-light'
-                  : 'border-2 border-alma-border'
+                  ? 'border-2 border-hlk-primary bg-hlk-primary-light'
+                  : 'border-2 border-hlk-border'
               }`}
             >
               {/* 배경 바 (투표 후) */}
               {hasVoted && (
                 <div
                   className={`absolute inset-y-0 left-0 transition-all duration-500 ${
-                    isWinning ? 'bg-alma-primary/20' : 'bg-alma-bg'
+                    isWinning ? 'bg-hlk-primary/20' : 'bg-hlk-bg'
                   }`}
                   style={{ width: `${percentage}%` }}
                 />
@@ -101,7 +101,7 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
               <div className="relative flex items-center justify-between p-3">
                 <div className="flex items-center gap-2">
                   {option.emoji && <span className="text-lg">{option.emoji}</span>}
-                  <span className={`text-sm ${isSelected ? 'font-semibold text-alma-primary' : 'text-alma-text'}`}>
+                  <span className={`text-sm ${isSelected ? 'font-semibold text-hlk-primary' : 'text-hlk-text'}`}>
                     {option.text}
                   </span>
                 </div>
@@ -109,18 +109,18 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
                 {hasVoted ? (
                   <div className="flex items-center gap-2">
                     <span className={`text-sm font-semibold ${
-                      isWinning ? 'text-alma-primary' : 'text-alma-text-secondary'
+                      isWinning ? 'text-hlk-primary' : 'text-hlk-text-secondary'
                     }`}>
                       {percentage}%
                     </span>
                     {isSelected && (
-                      <svg className="w-5 h-5 text-alma-primary" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-5 h-5 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
                     )}
                   </div>
                 ) : (
-                  <div className="w-5 h-5 rounded-full border-2 border-alma-border" />
+                  <div className="w-5 h-5 rounded-full border-2 border-hlk-border" />
                 )}
               </div>
             </button>
@@ -131,7 +131,7 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
       {/* 푸터 */}
       {!hasVoted && (
         <div className="px-4 pb-4">
-          <p className="text-xs text-alma-text-tertiary text-center">
+          <p className="text-xs text-hlk-text-tertiary text-center">
             선택하면 다른 분들의 결과를 볼 수 있어요
           </p>
         </div>

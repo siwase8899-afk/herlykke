@@ -25,7 +25,7 @@ export default function LoginPage() {
   }, [authLoading, isLoggedIn, router]);
 
   if (authLoading || isLoggedIn) {
-    return <div className="min-h-screen bg-alma-bg" />;
+    return <div className="min-h-screen bg-hlk-bg" />;
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,18 +75,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-alma-bg flex flex-col">
+    <div className="min-h-screen bg-hlk-bg flex flex-col">
       {/* Main */}
       <main className="flex-1 flex items-center justify-center px-6 md:px-8 py-16">
         <div className="w-full max-w-md">
           {/* Card */}
-          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-alma-border">
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-hlk-border">
             {/* Title */}
             <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-alma-text mb-2">
+              <h1 className="text-2xl font-bold text-hlk-text mb-2">
                 {isLogin ? '다시 만나서 반가워요' : '함께해요'}
               </h1>
-              <p className="text-alma-text-secondary">
+              <p className="text-hlk-text-secondary">
                 {isLogin ? '로그인하고 기록을 이어가세요' : '가입하고 매일 기록을 시작하세요'}
               </p>
             </div>
@@ -95,7 +95,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
                 <div>
-                  <label className="block text-sm font-medium text-alma-text mb-1.5">
+                  <label className="block text-sm font-medium text-hlk-text mb-1.5">
                     이름 (닉네임)
                   </label>
                   <input
@@ -103,14 +103,14 @@ export default function LoginPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="커뮤니티에서 사용할 이름"
-                    className="w-full px-4 py-3 rounded-xl border border-alma-border focus:border-alma-primary focus:ring-2 focus:ring-alma-primary/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-hlk-border focus:border-hlk-primary focus:ring-2 focus:ring-hlk-primary/20 outline-none transition-all"
                     required={!isLogin}
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-alma-text mb-1.5">
+                <label className="block text-sm font-medium text-hlk-text mb-1.5">
                   이메일
                 </label>
                 <input
@@ -118,13 +118,13 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="example@email.com"
-                  className="w-full px-4 py-3 rounded-xl border border-alma-border focus:border-alma-primary focus:ring-2 focus:ring-alma-primary/20 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-hlk-border focus:border-hlk-primary focus:ring-2 focus:ring-hlk-primary/20 outline-none transition-all"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-alma-text mb-1.5">
+                <label className="block text-sm font-medium text-hlk-text mb-1.5">
                   비밀번호
                 </label>
                 <input
@@ -132,7 +132,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="6자 이상"
-                  className="w-full px-4 py-3 rounded-xl border border-alma-border focus:border-alma-primary focus:ring-2 focus:ring-alma-primary/20 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-hlk-border focus:border-hlk-primary focus:ring-2 focus:ring-hlk-primary/20 outline-none transition-all"
                   required
                   minLength={6}
                 />
@@ -153,7 +153,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 bg-alma-primary text-white font-bold rounded-xl hover:bg-alma-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="w-full py-4 bg-hlk-primary text-white font-bold rounded-xl hover:bg-hlk-primary-dark disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 {loading ? '처리 중...' : isLogin ? '로그인' : '가입하기'}
               </button>
@@ -167,7 +167,7 @@ export default function LoginPage() {
                   setError('');
                   setMessage('');
                 }}
-                className="text-sm text-alma-text-secondary hover:text-alma-primary transition-colors"
+                className="text-sm text-hlk-text-secondary hover:text-hlk-primary transition-colors"
               >
                 {isLogin ? '계정이 없으신가요? 가입하기' : '이미 계정이 있으신가요? 로그인'}
               </button>
@@ -176,7 +176,7 @@ export default function LoginPage() {
 
           {/* Back link */}
           <div className="mt-6 text-center">
-            <Link href="/" className="text-sm text-alma-text-tertiary hover:text-alma-text transition-colors">
+            <Link href="/" className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors">
               ← 홈으로 돌아가기
             </Link>
           </div>

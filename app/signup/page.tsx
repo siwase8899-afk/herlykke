@@ -24,8 +24,8 @@ export default function SignupPage() {
 
   if (!hydrated) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
-        <div className="text-alma-text-tertiary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+        <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     );
   }
@@ -144,17 +144,17 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-alma-bg">
+      <div className="min-h-screen bg-hlk-bg">
         <div className="max-w-lg mx-auto px-5 py-8">
           <div className="text-center py-16">
             <div className="text-5xl mb-4">🎉</div>
-            <h1 className="text-2xl font-bold text-alma-text mb-3">
+            <h1 className="text-2xl font-bold text-hlk-text mb-3">
               가입 완료!
             </h1>
-            <p className="text-[15px] text-alma-text-secondary leading-relaxed mb-2">
+            <p className="text-[15px] text-hlk-text-secondary leading-relaxed mb-2">
               체크인 결과가 안전하게 저장되었어요.
             </p>
-            <p className="text-sm text-alma-text-tertiary">
+            <p className="text-sm text-hlk-text-tertiary">
               잠시 후 대시보드로 이동합니다...
             </p>
           </div>
@@ -164,15 +164,15 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       <div className="max-w-lg mx-auto px-5 py-8">
         {/* 헤더 */}
         <div className="text-center mb-8">
           <div className="text-4xl mb-3">💌</div>
-          <h1 className="text-2xl font-bold text-alma-text mb-2">
+          <h1 className="text-2xl font-bold text-hlk-text mb-2">
             결과 저장하기
           </h1>
-          <p className="text-sm text-alma-text-secondary leading-relaxed">
+          <p className="text-sm text-hlk-text-secondary leading-relaxed">
             이메일만 입력하면 체크인 결과를 저장하고<br />
             맞춤 커뮤니티에 참여할 수 있어요
           </p>
@@ -181,7 +181,7 @@ export default function SignupPage() {
         {/* 가입 폼 */}
         <form onSubmit={handleSignup} className="space-y-4 mb-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-alma-text mb-2">
+            <label htmlFor="email" className="block text-sm font-semibold text-hlk-text mb-2">
               이메일
             </label>
             <input
@@ -191,11 +191,11 @@ export default function SignupPage() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
               required
-              className="w-full px-4 py-3.5 rounded-xl border border-alma-border bg-white text-alma-text placeholder:text-alma-text-tertiary focus:outline-none focus:ring-2 focus:ring-alma-primary/30 focus:border-alma-primary transition-colors"
+              className="w-full px-4 py-3.5 rounded-xl border border-hlk-border bg-white text-hlk-text placeholder:text-hlk-text-tertiary focus:outline-none focus:ring-2 focus:ring-hlk-primary/30 focus:border-hlk-primary transition-colors"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-semibold text-alma-text mb-2">
+            <label htmlFor="password" className="block text-sm font-semibold text-hlk-text mb-2">
               비밀번호
             </label>
             <input
@@ -206,12 +206,12 @@ export default function SignupPage() {
               placeholder="6자 이상"
               required
               minLength={6}
-              className="w-full px-4 py-3.5 rounded-xl border border-alma-border bg-white text-alma-text placeholder:text-alma-text-tertiary focus:outline-none focus:ring-2 focus:ring-alma-primary/30 focus:border-alma-primary transition-colors"
+              className="w-full px-4 py-3.5 rounded-xl border border-hlk-border bg-white text-hlk-text placeholder:text-hlk-text-tertiary focus:outline-none focus:ring-2 focus:ring-hlk-primary/30 focus:border-hlk-primary transition-colors"
             />
           </div>
 
           {error && (
-            <div className="bg-alma-error/10 text-alma-error text-sm rounded-xl px-4 py-3">
+            <div className="bg-hlk-error/10 text-hlk-error text-sm rounded-xl px-4 py-3">
               {error}
             </div>
           )}
@@ -227,9 +227,9 @@ export default function SignupPage() {
         </form>
 
         {/* 혜택 안내 */}
-        <div className="bg-alma-surface rounded-2xl border border-alma-border p-5 mb-6">
-          <h3 className="text-sm font-bold text-alma-text mb-3">가입하면 이런 것들이 가능해요</h3>
-          <ul className="space-y-2 text-sm text-alma-text-secondary">
+        <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-5 mb-6">
+          <h3 className="text-sm font-bold text-hlk-text mb-3">가입하면 이런 것들이 가능해요</h3>
+          <ul className="space-y-2 text-sm text-hlk-text-secondary">
             <li className="flex gap-2"><span>📊</span> 체크인 결과 영구 저장</li>
             <li className="flex gap-2"><span>👩‍👩‍👧‍👧</span> 맞춤 커뮤니티 그룹 참여</li>
             <li className="flex gap-2"><span>📈</span> 주간 변화 추적 리포트</li>
@@ -238,7 +238,7 @@ export default function SignupPage() {
         </div>
 
         {/* 개인정보 안내 */}
-        <p className="text-xs text-alma-text-tertiary text-center mb-6 px-4">
+        <p className="text-xs text-hlk-text-tertiary text-center mb-6 px-4">
           입력한 이메일은 결과 저장과 로그인에만 사용됩니다.<br />
           HERLYKKE는 개인정보를 안전하게 보호합니다.
         </p>

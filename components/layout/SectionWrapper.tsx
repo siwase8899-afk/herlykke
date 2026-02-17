@@ -23,10 +23,10 @@ const paddingMap = {
 };
 
 const bgMap = {
-  default: 'bg-alma-bg',
+  default: 'bg-hlk-bg',
   white: 'bg-white',
-  warm: 'bg-alma-surface-warm',
-  dark: 'bg-alma-secondary text-white',
+  warm: 'bg-hlk-surface-warm',
+  dark: 'bg-hlk-secondary text-white',
 };
 
 export function SectionWrapper({

@@ -44,9 +44,9 @@ export interface SymptomCharacter {
 }
 
 export const SYMPTOM_CATEGORIES = [
-  { id: 'body' as const, label: '몸의 신호', color: 'alma-primary' },
-  { id: 'mind' as const, label: '마음의 신호', color: 'alma-accent' },
-  { id: 'life' as const, label: '일상의 변화', color: 'alma-secondary' },
+  { id: 'body' as const, label: '몸의 신호', color: 'hlk-primary' },
+  { id: 'mind' as const, label: '마음의 신호', color: 'hlk-accent' },
+  { id: 'life' as const, label: '일상의 변화', color: 'hlk-secondary' },
 ];
 
 export const SYMPTOM_CHARACTERS: SymptomCharacter[] = [

@@ -119,7 +119,7 @@ export const useCheckinStore = create<CheckinState>()(
       reset: () => set(initialState),
     }),
     {
-      name: 'alma-checkin',
+      name: 'hlk-checkin',
     }
   )
 );

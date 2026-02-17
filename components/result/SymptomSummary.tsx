@@ -21,18 +21,18 @@ export function SymptomSummary({ physicalSymptoms, emotionalSymptoms, cluster }:
   const emotionalItems = EmotionalSymptoms.filter((s) => emotionalSymptoms.includes(s.key));
 
   return (
-    <div className="bg-alma-surface rounded-2xl border border-alma-border p-6">
-      <h3 className="text-base font-bold text-alma-text mb-1">나의 증상 패턴</h3>
-      <p className="text-sm text-alma-primary font-medium mb-4">
+    <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-6">
+      <h3 className="text-base font-bold text-hlk-text mb-1">나의 증상 패턴</h3>
+      <p className="text-sm text-hlk-primary font-medium mb-4">
         {CLUSTER_LABELS[cluster] || cluster}
       </p>
 
       {physicalItems.length > 0 && (
         <div className="mb-3">
-          <p className="text-xs text-alma-text-tertiary font-medium mb-2">신체 증상</p>
+          <p className="text-xs text-hlk-text-tertiary font-medium mb-2">신체 증상</p>
           <div className="flex flex-wrap gap-2">
             {physicalItems.map((s) => (
-              <span key={s.key} className="text-sm bg-alma-primary-light/50 text-alma-primary-dark px-3 py-1 rounded-full">
+              <span key={s.key} className="text-sm bg-hlk-primary-light/50 text-hlk-primary-dark px-3 py-1 rounded-full">
                 {s.emoji} {s.label}
               </span>
             ))}
@@ -42,10 +42,10 @@ export function SymptomSummary({ physicalSymptoms, emotionalSymptoms, cluster }:
 
       {emotionalItems.length > 0 && (
         <div>
-          <p className="text-xs text-alma-text-tertiary font-medium mb-2">감정 변화</p>
+          <p className="text-xs text-hlk-text-tertiary font-medium mb-2">감정 변화</p>
           <div className="flex flex-wrap gap-2">
             {emotionalItems.map((s) => (
-              <span key={s.key} className="text-sm bg-alma-secondary-light/50 text-alma-secondary px-3 py-1 rounded-full">
+              <span key={s.key} className="text-sm bg-hlk-secondary-light/50 text-hlk-secondary px-3 py-1 rounded-full">
                 {s.emoji} {s.label}
               </span>
             ))}

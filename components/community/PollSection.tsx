@@ -10,7 +10,7 @@ interface PollSectionProps {
 }
 
 // 로컬스토리지 키
-const VOTED_POLLS_KEY = 'alma-voted-polls';
+const VOTED_POLLS_KEY = 'hlk-voted-polls';
 
 export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionProps) {
   const [polls] = useState<Poll[]>(DEMO_POLLS);
@@ -49,36 +49,36 @@ export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionP
 
   if (!mounted) {
     return (
-      <div className="bg-white rounded-2xl border border-alma-border p-4 animate-pulse">
-        <div className="h-5 bg-alma-bg rounded w-1/4 mb-3" />
-        <div className="h-12 bg-alma-bg rounded-xl" />
+      <div className="bg-white rounded-2xl border border-hlk-border p-4 animate-pulse">
+        <div className="h-5 bg-hlk-bg rounded w-1/4 mb-3" />
+        <div className="h-12 bg-hlk-bg rounded-xl" />
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-alma-border overflow-hidden">
+    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
       {/* 컴팩트 헤더 */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-4 flex items-center justify-between hover:bg-alma-bg/50 transition-colors"
+        className="w-full p-4 flex items-center justify-between hover:bg-hlk-bg/50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-lg bg-alma-primary/10 flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4 text-alma-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-7 h-7 rounded-lg bg-hlk-primary/10 flex items-center justify-center flex-shrink-0">
+            <svg className="w-4 h-4 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
           </div>
           <div className="text-left">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-alma-text text-sm">오늘의 투표</span>
+              <span className="font-semibold text-hlk-text text-sm">오늘의 투표</span>
               {unvotedCount > 0 && (
-                <span className="px-1.5 py-0.5 bg-alma-accent text-white text-[10px] font-bold rounded-full">
+                <span className="px-1.5 py-0.5 bg-hlk-accent text-white text-[10px] font-bold rounded-full">
                   {unvotedCount}개 참여 가능
                 </span>
               )}
             </div>
-            <p className="text-xs text-alma-text-tertiary mt-0.5">
+            <p className="text-xs text-hlk-text-tertiary mt-0.5">
               {polls.length}개 진행 중
             </p>
           </div>
@@ -87,7 +87,7 @@ export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionP
         <div className="flex items-center gap-2">
           {/* 확장 아이콘 */}
           <svg
-            className={`w-5 h-5 text-alma-text-tertiary transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-hlk-text-tertiary transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionP
         {polls.length > 1 && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="w-full py-2 text-xs text-alma-primary font-medium hover:bg-alma-primary-light rounded-lg transition-colors"
+            className="w-full py-2 text-xs text-hlk-primary font-medium hover:bg-hlk-primary-light rounded-lg transition-colors"
           >
             {expanded ? '접기' : `투표 더보기 (${polls.length - 1}개)`}
           </button>

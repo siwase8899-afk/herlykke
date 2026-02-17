@@ -22,9 +22,9 @@ export function Button({
   const baseStyles = 'font-semibold rounded-full transition-all duration-200 cursor-pointer inline-flex items-center justify-center';
 
   const variants = {
-    primary: 'bg-alma-primary text-white hover:bg-alma-primary-dark active:scale-[0.98]',
-    secondary: 'bg-white text-alma-primary border-2 border-alma-primary hover:bg-alma-primary-light active:scale-[0.98]',
-    ghost: 'bg-transparent text-alma-primary hover:bg-alma-primary-light/50',
+    primary: 'bg-hlk-primary text-white hover:bg-hlk-primary-dark active:scale-[0.98]',
+    secondary: 'bg-white text-hlk-primary border-2 border-hlk-primary hover:bg-hlk-primary-light active:scale-[0.98]',
+    ghost: 'bg-transparent text-hlk-primary hover:bg-hlk-primary-light/50',
   };
 
   const sizes = {

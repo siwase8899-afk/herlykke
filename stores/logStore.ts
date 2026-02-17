@@ -224,7 +224,7 @@ export const useLogStore = create<LogState>()(
       },
     }),
     {
-      name: 'alma-log-storage',
+      name: 'hlk-log-storage',
       merge: (persisted, current) => {
         const p = persisted as Partial<LogState> | undefined;
         return {

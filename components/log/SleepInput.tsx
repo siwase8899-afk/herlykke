@@ -78,42 +78,42 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-alma-text mb-3 text-center">
+      <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
         어젯밤 수면은 어땠나요?
       </h2>
-      <p className="text-alma-text-secondary mb-8 text-center">
+      <p className="text-hlk-text-secondary mb-8 text-center">
         취침/기상 시간과 수면 품질을 알려주세요
       </p>
 
       <div className="max-w-sm mx-auto space-y-6">
         {/* 취침/기상 시간 버튼 */}
-        <div className="bg-white rounded-2xl p-5 border border-alma-border">
+        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-alma-text mb-2">
+              <label className="block text-sm font-medium text-hlk-text mb-2">
                 취침 시간
               </label>
               <button
                 onClick={() => setShowPicker(showPicker === 'bed' ? null : 'bed')}
                 className={`w-full px-4 py-3 rounded-xl border text-center text-lg font-semibold transition-all ${
                   showPicker === 'bed'
-                    ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
-                    : 'border-alma-border text-alma-text hover:border-alma-primary/50'
+                    ? 'border-hlk-primary bg-hlk-primary-light text-hlk-primary'
+                    : 'border-hlk-border text-hlk-text hover:border-hlk-primary/50'
                 }`}
               >
                 {bed.period === 'AM' ? '오전' : '오후'} {bed.hour}:{bed.minute.toString().padStart(2, '0')}
               </button>
             </div>
             <div>
-              <label className="block text-sm font-medium text-alma-text mb-2">
+              <label className="block text-sm font-medium text-hlk-text mb-2">
                 기상 시간
               </label>
               <button
                 onClick={() => setShowPicker(showPicker === 'wake' ? null : 'wake')}
                 className={`w-full px-4 py-3 rounded-xl border text-center text-lg font-semibold transition-all ${
                   showPicker === 'wake'
-                    ? 'border-alma-primary bg-alma-primary-light text-alma-primary'
-                    : 'border-alma-border text-alma-text hover:border-alma-primary/50'
+                    ? 'border-hlk-primary bg-hlk-primary-light text-hlk-primary'
+                    : 'border-hlk-border text-hlk-text hover:border-hlk-primary/50'
                 }`}
               >
                 {wake.period === 'AM' ? '오전' : '오후'} {wake.hour}:{wake.minute.toString().padStart(2, '0')}
@@ -123,8 +123,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
 
           {/* 시간 선택 패널 */}
           {showPicker && (
-            <div className="mt-4 pt-4 border-t border-alma-border">
-              <p className="text-xs text-alma-text-tertiary text-center mb-3">
+            <div className="mt-4 pt-4 border-t border-hlk-border">
+              <p className="text-xs text-hlk-text-tertiary text-center mb-3">
                 {showPicker === 'bed' ? '취침' : '기상'} 시간 선택
               </p>
 
@@ -136,8 +136,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
                     onClick={() => handleTimeChange(currentField, current.hour, current.minute, p)}
                     className={`px-5 py-2 rounded-full text-sm font-semibold transition-all ${
                       current.period === p
-                        ? 'bg-alma-primary text-white'
-                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                        ? 'bg-hlk-primary text-white'
+                        : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
                     }`}
                   >
                     {p === 'AM' ? '오전' : '오후'}
@@ -146,7 +146,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
               </div>
 
               {/* 시 선택 */}
-              <p className="text-xs text-alma-text-tertiary mb-2">시</p>
+              <p className="text-xs text-hlk-text-tertiary mb-2">시</p>
               <div className="grid grid-cols-6 gap-1.5 mb-4">
                 {HOURS.map((h) => (
                   <button
@@ -154,8 +154,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
                     onClick={() => handleTimeChange(currentField, h, current.minute, current.period)}
                     className={`py-2 rounded-lg text-sm font-medium transition-all ${
                       current.hour === h
-                        ? 'bg-alma-primary text-white'
-                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                        ? 'bg-hlk-primary text-white'
+                        : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
                     }`}
                   >
                     {h}
@@ -164,7 +164,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
               </div>
 
               {/* 분 선택 */}
-              <p className="text-xs text-alma-text-tertiary mb-2">분</p>
+              <p className="text-xs text-hlk-text-tertiary mb-2">분</p>
               <div className="grid grid-cols-4 gap-1.5">
                 {MINUTES.map((m) => (
                   <button
@@ -175,8 +175,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
                     }}
                     className={`py-2 rounded-lg text-sm font-medium transition-all ${
                       current.minute === m
-                        ? 'bg-alma-primary text-white'
-                        : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                        ? 'bg-hlk-primary text-white'
+                        : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
                     }`}
                   >
                     {m.toString().padStart(2, '0')}
@@ -189,8 +189,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
           {/* 수면 시간 표시 */}
           {sleepDuration && !showPicker && (
             <div className="mt-4 text-center">
-              <p className="text-sm text-alma-text-tertiary">총 수면 시간</p>
-              <p className="text-2xl font-bold text-alma-primary">
+              <p className="text-sm text-hlk-text-tertiary">총 수면 시간</p>
+              <p className="text-2xl font-bold text-hlk-primary">
                 {sleepDuration.hours}시간{sleepDuration.minutes > 0 ? ` ${sleepDuration.minutes}분` : ''}
               </p>
             </div>
@@ -198,8 +198,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
         </div>
 
         {/* 수면 품질 */}
-        <div className="bg-white rounded-2xl p-5 border border-alma-border">
-          <p className="text-sm font-medium text-alma-text mb-4 text-center">
+        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+          <p className="text-sm font-medium text-hlk-text mb-4 text-center">
             수면 품질은 어땠나요?
           </p>
           <div className="flex justify-center gap-3">
@@ -209,16 +209,16 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
                 onClick={() => handleQualityChange(option.value)}
                 className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${
                   sleep.quality === option.value
-                    ? 'bg-alma-primary-light border-2 border-alma-primary'
-                    : 'bg-alma-bg border-2 border-transparent hover:border-alma-border'
+                    ? 'bg-hlk-primary-light border-2 border-hlk-primary'
+                    : 'bg-hlk-bg border-2 border-transparent hover:border-hlk-border'
                 }`}
               >
                 <span className="text-2xl">{option.emoji}</span>
                 <span
                   className={`text-[10px] font-medium ${
                     sleep.quality === option.value
-                      ? 'text-alma-primary'
-                      : 'text-alma-text-tertiary'
+                      ? 'text-hlk-primary'
+                      : 'text-hlk-text-tertiary'
                   }`}
                 >
                   {option.label}

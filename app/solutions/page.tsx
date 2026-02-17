@@ -378,34 +378,34 @@ export default function SolutionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-alma-bg flex items-center justify-center">
+      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-alma-primary to-alma-accent flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center mx-auto mb-4 animate-pulse">
             <span className="text-white text-2xl">AI</span>
           </div>
-          <p className="text-alma-text-secondary">맞춤 솔루션을 분석 중이에요...</p>
+          <p className="text-hlk-text-secondary">맞춤 솔루션을 분석 중이에요...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-alma-bg">
+    <div className="min-h-screen bg-hlk-bg">
       {/* Header */}
-      <header className="sticky top-0 z-50 px-5 py-4 border-b border-alma-border bg-white/80 backdrop-blur-lg">
+      <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/dashboard" className="text-alma-text-tertiary hover:text-alma-text transition-colors">
+          <Link href="/dashboard" className="text-hlk-text-tertiary hover:text-hlk-text transition-colors">
             ← 대시보드
           </Link>
-          <h1 className="font-bold text-alma-text">AI 맞춤 솔루션</h1>
-          <Link href="/insights" className="text-alma-primary text-sm font-medium">
+          <h1 className="font-bold text-hlk-text">AI 맞춤 솔루션</h1>
+          <Link href="/insights" className="text-hlk-primary text-sm font-medium">
             인사이트
           </Link>
         </div>
       </header>
 
       {/* AI Recommendation Banner */}
-      <div className="bg-gradient-to-r from-alma-primary to-alma-accent">
+      <div className="bg-gradient-to-r from-hlk-primary to-hlk-accent">
         <div className="max-w-4xl mx-auto px-5 py-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0">
@@ -432,7 +432,7 @@ export default function SolutionsPage() {
       </div>
 
       {/* Category Filter */}
-      <div className="sticky top-[57px] z-40 bg-white border-b border-alma-border">
+      <div className="sticky top-[57px] z-40 bg-white border-b border-hlk-border">
         <div className="max-w-4xl mx-auto px-5 py-3">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
             {SOLUTION_CATEGORIES.map(category => (
@@ -441,8 +441,8 @@ export default function SolutionsPage() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === category.id
-                    ? 'bg-alma-primary text-white'
-                    : 'bg-alma-bg text-alma-text-secondary hover:bg-alma-border'
+                    ? 'bg-hlk-primary text-white'
+                    : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
                 }`}
               >
                 {category.icon} {category.label}
@@ -455,7 +455,7 @@ export default function SolutionsPage() {
       {/* Sort Options */}
       <div className="max-w-4xl mx-auto px-5 py-4">
         <div className="flex items-center justify-between">
-          <p className="text-sm text-alma-text-secondary">
+          <p className="text-sm text-hlk-text-secondary">
             {filteredSolutions.length}개의 솔루션
           </p>
           <div className="flex gap-2">
@@ -469,8 +469,8 @@ export default function SolutionsPage() {
                 onClick={() => setSortBy(option.id as typeof sortBy)}
                 className={`px-3 py-1 rounded-lg text-sm transition-all ${
                   sortBy === option.id
-                    ? 'bg-alma-text text-white'
-                    : 'text-alma-text-tertiary hover:text-alma-text'
+                    ? 'bg-hlk-text text-white'
+                    : 'text-hlk-text-tertiary hover:text-hlk-text'
                 }`}
               >
                 {option.label}
@@ -490,23 +490,23 @@ export default function SolutionsPage() {
 
         {filteredSolutions.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-alma-text-secondary">해당 카테고리에 솔루션이 없어요.</p>
+            <p className="text-hlk-text-secondary">해당 카테고리에 솔루션이 없어요.</p>
           </div>
         )}
       </main>
 
       {/* Bottom CTA */}
-      <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-alma-border">
+      <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-hlk-border">
         <div className="max-w-4xl mx-auto flex gap-3">
           <Link
             href="/log"
-            className="flex-1 py-3 bg-alma-bg text-alma-text font-medium rounded-xl text-center hover:bg-alma-border transition-all"
+            className="flex-1 py-3 bg-hlk-bg text-hlk-text font-medium rounded-xl text-center hover:bg-hlk-border transition-all"
           >
             오늘 기록하기
           </Link>
           <Link
             href="/community?tab=match"
-            className="flex-1 py-3 bg-alma-primary text-white font-bold rounded-xl text-center hover:bg-alma-primary-dark transition-all"
+            className="flex-1 py-3 bg-hlk-primary text-white font-bold rounded-xl text-center hover:bg-hlk-primary-dark transition-all"
           >
             비슷한 친구 찾기
           </Link>
@@ -520,7 +520,7 @@ export default function SolutionsPage() {
 function SolutionCard({ solution }: { solution: Solution & { isRecommended: boolean } }) {
   return (
     <div className={`bg-white rounded-2xl overflow-hidden border transition-all hover:shadow-lg ${
-      solution.isRecommended ? 'border-alma-primary/30 ring-1 ring-alma-primary/20' : 'border-alma-border'
+      solution.isRecommended ? 'border-hlk-primary/30 ring-1 ring-hlk-primary/20' : 'border-hlk-border'
     }`}>
       {/* Image */}
       <div className="relative aspect-[4/3]">
@@ -532,13 +532,13 @@ function SolutionCard({ solution }: { solution: Solution & { isRecommended: bool
         />
         {/* Match Score */}
         {solution.isRecommended && (
-          <div className="absolute top-3 left-3 bg-alma-primary px-3 py-1 rounded-full">
+          <div className="absolute top-3 left-3 bg-hlk-primary px-3 py-1 rounded-full">
             <span className="text-white text-xs font-bold">{solution.matchScore}% 매치</span>
           </div>
         )}
         {/* Category */}
         <div className="absolute top-3 right-3 bg-white/90 px-2 py-1 rounded-full">
-          <span className="text-xs text-alma-text-secondary">
+          <span className="text-xs text-hlk-text-secondary">
             {SOLUTION_CATEGORIES.find(c => c.id === solution.category)?.label}
           </span>
         </div>
@@ -547,36 +547,36 @@ function SolutionCard({ solution }: { solution: Solution & { isRecommended: bool
       {/* Content */}
       <div className="p-4">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-semibold text-alma-text line-clamp-1">{solution.title}</h3>
+          <h3 className="font-semibold text-hlk-text line-clamp-1">{solution.title}</h3>
         </div>
-        <p className="text-xs text-alma-text-tertiary mb-2">{solution.provider}</p>
-        <p className="text-sm text-alma-text-secondary line-clamp-2 mb-3">
+        <p className="text-xs text-hlk-text-tertiary mb-2">{solution.provider}</p>
+        <p className="text-sm text-hlk-text-secondary line-clamp-2 mb-3">
           {solution.description}
         </p>
 
         {/* Tags */}
         <div className="flex flex-wrap gap-1 mb-3">
           {solution.tags.slice(0, 3).map((tag, i) => (
-            <span key={i} className="px-2 py-0.5 bg-alma-bg text-alma-text-tertiary rounded text-xs">
+            <span key={i} className="px-2 py-0.5 bg-hlk-bg text-hlk-text-tertiary rounded text-xs">
               {tag}
             </span>
           ))}
         </div>
 
         {/* Rating & Price */}
-        <div className="flex items-center justify-between pt-3 border-t border-alma-border">
+        <div className="flex items-center justify-between pt-3 border-t border-hlk-border">
           <div className="flex items-center gap-1">
             <span className="text-yellow-500">★</span>
-            <span className="text-sm font-medium text-alma-text">{solution.rating}</span>
-            <span className="text-xs text-alma-text-tertiary">({solution.reviews})</span>
+            <span className="text-sm font-medium text-hlk-text">{solution.rating}</span>
+            <span className="text-xs text-hlk-text-tertiary">({solution.reviews})</span>
           </div>
-          <span className="text-sm font-bold text-alma-primary">{solution.price}</span>
+          <span className="text-sm font-bold text-hlk-primary">{solution.price}</span>
         </div>
       </div>
 
       {/* CTA */}
       <div className="px-4 pb-4">
-        <button className="w-full py-2.5 bg-alma-primary-light text-alma-primary font-medium rounded-xl hover:bg-alma-primary hover:text-white transition-all">
+        <button className="w-full py-2.5 bg-hlk-primary-light text-hlk-primary font-medium rounded-xl hover:bg-hlk-primary hover:text-white transition-all">
           자세히 보기
         </button>
       </div>

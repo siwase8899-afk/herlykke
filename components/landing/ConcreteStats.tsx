@@ -51,25 +51,25 @@ export function ConcreteStats() {
       number: '850만',
       label: '이 시기를 지나는 한국 여성',
       detail: '45-60세 여성 인구',
-      color: 'text-alma-primary',
+      color: 'text-hlk-primary',
     },
     {
       number: '87%',
       label: '증상 인지 부족',
       detail: '"이게 갱년기인지 몰랐어요"',
-      color: 'text-alma-accent',
+      color: 'text-hlk-accent',
     },
     {
       number: '78%',
       label: '일상관리 향상',
       detail: '4주 기록 후 자가보고',
-      color: 'text-alma-primary',
+      color: 'text-hlk-primary',
     },
     {
       number: '92%',
       label: '추천 의향',
       detail: '"친구에게도 알려주고 싶어요"',
-      color: 'text-alma-accent',
+      color: 'text-hlk-accent',
     },
   ];
 
@@ -89,13 +89,13 @@ export function ConcreteStats() {
   const counts = [count0, count1, count2, count3];
 
   return (
-    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-alma-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
+    <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-hlk-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-sm text-alma-accent font-semibold mb-2 uppercase tracking-wider">
+          <p className="text-sm text-hlk-accent font-semibold mb-2 uppercase tracking-wider">
             Real Results
           </p>
-          <h2 className="text-2xl md:text-3xl font-bold text-alma-text">
+          <h2 className="text-2xl md:text-3xl font-bold text-hlk-text">
             숫자가 말해주는 HERLYKKE
           </h2>
         </div>
@@ -104,15 +104,15 @@ export function ConcreteStats() {
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`bg-white rounded-2xl p-8 border border-alma-border text-center hover:shadow-xl hover:-translate-y-1 transition-all ${sectionVisible ? `stagger-${Math.min(i + 1, 4)}` : ''}`}
+              className={`bg-white rounded-2xl p-8 border border-hlk-border text-center hover:shadow-xl hover:-translate-y-1 transition-all ${sectionVisible ? `stagger-${Math.min(i + 1, 4)}` : ''}`}
             >
               <p className={`text-4xl md:text-5xl font-black ${stat.color} mb-3`}>
                 {counts[i]}
               </p>
-              <p className="font-semibold text-alma-text mb-1">
+              <p className="font-semibold text-hlk-text mb-1">
                 {stat.label}
               </p>
-              <p className="text-xs text-alma-text-tertiary">
+              <p className="text-xs text-hlk-text-tertiary">
                 {stat.detail}
               </p>
             </div>
@@ -120,19 +120,19 @@ export function ConcreteStats() {
         </div>
 
         {/* 한국 갱년기 인사이트 — Sol/경쟁사 분석 기반 */}
-        <div className="bg-white rounded-2xl p-8 border border-alma-border">
-          <p className="text-sm font-semibold text-alma-primary mb-6 text-center">
+        <div className="bg-white rounded-2xl p-8 border border-hlk-border">
+          <p className="text-sm font-semibold text-hlk-primary mb-6 text-center">
             알고 계셨나요?
           </p>
           <div className="space-y-4">
             {insights.map((insight, i) => (
-              <div key={insight.text} className="flex items-start gap-4 p-4 bg-alma-bg rounded-xl">
-                <div className="w-8 h-8 rounded-full bg-alma-primary/10 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-bold text-alma-primary">{i + 1}</span>
+              <div key={insight.text} className="flex items-start gap-4 p-4 bg-hlk-bg rounded-xl">
+                <div className="w-8 h-8 rounded-full bg-hlk-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xs font-bold text-hlk-primary">{i + 1}</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-alma-text">{insight.text}</p>
-                  <p className="text-xs text-alma-text-tertiary mt-1">{insight.source}</p>
+                  <p className="text-sm font-medium text-hlk-text">{insight.text}</p>
+                  <p className="text-xs text-hlk-text-tertiary mt-1">{insight.source}</p>
                 </div>
               </div>
             ))}
