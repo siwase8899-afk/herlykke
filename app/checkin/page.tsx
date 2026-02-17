@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '../../components/ui/Button';
 import { SYMPTOM_CHARACTERS } from '@/lib/characters';
+import { analytics } from '@/lib/analytics';
 
 // 랜덤하게 3개 캐릭터 선택
 const getRandomCharacters = () => {
@@ -129,7 +130,7 @@ export default function CheckinIntro() {
           </div>
 
           {/* CTA */}
-          <Link href="/checkin/1" className="w-full">
+          <Link href="/checkin/1" className="w-full" onClick={() => analytics.checkinStarted()}>
             <Button variant="primary" size="lg" className="w-full bg-hlk-accent hover:bg-hlk-accent/90 text-white shadow-lg shadow-hlk-accent/30">
               나의 상태 알아보기
             </Button>

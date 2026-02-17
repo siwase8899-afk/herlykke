@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DailyLog, SymptomEntry, SleepEntry } from '@/lib/logTypes';
+import { syncDailyLogToServer, loadLogsFromServer } from '@/lib/supabaseSync';
+import { analytics } from '@/lib/analytics';
 
 interface LogState {
   // 저장된 모든 로그
@@ -28,11 +30,12 @@ interface LogState {
   setSleep: (sleep: SleepEntry) => void;
   toggleActivity: (activityId: string) => void;
   setNote: (note: string) => void;
-  saveLog: () => void;
+  saveLog: (userId?: string) => void;
   resetDraft: () => void;
   getTodayLog: () => DailyLog | undefined;
   getLogsByDateRange: (startDate: string, endDate: string) => DailyLog[];
   calculateStreak: () => number;
+  loadFromServer: (userId: string) => Promise<void>;
 }
 
 const getToday = () => {
@@ -128,7 +131,7 @@ export const useLogStore = create<LogState>()(
         }));
       },
 
-      saveLog: () => {
+      saveLog: (userId?: string) => {
         const state = get();
         const { draft } = state;
 
@@ -151,11 +154,9 @@ export const useLogStore = create<LogState>()(
 
         let newLogs: DailyLog[];
         if (existingLogIndex >= 0) {
-          // 오늘 기록이 이미 있으면 업데이트
           newLogs = [...state.logs];
           newLogs[existingLogIndex] = newLog;
         } else {
-          // 새 기록 추가
           newLogs = [...state.logs, newLog];
         }
 
@@ -171,6 +172,14 @@ export const useLogStore = create<LogState>()(
           },
           streakCount: get().calculateStreak(),
         });
+
+        // Supabase 서버 동기화 (비동기, 실패해도 localStorage는 이미 저장됨)
+        if (userId && userId !== 'demo-user') {
+          syncDailyLogToServer(userId, newLog);
+        }
+
+        // Analytics 트래킹
+        analytics.dailyLogCompleted(get().streakCount);
       },
 
       resetDraft: () => {
@@ -193,6 +202,22 @@ export const useLogStore = create<LogState>()(
 
       getLogsByDateRange: (startDate, endDate) => {
         return get().logs.filter((l) => l.date >= startDate && l.date <= endDate);
+      },
+
+      loadFromServer: async (userId: string) => {
+        if (userId === 'demo-user') return;
+        const serverLogs = await loadLogsFromServer(userId);
+        if (serverLogs.length > 0) {
+          const localLogs = get().logs;
+          // 서버 로그와 로컬 로그를 병합 (날짜 기준, 서버 우선)
+          const mergedMap = new Map<string, DailyLog>();
+          localLogs.forEach((log) => mergedMap.set(log.date, log));
+          serverLogs.forEach((log) => mergedMap.set(log.date, log));
+          const merged = Array.from(mergedMap.values()).sort(
+            (a, b) => a.date.localeCompare(b.date)
+          );
+          set({ logs: merged });
+        }
       },
 
       calculateStreak: () => {

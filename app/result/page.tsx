@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
 import { useCheckinStore } from '../../stores/checkinStore';
 import { classifyStage, classifySymptomCluster, classifyLifeContext, calculateKuppermanIndex } from '../../lib/stageClassifier';
+import { syncCheckinToServer } from '@/lib/supabaseSync';
+import { analytics } from '@/lib/analytics';
 import { StageCard } from '../../components/result/StageCard';
 import { KuppermanCard } from '../../components/result/KuppermanCard';
 import { SymptomSummary } from '../../components/result/SymptomSummary';
@@ -16,8 +18,9 @@ import Link from 'next/link';
 export default function ResultPage() {
   const router = useRouter();
   const store = useCheckinStore();
-  const { isLoggedIn, isLoading: authLoading } = useAuth();
+  const { user, isLoggedIn, isLoading: authLoading } = useAuth();
   const [hydrated, setHydrated] = useState(false);
+  const syncedRef = useRef(false);
 
   useEffect(() => {
     setHydrated(true);
@@ -55,6 +58,41 @@ export default function ResultPage() {
     store.emotionalSymptoms,
     store.symptomSeverityMap,
   );
+
+  // 체크인 완료 트래킹 + Supabase 동기화 (1회만)
+  useEffect(() => {
+    if (syncedRef.current || !stageResult.stage) return;
+    syncedRef.current = true;
+
+    analytics.checkinCompleted(stageResult.stage, kuppermanResult.score);
+
+    if (user && user.id !== 'demo-user') {
+      syncCheckinToServer(user.id, {
+        ageRange: store.ageRange,
+        maritalStatus: store.maritalStatus,
+        livingSituation: store.livingSituation,
+        employment: store.employment,
+        physicalSymptoms: store.physicalSymptoms,
+        worstPhysicalSymptom: store.worstPhysicalSymptom,
+        symptomSeverity: store.symptomSeverity,
+        symptomOnset: store.symptomOnset,
+        emotionalSymptoms: store.emotionalSymptoms,
+        worstEmotionalSymptom: store.worstEmotionalSymptom,
+        sharedWith: store.sharedWith,
+        currentManagement: store.currentManagement,
+        managementSatisfaction: store.managementSatisfaction,
+        mostWantedInfo: store.mostWantedInfo,
+        desiredHelp: store.desiredHelp,
+        willingnessToPay: store.willingnessToPay,
+        communityOptIn: store.communityOptIn,
+        preferredGroup: store.preferredGroup,
+        nickname: store.nickname,
+        computedStage: stageResult.stage,
+        computedSymptomCluster: cluster,
+        computedLifeContext: lifeContext,
+      });
+    }
+  }, [stageResult.stage, kuppermanResult.score, user, store, cluster, lifeContext]);
 
   return (
     <div className="min-h-screen bg-hlk-bg">
