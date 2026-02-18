@@ -240,7 +240,7 @@ function ColumnsContent() {
                 href={isLoggedIn ? '/insights' : '/community'}
                 className="px-8 py-3 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors"
               >
-                {isLoggedIn ? 'AI 맞춤 조언 보기' : '커뮤니티 둘러보기'}
+                {isLoggedIn ? '패턴 리포트 보기' : '함께하기 둘러보기'}
               </Link>
             </div>
           </div>

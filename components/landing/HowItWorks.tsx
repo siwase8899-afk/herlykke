@@ -45,9 +45,9 @@ const pillars = [
     id: 'education',
     pillar: 'EDUCATION',
     title: '나를 이해하기',
-    headline: 'AI 분석과 전문가 콘텐츠',
+    headline: '패턴 분석과 전문가 콘텐츠',
     desc: '축적된 데이터로 나만의 패턴을 발견하고, 전문가 컬럼으로 깊이 이해해요.',
-    features: ['AI 패턴 분석', '전문가 컬럼', '맞춤 조언'],
+    features: ['패턴 분석', '전문가 컬럼', '맞춤 조언'],
     Icon: EducationIcon,
     color: 'bg-hlk-accent',
     lightColor: 'bg-hlk-accent-light',
@@ -71,7 +71,7 @@ const pillars = [
     title: '함께하기',
     headline: '비슷한 여성들과 연결',
     desc: '같은 증상, 같은 고민을 나누는 친구를 찾아요. 카톡 토크방에서 편하게.',
-    features: ['카카오 토크방', '친구 찾기', '오늘의 투표'],
+    features: ['카카오 토크방', '증상 공감', '오늘의 투표'],
     Icon: CommunityIcon,
     color: 'bg-gradient-to-r from-hlk-primary to-hlk-accent',
     lightColor: 'bg-gradient-to-r from-hlk-primary-light to-hlk-accent-light',
@@ -179,7 +179,7 @@ export function HowItWorks() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { step: '1', title: '매일 기록', desc: '3분 체크인으로 증상·기분·활동 기록' },
-              { step: '2', title: 'AI 패턴 분석', desc: '데이터가 쌓일수록 정확한 패턴 발견' },
+              { step: '2', title: '패턴 분석', desc: '데이터가 쌓일수록 정확한 패턴 발견' },
               { step: '3', title: '맞춤 추천', desc: '나의 증상에 맞는 솔루션과 조언' },
               { step: '4', title: '변화 확인', desc: '개선 과정을 눈으로 확인하며 동기 부여' },
             ].map((item, i) => (
@@ -201,7 +201,7 @@ export function HowItWorks() {
           </div>
 
           <p className="text-center text-xs text-hlk-text-tertiary mt-6">
-            이 순환이 반복될수록 AI가 나를 더 잘 이해하게 돼요
+            이 순환이 반복될수록 더 정확한 패턴을 발견할 수 있어요
           </p>
         </div>
       </div>

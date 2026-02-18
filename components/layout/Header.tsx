@@ -6,14 +6,14 @@ import { useAuth } from '@/lib/authContext';
 
 const guestNavItems = [
   { label: '전문가 컬럼', href: '/columns' },
-  { label: '커뮤니티', href: '/community' },
+  { label: '함께하기', href: '/community' },
   { label: '솔루션', href: '/solutions' },
 ];
 
 const authNavItems = [
   { label: '대시보드', href: '/dashboard' },
   { label: '전문가 컬럼', href: '/columns' },
-  { label: '커뮤니티', href: '/community' },
+  { label: '함께하기', href: '/community' },
   { label: '솔루션', href: '/solutions' },
 ];
 

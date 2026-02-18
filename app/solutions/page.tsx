@@ -41,7 +41,9 @@ export default function SolutionsPage() {
       <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <span className="text-white text-2xl">AI</span>
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
           </div>
           <p className="text-hlk-text-secondary">맞춤 솔루션을 분석 중이에요...</p>
         </div>
@@ -57,19 +59,21 @@ export default function SolutionsPage() {
           <Link href="/dashboard" className="text-hlk-text-tertiary hover:text-hlk-text transition-colors">
             ← 대시보드
           </Link>
-          <h1 className="font-bold text-hlk-text">AI 맞춤 솔루션</h1>
+          <h1 className="font-bold text-hlk-text">맞춤 솔루션</h1>
           <Link href="/insights" className="text-hlk-primary text-sm font-medium">
-            인사이트
+            패턴 리포트
           </Link>
         </div>
       </header>
 
-      {/* AI Recommendation Banner */}
+      {/* Recommendation Banner */}
       <div className="bg-gradient-to-r from-hlk-primary to-hlk-accent">
         <div className="max-w-4xl mx-auto px-5 py-6">
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xl font-bold">AI</span>
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
             </div>
             <div className="text-white">
               <h2 className="font-bold text-lg">나에게 맞는 솔루션을 찾았어요</h2>
@@ -165,10 +169,10 @@ export default function SolutionsPage() {
             오늘 기록하기
           </Link>
           <Link
-            href="/community?tab=match"
+            href="/community"
             className="flex-1 py-3 bg-hlk-primary text-white font-bold rounded-xl text-center hover:bg-hlk-primary-dark transition-all"
           >
-            비슷한 친구 찾기
+            함께하기
           </Link>
         </div>
       </div>

@@ -182,7 +182,7 @@ export default function CheckinSection() {
             <div className="text-2xl">🔥</div>
             <div>
               <p className="text-sm font-semibold text-hlk-text">7일 연속 체크인 챌린지</p>
-              <p className="text-xs text-hlk-text-tertiary">매일 체크인하면 특별한 인사이트를 드려요</p>
+              <p className="text-xs text-hlk-text-tertiary">매일 체크인하면 특별한 리포트를 드려요</p>
             </div>
           </div>
         )}
@@ -398,7 +398,7 @@ export default function CheckinSection() {
           {globalQuestionNum <= 5 && '천천히, 나의 속도로 해도 괜찮아요 🐢'}
           {globalQuestionNum > 5 && globalQuestionNum <= 12 && '절반 넘었어요! 잘하고 계세요 👏'}
           {globalQuestionNum > 12 && globalQuestionNum <= 18 && '거의 다 왔어요! 조금만 더 🌱'}
-          {globalQuestionNum > 18 && '마지막이에요! 곧 인사이트를 드릴게요 ✨'}
+          {globalQuestionNum > 18 && '마지막이에요! 곧 리포트를 드릴게요 ✨'}
         </p>
       </div>
 

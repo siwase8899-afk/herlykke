@@ -255,10 +255,10 @@ export default function ResultPage() {
                   <span>✓</span><span>체크인 결과 저장 & 추적</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>AI 맞춤 패턴 분석</span>
+                  <span>✓</span><span>맞춤 패턴 분석</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>커뮤니티에서 글쓰기 & 친구 찾기</span>
+                  <span>✓</span><span>함께하기에서 증상 공감 & 토크방</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
                   <span>✓</span><span>증상별 맞춤 솔루션 추천</span>
