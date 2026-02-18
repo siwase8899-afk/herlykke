@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useLogStore } from '@/stores/logStore';
+import { useAuth } from '@/lib/authContext';
 import { MoodSelector } from '@/components/log/MoodSelector';
 import { SymptomPicker } from '@/components/log/SymptomPicker';
 import { SleepInput } from '@/components/log/SleepInput';
@@ -16,9 +17,8 @@ type Step = (typeof STEPS)[number];
 
 export default function NewLogPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState<Step>('mood');
-  const [note, setNote] = useState('');
-
   const {
     draft,
     setMood,
@@ -28,6 +28,7 @@ export default function NewLogPage() {
     updateSymptomSeverity,
     setSleep,
     toggleActivity,
+    setNote,
     saveLog,
   } = useLogStore();
 
@@ -58,7 +59,7 @@ export default function NewLogPage() {
   };
 
   const handleSave = () => {
-    saveLog();
+    saveLog(user?.id);
     router.push('/log?saved=true');
   };
 
@@ -156,7 +157,7 @@ export default function NewLogPage() {
             </p>
 
             <textarea
-              value={note}
+              value={draft.note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="오늘 특별히 기억하고 싶은 것, 느낀 점 등을 자유롭게 적어주세요..."
               className="w-full h-40 p-4 rounded-2xl border border-hlk-border text-hlk-text placeholder-hlk-text-tertiary focus:outline-none focus:border-hlk-primary resize-none"

@@ -226,7 +226,7 @@ export default function DashboardPage() {
           <div className="bg-white rounded-3xl border border-hlk-border overflow-hidden">
             <div className="px-6 py-4 border-b border-hlk-border flex items-center justify-between">
               <h3 className="font-bold text-hlk-text">최근 기록</h3>
-              <Link href="/log/history" className="text-sm text-hlk-primary hover:underline">
+              <Link href="/log" className="text-sm text-hlk-primary hover:underline">
                 전체 보기
               </Link>
             </div>
@@ -274,19 +274,21 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* AI Insights Preview */}
+        {/* 패턴 리포트 Preview */}
         <Link
           href="/insights"
           className="block bg-gradient-to-r from-hlk-primary-light to-hlk-accent-light rounded-2xl p-5 border border-hlk-border hover:shadow-md transition-all mb-10"
         >
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-lg">AI</span>
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
             </div>
             <div className="flex-1">
-              <h3 className="font-bold text-hlk-text mb-1">나의 AI 맞춤 조언</h3>
+              <h3 className="font-bold text-hlk-text mb-1">나의 패턴 리포트</h3>
               <p className="text-sm text-hlk-text-secondary">
-                기록을 분석해서 나만의 패턴과 맞춤 조언을 확인해보세요
+                기록에서 발견한 나만의 패턴을 확인해보세요
               </p>
             </div>
             <svg className="w-5 h-5 text-hlk-text-tertiary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

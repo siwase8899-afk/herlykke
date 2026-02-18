@@ -42,8 +42,11 @@ export default function SignupPage() {
     setLoading(true);
 
     if (!isSupabaseConfigured) {
-      setError('서비스 준비 중입니다. 잠시 후 다시 시도해주세요.');
-      setLoading(false);
+      // 데모 모드: 체크인 데이터는 localStorage에 이미 저장됨
+      setSuccess(true);
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 2000);
       return;
     }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,18 +9,46 @@ import type { SolutionReview } from '@/lib/solutionsData';
 import { ReviewCard } from '@/components/solutions/ReviewCard';
 import { ReviewForm } from '@/components/solutions/ReviewForm';
 import { SYMPTOMS } from '@/lib/logTypes';
+import { submitSolutionReview } from '@/lib/supabaseSync';
+import { useAuth } from '@/lib/authContext';
+
+const REVIEWS_STORAGE_KEY = 'hlk-solution-reviews';
+
+function loadLocalReviews(): SolutionReview[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const stored = localStorage.getItem(REVIEWS_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalReviews(reviews: SolutionReview[]) {
+  try {
+    localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+  } catch {}
+}
 
 export default function SolutionDetailPage() {
   const params = useParams();
   const id = params.id as string;
+  const { user } = useAuth();
   const solution = getSolutionById(id);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [localReviews, setLocalReviews] = useState<SolutionReview[]>([]);
+  const [showStartConfirm, setShowStartConfirm] = useState(false);
+
+  // localStorage에서 리뷰 로드
+  useEffect(() => {
+    setLocalReviews(loadLocalReviews());
+  }, []);
 
   // 이 솔루션의 리뷰 (데모 + 로컬)
   const reviews = useMemo(() => {
     const demoForThis = DEMO_REVIEWS.filter((r) => r.solutionId === id);
-    return [...localReviews, ...demoForThis];
+    const localForThis = localReviews.filter((r) => r.solutionId === id);
+    return [...localForThis, ...demoForThis];
   }, [id, localReviews]);
 
   // 평균 별점
@@ -54,8 +82,15 @@ export default function SolutionDetailPage() {
       isVerified: true,
       createdAt: new Date().toISOString(),
     };
-    setLocalReviews((prev) => [newReview, ...prev]);
+    const updated = [newReview, ...localReviews];
+    setLocalReviews(updated);
+    saveLocalReviews(updated);
     setShowReviewForm(false);
+
+    // Supabase 동기화 (비동기, 실패해도 localStorage는 저장됨)
+    if (user?.id && user.id !== 'demo-user') {
+      submitSolutionReview(user.id, { ...review, solutionId: id });
+    }
   };
 
   if (!solution) {
@@ -243,6 +278,26 @@ export default function SolutionDetailPage() {
         <div className="h-24" />
       </main>
 
+      {/* 신청 완료 안내 */}
+      {showStartConfirm && (
+        <div className="fixed bottom-20 left-0 right-0 px-5 z-50">
+          <div className="max-w-4xl mx-auto bg-hlk-primary text-white rounded-2xl p-4 shadow-lg">
+            <div className="flex items-start gap-3">
+              <span className="text-xl flex-shrink-0">✅</span>
+              <div className="flex-1">
+                <p className="font-bold text-sm mb-1">관심 등록 완료!</p>
+                <p className="text-xs text-white/80">
+                  솔루션 오픈 시 알림을 보내드릴게요. 정식 서비스를 준비 중입니다.
+                </p>
+              </div>
+              <button onClick={() => setShowStartConfirm(false)} className="text-white/60 hover:text-white">
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Bottom CTA */}
       <div className="fixed bottom-0 left-0 right-0 px-5 py-4 bg-white border-t border-hlk-border">
         <div className="max-w-4xl mx-auto flex gap-3">
@@ -252,8 +307,11 @@ export default function SolutionDetailPage() {
           >
             목록으로
           </Link>
-          <button className="flex-1 py-3 bg-hlk-primary text-white font-bold rounded-xl hover:bg-hlk-primary-dark transition-all">
-            시작하기
+          <button
+            onClick={() => setShowStartConfirm(true)}
+            className="flex-1 py-3 bg-hlk-primary text-white font-bold rounded-xl hover:bg-hlk-primary-dark transition-all"
+          >
+            {showStartConfirm ? '신청 완료!' : '시작하기'}
           </button>
         </div>
       </div>
