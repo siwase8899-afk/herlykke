@@ -18,7 +18,7 @@ export function FounderSection() {
             창업자의 이야기
           </h2>
           <p className="text-lg text-hlk-text-secondary">
-            같은 시기를 지나는 한 사람으로서, 함께할 누군가를 만들고 싶었어요
+            저도 잠 못 자는 언니 중 한 명이었어요
           </p>
         </div>
 
@@ -46,25 +46,27 @@ export function FounderSection() {
             <div className="flex-1">
               <blockquote className="text-base md:text-lg text-hlk-text leading-[1.9] space-y-4">
                 <p>
-                  &ldquo;40대에 접어들면서 몸이 보내는 신호가 달라지기 시작했어요.
-                  갑자기 열감이 올라오고, 이유 없이 눈물이 나고.
-                  그런데 주변을 둘러보니, 이 시기를 겪는 여성의 삶은 놀라울 만큼 다양했어요.
-                  비혼, 결혼, 이혼, 사별. 자녀가 독립한 사람, 아이를 낳지 않기로 한 사람. 커리어를 이어가는 사람, 경력이 단절된 사람.
+                  &ldquo;40대 중반, 갑자기 잠이 안 왔어요.
+                  분명히 피곤한데 누우면 눈이 떠지고, 새벽 3시에 깨서 천장만 바라봤어요.
+                  불안했어요. 이유를 모르겠으니 더 무섭더라고요.
                 </p>
                 <p>
-                  작년, <span className="text-hlk-primary font-semibold">덴마크 호이스콜레</span>에서
-                  작은 독립 서점의 &lsquo;폐경&rsquo; 북토크 공고를 봤을 때 신선한 충격을 받았어요.
-                  그곳에서 만난 Full Moon 모임 — 별것 아닌 공감과 격려가 생각보다 큰 위로가 되더라고요.
+                  그 불안을 안고 <span className="text-hlk-primary font-semibold">덴마크 호이스콜레</span>로 떠났어요.
+                  새로운 환경이 도움이 될까 싶어서요.
+                  그런데 거기서도 잠은 쉽게 오지 않았어요.
+                  대신, 같은 시기를 지나는 여성들을 만났어요.
+                  &lsquo;나만 이런 줄 알았다&rsquo;는 말을 거기서 처음 들었어요.
                 </p>
                 <p>
-                  여성 호르몬의 변화로 나타나는 증상을 대부분의 여성이 겪지만,
-                  받아들이는 방법은 모두 달랐어요. 그런데{' '}
-                  <span className="text-hlk-accent font-semibold">한 가지 공통점</span>이 있었어요.
-                  누군가와 이야기하고 싶다는 마음.
-                  나를 이해해주는 사람이 <span className="text-hlk-primary font-semibold">단 한 명</span>만 있어도 좋겠다는 마음.
+                  작은 독립 서점의 &lsquo;폐경&rsquo; 북토크, Full Moon 모임 —
+                  별것 아닌 공감이었는데{' '}
+                  <span className="text-hlk-accent font-semibold">생각보다 훨씬 큰 위로</span>가 됐어요.
+                  그날 밤, 오랜만에 잘 잤어요.
                 </p>
                 <p>
-                  그 한 명이 되고 싶어서, 그리고 그 한 명을 서로 연결해주고 싶어서{' '}
+                  한국에 돌아와서도 그 연결감이 필요했어요.
+                  먼저 겪은 언니에게 &ldquo;어떻게 했어요?&rdquo; 물어볼 수 있는 곳.
+                  그게 없더라고요. 그래서{' '}
                   <span className="inline-block px-4 py-1.5 bg-hlk-accent text-white rounded-lg font-bold">
                     HERLYKKE를 만들었습니다
                   </span>.&rdquo;
@@ -76,11 +78,11 @@ export function FounderSection() {
                 <p className="text-sm font-bold text-hlk-text mb-4">HERLYKKE의 가치</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
-                    { title: '진짜 정보만', desc: '광고가 아닌 증상 인증 리뷰와 전문가 콘텐츠', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
-                    { title: '완전한 익명', desc: '닉네임만 공개. 실명/나이 절대 비공개', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
-                    { title: '당사자가 만든 서비스', desc: '이 시기를 직접 겪는 창업자가 설계', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
-                    { title: '혼자가 아닌 함께', desc: '같은 증상의 동료와 안전하게 연결', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
-                    { title: '데이터 기반 맞춤', desc: '기록할수록 정확해지는 AI 분석', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary', span: true },
+                    { title: 'Real Ink만', desc: '직접 써본 것만. 손글씨 1장이 있어야 레시피가 됩니다', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
+                    { title: '100% 익명', desc: '닉네임만 공개. 나이·직업·실명 절대 비공개', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
+                    { title: '당사자가 만든 서비스', desc: '같은 불면을 겪은 창업자가 직접 설계', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
+                    { title: '커뮤니티가 검증', desc: '공감 50개+ 받아야 언니 PICK. 알고리즘 없음', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
+                    { title: '수면 → 뇌건강까지', desc: '지금의 수면이 10년 후 뇌건강을 만듭니다', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary', span: true },
                   ].map((v, i) => (
                     <div key={v.title} className={`flex items-center gap-3 p-4 ${v.bg} rounded-xl ${v.span ? 'sm:col-span-2' : ''}`}>
                       <div className={`w-7 h-7 rounded-full ${v.color} flex items-center justify-center flex-shrink-0`}>
