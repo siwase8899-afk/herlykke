@@ -18,41 +18,41 @@ export function CTAFooter() {
           <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur rounded-full mb-10">
             <span className="flex items-center gap-2 text-hlk-accent text-sm font-medium">
               <span className="w-6 h-6 rounded-full bg-hlk-accent flex items-center justify-center text-white text-xs font-bold">1</span>
-              체크인
+              수면 체크인
             </span>
             <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="flex items-center gap-2 text-white/70 text-sm">
               <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">2</span>
-              커뮤니티
+              수면 레시피
             </span>
             <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             <span className="flex items-center gap-2 text-white/70 text-sm">
               <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">3</span>
-              맞춤 솔루션
+              언니 PICK
             </span>
           </div>
 
           <p className="text-hlk-secondary-light mb-3">
-            &lsquo;나만 이런가?&rsquo; 싶었다면, 아니에요 — 다 그래요
+            새벽에 눈이 떠지는 게 나만 그런 게 아니었어요
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-            여기, &lsquo;나도 그래&rsquo; 하는
+            먼저 겪은 언니들이
             <br />
-            사람들이 모여 있어요
+            기다리고 있어요
           </h2>
           <p className="text-hlk-secondary-light/80 mb-12">
-            3분이면 충분해요. 혼자 끙끙대던 밤, 이제 끝내볼까요?
+            1분이면 충분해요. 혼자 끙끙대던 밤, 이제 끝내볼까요?
           </p>
 
           <Link
             href="/checkin"
             className="group btn-fill-hover btn-fill-hover--accent inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] animate-subtle-pulse"
           >
-            지금 나의 상태 확인하기
+            🌙 지금 내 수면 상태 확인하기
             <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

@@ -6,12 +6,12 @@ import "./globals.css";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 
 export const metadata: Metadata = {
-  title: "HERLYKKE - 두번째 봄, 혼자 지나지 마세요",
-  description: "당신의 변화를 이해하는 곳에서, 같은 경험의 동료를 만나세요. 3분 체크인으로 나의 변화 단계를 확인하고, 비슷한 여성들과 연결되세요.",
-  keywords: ["갱년기", "폐경", "여성건강", "갱년기증상", "갱년기커뮤니티", "HERLYKKE", "헤르리케", "관절통", "불면", "감정기복", "갱년기자가진단", "두번째봄"],
+  title: "HERLYKKE - 잠을 되찾는 여정, 혼자 걷지 않아도 됩니다",
+  description: "4050 여성을 위한 수면 커뮤니티. 먼저 겪은 언니들의 Real Ink 수면 레시피로 오늘 밤을 바꿔보세요. 1분 체크인으로 내 수면 유형을 파악하고 맞춤 레시피를 받아보세요.",
+  keywords: ["갱년기수면", "불면증", "수면레시피", "여성수면", "갱년기", "열감수면", "새벽각성", "HERLYKKE", "헤르리케", "수면커뮤니티", "뇌건강"],
   openGraph: {
-    title: "HERLYKKE - 두번째 봄, 혼자 지나지 마세요",
-    description: "당신의 변화를 이해하는 곳에서, 같은 경험의 동료를 만나세요.",
+    title: "HERLYKKE - 잠을 되찾는 여정, 혼자 걷지 않아도 됩니다",
+    description: "먼저 겪은 언니들의 Real Ink 수면 레시피. 커뮤니티가 검증한 방법만 모았어요.",
     type: "website",
     locale: "ko_KR",
     siteName: "HERLYKKE",
