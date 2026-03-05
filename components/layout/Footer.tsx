@@ -9,17 +9,17 @@ export function Footer() {
           <div>
             <p className="text-xl font-bold text-white mb-2">HERLYKKE</p>
             <p className="text-sm text-gray-400 leading-relaxed">
-              두번째 봄, 혼자 지나지 마세요
+              잠을 되찾는 여정, 혼자 걷지 않아도 됩니다
             </p>
           </div>
 
           {/* Links */}
           <div className="flex gap-8 text-sm text-gray-400">
             <Link href="/checkin" className="hover:text-white transition-colors">
-              체크인
+              수면 체크인
             </Link>
-            <Link href="/quiz" className="hover:text-white transition-colors">
-              패턴 분석
+            <Link href="/recipes" className="hover:text-white transition-colors">
+              수면 레시피
             </Link>
             <Link href="/community" className="hover:text-white transition-colors">
               커뮤니티

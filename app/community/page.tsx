@@ -1,182 +1,275 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
-import { TodaySymptomsWidget } from '@/components/community/TodaySymptomsWidget';
+import { useState } from 'react';
+import Link from 'next/link';
 
-// 탭 정의
-type TabId = 'kakao' | 'empathy';
+type TabId = 'checkin' | 'talk' | 'recipes';
 
-const TABS: { id: TabId; label: string; emoji: string }[] = [
-  { id: 'kakao', label: '카톡 토크방', emoji: '\uD83D\uDCAC' },
-  { id: 'empathy', label: '증상 공감', emoji: '\uD83D\uDC9C' },
+const TABS: { id: TabId; emoji: string; label: string }[] = [
+  { id: 'checkin', emoji: '🌙', label: '오늘 수면' },
+  { id: 'talk', emoji: '💬', label: '고민&경험' },
+  { id: 'recipes', emoji: '✨', label: '언니 PICK' },
 ];
 
-// 카카오 토크방 데이터
-const KAKAO_ROOMS = [
-  {
-    id: 'hot-flash',
-    emoji: '\u2600\uFE0F',
-    name: '열감/안면홍조',
-    members: 38,
-    href: '#kakao-hotflash',
-    color: 'bg-red-50 text-red-600 border-red-100',
-  },
-  {
-    id: 'sleep',
-    emoji: '\uD83C\uDF19',
-    name: '수면장애',
-    members: 45,
-    href: '#kakao-sleep',
-    color: 'bg-indigo-50 text-indigo-600 border-indigo-100',
-  },
-  {
-    id: 'emotion',
-    emoji: '\uD83D\uDC9C',
-    name: '감정/우울',
-    members: 52,
-    href: '#kakao-emotion',
-    color: 'bg-purple-50 text-purple-600 border-purple-100',
-  },
-  {
-    id: 'general',
-    emoji: '\uD83D\uDCAC',
-    name: '전체 수다방',
-    members: 124,
-    href: '#kakao-general',
-    color: 'bg-yellow-50 text-yellow-700 border-yellow-100',
-  },
+// 데모 체크인 스트림
+const DEMO_CHECKINS = [
+  { nickname: '달빛요정', score: 3, tag: '#새벽각성', time: '1분 전', emoji: '😮‍💨' },
+  { nickname: '수면탐정', score: 4, tag: '#족욕후', time: '5분 전', emoji: '😊' },
+  { nickname: '마그네슘언니', score: 5, tag: '#레시피효과!', time: '12분 전', emoji: '😄' },
+  { nickname: '잠꾸러기탈출', score: 2, tag: '#열감', time: '23분 전', emoji: '😳' },
+  { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전', emoji: '🥰' },
 ];
 
-export default function CommunityPage() {
-  return <CommunityContent />;
-}
+// 데모 토크방 게시글
+const DEMO_POSTS = [
+  { nickname: '허브덕후', content: '발레리안 루트 차 진짜 효과 있는 분 계세요? 저는 2주 됐는데 조금씩 나아지는 것 같아서요...', time: '10분 전', replies: 7, likes: 12 },
+  { nickname: '요가언니45', content: '자기 전 다리 올리기 자세 해보신 분? 처음엔 이상했는데 이게 진짜 잠이 잘 와요. 10분만 해봐요!', time: '25분 전', replies: 15, likes: 31 },
+  { nickname: '새벽3시단골', content: '남편이 왜 새벽에 자꾸 깨냐고 해서... 속상했는데 여기 오니까 다들 비슷하시더라고요. 저만이 아니었어요 😭', time: '42분 전', replies: 23, likes: 67 },
+  { nickname: '수면일기마니아', content: '수면 일기 쓴 지 한 달 됐는데요. 커피 오후 1시 이후로 끊었더니 새벽 각성이 확 줄었어요!', time: '1시간 전', replies: 9, likes: 44 },
+];
 
-function CommunityContent() {
-  const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState<TabId>('kakao');
-  const [clickedRoom, setClickedRoom] = useState<string | null>(null);
+// 데모 언니 PICK 레시피 (간략 버전)
+const DEMO_PICKS = [
+  { id: 'r01', emoji: '🌿', title: '마그네슘 + 족욕으로 새벽 각성 없앤 방법', curator: '잠꾸러기탈출', likes: 124 },
+  { id: 'r06', emoji: '🧘‍♀️', title: '4-7-8 호흡법으로 새벽에 깼을 때 다시 잠드는 방법', curator: '숨쉬는여자', likes: 78 },
+  { id: 'r08', emoji: '☕', title: '커피 컷오프 시간 바꿨더니 수면 질이 달라진 이야기', curator: '커피끊은날', likes: 62 },
+  { id: 'r02', emoji: '🌙', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가언니45', likes: 89 },
+];
 
-  useEffect(() => {
-    loadData();
-  }, []);
+// 수면 체크인 입력
+function SleepCheckinWidget() {
+  const [score, setScore] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  const loadData = async () => {
-    if (!isSupabaseConfigured) {
-      setLoading(false);
-      return;
-    }
+  const SCORES = [
+    { value: 1, emoji: '😞', label: '최악' },
+    { value: 2, emoji: '😕', label: '나쁨' },
+    { value: 3, emoji: '😐', label: '보통' },
+    { value: 4, emoji: '😊', label: '좋음' },
+    { value: 5, emoji: '😄', label: '최고' },
+  ];
 
-    await supabase.auth.getUser();
-    setLoading(false);
-  };
-
-  if (loading) {
+  if (submitted) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
-        <div className="text-hlk-text-secondary">로딩 중...</div>
+      <div className="bg-hlk-primary-light rounded-2xl p-5 text-center">
+        <div className="text-3xl mb-2">{SCORES.find((s) => s.value === score)?.emoji}</div>
+        <p className="font-semibold text-hlk-primary">오늘 수면 기록 완료!</p>
+        <p className="text-sm text-hlk-text-secondary mt-1">수면 점수 {score}/5점</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
-      {/* 페이지 헤더 + 탭 */}
-      <div className="sticky top-16 z-40">
-        <div className="bg-gradient-to-r from-hlk-primary to-hlk-accent">
-          <div className="max-w-2xl mx-auto px-6 md:px-8 py-5 text-white">
-            <h1 className="text-xl font-bold mb-0.5">함께하기</h1>
-            <p className="text-white/70 text-xs">같은 경험을 나누는 가장 편한 방법</p>
-          </div>
-        </div>
+    <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+      <p className="font-semibold text-hlk-text mb-4">오늘 밤 수면은 어떠셨나요?</p>
+      <div className="flex justify-between mb-4">
+        {SCORES.map((s) => (
+          <button
+            key={s.value}
+            onClick={() => setScore(s.value)}
+            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all ${
+              score === s.value ? 'bg-hlk-primary-light scale-110' : 'hover:bg-hlk-surface-warm'
+            }`}
+          >
+            <span className="text-2xl">{s.emoji}</span>
+            <span className="text-xs text-hlk-text-tertiary">{s.label}</span>
+          </button>
+        ))}
+      </div>
+      <button
+        onClick={() => score && setSubmitted(true)}
+        disabled={!score}
+        className={`w-full py-3 rounded-xl font-semibold text-sm transition-all ${
+          score
+            ? 'bg-hlk-primary text-white hover:bg-hlk-primary-dark'
+            : 'bg-hlk-border text-hlk-text-tertiary cursor-not-allowed'
+        }`}
+      >
+        기록하기
+      </button>
+    </div>
+  );
+}
 
-        {/* 탭 네비게이션 */}
-        <div className="bg-white border-b border-hlk-border">
-          <div className="max-w-2xl mx-auto px-6 md:px-8 py-2.5">
-            <div className="flex gap-2">
-              {TABS.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setSelectedTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                    selectedTab === tab.id
-                      ? 'bg-hlk-primary text-white shadow-sm'
-                      : 'bg-hlk-bg text-hlk-text-secondary hover:bg-hlk-border'
-                  }`}
-                >
-                  <span>{tab.emoji}</span>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+export default function CommunityPage() {
+  const [activeTab, setActiveTab] = useState<TabId>('checkin');
+
+  return (
+    <div className="min-h-screen bg-hlk-bg">
+      {/* 헤더 */}
+      <div className="bg-gradient-to-r from-hlk-primary to-hlk-primary-dark text-white px-6 pt-16 pb-6">
+        <div className="max-w-2xl mx-auto">
+          <h1 className="text-2xl font-bold mb-1">갱년기 동기 커뮤니티</h1>
+          <p className="text-white/80 text-sm">나만 이런 게 아니었어요. 여기 다들 있어요.</p>
+        </div>
+      </div>
+
+      {/* 탭 네비 */}
+      <div className="sticky top-0 bg-hlk-bg/95 backdrop-blur-sm border-b border-hlk-border z-10">
+        <div className="max-w-2xl mx-auto px-6">
+          <div className="flex">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 flex items-center justify-center gap-1.5 py-4 text-sm font-medium border-b-2 transition-all duration-200 ${
+                  activeTab === tab.id
+                    ? 'border-hlk-primary text-hlk-primary'
+                    : 'border-transparent text-hlk-text-secondary hover:text-hlk-text'
+                }`}
+              >
+                <span className="text-base">{tab.emoji}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* 탭 콘텐츠 */}
-      <main className="max-w-2xl mx-auto px-6 md:px-8 py-6">
+      <div className="max-w-2xl mx-auto px-6 py-6">
+        {/* 🌙 오늘 수면 어때요? */}
+        {activeTab === 'checkin' && (
+          <div>
+            {/* 수면 체크인 입력 */}
+            <SleepCheckinWidget />
 
-        {/* 카톡 토크방 탭 */}
-        {selectedTab === 'kakao' && (
-          <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
-            <div className="p-5 pb-3">
-              <h2 className="font-bold text-hlk-text mb-1">증상별 카카오 토크방</h2>
-              <p className="text-xs text-hlk-text-secondary">
-                같은 증상을 겪고 있는 분들과 실시간으로 이야기해요
-              </p>
+            <div className="mt-6">
+              <h2 className="text-sm font-semibold text-hlk-text-secondary mb-3">지금 이 순간 체크인 중 💤</h2>
+              <div className="space-y-3">
+                {DEMO_CHECKINS.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-3 bg-hlk-surface rounded-xl px-4 py-3 border border-hlk-border"
+                  >
+                    <span className="text-2xl">{item.emoji}</span>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-hlk-text">{item.nickname}</span>
+                        <span className="text-xs text-hlk-text-tertiary bg-hlk-surface-warm px-2 py-0.5 rounded-full">
+                          {item.tag}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-0.5">
+                        {Array.from({ length: 5 }).map((_, j) => (
+                          <div
+                            key={j}
+                            className={`w-3 h-1.5 rounded-full ${
+                              j < item.score ? 'bg-hlk-primary' : 'bg-hlk-border'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <span className="text-xs text-hlk-text-tertiary">{item.time}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="px-4 pb-4 space-y-2">
-              {KAKAO_ROOMS.map((room) => (
-                <button
-                  key={room.id}
-                  onClick={() => setClickedRoom(room.id)}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-xl border transition-all hover:shadow-sm ${room.color}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg">{room.emoji}</span>
-                    <span className="text-sm font-medium">{room.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {clickedRoom === room.id ? (
-                      <span className="text-xs font-medium">곧 오픈!</span>
-                    ) : (
-                      <>
-                        <span className="text-xs opacity-70">곧 오픈</span>
-                        <svg className="w-4 h-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </>
-                    )}
-                  </div>
-                </button>
-              ))}
-
-              {clickedRoom && (
-                <div className="p-3 bg-hlk-primary-light rounded-xl text-center">
-                  <p className="text-sm text-hlk-primary font-medium">
-                    카카오 토크방을 준비하고 있어요!
-                  </p>
-                  <p className="text-xs text-hlk-text-secondary mt-1">
-                    체크인을 완료하시면 오픈 시 초대해 드릴게요
-                  </p>
-                </div>
-              )}
-
-              <div className="pt-3 border-t border-hlk-border mt-3">
-                <p className="text-center text-[11px] text-hlk-text-tertiary">
-                  카톡 닉네임으로 편하게 참여하세요
-                </p>
-              </div>
+            {/* 개인 수면 일기 안내 */}
+            <div className="mt-6 bg-hlk-surface-warm rounded-2xl p-5 border border-hlk-border">
+              <p className="text-sm font-semibold text-hlk-text mb-1">🌱 수면 기록이 쌓이면</p>
+              <p className="text-xs text-hlk-text-secondary leading-relaxed">
+                나의 수면 패턴을 발견할 수 있어요. 어떤 방법이 효과 있었는지도 보여요.
+                30일이 쌓이면 언니 PICK에 도전해볼 수 있어요.
+              </p>
             </div>
           </div>
         )}
 
-        {/* 증상 공감 탭 */}
-        {selectedTab === 'empathy' && (
-          <TodaySymptomsWidget defaultExpanded />
+        {/* 💬 수면 고민 & 경험 */}
+        {activeTab === 'talk' && (
+          <div>
+            {/* 글쓰기 버튼 */}
+            <button className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors">
+              <span className="text-lg">✏️</span>
+              <span>수면 고민이나 경험을 나눠보세요...</span>
+            </button>
+
+            {/* 게시글 목록 */}
+            <div className="space-y-3">
+              {DEMO_POSTS.map((post, i) => (
+                <div key={i} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/20 transition-colors">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center text-sm">
+                      🌙
+                    </div>
+                    <span className="text-sm font-medium text-hlk-text">{post.nickname}</span>
+                    <span className="text-xs text-hlk-text-tertiary ml-auto">{post.time}</span>
+                  </div>
+                  <p className="text-sm text-hlk-text leading-relaxed mb-3">{post.content}</p>
+                  <div className="flex items-center gap-4 text-xs text-hlk-text-tertiary">
+                    <span>💬 댓글 {post.replies}</span>
+                    <span>❤️ 공감 {post.likes}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* 카카오 오픈채팅 안내 */}
+            <div className="mt-6 bg-yellow-50 rounded-2xl p-5 border border-yellow-200">
+              <p className="font-semibold text-yellow-800 mb-1">💛 카카오 오픈채팅도 있어요</p>
+              <p className="text-sm text-yellow-700 leading-relaxed mb-3">
+                더 실시간으로 이야기하고 싶다면 카카오 오픈채팅방으로 오세요.
+              </p>
+              <button className="text-sm font-medium text-yellow-800 bg-yellow-100 px-4 py-2 rounded-xl hover:bg-yellow-200 transition-colors">
+                오픈채팅 입장하기 →
+              </button>
+            </div>
+          </div>
         )}
-      </main>
+
+        {/* ✨ 언니 PICK 레시피 */}
+        {activeTab === 'recipes' && (
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <h2 className="font-bold text-hlk-text">커뮤니티가 선정한 레시피</h2>
+            </div>
+            <p className="text-sm text-hlk-text-secondary mb-6">
+              공감 50개 이상이 모인 레시피만 올라와요. 플랫폼이 아닌 동기들이 골랐어요.
+            </p>
+
+            <div className="space-y-3">
+              {DEMO_PICKS.map((pick, i) => (
+                <Link key={pick.id} href={`/recipes/${pick.id}`}>
+                  <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/30 hover:shadow-sm transition-all flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center text-2xl flex-shrink-0">
+                      {pick.emoji}
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-hlk-text leading-snug mb-1 line-clamp-2">
+                        {pick.title}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-hlk-text-tertiary">{pick.curator}</span>
+                        <span className="text-xs text-hlk-text-secondary ml-auto">❤️ {pick.likes}</span>
+                      </div>
+                    </div>
+                    <span className="text-xs bg-hlk-accent text-white px-2 py-1 rounded-full font-medium flex-shrink-0">
+                      PICK
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* 레시피 업로드 CTA */}
+            <div className="mt-6 bg-hlk-primary-light rounded-2xl p-5 text-center border border-hlk-primary/20">
+              <div className="text-2xl mb-2">✍️</div>
+              <p className="font-semibold text-hlk-text mb-1">나의 수면 레시피 올리기</p>
+              <p className="text-xs text-hlk-text-secondary leading-relaxed mb-3">
+                손글씨 1장과 함께 올려주세요. 진심 한 장이 있어야 레시피가 됩니다.
+              </p>
+              <Link
+                href="/recipes"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-hlk-primary text-white text-sm font-semibold rounded-xl hover:bg-hlk-primary-dark transition-colors"
+              >
+                레시피 전체 보기 →
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

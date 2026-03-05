@@ -3,15 +3,12 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
-import { HeroSection } from '../components/landing/HeroSection';
-import { SymptomGrid } from '../components/landing/SymptomGrid';
-import { PersonaCards } from '../components/landing/PersonaCards';
-import { ProblemSection } from '../components/landing/ProblemSection';
-import { HowItWorks } from '../components/landing/HowItWorks';
-import { Testimonials } from '../components/landing/Testimonials';
-import { ConcreteStats } from '../components/landing/ConcreteStats';
+import SleepHero from '@/components/landing/SleepHero';
+import SleepStats from '@/components/landing/SleepStats';
+import RecipeShowcase from '@/components/landing/RecipeShowcase';
+import AnniePick from '@/components/landing/AnniePick';
+import SleepHowItWorks from '@/components/landing/SleepHowItWorks';
 import { FounderSection } from '../components/landing/FounderSection';
-import { FAQSection } from '../components/landing/FAQSection';
 import { CTAFooter } from '../components/landing/CTAFooter';
 
 export default function Home() {
@@ -24,40 +21,32 @@ export default function Home() {
     }
   }, [isLoading, isLoggedIn, router]);
 
-  // 로딩 중이거나 리다이렉트 직전이면 빈 화면 (플래시 방지)
   if (isLoading || isLoggedIn) {
     return <div className="min-h-screen bg-hlk-bg" />;
   }
 
   return (
     <main>
-      {/* Hero */}
-      <HeroSection />
+      {/* ① Hero: 수면 진입점 */}
+      <SleepHero />
 
-      {/* PHASE 1: CONNECT — 공감 + 동일시 ("이건 나를 위한 거구나") */}
-      <div id="connect" className="scroll-mt-20">
-        <SymptomGrid />
-        <PersonaCards />
-      </div>
+      {/* ② 수면-치매 연결 데이터 */}
+      <SleepStats />
 
-      {/* PHASE 2: UNDERSTAND — 문제 심화 + 솔루션 제시 */}
-      <div id="understand" className="scroll-mt-20">
-        <ProblemSection />
-        <HowItWorks />
-      </div>
+      {/* ③ 수면 레시피 미리보기 (Real Ink) */}
+      <RecipeShowcase />
 
-      {/* PHASE 3: PROVE — 후기(감정) → 숫자(이성)로 검증 */}
-      <div id="prove" className="scroll-mt-20">
-        <Testimonials />
-        <ConcreteStats />
-      </div>
+      {/* ④ 언니 PICK + 신뢰 3레이어 */}
+      <AnniePick />
 
-      {/* PHASE 4: TRUST — 신뢰 + 전환 */}
-      <div id="trust" className="scroll-mt-20">
-        <FounderSection />
-        <FAQSection />
-        <CTAFooter />
-      </div>
+      {/* ⑤ 3스텝 플로우 */}
+      <SleepHowItWorks />
+
+      {/* ⑥ 창업자 섹션 (기존 재사용) */}
+      <FounderSection />
+
+      {/* ⑦ 최종 CTA (기존 재사용) */}
+      <CTAFooter />
     </main>
   );
 }

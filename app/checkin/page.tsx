@@ -1,128 +1,55 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '../../components/ui/Button';
-import { SYMPTOM_CHARACTERS } from '@/lib/characters';
-import { analytics } from '@/lib/analytics';
 
-// 랜덤하게 3개 캐릭터 선택
-const getRandomCharacters = () => {
-  const shuffled = [...SYMPTOM_CHARACTERS].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, 3);
-};
-
-const infoItems = [
-  { emoji: '⏱️', text: '약 3분 소요' },
-  { emoji: '🔒', text: '모든 응답은 안전하게 보호됩니다' },
-  { emoji: '📊', text: '결과는 즉시 확인 가능' },
-  { emoji: '👤', text: '로그인 없이 바로 시작' },
-];
-
-function SignupBanner() {
-  const searchParams = useSearchParams();
-  const fromSignup = searchParams.get('from') === 'signup';
-
-  if (!fromSignup) return null;
-
-  return (
-    <div className="bg-hlk-primary/10 border border-hlk-primary/20 rounded-xl px-4 py-3 mb-6 text-center">
-      <p className="text-sm text-hlk-text-secondary">
-        💡 회원가입을 위해 먼저 간단한 체크인을 완료해주세요
-      </p>
-    </div>
-  );
-}
+const SLEEP_TAGS = ['#새벽각성', '#열감', '#잠들기힘들어', '#수면부족', '#피로'];
 
 export default function CheckinIntro() {
-  const [featuredChars, setFeaturedChars] = useState(SYMPTOM_CHARACTERS.slice(0, 3));
-  const [activeCharIndex, setActiveCharIndex] = useState(0);
-
-  useEffect(() => {
-    setFeaturedChars(getRandomCharacters());
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveCharIndex((prev) => (prev + 1) % featuredChars.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [featuredChars.length]);
-
-  const activeChar = featuredChars[activeCharIndex];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light">
-      <div className="max-w-md mx-auto px-6 md:px-8 py-10">
-        {/* Back link */}
-        <Link href="/" className="inline-flex items-center text-hlk-text-secondary hover:text-hlk-text mb-10">
-          <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light flex flex-col">
+      <div className="max-w-md mx-auto px-6 py-10 flex-1 flex flex-col">
+        {/* Back */}
+        <Link href="/" className="inline-flex items-center text-hlk-text-secondary hover:text-hlk-text mb-10 text-sm">
+          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           홈으로
         </Link>
 
-        {/* Signup redirect banner */}
-        <Suspense fallback={null}>
-          <SignupBanner />
-        </Suspense>
+        <div className="flex-1 flex flex-col justify-center">
+          {/* 아이콘 */}
+          <div className="text-6xl text-center mb-6">🌙</div>
 
-        <div className="flex flex-col items-center text-center">
-          {/* 체크인 시작 — 감정 훅 */}
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-hlk-text leading-relaxed">
-              지금, 나에게 <span className="text-hlk-primary">3분</span>을<br />
-              허락해보세요.
-            </h2>
-          </div>
-
-          {/* Animated Character Display */}
-          <div className="relative mb-8">
-            {/* Background glow */}
-            <div className="absolute inset-0 bg-hlk-primary/10 rounded-full blur-3xl scale-150" />
-
-            {/* Character carousel */}
-            <div className="relative bg-white rounded-3xl p-6 border border-hlk-border shadow-lg w-64">
-              <div className="text-6xl mb-3 transition-all duration-300">
-                {activeChar?.emoji}
-              </div>
-              <p className="text-lg font-bold text-hlk-text mb-1">
-                {activeChar?.nickname}
-              </p>
-              <p className="text-sm text-hlk-accent">
-                &ldquo;{activeChar?.tagline}&rdquo;
-              </p>
-
-              {/* Character dots */}
-              <div className="flex justify-center gap-2 mt-4">
-                {featuredChars.map((char, idx) => (
-                  <button
-                    key={char.id}
-                    onClick={() => setActiveCharIndex(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      idx === activeCharIndex ? 'bg-hlk-primary w-6' : 'bg-hlk-border'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 체크인 안내 */}
-          <h1 className="text-xl font-semibold text-hlk-text mb-2">
-            나를 위한 체크인
+          {/* 헤딩 */}
+          <h1 className="text-3xl font-bold text-hlk-text text-center leading-snug mb-3">
+            내 수면 상태
+            <br />
+            확인해볼까요?
           </h1>
-          <p className="text-hlk-text-tertiary text-sm leading-relaxed mb-8">
-            19개 질문에 답하면<br />
-            나의 변화 단계와 맞춤 관리법을<br />
-            바로 확인할 수 있어요.
+          <p className="text-hlk-text-secondary text-center leading-relaxed mb-8">
+            5가지 질문으로 수면 유형을 파악하고
+            <br />
+            맞는 레시피를 추천해 드려요.
           </p>
 
-          {/* Info items */}
-          <div className="w-full space-y-4 mb-10 text-left">
-            {infoItems.map((item) => (
-              <div key={item.text} className="flex items-center gap-4 px-5 py-4 bg-white rounded-xl border border-hlk-border shadow-sm">
+          {/* 공감 태그 */}
+          <div className="flex flex-wrap justify-center gap-2 mb-10">
+            {SLEEP_TAGS.map((tag) => (
+              <span key={tag} className="text-sm text-hlk-text-secondary bg-white px-3 py-1.5 rounded-full border border-hlk-border">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* 안내 정보 */}
+          <div className="space-y-3 mb-10">
+            {[
+              { emoji: '⏱️', text: '1분이면 충분해요' },
+              { emoji: '🔒', text: '100% 익명, 로그인 불필요' },
+              { emoji: '✨', text: '맞춤 수면 레시피 즉시 확인' },
+              { emoji: '🧠', text: '갱년기 신호도 자연스럽게 파악' },
+            ].map((item) => (
+              <div key={item.text} className="flex items-center gap-4 px-5 py-4 bg-white rounded-2xl border border-hlk-border">
                 <span className="text-xl">{item.emoji}</span>
                 <span className="text-sm text-hlk-text-secondary">{item.text}</span>
               </div>
@@ -130,33 +57,15 @@ export default function CheckinIntro() {
           </div>
 
           {/* CTA */}
-          <Link href="/checkin/1" className="w-full" onClick={() => analytics.checkinStarted()}>
-            <Button variant="primary" size="lg" className="w-full bg-hlk-accent hover:bg-hlk-accent/90 text-white shadow-lg shadow-hlk-accent/30">
-              나의 상태 알아보기
-            </Button>
+          <Link
+            href="/checkin/1"
+            className="w-full flex items-center justify-center gap-2 py-4 bg-hlk-primary text-white text-lg font-semibold rounded-2xl hover:bg-hlk-primary-dark transition-all duration-300 shadow-lg shadow-hlk-primary/20"
+          >
+            🌙 수면 체크인 시작하기
           </Link>
-
-          {/* Trust markers */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs text-hlk-text-tertiary">
-            <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              설정 없이 바로
-            </span>
-            <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              100% 익명
-            </span>
-            <span className="flex items-center gap-1">
-              <svg className="w-3 h-3 text-hlk-primary" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              언제든 멈춤 가능
-            </span>
-          </div>
+          <p className="text-center text-hlk-text-tertiary text-xs mt-4">
+            가입 없이 · 1분 소요 · 무료
+          </p>
         </div>
       </div>
     </div>
