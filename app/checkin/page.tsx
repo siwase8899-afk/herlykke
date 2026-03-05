@@ -45,7 +45,7 @@ export default function CheckinIntro() {
           <div className="space-y-3 mb-10">
             {[
               { emoji: '⏱️', text: '1분이면 충분해요' },
-              { emoji: '🔒', text: '100% 익명, 로그인 불필요' },
+              { emoji: '🔒', text: '로그인 없이 · 닉네임으로 활동' },
               { emoji: '✨', text: '맞춤 수면 레시피 즉시 확인' },
               { emoji: '🧠', text: '갱년기 신호도 자연스럽게 파악' },
             ].map((item) => (

@@ -100,7 +100,7 @@ export default function SleepHowItWorks() {
             🌙 지금 내 수면 상태 확인하기
           </Link>
           <p className="text-hlk-text-tertiary text-sm mt-3">
-            가입 없이 바로 · 1분 소요 · 100% 익명
+            가입 없이 바로 · 1분 소요 · 닉네임으로 활동
           </p>
         </div>
       </div>

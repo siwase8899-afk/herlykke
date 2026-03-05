@@ -51,7 +51,7 @@ export default function AnniePick() {
           {[
             {
               emoji: '✍️',
-              title: 'Real Ink',
+              title: '손글씨 인증',
               desc: '손글씨 1장이 있어야 레시피가 됩니다. AI 콘텐츠 차단.',
               badge: '콘텐츠 인증',
             },
@@ -93,7 +93,7 @@ export default function AnniePick() {
           <p className="text-2xl font-light leading-relaxed mb-6">
             &ldquo;ChatGPT도 수면 레시피 써줍니다.
             <br />
-            우리 플랫폼은 <strong className="font-bold">Real Ink</strong>만 받습니다.&rdquo;
+            우리 플랫폼은 <strong className="font-bold">손글씨 인증</strong>만 받습니다.&rdquo;
           </p>
           <Link
             href="/community"

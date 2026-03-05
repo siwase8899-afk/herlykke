@@ -78,8 +78,8 @@ export function FounderSection() {
                 <p className="text-sm font-bold text-hlk-text mb-4">HERLYKKE의 가치</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
-                    { title: 'Real Ink만', desc: '직접 써본 것만. 손글씨 1장이 있어야 레시피가 됩니다', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
-                    { title: '100% 익명', desc: '닉네임만 공개. 나이·직업·실명 절대 비공개', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
+                    { title: '손글씨 인증만', desc: '직접 써본 것만. 손글씨 1장이 있어야 레시피가 됩니다', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
+                    { title: '경험을 공유해요', desc: '이름 대신 경험으로. 닉네임으로 자유롭게 활동해요', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary' },
                     { title: '당사자가 만든 서비스', desc: '같은 불면을 겪은 창업자가 직접 설계', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
                     { title: '커뮤니티가 검증', desc: '공감 50개+ 받아야 언니 PICK. 알고리즘 없음', bg: 'bg-hlk-accent-light', color: 'bg-hlk-accent' },
                     { title: '수면 → 뇌건강까지', desc: '지금의 수면이 10년 후 뇌건강을 만듭니다', bg: 'bg-hlk-primary-light', color: 'bg-hlk-primary', span: true },

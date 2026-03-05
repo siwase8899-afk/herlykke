@@ -30,7 +30,7 @@ export default function RecipeShowcase() {
         >
           <div className="inline-flex items-center gap-2 bg-hlk-accent-light text-hlk-accent text-sm font-medium px-4 py-2 rounded-full mb-4">
             <span>✍️</span>
-            <span>Real Ink Verified</span>
+            <span>손글씨 인증</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-hlk-text mb-4">
             언니들의 수면 레시피
@@ -62,10 +62,13 @@ export default function RecipeShowcase() {
                       alt="Real Ink 손글씨"
                       className="w-full h-full object-cover"
                     />
-                    {/* Real Ink 배지 */}
-                    <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-                      <span>✍️</span>
-                      <span className="text-hlk-text">Real Ink</span>
+                    {/* 손글씨 인증 배지 */}
+                    <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-xs font-medium px-2 py-1 rounded-full flex flex-col items-center">
+                      <span className="flex items-center gap-1">
+                        <span>✍️</span>
+                        <span className="text-hlk-text">손글씨 인증</span>
+                      </span>
+                      <span className="text-[9px] text-hlk-text-tertiary leading-none">Real Ink</span>
                     </div>
                   </div>
 

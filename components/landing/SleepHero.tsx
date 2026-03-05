@@ -124,7 +124,7 @@ export default function SleepHero() {
             커뮤니티 활동 중
           </span>
           <span>레시피 {10}개+</span>
-          <span>100% 익명</span>
+          <span>경험을 공유해요</span>
         </div>
       </div>
     </section>

@@ -17,7 +17,7 @@ export default function RecipesPage() {
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm px-3 py-1.5 rounded-full mb-4">
             <span>✍️</span>
-            <span>Real Ink Verified</span>
+            <span>손글씨 인증 · Real Ink</span>
           </div>
           <h1 className="text-3xl font-bold mb-2">수면 레시피</h1>
           <p className="text-white/80 leading-relaxed">
