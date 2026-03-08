@@ -11,14 +11,24 @@ import { SleepInput } from '@/components/log/SleepInput';
 import { ActivityTags } from '@/components/log/ActivityTags';
 import { SYMPTOMS } from '@/lib/logTypes';
 import { MOOD_TAGS } from '@/lib/dailyLogConstants';
+import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 
-const STEPS = ['mood', 'symptoms', 'sleep', 'activities', 'note'] as const;
+// 수면을 첫 번째 스텝으로 재배치
+const STEPS = ['sleep', 'mood', 'symptoms', 'activities', 'note'] as const;
 type Step = (typeof STEPS)[number];
+
+const STEP_LABELS: Record<Step, string> = {
+  sleep: '어젯밤 수면',
+  mood: '아침 컨디션',
+  symptoms: '수면 방해 증상',
+  activities: '어제 활동',
+  note: '수면 메모',
+};
 
 export default function NewLogPage() {
   const router = useRouter();
   const { user } = useAuth();
-  const [currentStep, setCurrentStep] = useState<Step>('mood');
+  const [currentStep, setCurrentStep] = useState<Step>('sleep');
   const {
     draft,
     setMood,
@@ -37,6 +47,8 @@ export default function NewLogPage() {
 
   const canProceed = () => {
     switch (currentStep) {
+      case 'sleep':
+        return true; // 기본값이 있으므로 항상 진행 가능
       case 'mood':
         return draft.mood !== null;
       default:
@@ -73,7 +85,8 @@ export default function NewLogPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light">
+    <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light relative">
+      <FloatingOrbs />
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-hlk-border">
         <div className="max-w-lg mx-auto px-5 py-4">
@@ -100,7 +113,7 @@ export default function NewLogPage() {
 
             <div className="text-center">
               <p className="text-xs text-hlk-text-tertiary">{dateStr}</p>
-              <p className="text-sm font-semibold text-hlk-text">오늘의 기록</p>
+              <p className="text-sm font-semibold text-hlk-text">수면 일지</p>
             </div>
 
             <div className="w-10" /> {/* Spacer */}
@@ -113,14 +126,23 @@ export default function NewLogPage() {
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs text-hlk-text-tertiary text-center mt-2">
-            {currentStepIndex + 1} / {STEPS.length}
-          </p>
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-[10px] text-hlk-text-tertiary">
+              {STEP_LABELS[currentStep]}
+            </p>
+            <p className="text-xs text-hlk-text-tertiary">
+              {currentStepIndex + 1} / {STEPS.length}
+            </p>
+          </div>
         </div>
       </header>
 
       {/* Content */}
       <main className="max-w-lg mx-auto px-5 py-8">
+        {currentStep === 'sleep' && (
+          <SleepInput value={draft.sleep} onChange={setSleep} />
+        )}
+
         {currentStep === 'mood' && (
           <MoodSelector
             value={draft.mood}
@@ -139,10 +161,6 @@ export default function NewLogPage() {
           />
         )}
 
-        {currentStep === 'sleep' && (
-          <SleepInput value={draft.sleep} onChange={setSleep} />
-        )}
-
         {currentStep === 'activities' && (
           <ActivityTags selected={draft.activities} onToggle={toggleActivity} />
         )}
@@ -150,26 +168,35 @@ export default function NewLogPage() {
         {currentStep === 'note' && (
           <div>
             <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
-              오늘 기억하고 싶은 것이 있나요?
+              수면에 대해 기억하고 싶은 것이 있나요?
             </h2>
             <p className="text-hlk-text-secondary mb-8 text-center">
-              자유롭게 메모해주세요 (선택)
+              꿈, 야간 각성, 기분 등 자유롭게 메모해주세요 (선택)
             </p>
 
             <textarea
               value={draft.note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="오늘 특별히 기억하고 싶은 것, 느낀 점 등을 자유롭게 적어주세요..."
+              placeholder="예: 새벽 3시에 한 번 깼다, 꿈을 많이 꿨다, 코골이가 있었다..."
               className="w-full h-40 p-4 rounded-2xl border border-hlk-border text-hlk-text placeholder-hlk-text-tertiary focus:outline-none focus:border-hlk-primary resize-none"
             />
 
             {/* 요약 미리보기 */}
             <div className="mt-6 bg-white rounded-2xl p-5 border border-hlk-border">
-              <p className="text-sm font-semibold text-hlk-text mb-4">오늘의 기록 요약</p>
+              <p className="text-sm font-semibold text-hlk-text mb-4">오늘의 수면 일지 요약</p>
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-hlk-text-tertiary">컨디션</span>
+                  <span className="text-hlk-text-tertiary">수면</span>
+                  <span className="text-hlk-text">
+                    {draft.sleep
+                      ? `${draft.sleep.bedTime} ~ ${draft.sleep.wakeTime}`
+                      : '-'}
+                  </span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-hlk-text-tertiary">아침 컨디션</span>
                   <span className="text-hlk-text">
                     {draft.mood ? ['😫', '😕', '😐', '🙂', '😊'][draft.mood - 1] : '-'}
                   </span>
@@ -177,7 +204,7 @@ export default function NewLogPage() {
 
                 {draft.moodTags.length > 0 && (
                   <div className="flex justify-between items-start">
-                    <span className="text-hlk-text-tertiary flex-shrink-0">감정</span>
+                    <span className="text-hlk-text-tertiary flex-shrink-0">기상 후 기분</span>
                     <div className="flex flex-wrap justify-end gap-1 ml-2">
                       {draft.moodTags.map((tagId) => {
                         const tag = MOOD_TAGS.find((t) => t.id === tagId);
@@ -190,7 +217,7 @@ export default function NewLogPage() {
                 )}
 
                 <div className="flex justify-between">
-                  <span className="text-hlk-text-tertiary">증상</span>
+                  <span className="text-hlk-text-tertiary">수면 방해 증상</span>
                   <span className="text-hlk-text">
                     {draft.symptoms.length > 0
                       ? draft.symptoms
@@ -201,16 +228,7 @@ export default function NewLogPage() {
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-hlk-text-tertiary">수면</span>
-                  <span className="text-hlk-text">
-                    {draft.sleep
-                      ? `${draft.sleep.bedTime} ~ ${draft.sleep.wakeTime}`
-                      : '-'}
-                  </span>
-                </div>
-
-                <div className="flex justify-between">
-                  <span className="text-hlk-text-tertiary">활동</span>
+                  <span className="text-hlk-text-tertiary">어제 활동</span>
                   <span className="text-hlk-text">
                     {draft.activities.length > 0
                       ? `${draft.activities.length}개`
@@ -231,7 +249,7 @@ export default function NewLogPage() {
               onClick={handleSave}
               className="w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 active:scale-[0.98] transition-all"
             >
-              기록 완료하기 🎉
+              수면 일지 완료 🌙
             </button>
           ) : (
             <button

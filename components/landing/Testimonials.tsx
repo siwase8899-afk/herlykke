@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
@@ -54,7 +54,60 @@ const testimonials = [
 
 export function Testimonials() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
+
+  const goTo = useCallback((index: number) => {
+    setIsFading(true);
+    setTimeout(() => {
+      setActiveTestimonial(index);
+      setIsFading(false);
+    }, 200);
+  }, []);
+
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+    timerRef.current = setInterval(() => {
+      goTo(-1); // placeholder — we use functional update below
+    }, 5000);
+  }, [goTo]);
+
+  // Auto-slide
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    timerRef.current = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+        setIsFading(false);
+      }, 200);
+    }, 5000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const handleSelect = (i: number) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    goTo(i);
+    // Restart timer after manual selection
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      timerRef.current = setInterval(() => {
+        setIsFading(true);
+        setTimeout(() => {
+          setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+          setIsFading(false);
+        }, 200);
+      }, 5000);
+    }
+  };
 
   return (
     <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-hlk-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
@@ -75,58 +128,66 @@ export function Testimonials() {
 
           <div className="max-w-3xl mx-auto">
             {/* Before / After */}
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
-              <div className="bg-hlk-bg rounded-2xl p-6 border border-hlk-border relative">
-                <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-text-tertiary text-white text-xs font-bold rounded-full">
-                  BEFORE
-                </span>
-                <p className="text-sm text-hlk-text-secondary mt-2 leading-relaxed">
-                  {testimonials[activeTestimonial].before}
-                </p>
+            <div
+              className="transition-opacity duration-400"
+              style={{
+                opacity: isFading ? 0 : 1,
+                transition: 'opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1)',
+              }}
+            >
+              <div className="grid md:grid-cols-2 gap-6 mb-10">
+                <div className="bg-hlk-bg rounded-2xl p-6 border border-hlk-border relative">
+                  <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-text-tertiary text-white text-xs font-bold rounded-full">
+                    BEFORE
+                  </span>
+                  <p className="text-sm text-hlk-text-secondary mt-2 leading-relaxed">
+                    {testimonials[activeTestimonial].before}
+                  </p>
+                </div>
+                <div className="bg-hlk-accent-light rounded-2xl p-6 border border-hlk-accent/20 relative">
+                  <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-accent text-white text-xs font-bold rounded-full">
+                    AFTER
+                  </span>
+                  <p className="text-sm text-hlk-accent-dark font-medium mt-2 leading-relaxed">
+                    {testimonials[activeTestimonial].after}
+                  </p>
+                </div>
               </div>
-              <div className="bg-hlk-accent-light rounded-2xl p-6 border border-hlk-accent/20 relative">
-                <span className="absolute -top-3 left-4 px-3 py-1 bg-hlk-accent text-white text-xs font-bold rounded-full">
-                  AFTER
-                </span>
-                <p className="text-sm text-hlk-accent-dark font-medium mt-2 leading-relaxed">
-                  {testimonials[activeTestimonial].after}
-                </p>
-              </div>
-            </div>
 
-            {/* Quote */}
-            <div className="relative">
-              <div className="absolute -top-4 -left-2 text-6xl text-hlk-primary/20 font-serif">
-                &ldquo;
-              </div>
-              <div className="pl-8">
-                <p className="text-lg md:text-xl text-hlk-text leading-relaxed mb-8">
-                  {testimonials[activeTestimonial].quote}
-                </p>
+              {/* Quote */}
+              <div className="relative">
+                <div className="absolute -top-4 -left-2 text-6xl text-hlk-primary/20 font-serif">
+                  &ldquo;
+                </div>
+                <div className="pl-8">
+                  <p className="text-lg md:text-xl text-hlk-text leading-relaxed mb-8">
+                    {testimonials[activeTestimonial].quote}
+                  </p>
 
-                <div className="flex items-center gap-4">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-3 border-hlk-primary">
-                    <Image
-                      src={testimonials[activeTestimonial].image}
-                      alt={testimonials[activeTestimonial].name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-bold text-hlk-text">
-                      {testimonials[activeTestimonial].name}님
-                      <span className="font-normal text-hlk-text-tertiary">
-                        {' '}· {testimonials[activeTestimonial].age}세 · {testimonials[activeTestimonial].location}
-                      </span>
-                    </p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs px-2 py-0.5 bg-hlk-primary-light text-hlk-primary rounded-full">
-                        {testimonials[activeTestimonial].symptom}
-                      </span>
-                      <span className="text-xs text-hlk-text-tertiary">
-                        {testimonials[activeTestimonial].weeks}주 사용
-                      </span>
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden border-3 border-hlk-primary">
+                      <Image
+                        src={testimonials[activeTestimonial].image}
+                        alt={testimonials[activeTestimonial].name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-bold text-hlk-text">
+                        {testimonials[activeTestimonial].name}님
+                        <span className="font-normal text-hlk-text-tertiary">
+                          {' '}· {testimonials[activeTestimonial].age}세 · {testimonials[activeTestimonial].location}
+                        </span>
+                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className="text-xs px-2 py-0.5 bg-hlk-primary-light text-hlk-primary rounded-full">
+                          {testimonials[activeTestimonial].symptom}
+                        </span>
+                        <span className="text-xs text-hlk-text-tertiary">
+                          {testimonials[activeTestimonial].weeks}주 사용
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -138,7 +199,7 @@ export function Testimonials() {
               {testimonials.map((t, i) => (
                 <button
                   key={t.name}
-                  onClick={() => setActiveTestimonial(i)}
+                  onClick={() => handleSelect(i)}
                   className={`relative w-12 h-12 rounded-full overflow-hidden border-2 ${
                     activeTestimonial === i
                       ? 'border-hlk-primary scale-110 shadow-lg'

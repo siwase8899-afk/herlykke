@@ -23,20 +23,20 @@ export function SymptomPicker({
     if (isSelected(symptomId)) {
       onRemove(symptomId);
     } else {
-      onAdd(symptomId, 3); // 기본 강도 3
+      onAdd(symptomId, 3);
     }
   };
 
   return (
     <div>
       <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
-        오늘 겪은 증상이 있나요?
+        어젯밤 수면을 방해한 증상이 있나요?
       </h2>
       <p className="text-hlk-text-secondary mb-8 text-center">
-        해당되는 증상을 모두 선택해주세요
+        잠들기 어렵게 하거나, 잠에서 깨게 한 증상을 선택해주세요
       </p>
 
-      {/* 증상 그리드 — 타이포그래피 중심 */}
+      {/* 증상 그리드 */}
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mb-8">
         {SYMPTOMS.map((symptom) => {
           const sel = isSelected(symptom.id);
@@ -71,7 +71,7 @@ export function SymptomPicker({
       {selected.length > 0 && (
         <div className="bg-hlk-bg rounded-2xl p-5 border border-hlk-border">
           <p className="text-sm font-semibold text-hlk-text mb-4">
-            증상 강도를 조절해주세요
+            수면에 미친 영향을 조절해주세요
           </p>
           <div className="space-y-4">
             {selected.map((entry) => {
@@ -118,7 +118,7 @@ export function SymptomPicker({
       {/* 증상 없음 옵션 */}
       {selected.length === 0 && (
         <p className="text-center text-sm text-hlk-text-tertiary">
-          증상이 없다면 다음으로 넘어가도 괜찮아요
+          수면을 방해한 증상이 없다면 다음으로 넘어가세요
         </p>
       )}
     </div>

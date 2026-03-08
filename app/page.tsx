@@ -3,10 +3,13 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
+import { SunsetScroll } from '@/components/ui/SunsetScroll';
 import SleepHero from '@/components/landing/SleepHero';
-import SleepStats from '@/components/landing/SleepStats';
+import ContentQuickAccess from '@/components/landing/ContentQuickAccess';
 import RecipeShowcase from '@/components/landing/RecipeShowcase';
-import AnniePick from '@/components/landing/AnniePick';
+import FeaturedColumns from '@/components/landing/FeaturedColumns';
+import SleepStats from '@/components/landing/SleepStats';
+import WhatMakesDifferent from '@/components/landing/WhatMakesDifferent';
 import SleepHowItWorks from '@/components/landing/SleepHowItWorks';
 import { FounderSection } from '../components/landing/FounderSection';
 import { CTAFooter } from '../components/landing/CTAFooter';
@@ -26,27 +29,35 @@ export default function Home() {
   }
 
   return (
-    <main>
-      {/* ① Hero: 수면 진입점 */}
-      <SleepHero />
+    <SunsetScroll>
+      <main>
+        {/* ① Hero: 수면 진입점 */}
+        <SleepHero />
 
-      {/* ② 수면-치매 연결 데이터 */}
-      <SleepStats />
+        {/* ② 콘텐츠 허브 (탭형 브라우저) */}
+        <ContentQuickAccess />
 
-      {/* ③ 수면 레시피 미리보기 (Real Ink) */}
-      <RecipeShowcase />
+        {/* ③ 수면 레시피 (확장: 6장 + AnniePick 통합) */}
+        <RecipeShowcase />
 
-      {/* ④ 언니 PICK + 신뢰 3레이어 */}
-      <AnniePick />
+        {/* ④ 전문가 컬럼 직접 노출 */}
+        <FeaturedColumns />
 
-      {/* ⑤ 3스텝 플로우 */}
-      <SleepHowItWorks />
+        {/* ⑤ 수면-치매 연결 데이터 (축소 스트립) */}
+        <SleepStats />
 
-      {/* ⑥ 창업자 섹션 (기존 재사용) */}
-      <FounderSection />
+        {/* ⑥ 차별화 — HERLYKKE는 다릅니다 */}
+        <WhatMakesDifferent />
 
-      {/* ⑦ 최종 CTA (기존 재사용) */}
-      <CTAFooter />
-    </main>
+        {/* ⑦ 온보딩 타임라인 — 첫 5분이면 충분해요 */}
+        <SleepHowItWorks />
+
+        {/* ⑧ 창업자 섹션 */}
+        <FounderSection />
+
+        {/* ⑨ 최종 CTA */}
+        <CTAFooter />
+      </main>
+    </SunsetScroll>
   );
 }

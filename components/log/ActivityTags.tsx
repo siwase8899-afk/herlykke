@@ -9,10 +9,10 @@ interface ActivityTagsProps {
 
 const CATEGORY_CONFIG = {
   physical: { label: '신체 활동', color: 'green', dot: 'bg-green-400', selected: 'bg-green-100 border-green-400 text-green-700', hover: 'hover:border-green-300' },
-  mental: { label: '정신 건강', color: 'blue', dot: 'bg-blue-400', selected: 'bg-blue-100 border-blue-400 text-blue-700', hover: 'hover:border-blue-300' },
-  selfcare: { label: '셀프케어', color: 'purple', dot: 'bg-purple-400', selected: 'bg-purple-100 border-purple-400 text-purple-700', hover: 'hover:border-purple-300' },
+  mental: { label: '수면에 도움 되는 활동', color: 'blue', dot: 'bg-blue-400', selected: 'bg-blue-100 border-blue-400 text-blue-700', hover: 'hover:border-blue-300' },
+  selfcare: { label: '저녁 루틴', color: 'purple', dot: 'bg-purple-400', selected: 'bg-purple-100 border-purple-400 text-purple-700', hover: 'hover:border-purple-300' },
   social: { label: '사회적 활동', color: 'teal', dot: 'bg-teal-400', selected: 'bg-teal-100 border-teal-400 text-teal-700', hover: 'hover:border-teal-300' },
-  trigger: { label: '증상에 영향을 줄 수 있는 활동', color: 'amber', dot: 'bg-amber-400', selected: 'bg-amber-100 border-amber-400 text-amber-700', hover: 'hover:border-amber-300' },
+  trigger: { label: '수면을 방해할 수 있는 활동', color: 'amber', dot: 'bg-amber-400', selected: 'bg-amber-100 border-amber-400 text-amber-700', hover: 'hover:border-amber-300' },
 } as const;
 
 const CATEGORY_ORDER: (keyof typeof CATEGORY_CONFIG)[] = ['physical', 'mental', 'selfcare', 'social', 'trigger'];
@@ -21,10 +21,10 @@ export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
-        오늘 어떤 활동을 했나요?
+        어제 어떤 활동을 했나요?
       </h2>
       <p className="text-hlk-text-secondary mb-8 text-center">
-        해당되는 활동을 모두 선택해주세요
+        수면에 영향을 준 활동을 기록해주세요
       </p>
 
       <div className="max-w-md mx-auto space-y-5">
@@ -68,7 +68,7 @@ export function ActivityTags({ selected, onToggle }: ActivityTagsProps) {
 
         {/* 안내 */}
         <p className="text-center text-xs text-hlk-text-tertiary">
-          활동 기록은 나중에 AI가 증상 패턴을 분석하는 데 도움이 돼요
+          활동 기록은 수면 패턴 분석에 도움이 돼요
         </p>
       </div>
     </div>

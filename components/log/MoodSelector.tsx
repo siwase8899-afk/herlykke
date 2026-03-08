@@ -13,12 +13,12 @@ interface MoodSelectorProps {
 export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }: MoodSelectorProps) {
   return (
     <div className="text-center">
-      {/* Layer 1: 전반적 컨디션 */}
+      {/* Layer 1: 아침 컨디션 */}
       <h2 className="text-2xl font-bold text-hlk-text mb-3">
-        오늘 전반적인 컨디션은 어때요?
+        일어났을 때 컨디션은 어때요?
       </h2>
       <p className="text-hlk-text-secondary mb-8">
-        몸과 마음을 종합해서 선택해주세요
+        수면 후 몸과 마음의 상태를 선택해주세요
       </p>
 
       <div className="flex justify-center gap-4">
@@ -44,11 +44,11 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
         ))}
       </div>
 
-      {/* Layer 2: 감정 태그 (컨디션 선택 후 표시) */}
+      {/* Layer 2: 기상 후 감정 태그 */}
       {value !== null && (
         <div className="mt-10 animate-fade-in">
           <h3 className="text-lg font-bold text-hlk-text mb-2">
-            좀 더 구체적으로, 지금 어떤 느낌이에요?
+            기상 후 어떤 느낌이에요?
           </h3>
           <p className="text-sm text-hlk-text-tertiary mb-5">
             해당되는 것을 모두 선택해주세요 (선택)

@@ -79,10 +79,10 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
   return (
     <div>
       <h2 className="text-2xl font-bold text-hlk-text mb-3 text-center">
-        어젯밤 수면은 어땠나요?
+        어젯밤 잠은 어떠셨어요?
       </h2>
       <p className="text-hlk-text-secondary mb-8 text-center">
-        취침/기상 시간과 수면 품질을 알려주세요
+        취침과 기상 시간, 그리고 수면의 질을 알려주세요
       </p>
 
       <div className="max-w-sm mx-auto space-y-6">
@@ -91,7 +91,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-hlk-text mb-2">
-                취침 시간
+                잠든 시간
               </label>
               <button
                 onClick={() => setShowPicker(showPicker === 'bed' ? null : 'bed')}
@@ -106,7 +106,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-hlk-text mb-2">
-                기상 시간
+                일어난 시간
               </label>
               <button
                 onClick={() => setShowPicker(showPicker === 'wake' ? null : 'wake')}
@@ -125,7 +125,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
           {showPicker && (
             <div className="mt-4 pt-4 border-t border-hlk-border">
               <p className="text-xs text-hlk-text-tertiary text-center mb-3">
-                {showPicker === 'bed' ? '취침' : '기상'} 시간 선택
+                {showPicker === 'bed' ? '잠든' : '일어난'} 시간 선택
               </p>
 
               {/* 오전/오후 */}
@@ -200,7 +200,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
         {/* 수면 품질 */}
         <div className="bg-white rounded-2xl p-5 border border-hlk-border">
           <p className="text-sm font-medium text-hlk-text mb-4 text-center">
-            수면 품질은 어땠나요?
+            어젯밤 수면의 질은 어땠나요?
           </p>
           <div className="flex justify-center gap-3">
             {SLEEP_QUALITY_OPTIONS.map((option) => (

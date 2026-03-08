@@ -23,6 +23,8 @@ import { ReportLocked } from '@/components/report/ReportLocked';
 import { ChangeReport } from '@/components/report/ChangeReport';
 import { TipsSection } from '@/components/tips/TipsSection';
 import { columns } from '@/lib/columnsData';
+import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { BreathingLoader } from '@/components/ui/BreathingLoader';
 
 // 데모 데이터 (14일 — 변화 리포트를 위해 2주)
 const DEMO_LOGS: DailyLog[] = [
@@ -135,8 +137,9 @@ export default function InsightsPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
-        <div className="text-hlk-text-tertiary">로딩 중...</div>
+      <div className="min-h-screen bg-hlk-bg flex flex-col items-center justify-center gap-4">
+        <BreathingLoader size="md" showGuide />
+        <p className="text-sm text-hlk-text-tertiary animate-slow-fade-in-delay-2">패턴을 분석하고 있어요...</p>
       </div>
     );
   }
@@ -169,7 +172,8 @@ export default function InsightsPage() {
   const monthlyReport = generateMonthlyReport(displayLogs);
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen bg-hlk-bg relative">
+      <FloatingOrbs />
       {/* Header */}
       <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-lg mx-auto flex items-center justify-between">
@@ -402,31 +406,31 @@ export default function InsightsPage() {
                 <div className="bg-white rounded-2xl p-5 border border-hlk-border">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-hlk-text flex items-center gap-2">
-                      <span className="text-lg">📚</span>
-                      전문가 컬럼
+                      <span className="text-lg">🌙</span>
+                      수면 회복 가이드
                     </h3>
                     <Link href="/columns" className="text-sm text-hlk-primary hover:underline">
                       전체 보기
                     </Link>
                   </div>
                   <p className="text-sm text-hlk-text-secondary mb-4">
-                    나의 증상에 맞는 전문가 컬럼으로 깊이 이해해요
+                    나의 증상에 맞는 수면 회복 가이드로 깊이 이해해요
                   </p>
                   <div className="space-y-3">
                     {(() => {
                       // 증상 기반 관련 컬럼 추천
                       const SYMPTOM_COLUMN_MAP: Record<string, string[]> = {
-                        hot_flash: ['hot-flash', 'night-sweat'],
-                        insomnia: ['insomnia', 'sleep'],
-                        fatigue: ['fatigue'],
-                        mood_swings: ['mood', 'anxiety', 'depression'],
-                        anxiety: ['anxiety', 'mood'],
-                        brain_fog: ['brain-fog', 'cognitive'],
+                        hot_flash: ['night-waking'],
+                        insomnia: ['night-waking', 'falling-asleep'],
+                        fatigue: ['morning-fatigue'],
+                        mood_swings: ['mind-sleep'],
+                        anxiety: ['falling-asleep', 'mind-sleep'],
+                        brain_fog: ['mind-sleep'],
                       };
                       const topSymptomId = symptomFrequency[0]?.symptomId || 'fatigue';
                       const relatedSlugs = SYMPTOM_COLUMN_MAP[topSymptomId] || [];
                       const relatedColumns = columns.filter(col =>
-                        relatedSlugs.some(slug => col.symptomSlug?.includes(slug) || col.tags?.some(t => t.includes(slug)))
+                        relatedSlugs.includes(col.sleepCategory)
                       ).slice(0, 2);
                       // fallback: 관련 컬럼이 없으면 최신 2개
                       const displayColumns = relatedColumns.length > 0 ? relatedColumns : columns.slice(0, 2);
@@ -437,7 +441,7 @@ export default function InsightsPage() {
                           className="flex items-start gap-3 p-3 bg-hlk-bg rounded-xl hover:bg-hlk-border transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-hlk-accent-light flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg">{col.category === 'body' ? '🩺' : '🧠'}</span>
+                            <span className="text-lg">🌙</span>
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-hlk-text line-clamp-1">{col.title}</p>

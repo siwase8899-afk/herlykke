@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/lib/authContext';
+import { ScrollProgress } from './ScrollProgress';
 
 const guestNavItems = [
+  { label: '수면 가이드', href: '/columns' },
   { label: '수면 레시피', href: '/recipes' },
   { label: '커뮤니티', href: '/community' },
   { label: '수면 체크인', href: '/checkin' },
@@ -12,14 +14,22 @@ const guestNavItems = [
 
 const authNavItems = [
   { label: '대시보드', href: '/dashboard' },
+  { label: '수면 동료', href: '/concierge' },
+  { label: '수면 가이드', href: '/columns' },
   { label: '수면 레시피', href: '/recipes' },
   { label: '커뮤니티', href: '/community' },
-  { label: '수면 체크인', href: '/checkin' },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { isLoggedIn, isLoading, user, logout } = useAuth();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = isLoggedIn ? authNavItems : guestNavItems;
   const ctaLabel = isLoggedIn ? '오늘 기록하기' : '시작하기';
@@ -29,43 +39,40 @@ export function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
-        <div className="bg-white/90 backdrop-blur-md border-b border-hlk-border">
-          <div className="max-w-6xl mx-auto px-6 md:px-8">
-            <div className="flex items-center justify-between h-16 md:h-18">
-              {/* Logo */}
+        <div
+          className={`backdrop-blur-lg border-b transition-all duration-500 ${
+            isScrolled
+              ? 'bg-hlk-bg/95 border-hlk-border/60 shadow-soft-sm'
+              : 'bg-hlk-bg/80 border-hlk-border/40'
+          }`}
+          style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
+        >
+          <div className="max-w-5xl mx-auto px-6 md:px-8">
+            <div className="flex items-center justify-between h-16 md:h-[72px]">
+              {/* Logo — serif, bold */}
               <Link
                 href={isLoggedIn ? '/dashboard' : '/'}
-                className="text-xl font-bold text-hlk-primary tracking-tight"
-              >
+                className="text-xl font-bold text-hlk-text tracking-tight font-[family-name:var(--font-display)]"
+                             >
                 HERLYKKE
               </Link>
 
               {/* Desktop Nav */}
               <nav className="hidden md:flex items-center gap-8">
-                {navItems.map((item) =>
-                  item.href.startsWith('/') ? (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className="text-sm font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors"
-                    >
-                      {item.label}
-                    </Link>
-                  ) : (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      className="text-sm font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors"
-                    >
-                      {item.label}
-                    </a>
-                  )
-                )}
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="text-sm text-hlk-text-secondary hover:text-hlk-text transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
 
-                {/* CTA Button */}
+                {/* CTA */}
                 <Link
                   href={ctaHref}
-                  className="btn-fill-hover btn-fill-hover--accent px-6 py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-full hover:-translate-y-0.5"
+                  className="px-6 py-2.5 bg-hlk-primary text-white text-sm font-semibold rounded-full hover:bg-hlk-primary-dark transition-colors"
                 >
                   {ctaLabel}
                 </Link>
@@ -74,7 +81,7 @@ export function Header() {
                 {!isLoading && (
                   isLoggedIn ? (
                     <div className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-hlk-text">
+                      <span className="text-sm text-hlk-text">
                         {displayName}
                       </span>
                       <button
@@ -87,9 +94,9 @@ export function Header() {
                   ) : (
                     <Link
                       href="/login"
-                      className="text-sm font-medium text-hlk-text-tertiary hover:text-hlk-primary transition-colors"
+                      className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
                     >
-                      이미 회원이신가요?
+                      로그인
                     </Link>
                   )
                 )}
@@ -123,58 +130,44 @@ export function Header() {
           </div>
         </div>
 
+        {/* Scroll Progress */}
+        <ScrollProgress />
+
         {/* Mobile Menu */}
-        {/* C2MTL 인사이트: 모바일 메뉴 물리 이징으로 부드러운 전개 */}
         <div
-          className={`md:hidden bg-white/95 backdrop-blur-md border-b border-hlk-border overflow-hidden ${
+          className={`md:hidden bg-hlk-bg/95 backdrop-blur-md border-b border-hlk-border overflow-hidden ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
           style={{ transition: 'all 0.5s cubic-bezier(0.19, 1, 0.22, 1)' }}
         >
-          <div className="px-6 py-6 space-y-4">
-            {navItems.map((item) =>
-              item.href.startsWith('/') ? (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block text-base font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors py-2"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block text-base font-medium text-hlk-text-secondary hover:text-hlk-primary transition-colors py-2"
-                >
-                  {item.label}
-                </a>
-              )
-            )}
+          <div className="px-6 py-6 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-base text-hlk-text-secondary hover:text-hlk-text transition-colors py-3"
+              >
+                {item.label}
+              </Link>
+            ))}
 
-            {/* Mobile CTA */}
-            <Link
-              href={ctaHref}
-              onClick={() => setIsMenuOpen(false)}
-              className="btn-fill-hover btn-fill-hover--accent block w-full text-center px-6 py-3 bg-hlk-accent text-white font-semibold rounded-full"
-            >
-              {ctaLabel}
-            </Link>
+            <div className="pt-4">
+              <Link
+                href={ctaHref}
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full text-center px-6 py-3.5 bg-hlk-primary text-white font-semibold rounded-full"
+              >
+                {ctaLabel}
+              </Link>
+            </div>
 
-            {/* Mobile Profile / Login */}
             {!isLoading && (
               isLoggedIn ? (
-                <div className="flex items-center justify-between pt-2 border-t border-hlk-border">
-                  <span className="text-sm font-medium text-hlk-text">
-                    {displayName}
-                  </span>
+                <div className="flex items-center justify-between pt-4 border-t border-hlk-border">
+                  <span className="text-sm text-hlk-text">{displayName}</span>
                   <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      logout();
-                    }}
+                    onClick={() => { setIsMenuOpen(false); logout(); }}
                     className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
                   >
                     로그아웃
@@ -184,9 +177,9 @@ export function Header() {
                 <Link
                   href="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-center text-sm font-medium text-hlk-text-tertiary hover:text-hlk-primary transition-colors py-2"
+                  className="block text-center text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors py-3"
                 >
-                  이미 회원이신가요?
+                  로그인
                 </Link>
               )
             )}
@@ -194,8 +187,8 @@ export function Header() {
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-16 md:h-18" />
+      {/* Spacer */}
+      <div className="h-16 md:h-[72px]" />
     </>
   );
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SOLUTIONS, SOLUTION_CATEGORIES, DEMO_REVIEWS } from '@/lib/solutionsData';
 import type { Solution, SolutionCategory } from '@/lib/solutionsData';
+import { BreathingLoader } from '@/components/ui/BreathingLoader';
 
 export default function SolutionsPage() {
   const [selectedCategory, setSelectedCategory] = useState<SolutionCategory>('all');
@@ -38,15 +39,11 @@ export default function SolutionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-hlk-primary to-hlk-accent flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </div>
-          <p className="text-hlk-text-secondary">맞춤 솔루션을 분석 중이에요...</p>
-        </div>
+      <div className="min-h-screen bg-hlk-bg flex flex-col items-center justify-center gap-4">
+        <BreathingLoader size="lg" showGuide />
+        <p className="text-sm text-hlk-text-tertiary mt-4 animate-slow-fade-in-delay-2">
+          맞춤 솔루션을 분석 중이에요...
+        </p>
       </div>
     );
   }
@@ -188,7 +185,7 @@ function SolutionCard({ solution }: { solution: Solution & { isRecommended: bool
     <Link
       href={`/solutions/${solution.id}`}
       className={`block bg-white rounded-2xl overflow-hidden border transition-all hover:shadow-lg ${
-        solution.isRecommended ? 'border-hlk-primary/30 ring-1 ring-hlk-primary/20' : 'border-hlk-border'
+        solution.isRecommended ? 'border-hlk-primary/30 ring-1 ring-hlk-primary/20 animate-glow-pulse' : 'border-hlk-border'
       }`}
     >
       {/* Image */}

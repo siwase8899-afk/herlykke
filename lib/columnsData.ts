@@ -1,9 +1,14 @@
-// 전문가 컬럼 데이터
-// Flo 인사이트: 증상별 카테고리화 → SEO + 탐색성
-// Elektra 인사이트: 전문가 프로필 강조 → 신뢰 구축
-// Sol 인사이트: 아시아 여성 맥락 반영
+// 수면 회복 가이드 데이터
+// 수면 맥락 중심 카테고리 체계
 
-export type ColumnCategory = 'body' | 'mind';
+export type SleepCategory =
+  | 'night-waking'
+  | 'falling-asleep'
+  | 'early-waking'
+  | 'morning-fatigue'
+  | 'body-signal'
+  | 'mind-sleep'
+  | 'sleep-routine';
 
 export interface Expert {
   name: string;
@@ -15,9 +20,8 @@ export interface Column {
   slug: string;
   title: string;
   subtitle: string;
-  symptom: string;
-  symptomSlug: string;
-  category: ColumnCategory;
+  sleepCategory: SleepCategory;
+  sleepImpact: number; // 1-5 (수면 영향도 ●●●●○)
   expert: Expert;
   readTime: number; // minutes
   tags: string[];
@@ -25,40 +29,38 @@ export interface Column {
   publishedAt: string;
 }
 
-// 증상 → slug 매핑 (ProblemSection에서 링크 연결용)
-export const symptomSlugMap: Record<string, string> = {
-  '관절통/근육통': 'joint-pain',
-  '수면 장애': 'sleep',
-  '안면 홍조': 'hot-flash',
-  '만성 피로': 'fatigue',
-  '건조함': 'dryness',
-  '브레인 포그': 'brain-fog',
-  '감정 기복': 'mood-swing',
-  '불안감': 'anxiety',
-  '정체성 질문': 'identity',
+// 수면 카테고리 라벨
+export const sleepCategoryLabels: Record<SleepCategory, string> = {
+  'night-waking': '밤에 깨는 이유',
+  'falling-asleep': '잠들기 어려운 밤',
+  'early-waking': '새벽 각성',
+  'morning-fatigue': '아침 피로',
+  'body-signal': '몸의 신호',
+  'mind-sleep': '마음과 수면',
+  'sleep-routine': '숙면 루틴',
 };
 
-export const symptomLabels: Record<string, string> = {
-  'joint-pain': '관절통/근육통',
-  'sleep': '수면 장애',
-  'hot-flash': '안면 홍조',
-  'fatigue': '만성 피로',
-  'dryness': '건조함',
-  'brain-fog': '브레인 포그',
-  'mood-swing': '감정 기복',
-  'anxiety': '불안감',
-  'identity': '정체성 질문',
+// ProblemSection 증상 → sleepCategory 매핑
+export const symptomToSleepCategory: Record<string, SleepCategory> = {
+  '관절통/근육통': 'body-signal',
+  '수면 장애': 'night-waking',
+  '안면 홍조': 'night-waking',
+  '만성 피로': 'morning-fatigue',
+  '건조함': 'body-signal',
+  '브레인 포그': 'mind-sleep',
+  '감정 기복': 'mind-sleep',
+  '불안감': 'falling-asleep',
+  '정체성 질문': 'falling-asleep',
 };
 
 export const columns: Column[] = [
-  // ── 몸의 신호 ──────────────────────────────
+  // ── 아침 피로 / 몸의 신호 ──────────────────────────────
   {
     slug: 'joint-pain-morning-stiffness',
-    title: '아침마다 뻣뻣한 관절, 이 시기의 변화일 수 있어요',
-    subtitle: '에스트로겐 감소와 관절 건강의 관계, 그리고 일상에서 할 수 있는 것들',
-    symptom: '관절통/근육통',
-    symptomSlug: 'joint-pain',
-    category: 'body',
+    title: '아침에 몸이 뻣뻣한 이유, 수면과도 연결됩니다',
+    subtitle: '에스트로겐 감소가 관절과 수면의 질 모두에 영향을 줍니다',
+    sleepCategory: 'morning-fatigue',
+    sleepImpact: 3,
     expert: {
       name: '김서연',
       title: '류마티스내과 전문의',
@@ -83,11 +85,10 @@ export const columns: Column[] = [
   },
   {
     slug: 'joint-pain-exercise-guide',
-    title: '관절 아프다고 운동을 멈추면 안 되는 이유',
-    subtitle: '이 시기 관절통에 좋은 운동 vs 피해야 할 운동',
-    symptom: '관절통/근육통',
-    symptomSlug: 'joint-pain',
-    category: 'body',
+    title: '관절통으로 뒤척이는 밤, 운동이 답인 이유',
+    subtitle: '적절한 운동이 관절 통증과 수면의 질 모두를 개선합니다',
+    sleepCategory: 'sleep-routine',
+    sleepImpact: 3,
     expert: {
       name: '박지현',
       title: '스포츠의학 전문의',
@@ -113,14 +114,13 @@ export const columns: Column[] = [
 하루 30분, 주 3회만 걸어도 관절 건강에 큰 차이가 나요. 작은 것부터 시작해보세요.`,
   },
 
-  // 수면 장애
+  // ── 밤에 깨는 이유 ──────────────────────────────
   {
     slug: 'sleep-night-sweat',
-    title: '새벽 3시에 눈이 번쩍? 이 시기의 수면 변화 이해하기',
+    title: '새벽 3시에 눈이 번쩍 — 중간 각성의 모든 것',
     subtitle: '식은땀, 불면, 이른 기상... 호르몬과 수면의 연결고리',
-    symptom: '수면 장애',
-    symptomSlug: 'sleep',
-    category: 'body',
+    sleepCategory: 'night-waking',
+    sleepImpact: 5,
     expert: {
       name: '이은영',
       title: '수면의학 전문의',
@@ -150,11 +150,10 @@ export const columns: Column[] = [
   },
   {
     slug: 'sleep-supplements-truth',
-    title: '멜라토닌, 마그네슘... 수면 영양제, 정말 효과 있을까?',
-    subtitle: '이 시기 여성을 위한 수면 보조제 팩트체크',
-    symptom: '수면 장애',
-    symptomSlug: 'sleep',
-    category: 'body',
+    title: '수면 영양제, 뭘 먹어야 진짜 효과가 있을까?',
+    subtitle: '멜라토닌, 마그네슘 등 수면 보조제 팩트체크',
+    sleepCategory: 'sleep-routine',
+    sleepImpact: 4,
     expert: {
       name: '정민희',
       title: '약학박사',
@@ -182,14 +181,13 @@ export const columns: Column[] = [
 **핵심 조언**: 영양제는 "보조"예요. 수면 위생(환경, 습관)이 기본이고, 그 위에 영양제가 도움을 줄 수 있어요. 3개월 이상 불면이 지속되면 반드시 전문의 상담을 받으세요.`,
   },
 
-  // 안면 홍조
+  // ── 밤에 깨는 이유 (핫플래시) ──────────────────────────────
   {
     slug: 'hot-flash-understanding',
-    title: '갑자기 확 달아오르는 얼굴, 핫플래시의 모든 것',
-    subtitle: '언제, 왜, 얼마나 지속되는지 — 그리고 대처법',
-    symptom: '안면 홍조',
-    symptomSlug: 'hot-flash',
-    category: 'body',
+    title: '핫플래시 때문에 잠에서 깨는 밤, 대처법 정리',
+    subtitle: '야간 핫플래시가 수면을 방해하는 이유와 즉시 대처법',
+    sleepCategory: 'night-waking',
+    sleepImpact: 4,
     expert: {
       name: '최윤정',
       title: '산부인과 전문의',
@@ -217,14 +215,13 @@ export const columns: Column[] = [
 핫플래시가 심하다면 호르몬 요법도 고려해볼 수 있어요. 전문의와 상담해보세요.`,
   },
 
-  // 만성 피로
+  // ── 아침 피로 ──────────────────────────────
   {
     slug: 'fatigue-not-laziness',
-    title: '쉬어도 충전이 안 되는 피로, 당신 잘못이 아니에요',
-    subtitle: '이 시기의 피로와 일반 피로의 차이, 그리고 에너지 회복법',
-    symptom: '만성 피로',
-    symptomSlug: 'fatigue',
-    category: 'body',
+    title: '자도 자도 피곤한 이유, 수면의 질이 답입니다',
+    subtitle: '이 시기의 피로는 수면의 질 저하에서 시작됩니다',
+    sleepCategory: 'morning-fatigue',
+    sleepImpact: 5,
     expert: {
       name: '한소영',
       title: '가정의학과 전문의',
@@ -258,14 +255,99 @@ export const columns: Column[] = [
 - 오후 2시 이후 카페인 제한`,
   },
 
-  // 건조함
+  // ── 새벽 각성 ──────────────────────────────
+  {
+    slug: 'early-waking-cortisol',
+    title: '새벽 4-5시에 눈이 떠지는 이유, 코르티솔 때문이에요',
+    subtitle: '이른 기상의 원인과 다시 잠드는 실전 방법',
+    sleepCategory: 'early-waking',
+    sleepImpact: 5,
+    expert: {
+      name: '이은영',
+      title: '수면의학 전문의',
+      credential: '분당서울대병원 수면센터',
+    },
+    readTime: 5,
+    tags: ['새벽각성', '코르티솔', '수면리듬', '멜라토닌'],
+    publishedAt: '2026-02-15',
+    content: `알람이 울리기도 전에 새벽 4시, 5시에 눈이 번쩍 떠지는 경험, 점점 잦아지고 있나요?
+
+**왜 새벽에 일찍 깨는 걸까요?**
+
+이 시기에는 두 가지 호르몬 변화가 동시에 일어나요:
+
+1. **멜라토닌 감소** — 수면을 유지하는 힘이 약해져요
+2. **코르티솔 리듬 변화** — 원래 아침 7시쯤 올라가야 할 코르티솔이 새벽 4-5시에 일찍 분비돼요
+
+이 두 가지가 겹치면, 아직 잠이 부족한데도 몸은 "일어날 시간"이라고 착각하는 거예요.
+
+**새벽 각성 vs 불면증, 뭐가 다른가요?**
+
+| 새벽 각성 | 입면 장애 |
+|---------|---------|
+| 잠드는 건 잘 됨 | 잠드는 것 자체가 어려움 |
+| 4-5시에 깨서 다시 못 잠 | 밤 11시-1시에 뒤척임 |
+| 코르티솔 리듬 문제 | 과각성 상태 문제 |
+
+**다시 잠들기 위한 3가지 방법**
+
+1. **시계를 보지 마세요** — 시간을 확인하면 뇌가 계산을 시작해서 더 깨요
+2. **10분 규칙** — 10분 안에 잠이 안 오면 침대에서 나와 어둔 곳에서 조용한 활동을 하세요
+3. **바디 스캔** — 발끝부터 머리까지 천천히 힘을 빼는 이완법을 시도해보세요
+
+**장기적 해결책**
+
+- 저녁 식사는 취침 3시간 전에 마무리
+- 오후 2시 이후 카페인 완전 차단
+- 매일 같은 시간에 기상 (주말 포함)
+- 아침 햇빛 30분 — 멜라토닌-코르티솔 리듬 재설정에 가장 효과적이에요`,
+  },
+  {
+    slug: 'early-waking-what-to-do',
+    title: '새벽에 깨서 잠이 안 올 때, 이 시간을 활용하는 법',
+    subtitle: '억지로 자려 하지 말고, 몸과 마음을 위한 시간으로 바꿔보세요',
+    sleepCategory: 'early-waking',
+    sleepImpact: 3,
+    expert: {
+      name: '김하은',
+      title: 'MBSR(마음챙김) 지도자',
+      credential: '한국MBSR연구소',
+    },
+    readTime: 4,
+    tags: ['새벽각성', '마음챙김', '이완', '수면위생'],
+    publishedAt: '2026-02-16',
+    content: `새벽에 눈이 떠져서 억지로 자려고 뒤척이다 보면, 오히려 스트레스만 쌓이죠. "왜 또 깼지..." 자책하는 순간, 수면은 더 멀어져요.
+
+**발상의 전환: 깨어 있는 시간을 나를 위한 시간으로**
+
+수면 전문가들은 "침대에서 뒤척이는 것이 가장 나쁜 습관"이라고 말해요. 20분 이상 잠이 안 오면, 차라리 일어나서 몸과 마음을 돌보는 시간으로 활용하는 게 나아요.
+
+**새벽 각성 시 추천 활동 (조명은 최소로)**
+
+1. **요가 니드라(Yoga Nidra)** — 누워서 하는 명상이에요. 30분 요가 니드라는 2시간 수면에 해당하는 회복 효과가 있다고 해요
+2. **감사 일기 3줄** — "오늘 감사한 것 3가지"를 적으면 불안한 마음이 안정돼요
+3. **따뜻한 캐모마일 차 한 잔** — 카페인 없이 몸을 이완시켜줘요
+4. **바디 스캔 명상** — 발끝부터 머리까지, 몸의 각 부위에 의식을 보내며 이완하세요
+
+**절대 하지 말아야 할 것**
+
+- 스마트폰 보기 (블루라이트가 멜라토닌을 억제해요)
+- 시계 확인하기 ("4시 30분이네, 2시간밖에 못 자겠다" → 불안 증가)
+- 밝은 조명 켜기 (뇌가 "아침이다"라고 인식해요)
+- 이메일/뉴스 확인 (각성 상태가 올라가요)
+
+**이것만 기억하세요**
+
+새벽에 깨는 것 자체가 문제가 아니에요. 깨었을 때 어떻게 반응하느냐가 수면의 질을 결정해요. 자책 대신 자기 돌봄의 시간으로 바꿔보세요.`,
+  },
+
+  // ── 몸의 신호 ──────────────────────────────
   {
     slug: 'dryness-whole-body',
-    title: '피부도 눈도 입도... 온몸이 마르는 느낌, 이 시기의 건조함',
-    subtitle: '에스트로겐과 수분의 관계, 부위별 관리법',
-    symptom: '건조함',
-    symptomSlug: 'dryness',
-    category: 'body',
+    title: '자고 일어나면 목이 마르고 피부가 당기는 이유',
+    subtitle: '수면 중 건조함이 수면의 질을 떨어뜨리는 메커니즘',
+    sleepCategory: 'body-signal',
+    sleepImpact: 2,
     expert: {
       name: '윤미래',
       title: '피부과 전문의',
@@ -293,14 +375,13 @@ export const columns: Column[] = [
 수분 섭취는 기본! 하루 1.5-2L를 목표로 해보세요.`,
   },
 
-  // ── 마음의 신호 ──────────────────────────────
+  // ── 마음과 수면 ──────────────────────────────
   {
     slug: 'brain-fog-not-dementia',
-    title: '단어가 안 떠오르고 깜빡깜빡... 치매가 아니에요',
-    subtitle: '이 시기 브레인 포그의 원인과 뇌 건강 지키는 법',
-    symptom: '브레인 포그',
-    symptomSlug: 'brain-fog',
-    category: 'mind',
+    title: '머리가 멍한 브레인 포그, 수면 부족이 원인일 수 있어요',
+    subtitle: '수면의 질과 인지 기능의 밀접한 연결고리',
+    sleepCategory: 'mind-sleep',
+    sleepImpact: 4,
     expert: {
       name: '오현주',
       title: '신경과 전문의',
@@ -337,11 +418,10 @@ export const columns: Column[] = [
   },
   {
     slug: 'brain-fog-work-tips',
-    title: '직장에서 브레인 포그, 이렇게 대처하세요',
-    subtitle: '회의, 발표, 업무... 인지 기능 저하를 현명하게 관리하는 법',
-    symptom: '브레인 포그',
-    symptomSlug: 'brain-fog',
-    category: 'mind',
+    title: '수면 부족이 만드는 업무 실수, 현명한 대처법',
+    subtitle: '수면 부족으로 인한 인지 기능 저하를 현명하게 관리하는 법',
+    sleepCategory: 'mind-sleep',
+    sleepImpact: 3,
     expert: {
       name: '김태영',
       title: '직업환경의학 전문의',
@@ -370,14 +450,13 @@ export const columns: Column[] = [
 이런 상황이 **일시적**이라는 걸 기억하세요. 몸이 적응하는 과정이에요.`,
   },
 
-  // 감정 기복
+  // ── 마음과 수면 (감정) ──────────────────────────────
   {
     slug: 'mood-swing-understanding',
-    title: '이유 없이 눈물이 나고, 화가 나고... 나만 이상한 건가요?',
-    subtitle: '이 시기 감정 기복의 과학적 원인과 감정 조절법',
-    symptom: '감정 기복',
-    symptomSlug: 'mood-swing',
-    category: 'mind',
+    title: '잠 못 자면 감정 조절이 안 되는 이유',
+    subtitle: '수면 부족이 감정 기복을 심화시키는 과학적 메커니즘',
+    sleepCategory: 'mind-sleep',
+    sleepImpact: 4,
     expert: {
       name: '장은비',
       title: '정신건강의학과 전문의',
@@ -412,14 +491,13 @@ export const columns: Column[] = [
 이 방법을 매일 연습하면, 감정의 파도 위에서 균형을 잡을 수 있어요.`,
   },
 
-  // 불안감
+  // ── 잠들기 어려운 밤 ──────────────────────────────
   {
     slug: 'anxiety-hormonal-link',
-    title: '괜히 마음이 불안하고 가슴이 두근두근, 호르몬 탓이에요',
-    subtitle: '이 시기 불안장애와 일반 불안의 차이, 그리고 안정법',
-    symptom: '불안감',
-    symptomSlug: 'anxiety',
-    category: 'mind',
+    title: '밤마다 찾아오는 불안, 호르몬과 수면의 연결고리',
+    subtitle: '야간 불안이 입면을 방해하는 이유와 안정법',
+    sleepCategory: 'falling-asleep',
+    sleepImpact: 5,
     expert: {
       name: '신예진',
       title: '정신건강의학과 전문의',
@@ -456,14 +534,13 @@ export const columns: Column[] = [
 이 기법은 뇌를 "지금 여기"로 돌려놓아서 불안의 소용돌이에서 빠져나오게 해줘요.`,
   },
 
-  // 정체성 질문
+  // ── 잠들기 어려운 밤 (정체성) ──────────────────────────────
   {
     slug: 'identity-second-spring',
-    title: '"나는 누구인가"... 이 시기가 가져다주는 깊은 질문',
-    subtitle: '엄마, 아내, 직장인 역할 너머의 "나"를 찾는 여정',
-    symptom: '정체성 질문',
-    symptomSlug: 'identity',
-    category: 'mind',
+    title: '잠 못 드는 밤에 찾아오는 존재의 질문들',
+    subtitle: '밤의 고요함이 불러오는 깊은 생각과 수면의 관계',
+    sleepCategory: 'falling-asleep',
+    sleepImpact: 3,
     expert: {
       name: '류지은',
       title: '임상심리전문가',
@@ -496,11 +573,10 @@ HERLYKKE 커뮤니티에서 비슷한 고민을 나누는 분들을 만나보세
   },
   {
     slug: 'identity-relationship-change',
-    title: '남편이 갑자기 싫어졌다? 갱년기와 관계 변화',
-    subtitle: '부부관계, 친구관계의 변화와 새로운 연결의 시작',
-    symptom: '정체성 질문',
-    symptomSlug: 'identity',
-    category: 'mind',
+    title: '수면 부족이 관계에 미치는 영향',
+    subtitle: '잠 못 자는 밤이 부부관계, 가족관계에 미치는 영향과 대처법',
+    sleepCategory: 'mind-sleep',
+    sleepImpact: 3,
     expert: {
       name: '박소담',
       title: '부부/가족상담 전문가',
@@ -535,14 +611,13 @@ HERLYKKE 커뮤니티에서 비슷한 고민을 나누는 분들을 만나보세
 이 시기의 변화를 파트너에게 설명하는 것도 큰 도움이 돼요. HERLYKKE의 콘텐츠를 함께 읽어보는 것도 좋은 시작이에요.`,
   },
 
-  // 불안감 추가
+  // ── 숙면 루틴 ──────────────────────────────
   {
     slug: 'anxiety-breathing-practice',
-    title: '1분 호흡법으로 불안 다스리기 — 오늘부터 바로 시작',
-    subtitle: '과학적으로 검증된 3가지 호흡 기법',
-    symptom: '불안감',
-    symptomSlug: 'anxiety',
-    category: 'mind',
+    title: '잠들기 전 1분 호흡법, 오늘 밤부터 시작하세요',
+    subtitle: '과학적으로 검증된 3가지 취침 전 호흡 기법',
+    sleepCategory: 'sleep-routine',
+    sleepImpact: 5,
     expert: {
       name: '김하은',
       title: 'MBSR(마음챙김) 지도자',
@@ -580,14 +655,13 @@ HERLYKKE 커뮤니티에서 비슷한 고민을 나누는 분들을 만나보세
 매일 아침 1분, 자기 전 1분. 이것만으로도 불안의 강도가 달라질 거예요.`,
   },
 
-  // 감정 기복 추가
+  // ── 마음과 수면 (가족) ──────────────────────────────
   {
     slug: 'mood-swing-family-guide',
-    title: '가족에게 "나 갱년기야"라고 말하는 법',
-    subtitle: '가족의 이해와 지지를 얻기 위한 현실적인 가이드',
-    symptom: '감정 기복',
-    symptomSlug: 'mood-swing',
-    category: 'mind',
+    title: '잠 못 자는 내 상황, 가족에게 어떻게 말할까',
+    subtitle: '수면 문제와 갱년기 변화를 가족이 이해할 수 있도록 돕는 가이드',
+    sleepCategory: 'mind-sleep',
+    sleepImpact: 2,
     expert: {
       name: '이수현',
       title: '가족치료 전문가',
@@ -622,12 +696,8 @@ HERLYKKE 커뮤니티에서 비슷한 고민을 나누는 분들을 만나보세
 ];
 
 // 카테고리별 필터링 헬퍼
-export function getColumnsBySymptom(symptomSlug: string): Column[] {
-  return columns.filter((c) => c.symptomSlug === symptomSlug);
-}
-
-export function getColumnsByCategory(category: ColumnCategory): Column[] {
-  return columns.filter((c) => c.category === category);
+export function getColumnsBySleepCategory(sleepCategory: SleepCategory): Column[] {
+  return columns.filter((c) => c.sleepCategory === sleepCategory);
 }
 
 export function getColumnBySlug(slug: string): Column | undefined {

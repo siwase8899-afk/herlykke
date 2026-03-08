@@ -1,44 +1,57 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* HERLYKKE 색상 팔레트 - "Soulful Depth" */
-  /* 딥 틸 + 앰버 — 깊이 있고 따뜻한 정체성 */
+  /* HERLYKKE 색상 팔레트 — Calm Wellness Pastel */
+  /* Soft Sage Blue + Calm Lavender + Soft Mint + Light Grey */
 
-  /* Primary - Deep Teal */
-  --color-hlk-primary: #1A6B5A;
-  --color-hlk-primary-light: #E6F5F0;
-  --color-hlk-primary-dark: #0E4D3E;
+  /* Primary - Soft Sage Blue */
+  --color-hlk-primary: #6F9CA6;
+  --color-hlk-primary-light: #C8DFE4;
+  --color-hlk-primary-dark: #5A8590;
 
-  /* Accent - Warm Amber */
-  --color-hlk-accent: #D4850A;
-  --color-hlk-accent-light: #FFF3E0;
-  --color-hlk-accent-dark: #B06E00;
+  /* Accent - Calm Lavender */
+  --color-hlk-accent: #C9A6C9;
+  --color-hlk-accent-light: #E8D6E8;
+  --color-hlk-accent-dark: #A888A8;
 
-  /* Secondary - Warm Charcoal */
-  --color-hlk-secondary: #2D2926;
-  --color-hlk-secondary-light: #E8E4E0;
+  /* Highlight - Soft Mint */
+  --color-hlk-highlight: #B8E0C6;
+  --color-hlk-highlight-soft: #D8F0E2;
 
-  /* Backgrounds */
-  --color-hlk-bg: #FEFCF8;
+  /* Secondary */
+  --color-hlk-secondary: #2F3A3D;
+  --color-hlk-secondary-light: #C8DFE4;
+
+  /* Backgrounds - Warm Light Grey */
+  --color-hlk-bg: #F3F6F7;
   --color-hlk-surface: #ffffff;
-  --color-hlk-surface-warm: #FBF5EC;
+  --color-hlk-surface-warm: #EAF0F2;
 
-  /* Text - Stone undertone */
-  --color-hlk-text: #1C1917;
-  --color-hlk-text-secondary: #57534E;
-  --color-hlk-text-tertiary: #A8A29E;
+  /* Text */
+  --color-hlk-text: #2F3A3D;
+  --color-hlk-text-secondary: #6B7C80;
+  --color-hlk-text-tertiary: #95A3A7;
 
-  /* Border */
-  --color-hlk-border: #E7E5E4;
-  --color-hlk-border-light: #F5F5F4;
+  /* Border - Cool Neutral */
+  --color-hlk-border: #E0E6E8;
+  --color-hlk-border-light: #EDF1F2;
 
   /* Status */
-  --color-hlk-success: #15803D;
-  --color-hlk-error: #DC2626;
-  --color-hlk-warning: #EA580C;
+  --color-hlk-success: #B8E0C6;
+  --color-hlk-error: #D98B8B;
+  --color-hlk-warning: #E0C49A;
 
-  /* 폰트 - 산세리프만 */
+  /* Mesh Gradient - Vibrant Aurora Palette */
+  --color-mesh-sage: #8FA79A;
+  --color-mesh-gold: #F5C46A;
+  --color-mesh-orange: #F47A2A;
+  --color-mesh-coral: #E5531A;
+  --color-mesh-plum: #7A6F73;
+  --color-mesh-rose: #C89A96;
+
+  /* 폰트 */
   --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: 'Nunito', var(--font-sans);
 }
 
 * {
@@ -50,21 +63,21 @@ html {
 }
 
 body {
-  background-color: #FEFCF8;
-  color: #1C1917;
+  background-color: #F3F6F7;
+  color: #2F3A3D;
   line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* C2MTL 인사이트: 헤딩은 타이트한 행간으로 임팩트, 본문은 넉넉한 행간으로 가독성 */
-/* C2MTL은 0.85까지 가지만, HERLYKKE 45-55세 타겟 고려하여 적당히 조임 */
+/* 헤딩: 타이트한 행간 + 볼드 산세리프 → 대담한 임팩트 */
 h1, h2 {
-  line-height: 1.0;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 h3, h4 {
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 /* 40-50대 접근성: 최소 폰트 16px */
@@ -74,13 +87,13 @@ input, textarea, select {
 
 /* Selection */
 ::selection {
-  background-color: #E6F5F0;
-  color: #0E4D3E;
+  background-color: #C8DFE4;
+  color: #5A8590;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #1A6B5A;
+  outline: 2px solid #6F9CA6;
   outline-offset: 2px;
 }
 
@@ -92,6 +105,19 @@ input, textarea, select {
 
 button, a, input {
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* D5: 버튼/링크 press 피드백 */
+button:active, a:active {
+  transform: scale(0.97);
+}
+
+/* D4: 아이콘 호버 bounce */
+.icon-bounce {
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.group:hover .icon-bounce {
+  transform: translateY(-4px);
 }
 
 /* 카드, 섹션 전환 — C2MTL 물리 이징 */
@@ -260,8 +286,7 @@ button, a, input {
 .scroll-progress-bar {
   background: linear-gradient(90deg,
     var(--color-hlk-primary) 0%,
-    var(--color-hlk-accent) 50%,
-    var(--color-hlk-primary) 100%
+    var(--color-hlk-accent) 100%
   );
   background-size: 200% 100%;
   animation: gradientShift 4s ease infinite;
@@ -376,10 +401,35 @@ button, a, input {
   animation: blink 0.8s infinite;
 }
 
+/* ===== CTA Gradient Glow ===== */
+:root {
+  --cta-gradient-angle: 0deg;
+  --cta-gradient: conic-gradient(
+    from var(--cta-gradient-angle) at 52.5% 50%,
+    #5f8f8f 0deg,
+    #c48b8b 90deg,
+    #d4956a 170deg,
+    #e8a07a 232deg,
+    #1e3a5f 290deg,
+    #5f8f8f 360deg
+  );
+}
+
+@property --cta-gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes ctaGlowSpin {
+  from { --cta-gradient-angle: 0deg; }
+  to   { --cta-gradient-angle: 360deg; }
+}
+
 /* ===== CTA 미세 펄스 ===== */
 @keyframes subtlePulse {
-  0%, 100% { box-shadow: 0 10px 15px -3px rgba(212, 133, 10, 0.3); }
-  50% { box-shadow: 0 10px 25px -3px rgba(212, 133, 10, 0.5); }
+  0%, 100% { box-shadow: 0 10px 15px -3px rgba(111, 156, 166, 0.2); }
+  50% { box-shadow: 0 10px 25px -3px rgba(111, 156, 166, 0.35); }
 }
 .animate-subtle-pulse {
   animation: subtlePulse 3s ease-in-out infinite;
@@ -434,6 +484,206 @@ button, a, input {
   font-variant-numeric: tabular-nums;
 }
 
+/* ===== Sleep Wellness Micro-Interactions ===== */
+
+/* ── Breathing Rhythm ── */
+/* 4-7-8 호흡법 기반: 흡입 4s → 유지 7s → 내쉬기 8s (총 19s 사이클, 간소화 8s) */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: scale(1.08);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.04);
+    opacity: 0.7;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 8s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.animate-breathe-slow {
+  animation: breathe 12s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+/* ── Breathing text guide ── */
+@keyframes breatheText {
+  0%, 15%   { opacity: 1; }
+  20%, 55%  { opacity: 0; }
+  60%, 100% { opacity: 1; }
+}
+
+/* ── Soft Float (떠다니는 요소) ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+@keyframes floatXY {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(6px, -8px); }
+  50%  { transform: translate(-4px, -14px); }
+  75%  { transform: translate(-8px, -6px); }
+  100% { transform: translate(0, 0); }
+}
+
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatY 10s ease-in-out infinite;
+}
+
+.animate-float-xy {
+  animation: floatXY 14s ease-in-out infinite;
+}
+
+/* ── Soft Glow Pulse (커뮤니티 반응) ── */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(111, 156, 166, 0);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(111, 156, 166, 0.15);
+  }
+}
+
+@keyframes glowPulseAccent {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(201, 166, 201, 0);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(201, 166, 201, 0.15);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse-accent {
+  animation: glowPulseAccent 3s ease-in-out infinite;
+}
+
+/* ── Reaction pop with glow ── */
+@keyframes reactionPop {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.25); }
+  50%  { transform: scale(0.95); }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-reaction-pop {
+  animation: reactionPop 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ── Moon Phase Rotation ── */
+@keyframes moonCycle {
+  0%   { clip-path: inset(0 50% 0 0); }
+  25%  { clip-path: inset(0 25% 0 0); }
+  50%  { clip-path: inset(0 0 0 0); }
+  75%  { clip-path: inset(0 0 0 25%); }
+  100% { clip-path: inset(0 0 0 50%); }
+}
+
+/* ── Slow Fade In (페이지 진입) ── */
+@keyframes slowFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slow-fade-in {
+  animation: slowFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.animate-slow-fade-in-delay-1 {
+  animation: slowFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.15s both;
+}
+
+.animate-slow-fade-in-delay-2 {
+  animation: slowFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.3s both;
+}
+
+.animate-slow-fade-in-delay-3 {
+  animation: slowFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) 0.45s both;
+}
+
+/* ── Gentle shimmer (차트/카드 배경) ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ── Soft ripple (터치 피드백) ── */
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.4; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ===== Ambient Page Wrapper ===== */
+.ambient-page {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Soft Pulse (카드용 미세 스케일 펄스) ── */
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 2.5s ease-in-out infinite;
+}
+
+/* ===== Soft Shadow System ===== */
+.shadow-soft-sm { box-shadow: 0 1px 3px rgba(111,156,166,0.06), 0 1px 2px rgba(111,156,166,0.04); }
+.shadow-soft    { box-shadow: 0 4px 12px rgba(111,156,166,0.08), 0 1px 3px rgba(111,156,166,0.04); }
+.shadow-soft-md { box-shadow: 0 8px 24px rgba(111,156,166,0.10), 0 2px 6px rgba(111,156,166,0.04); }
+.shadow-soft-lg { box-shadow: 0 16px 40px rgba(111,156,166,0.12), 0 4px 12px rgba(111,156,166,0.04); }
+
+/* ===== Healthcare Provider 카드 인터랙션 ===== */
+.card-healthcare {
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.6s cubic-bezier(0.19, 1, 0.22, 1),
+              border-color 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card-healthcare:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -8px rgba(111, 156, 166, 0.15),
+              0 4px 12px -4px rgba(111, 156, 166, 0.08);
+  border-color: var(--color-hlk-primary-light);
+}
+
 /* ===== C2MTL 인사이트: prefers-reduced-motion 대응 ===== */
 /* 접근성: 모션 감소 설정 시 모든 애니메이션 비활성화 */
 @media (prefers-reduced-motion: reduce) {
@@ -454,4 +704,204 @@ button, a, input {
     opacity: 1;
     transform: none;
   }
+
+  .animate-breathe,
+  .animate-breathe-slow,
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-xy,
+  .animate-glow-pulse,
+  .animate-glow-pulse-accent,
+  .animate-soft-pulse {
+    animation: none !important;
+  }
+
+  /* Disable CTA glow animation */
+  @keyframes ctaGlowSpin { from, to { --cta-gradient-angle: 0deg; } }
+
+  .scroll-progress-bar {
+    display: none;
+  }
+
+  .group:hover .icon-bounce {
+    transform: none;
+  }
+
+  button:active, a:active {
+    transform: none;
+  }
+}
+
+/* ===== Mesh Gradient Hero — Vibrant Aurora ===== */
+
+.mesh-gradient {
+  position: relative;
+  /* Warm luminous base — rich, not grey */
+  background: linear-gradient(
+    160deg,
+    #C4B8A8 0%,
+    #E0C8A8 30%,
+    #D8A880 55%,
+    #C09880 80%,
+    #A89090 100%
+  );
+  overflow: hidden;
+}
+
+/* Blobs: large, saturated, heavily blurred */
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* ── Top-left: Sage Green ── */
+.mesh-blob--sage {
+  width: 65vw;
+  height: 65vw;
+  max-width: 850px;
+  max-height: 850px;
+  background: radial-gradient(circle, #8FA79A 0%, rgba(143,167,154,0.6) 35%, transparent 65%);
+  filter: blur(80px);
+  opacity: 0.9;
+  top: -25%;
+  left: -15%;
+  animation: meshDrift1 22s ease-in-out infinite;
+}
+
+/* ── Top-center: Golden Yellow glow ── */
+.mesh-blob--gold {
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, #F5C46A 0%, rgba(245,196,106,0.6) 30%, transparent 60%);
+  filter: blur(90px);
+  opacity: 0.85;
+  top: -15%;
+  left: 20%;
+  animation: meshDrift5 20s ease-in-out infinite;
+}
+
+/* ── Center: Bright Warm Orange — the vibrant core ── */
+.mesh-blob--orange {
+  width: 50vw;
+  height: 50vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: radial-gradient(circle, #F47A2A 0%, rgba(244,122,42,0.65) 30%, transparent 60%);
+  filter: blur(85px);
+  opacity: 0.85;
+  top: 20%;
+  left: 22%;
+  animation: meshDrift6 18s ease-in-out infinite;
+}
+
+/* ── Bottom-center: Deep Coral Orange ── */
+.mesh-blob--coral {
+  width: 55vw;
+  height: 55vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, #E5531A 0%, rgba(229,83,26,0.55) 30%, transparent 60%);
+  filter: blur(95px);
+  opacity: 0.8;
+  bottom: -18%;
+  left: 15%;
+  animation: meshDrift3 24s ease-in-out infinite;
+}
+
+/* ── Bottom-left: Muted Plum Grey ── */
+.mesh-blob--plum {
+  width: 50vw;
+  height: 50vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: radial-gradient(circle, #7A6F73 0%, rgba(122,111,115,0.5) 35%, transparent 65%);
+  filter: blur(90px);
+  opacity: 0.75;
+  bottom: -10%;
+  left: -12%;
+  animation: meshDrift4 22s ease-in-out infinite;
+}
+
+/* ── Right side: Dusty Rose ── */
+.mesh-blob--rose {
+  width: 60vw;
+  height: 60vw;
+  max-width: 750px;
+  max-height: 750px;
+  background: radial-gradient(circle, #C89A96 0%, rgba(200,154,150,0.55) 35%, transparent 65%);
+  filter: blur(85px);
+  opacity: 0.85;
+  top: 10%;
+  right: -15%;
+  animation: meshDrift2 26s ease-in-out infinite;
+}
+
+/* Slow organic drift — aurora movement */
+@keyframes meshDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5%, 8%) scale(1.06); }
+  66% { transform: translate(-3%, 4%) scale(0.97); }
+}
+
+@keyframes meshDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-6%, 5%) scale(0.95); }
+  66% { transform: translate(4%, -6%) scale(1.04); }
+}
+
+@keyframes meshDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(7%, -4%) scale(1.05); }
+  66% { transform: translate(-5%, 6%) scale(0.96); }
+}
+
+@keyframes meshDrift4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-4%, -5%) scale(1.03); }
+  66% { transform: translate(6%, 3%) scale(0.97); }
+}
+
+@keyframes meshDrift5 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(4%, 5%) scale(1.07); }
+  50% { transform: translate(-3%, -3%) scale(0.96); }
+  75% { transform: translate(-5%, 4%) scale(1.03); }
+}
+
+@keyframes meshDrift6 {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.85; }
+  25% { transform: translate(3%, -5%) scale(1.1); opacity: 0.9; }
+  50% { transform: translate(-4%, 3%) scale(0.94); opacity: 0.75; }
+  75% { transform: translate(-2%, -3%) scale(1.05); opacity: 0.85; }
+}
+
+/* Soft dark overlay — minimal, preserves vibrancy (10–12%) */
+.mesh-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(20, 20, 30, 0.06) 0%,
+    rgba(20, 20, 30, 0.10) 60%,
+    rgba(20, 20, 30, 0.12) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Film grain — 5% for premium organic feel */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: overlay;
 }

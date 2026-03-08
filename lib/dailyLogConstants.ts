@@ -44,13 +44,13 @@ export const MOOD_TAGS = [
   { id: 'frustrated', label: '답답해요', emoji: '😶‍🌫️', tone: 'negative' as const, color: 'bg-stone-100 text-stone-700 border-stone-200' },
 ] as const;
 
-// 컨디션 레벨
+// 아침 컨디션 레벨
 export const CONDITION_LEVELS = [
-  { value: 1, label: '매우 안좋음', emoji: '😫', color: 'bg-red-500' },
-  { value: 2, label: '안좋음', emoji: '😔', color: 'bg-orange-500' },
-  { value: 3, label: '보통', emoji: '😐', color: 'bg-yellow-500' },
-  { value: 4, label: '좋음', emoji: '🙂', color: 'bg-lime-500' },
-  { value: 5, label: '매우 좋음', emoji: '😊', color: 'bg-green-500' },
+  { value: 1, label: '힘들어요', emoji: '😫', color: 'bg-red-500' },
+  { value: 2, label: '안좋아요', emoji: '😔', color: 'bg-orange-500' },
+  { value: 3, label: '보통이에요', emoji: '😐', color: 'bg-yellow-500' },
+  { value: 4, label: '괜찮아요', emoji: '🙂', color: 'bg-lime-500' },
+  { value: 5, label: '상쾌해요', emoji: '😊', color: 'bg-green-500' },
 ] as const;
 
 // 타입 정의

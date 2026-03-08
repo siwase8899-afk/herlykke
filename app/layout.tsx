@@ -1,9 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Nunito } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { LayoutShell } from "@/components/layout/LayoutShell";
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   title: "HERLYKKE - 잠을 되찾는 여정, 혼자 걷지 않아도 됩니다",
@@ -37,7 +44,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
       </head>
-      <body className="antialiased">
+      <body className={`${nunito.variable} antialiased`}>
         <LayoutShell>{children}</LayoutShell>
         <Analytics />
         <SpeedInsights />

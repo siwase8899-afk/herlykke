@@ -8,64 +8,56 @@ export function CTAFooter() {
 
   return (
     <section ref={sectionRef} className={`relative overflow-hidden ${sectionVisible ? 'scroll-visible-scale' : 'scroll-hidden-scale'}`}>
-      <div className="bg-gradient-to-br from-hlk-secondary via-hlk-secondary to-[#3d3835] px-6 md:px-8 py-24 md:py-32">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-hlk-primary/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
+      <div className="bg-hlk-secondary px-6 md:px-8 py-24 md:py-32 relative">
+        {/* Gradient orbs */}
+        <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-hlk-primary/15 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-20%] left-[-10%] w-[300px] h-[300px] bg-hlk-accent/10 rounded-full blur-[80px] pointer-events-none" />
 
         <div className="relative max-w-2xl mx-auto text-center">
-          {/* Step preview */}
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur rounded-full mb-10">
-            <span className="flex items-center gap-2 text-hlk-accent text-sm font-medium">
-              <span className="w-6 h-6 rounded-full bg-hlk-accent flex items-center justify-center text-white text-xs font-bold">1</span>
-              수면 체크인
-            </span>
-            <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="flex items-center gap-2 text-white/70 text-sm">
-              <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">2</span>
-              수면 레시피
-            </span>
-            <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            <span className="flex items-center gap-2 text-white/70 text-sm">
-              <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">3</span>
-              언니 PICK
-            </span>
+          {/* Step chips */}
+          <div className="inline-flex items-center gap-2 mb-10">
+            {['수면 체크인', '수면 레시피', '언니 PICK'].map((label, i) => (
+              <span key={label} className="flex items-center gap-2">
+                {i > 0 && (
+                  <svg className="w-3 h-3 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                )}
+                <span className={`text-xs font-medium px-3 py-1.5 rounded-full ${
+                  i === 0 ? 'bg-hlk-primary/30 text-hlk-primary-light' : 'bg-white/5 text-white/40'
+                }`}>
+                  {label}
+                </span>
+              </span>
+            ))}
           </div>
 
-          <p className="text-hlk-secondary-light mb-3">
-            새벽에 눈이 떠지는 게 나만 그런 게 아니었어요
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
             먼저 겪은 언니들이
             <br />
             기다리고 있어요
           </h2>
-          <p className="text-hlk-secondary-light/80 mb-12">
+
+          <p className="text-white/50 text-lg mb-12 max-w-md mx-auto">
             1분이면 충분해요. 혼자 끙끙대던 밤, 이제 끝내볼까요?
           </p>
 
-          <Link
-            href="/checkin"
-            className="group btn-fill-hover btn-fill-hover--accent inline-flex items-center justify-center px-10 py-5 bg-hlk-accent text-white text-lg font-bold rounded-full hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.97] animate-subtle-pulse"
-          >
-            🌙 지금 내 수면 상태 확인하기
-            <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <Link
+              href="/checkin"
+              className="group inline-flex items-center justify-center gap-2 px-10 py-4 bg-hlk-accent text-white text-lg font-bold rounded-full hover:bg-hlk-accent-dark transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-hlk-accent/20"
+            >
+              내 수면 상태 확인하기
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
 
-          {/* Soft CTA */}
-          <div className="mt-8">
-            <p className="text-sm text-white/50 mb-2">아직 준비가 안 됐다면</p>
             <a
               href="https://open.kakao.com/o/gyF0fwgi"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FEE500] text-[#3C1E1E] text-sm font-medium rounded-full hover:bg-[#FDD835] transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 text-white/50 text-sm font-medium rounded-full border border-white/10 hover:border-white/25 hover:text-white/70 transition-all duration-300"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7-.2.7-.7 2.5-.8 2.9 0 0 0 .1.1.1s.1 0 .2 0c.3-.2 3-2 4.2-2.8.5.1 1 .1 1.6.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/>
@@ -74,32 +66,14 @@ export function CTAFooter() {
             </a>
           </div>
 
-          {/* Trust badges */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-10 text-sm text-hlk-secondary-light/70">
-            <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              설정할 것 없어요
-            </span>
-            <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              3분이면 충분
-            </span>
-            <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              경험을 공유해요
-            </span>
-            <span className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-hlk-accent" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-              언제든 멈출 수 있어요
-            </span>
+          {/* Trust line */}
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/25">
+            {['설정할 것 없어요', '3분이면 충분', '닉네임으로 활동', '언제든 멈출 수 있어요'].map((t, i) => (
+              <span key={t} className="flex items-center gap-3">
+                {i > 0 && <span className="w-1 h-1 rounded-full bg-white/15" />}
+                {t}
+              </span>
+            ))}
           </div>
         </div>
       </div>

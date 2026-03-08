@@ -15,10 +15,10 @@ export type CuratorLevel = 1 | 2 | 3 | 4 | 5;
 
 export const CURATOR_LEVELS: Record<CuratorLevel, { name: string; badge: string; color: string }> = {
   1: { name: '잠 못 자는 중', badge: '🌙', color: '#A8A29E' },
-  2: { name: '잠 되찾는 중', badge: '⭐', color: '#D4850A' },
-  3: { name: '수면 언니', badge: '✨', color: '#1A6B5A' },
-  4: { name: '수면 멘토', badge: '💎', color: '#0E4D3E' },
-  5: { name: '수면 셀러', badge: '👑', color: '#B06E00' },
+  2: { name: '잠 되찾는 중', badge: '⭐', color: '#C98E87' },
+  3: { name: '수면 언니', badge: '✨', color: '#6F9CA6' },
+  4: { name: '수면 멘토', badge: '💎', color: '#5A8590' },
+  5: { name: '수면 셀러', badge: '👑', color: '#A888A8' },
 };
 
 export interface Recipe {

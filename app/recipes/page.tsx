@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { RECIPES, RECIPE_CATEGORIES, getAnniePickRecipes, getRecipesByCategory, RecipeCategory } from '@/lib/recipesData';
 import RecipeCard from '@/components/recipes/RecipeCard';
+import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 
 export default function RecipesPage() {
   const [activeCategory, setActiveCategory] = useState<RecipeCategory>('all');
@@ -13,14 +14,18 @@ export default function RecipesPage() {
   return (
     <div className="min-h-screen bg-hlk-bg">
       {/* 헤더 */}
-      <div className="bg-hlk-primary text-white px-6 pt-16 pb-8">
+      <div className="bg-hlk-primary text-white px-6 pt-16 pb-8 relative overflow-hidden">
+        <FloatingOrbs orbs={[
+          { size: 120, x: '80%', y: '10%', color: 'rgba(255,255,255,0.06)', delay: '0s', duration: '18s' },
+          { size: 80, x: '10%', y: '60%', color: 'rgba(255,255,255,0.04)', delay: '-4s', duration: '22s' },
+        ]} />
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm px-3 py-1.5 rounded-full mb-4">
             <span>✍️</span>
             <span>손글씨 인증 · Real Ink</span>
           </div>
           <h1 className="text-3xl font-bold mb-2">수면 레시피</h1>
-          <p className="text-white/80 leading-relaxed">
+          <p className="text-white/80 leading-relaxed relative z-10">
             손으로 직접 쓴 경험만 올라옵니다.
             <br />
             커뮤니티 공감으로 검증된 레시피예요.

@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { symptomSlugMap } from '@/lib/columnsData';
+import { symptomToSleepCategory } from '@/lib/columnsData';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // 신체적 고충 + 정서적 고충
@@ -86,7 +86,7 @@ export function ProblemSection() {
                     {struggles.body.map((item) => (
                       <Link
                         key={item.symptom}
-                        href={`/columns?category=${symptomSlugMap[item.symptom]}`}
+                        href={`/columns?category=${symptomToSleepCategory[item.symptom]}`}
                         className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-hlk-primary/5 transition-all"
                       >
                         <div className="flex items-center gap-3">
@@ -105,7 +105,7 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="/columns?category=body"
+                    href="/columns?category=body-signal"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-primary hover:text-hlk-primary-dark"
                   >
                     전문가가 알려주는 몸의 변화
@@ -129,7 +129,7 @@ export function ProblemSection() {
                     {struggles.mind.map((item) => (
                       <Link
                         key={item.symptom}
-                        href={`/columns?category=${symptomSlugMap[item.symptom]}`}
+                        href={`/columns?category=${symptomToSleepCategory[item.symptom]}`}
                         className="group/item block rounded-xl px-3 py-2.5 -mx-1 hover:bg-hlk-accent/5 transition-all"
                       >
                         <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ export function ProblemSection() {
                   </div>
                   {/* CTA 링크 */}
                   <Link
-                    href="/columns?category=mind"
+                    href="/columns?category=mind-sleep"
                     className="group/cta flex items-center justify-center gap-1.5 mt-5 pt-4 border-t border-hlk-border-light text-sm font-semibold text-hlk-accent hover:text-hlk-accent-dark"
                   >
                     전문가가 알려주는 마음의 변화

@@ -2,26 +2,28 @@
 
 export const APP_NAME = 'HERLYKKE';
 
-// 색상 팔레트 - "Soulful Depth" (딥 틸 + 앰버 — 깊이 있고 따뜻한)
+// 색상 팔레트 — Calm Wellness Pastel
 export const Colors = {
-  primary: '#1A6B5A',       // Deep Teal (깊이 있는)
-  primaryLight: '#E6F5F0',
-  primaryDark: '#0E4D3E',
-  accent: '#D4850A',        // Warm Amber (따뜻하고 깊은)
-  accentLight: '#FFF3E0',
-  accentDark: '#B06E00',
-  secondary: '#2D2926',     // Warm Charcoal (세련됨)
-  secondaryLight: '#E8E4E0',
-  background: '#FEFCF8',
+  primary: '#6F9CA6',       // Soft Sage Blue
+  primaryLight: '#C8DFE4',
+  primaryDark: '#5A8590',
+  accent: '#C9A6C9',        // Calm Lavender
+  accentLight: '#E8D6E8',
+  accentDark: '#A888A8',
+  highlight: '#B8E0C6',     // Soft Mint
+  highlightSoft: '#D8F0E2',
+  secondary: '#2F3A3D',
+  secondaryLight: '#C8DFE4',
+  background: '#F3F6F7',
   surface: '#FFFFFF',
-  surfaceWarm: '#FBF5EC',
-  text: '#1C1917',
-  textSecondary: '#57534E',
-  textTertiary: '#A8A29E',
-  border: '#E7E5E4',
-  error: '#DC2626',
-  success: '#15803D',
-  warning: '#EA580C',
+  surfaceWarm: '#EAF0F2',
+  text: '#2F3A3D',
+  textSecondary: '#6B7C80',
+  textTertiary: '#95A3A7',
+  border: '#E0E6E8',
+  error: '#D98B8B',
+  success: '#B8E0C6',
+  warning: '#E0C49A',
 } as const;
 
 // 인증 레벨

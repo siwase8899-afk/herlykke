@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { GlowReaction } from '@/components/ui/GlowReaction';
+import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
 
 type TabId = 'checkin' | 'talk' | 'recipes';
 
@@ -11,7 +14,6 @@ const TABS: { id: TabId; emoji: string; label: string }[] = [
   { id: 'recipes', emoji: '✨', label: '언니 PICK' },
 ];
 
-// 데모 체크인 스트림
 const DEMO_CHECKINS = [
   { nickname: '달빛요정', score: 3, tag: '#새벽각성', time: '1분 전', emoji: '😮‍💨' },
   { nickname: '수면탐정', score: 4, tag: '#족욕후', time: '5분 전', emoji: '😊' },
@@ -20,15 +22,49 @@ const DEMO_CHECKINS = [
   { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전', emoji: '🥰' },
 ];
 
-// 데모 토크방 게시글
 const DEMO_POSTS = [
-  { nickname: '허브덕후', content: '발레리안 루트 차 진짜 효과 있는 분 계세요? 저는 2주 됐는데 조금씩 나아지는 것 같아서요...', time: '10분 전', replies: 7, likes: 12 },
-  { nickname: '요가언니45', content: '자기 전 다리 올리기 자세 해보신 분? 처음엔 이상했는데 이게 진짜 잠이 잘 와요. 10분만 해봐요!', time: '25분 전', replies: 15, likes: 31 },
-  { nickname: '새벽3시단골', content: '남편이 왜 새벽에 자꾸 깨냐고 해서... 속상했는데 여기 오니까 다들 비슷하시더라고요. 저만이 아니었어요 😭', time: '42분 전', replies: 23, likes: 67 },
-  { nickname: '수면일기마니아', content: '수면 일기 쓴 지 한 달 됐는데요. 커피 오후 1시 이후로 끊었더니 새벽 각성이 확 줄었어요!', time: '1시간 전', replies: 9, likes: 44 },
+  {
+    nickname: '허브덕후',
+    content: '발레리안 루트 차 진짜 효과 있는 분 계세요? 저는 2주 됐는데 조금씩 나아지는 것 같아서요...',
+    time: '10분 전', replies: 7,
+    reactions: [
+      { emoji: '😢', label: '공감', count: 12 },
+      { emoji: '🫶', label: '안아줘요', count: 5 },
+      { emoji: '💪', label: '힘내요', count: 8 },
+    ],
+  },
+  {
+    nickname: '요가언니45',
+    content: '자기 전 다리 올리기 자세 해보신 분? 처음엔 이상했는데 이게 진짜 잠이 잘 와요. 10분만 해봐요!',
+    time: '25분 전', replies: 15,
+    reactions: [
+      { emoji: '🙋', label: '나도!', count: 31 },
+      { emoji: '🙏', label: '고마워요', count: 14 },
+      { emoji: '💪', label: '힘내요', count: 6 },
+    ],
+  },
+  {
+    nickname: '새벽3시단골',
+    content: '남편이 왜 새벽에 자꾸 깨냐고 해서... 속상했는데 여기 오니까 다들 비슷하시더라고요. 저만이 아니었어요',
+    time: '42분 전', replies: 23,
+    reactions: [
+      { emoji: '😢', label: '공감', count: 67 },
+      { emoji: '🫶', label: '안아줘요', count: 42 },
+      { emoji: '🙋', label: '나도!', count: 28 },
+    ],
+  },
+  {
+    nickname: '수면일기마니아',
+    content: '수면 일기 쓴 지 한 달 됐는데요. 커피 오후 1시 이후로 끊었더니 새벽 각성이 확 줄었어요!',
+    time: '1시간 전', replies: 9,
+    reactions: [
+      { emoji: '🙏', label: '고마워요', count: 44 },
+      { emoji: '🙋', label: '나도!', count: 19 },
+      { emoji: '💪', label: '힘내요', count: 11 },
+    ],
+  },
 ];
 
-// 데모 언니 PICK 레시피 (간략 버전)
 const DEMO_PICKS = [
   { id: 'r01', emoji: '🌿', title: '마그네슘 + 족욕으로 새벽 각성 없앤 방법', curator: '잠꾸러기탈출', likes: 124 },
   { id: 'r06', emoji: '🧘‍♀️', title: '4-7-8 호흡법으로 새벽에 깼을 때 다시 잠드는 방법', curator: '숨쉬는여자', likes: 78 },
@@ -36,7 +72,7 @@ const DEMO_PICKS = [
   { id: 'r02', emoji: '🌙', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가언니45', likes: 89 },
 ];
 
-// 수면 체크인 입력
+// Sleep checkin widget
 function SleepCheckinWidget() {
   const [score, setScore] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -51,7 +87,7 @@ function SleepCheckinWidget() {
 
   if (submitted) {
     return (
-      <div className="bg-hlk-primary-light rounded-2xl p-5 text-center">
+      <div className="bg-hlk-primary-light rounded-2xl p-5 text-center animate-scale-in">
         <div className="text-3xl mb-2">{SCORES.find((s) => s.value === score)?.emoji}</div>
         <p className="font-semibold text-hlk-primary">오늘 수면 기록 완료!</p>
         <p className="text-sm text-hlk-text-secondary mt-1">수면 점수 {score}/5점</p>
@@ -67,7 +103,7 @@ function SleepCheckinWidget() {
           <button
             key={s.value}
             onClick={() => setScore(s.value)}
-            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all ${
+            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all duration-200 ${
               score === s.value ? 'bg-hlk-primary-light scale-110' : 'hover:bg-hlk-surface-warm'
             }`}
           >
@@ -93,18 +129,28 @@ function SleepCheckinWidget() {
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState<TabId>('checkin');
+  const [activeReactions, setActiveReactions] = useState<Record<string, boolean>>({});
+
+  const toggleReaction = (postIdx: number, reactionIdx: number) => {
+    const key = `${postIdx}-${reactionIdx}`;
+    setActiveReactions((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
-      {/* 헤더 */}
-      <div className="bg-gradient-to-r from-hlk-primary to-hlk-primary-dark text-white px-6 pt-16 pb-6">
-        <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl font-bold mb-1">갱년기 동기 커뮤니티</h1>
-          <p className="text-white/80 text-sm">나만 이런 게 아니었어요. 여기 다들 있어요.</p>
+    <div className="min-h-screen bg-hlk-bg relative">
+      <FloatingOrbs />
+      {/* Header with animated moon */}
+      <div className="bg-gradient-to-r from-hlk-primary to-hlk-primary-dark text-white px-6 pt-16 pb-6 relative overflow-hidden">
+        <div className="absolute top-4 right-6 opacity-30">
+          <SleepCycleViz quality={75} size={48} />
+        </div>
+        <div className="max-w-2xl mx-auto relative">
+          <h1 className="text-2xl font-bold mb-1 animate-slow-fade-in">수면 커뮤니티</h1>
+          <p className="text-white/80 text-sm animate-slow-fade-in-delay-1">나만 이런 게 아니었어요. 여기 다들 있어요.</p>
         </div>
       </div>
 
-      {/* 탭 네비 */}
+      {/* Tab nav */}
       <div className="sticky top-0 bg-hlk-bg/95 backdrop-blur-sm border-b border-hlk-border z-10">
         <div className="max-w-2xl mx-auto px-6">
           <div className="flex">
@@ -112,7 +158,7 @@ export default function CommunityPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 flex items-center justify-center gap-1.5 py-4 text-sm font-medium border-b-2 transition-all duration-200 ${
+                className={`flex-1 flex items-center justify-center gap-1.5 py-4 text-sm font-medium border-b-2 transition-all duration-300 ${
                   activeTab === tab.id
                     ? 'border-hlk-primary text-hlk-primary'
                     : 'border-transparent text-hlk-text-secondary hover:text-hlk-text'
@@ -127,19 +173,26 @@ export default function CommunityPage() {
       </div>
 
       <div className="max-w-2xl mx-auto px-6 py-6">
-        {/* 🌙 오늘 수면 어때요? */}
+        {/* Sleep checkin tab */}
         {activeTab === 'checkin' && (
-          <div>
-            {/* 수면 체크인 입력 */}
+          <div className="animate-slow-fade-in">
             <SleepCheckinWidget />
 
             <div className="mt-6">
-              <h2 className="text-sm font-semibold text-hlk-text-secondary mb-3">지금 이 순간 체크인 중 💤</h2>
+              <div className="flex items-center gap-2 mb-3">
+                <h2 className="text-sm font-semibold text-hlk-text-secondary">지금 이 순간 체크인 중</h2>
+                <div className="flex gap-0.5">
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-hlk-primary" />
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-hlk-primary" />
+                  <span className="typing-dot w-1.5 h-1.5 rounded-full bg-hlk-primary" />
+                </div>
+              </div>
               <div className="space-y-3">
                 {DEMO_CHECKINS.map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 bg-hlk-surface rounded-xl px-4 py-3 border border-hlk-border"
+                    className="flex items-center gap-3 bg-hlk-surface rounded-xl px-4 py-3 border border-hlk-border animate-slow-fade-in"
+                    style={{ animationDelay: `${i * 0.08}s` }}
                   >
                     <span className="text-2xl">{item.emoji}</span>
                     <div className="flex-1">
@@ -153,9 +206,10 @@ export default function CommunityPage() {
                         {Array.from({ length: 5 }).map((_, j) => (
                           <div
                             key={j}
-                            className={`w-3 h-1.5 rounded-full ${
+                            className={`w-3 h-1.5 rounded-full transition-all duration-500 ${
                               j < item.score ? 'bg-hlk-primary' : 'bg-hlk-border'
                             }`}
+                            style={{ transitionDelay: `${j * 50}ms` }}
                           />
                         ))}
                       </div>
@@ -166,9 +220,8 @@ export default function CommunityPage() {
               </div>
             </div>
 
-            {/* 개인 수면 일기 안내 */}
             <div className="mt-6 bg-hlk-surface-warm rounded-2xl p-5 border border-hlk-border">
-              <p className="text-sm font-semibold text-hlk-text mb-1">🌱 수면 기록이 쌓이면</p>
+              <p className="text-sm font-semibold text-hlk-text mb-1">수면 기록이 쌓이면</p>
               <p className="text-xs text-hlk-text-secondary leading-relaxed">
                 나의 수면 패턴을 발견할 수 있어요. 어떤 방법이 효과 있었는지도 보여요.
                 30일이 쌓이면 언니 PICK에 도전해볼 수 있어요.
@@ -177,19 +230,21 @@ export default function CommunityPage() {
           </div>
         )}
 
-        {/* 💬 수면 고민 & 경험 */}
+        {/* Talk tab — with GlowReaction */}
         {activeTab === 'talk' && (
-          <div>
-            {/* 글쓰기 버튼 */}
+          <div className="animate-slow-fade-in">
             <button className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors">
               <span className="text-lg">✏️</span>
               <span>수면 고민이나 경험을 나눠보세요...</span>
             </button>
 
-            {/* 게시글 목록 */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               {DEMO_POSTS.map((post, i) => (
-                <div key={i} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/20 transition-colors">
+                <div
+                  key={i}
+                  className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/20 transition-all duration-300 animate-slow-fade-in"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center text-sm">
                       🌙
@@ -197,18 +252,30 @@ export default function CommunityPage() {
                     <span className="text-sm font-medium text-hlk-text">{post.nickname}</span>
                     <span className="text-xs text-hlk-text-tertiary ml-auto">{post.time}</span>
                   </div>
-                  <p className="text-sm text-hlk-text leading-relaxed mb-3">{post.content}</p>
-                  <div className="flex items-center gap-4 text-xs text-hlk-text-tertiary">
-                    <span>💬 댓글 {post.replies}</span>
-                    <span>❤️ 공감 {post.likes}</span>
+                  <p className="text-sm text-hlk-text leading-relaxed mb-4">{post.content}</p>
+
+                  {/* Glow reactions */}
+                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-hlk-border/40">
+                    {post.reactions.map((reaction, j) => (
+                      <GlowReaction
+                        key={j}
+                        emoji={reaction.emoji}
+                        label={reaction.label}
+                        count={reaction.count + (activeReactions[`${i}-${j}`] ? 1 : 0)}
+                        active={!!activeReactions[`${i}-${j}`]}
+                        onToggle={() => toggleReaction(i, j)}
+                      />
+                    ))}
+                    <span className="text-xs text-hlk-text-tertiary ml-auto">
+                      💬 {post.replies}
+                    </span>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* 카카오 오픈채팅 안내 */}
             <div className="mt-6 bg-yellow-50 rounded-2xl p-5 border border-yellow-200">
-              <p className="font-semibold text-yellow-800 mb-1">💛 카카오 오픈채팅도 있어요</p>
+              <p className="font-semibold text-yellow-800 mb-1">카카오 오픈채팅도 있어요</p>
               <p className="text-sm text-yellow-700 leading-relaxed mb-3">
                 더 실시간으로 이야기하고 싶다면 카카오 오픈채팅방으로 오세요.
               </p>
@@ -219,20 +286,25 @@ export default function CommunityPage() {
           </div>
         )}
 
-        {/* ✨ 언니 PICK 레시피 */}
+        {/* Recipes tab */}
         {activeTab === 'recipes' && (
-          <div>
+          <div className="animate-slow-fade-in">
             <div className="flex items-center gap-2 mb-2">
               <h2 className="font-bold text-hlk-text">커뮤니티가 선정한 레시피</h2>
             </div>
             <p className="text-sm text-hlk-text-secondary mb-6">
-              공감 50개 이상이 모인 레시피만 올라와요. 플랫폼이 아닌 동기들이 골랐어요.
+              공감 50개 이상이 모인 레시피만 올라와요. 동기들이 골랐어요.
             </p>
 
             <div className="space-y-3">
               {DEMO_PICKS.map((pick, i) => (
-                <Link key={pick.id} href={`/recipes/${pick.id}`}>
-                  <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/30 hover:shadow-sm transition-all flex items-center gap-4">
+                <Link
+                  key={pick.id}
+                  href={`/recipes/${pick.id}`}
+                  className="block animate-slow-fade-in"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/30 hover:shadow-sm transition-all duration-300 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center text-2xl flex-shrink-0">
                       {pick.emoji}
                     </div>
@@ -242,10 +314,15 @@ export default function CommunityPage() {
                       </p>
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-hlk-text-tertiary">{pick.curator}</span>
-                        <span className="text-xs text-hlk-text-secondary ml-auto">❤️ {pick.likes}</span>
+                        <span className="text-xs text-hlk-text-secondary ml-auto flex items-center gap-1">
+                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                          </svg>
+                          {pick.likes}
+                        </span>
                       </div>
                     </div>
-                    <span className="text-xs bg-hlk-accent text-white px-2 py-1 rounded-full font-medium flex-shrink-0">
+                    <span className="text-xs bg-hlk-highlight text-hlk-text px-2.5 py-1 rounded-full font-bold flex-shrink-0">
                       PICK
                     </span>
                   </div>
@@ -253,7 +330,6 @@ export default function CommunityPage() {
               ))}
             </div>
 
-            {/* 레시피 업로드 CTA */}
             <div className="mt-6 bg-hlk-primary-light rounded-2xl p-5 text-center border border-hlk-primary/20">
               <div className="text-2xl mb-2">✍️</div>
               <p className="font-semibold text-hlk-text mb-1">나의 수면 레시피 올리기</p>

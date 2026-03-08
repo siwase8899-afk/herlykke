@@ -67,8 +67,8 @@ function LogDashboardContent() {
               <span className="text-xl">🎉</span>
             </div>
             <div>
-              <p className="font-semibold text-green-800">기록 완료!</p>
-              <p className="text-sm text-green-600">오늘도 잘 기록했어요</p>
+              <p className="font-semibold text-green-800">수면 일지 완료!</p>
+              <p className="text-sm text-green-600">오늘도 잘 기록했어요 🌙</p>
             </div>
           </div>
         )}
@@ -93,10 +93,10 @@ function LogDashboardContent() {
         <div className="mb-8">
           <p className="text-sm text-hlk-text-tertiary mb-1">{dateStr}</p>
           <h1 className="text-2xl font-bold text-hlk-text mb-1">
-            나를 돌보기 💚
+            수면 일지 🌙
           </h1>
           <p className="text-sm text-hlk-text-secondary">
-            매일 3분, 몸과 마음을 체크인해요
+            매일 3분, 어젯밤 수면을 기록해요
           </p>
         </div>
 
@@ -113,8 +113,8 @@ function LogDashboardContent() {
                     </svg>
                   </div>
                   <div>
-                    <p className="font-semibold text-hlk-text">오늘 기록 완료!</p>
-                    <p className="text-sm text-hlk-text-tertiary">수고했어요 💚</p>
+                    <p className="font-semibold text-hlk-text">오늘 수면 일지 완료!</p>
+                    <p className="text-sm text-hlk-text-tertiary">수고했어요 🌙</p>
                   </div>
                 </div>
                 <Link
@@ -128,7 +128,7 @@ function LogDashboardContent() {
               {/* 오늘 기록 요약 */}
               <div className="bg-hlk-bg rounded-xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-hlk-text-tertiary">기분</span>
+                  <span className="text-sm text-hlk-text-tertiary">아침 컨디션</span>
                   <span className="text-xl">
                     {MOOD_OPTIONS.find((m) => m.value === todayLog.mood)?.emoji}
                   </span>
@@ -164,10 +164,10 @@ function LogDashboardContent() {
             // 오늘 기록 안 함
             <div className="text-center py-4">
               <div className="w-16 h-16 rounded-full bg-hlk-primary-light flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">📝</span>
+                <span className="text-3xl">🌙</span>
               </div>
               <h2 className="text-lg font-bold text-hlk-text mb-2">
-                오늘의 기록을 시작해볼까요?
+                어젯밤 수면을 기록해볼까요?
               </h2>
               <p className="text-sm text-hlk-text-secondary mb-6">
                 3분이면 충분해요
@@ -176,7 +176,7 @@ function LogDashboardContent() {
                 href="/log/new"
                 className="inline-flex items-center justify-center w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 active:scale-[0.98] transition-all shadow-lg shadow-hlk-accent/30"
               >
-                오늘 기록하기
+                수면 기록하기
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -189,7 +189,7 @@ function LogDashboardContent() {
         <div className="bg-gradient-to-r from-hlk-accent to-amber-500 rounded-2xl p-6 text-white mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white/80 text-sm mb-1">연속 기록</p>
+              <p className="text-white/80 text-sm mb-1">연속 수면 기록</p>
               <p className="text-4xl font-black">{streakCount}일</p>
             </div>
             <div className="text-5xl">🔥</div>
@@ -197,14 +197,14 @@ function LogDashboardContent() {
           {streakCount >= 7 && (
             <div className="mt-4 pt-4 border-t border-white/20">
               <p className="text-sm text-white/90">
-                🎉 7일 연속 달성! 패턴 리포트가 열렸어요
+                🎉 7일 연속 달성! 수면 패턴 리포트가 열렸어요
               </p>
             </div>
           )}
           {streakCount > 0 && streakCount < 7 && (
             <div className="mt-4 pt-4 border-t border-white/20">
               <p className="text-sm text-white/90">
-                {7 - streakCount}일 더 기록하면 패턴 리포트가 열려요
+                {7 - streakCount}일 더 기록하면 수면 패턴 리포트가 열려요
               </p>
               <div className="mt-2 h-2 bg-white/20 rounded-full overflow-hidden">
                 <div
@@ -219,8 +219,8 @@ function LogDashboardContent() {
         {/* 컨디션 변화 추적 - 최근 7일 기분 트렌드 */}
         {recentLogs.length >= 2 && (
           <div className="bg-white rounded-2xl p-6 border border-hlk-border mb-6">
-            <h3 className="font-semibold text-hlk-text mb-1">컨디션 변화</h3>
-            <p className="text-xs text-hlk-text-tertiary mb-4">최근 {recentLogs.length}일간 기분 추이</p>
+            <h3 className="font-semibold text-hlk-text mb-1">아침 컨디션 변화</h3>
+            <p className="text-xs text-hlk-text-tertiary mb-4">최근 {recentLogs.length}일간 기상 후 컨디션</p>
             <div className="flex items-end justify-between gap-1 h-24 px-2">
               {[...recentLogs].reverse().map((log) => {
                 const mood = log.mood;
@@ -254,7 +254,7 @@ function LogDashboardContent() {
               return (
                 <div className="mt-4 pt-3 border-t border-hlk-border flex items-center justify-between">
                   <div className="text-sm text-hlk-text-secondary">
-                    평균 기분: <span className="font-semibold text-hlk-primary">{avgMood.toFixed(1)}</span>/5
+                    평균 컨디션: <span className="font-semibold text-hlk-primary">{avgMood.toFixed(1)}</span>/5
                   </div>
                   <div className="text-sm">
                     {trend > 0 ? (
@@ -321,8 +321,8 @@ function LogDashboardContent() {
                         </p>
                         <p className="text-xs text-hlk-text-tertiary">
                           {log.symptoms.length > 0
-                            ? `증상 ${log.symptoms.length}개`
-                            : '증상 없음'}
+                            ? `야간 증상 ${log.symptoms.length}개`
+                            : '방해 증상 없음'}
                         </p>
                       </div>
                     </div>
@@ -359,9 +359,9 @@ function LogDashboardContent() {
               아직 기록이 없어요
             </h3>
             <p className="text-sm text-hlk-text-secondary">
-              첫 기록을 시작해보세요!
+              첫 수면 기록을 시작해보세요!
               <br />
-              7일 연속 기록하면 패턴 리포트를 볼 수 있어요
+              7일 연속 기록하면 수면 패턴 리포트를 볼 수 있어요
             </p>
           </div>
         )}
@@ -375,7 +375,7 @@ function LogDashboardContent() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
-            내 패턴 분석 보러가기
+            내 수면 패턴 분석 보러가기
           </Link>
         </div>
       </div>

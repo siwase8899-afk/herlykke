@@ -44,7 +44,7 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
             style={{
               width: `${Math.max(percentage, 2)}%`,
               background: result.level === 'normal' ? '#15803D'
-                : result.level === 'mild' ? '#1A6B5A'
+                : result.level === 'mild' ? '#6F9CA6'
                 : result.level === 'moderate' ? '#EA580C'
                 : '#DC2626',
             }}

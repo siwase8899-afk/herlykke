@@ -1,10 +1,7 @@
 import Link from 'next/link';
-import { columns, getColumnBySlug, getColumnsBySymptom } from '@/lib/columnsData';
+import { columns, getColumnBySlug, getColumnsBySleepCategory, sleepCategoryLabels } from '@/lib/columnsData';
 import { notFound } from 'next/navigation';
 import { ColumnCTA } from '@/components/columns/ColumnCTA';
-
-// Elektra 인사이트: 전문가 권위 + 콘텐츠 하단 CTA
-// Flo 인사이트: 관련 콘텐츠 추천 → 체류 시간 증가
 
 export function generateStaticParams() {
   return columns.map((column) => ({
@@ -24,8 +21,8 @@ export default async function ColumnDetailPage({
     notFound();
   }
 
-  // 같은 증상의 다른 컬럼 (현재 글 제외)
-  const relatedColumns = getColumnsBySymptom(column.symptomSlug).filter(
+  // 같은 sleepCategory의 다른 컬럼 (현재 글 제외)
+  const relatedColumns = getColumnsBySleepCategory(column.sleepCategory).filter(
     (c) => c.slug !== column.slug
   );
 
@@ -39,14 +36,14 @@ export default async function ColumnDetailPage({
         <div className="max-w-3xl mx-auto px-6 md:px-8 py-4">
           <div className="flex items-center gap-2 text-sm">
             <Link href="/columns" className="text-hlk-text-tertiary hover:text-hlk-primary transition-colors">
-              전문가 컬럼
+              수면 회복 가이드
             </Link>
             <span className="text-hlk-text-tertiary">/</span>
             <Link
-              href={`/columns?category=${column.symptomSlug}`}
+              href={`/columns?category=${column.sleepCategory}`}
               className="text-hlk-text-tertiary hover:text-hlk-primary transition-colors"
             >
-              {column.symptom}
+              {sleepCategoryLabels[column.sleepCategory]}
             </Link>
           </div>
         </div>
@@ -57,14 +54,8 @@ export default async function ColumnDetailPage({
         <header className="pt-10 pb-8 border-b border-hlk-border">
           {/* Category + Read time */}
           <div className="flex items-center gap-3 mb-5">
-            <span
-              className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                column.category === 'body'
-                  ? 'bg-hlk-primary/10 text-hlk-primary'
-                  : 'bg-hlk-accent/10 text-hlk-accent'
-              }`}
-            >
-              {column.symptom}
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-hlk-primary/10 text-hlk-primary">
+              {sleepCategoryLabels[column.sleepCategory]}
             </span>
             <span className="text-sm text-hlk-text-tertiary">{column.readTime}분 읽기</span>
           </div>
@@ -78,6 +69,21 @@ export default async function ColumnDetailPage({
           <p className="text-lg text-hlk-text-secondary leading-relaxed">
             {column.subtitle}
           </p>
+
+          {/* Sleep Impact */}
+          <div className="flex items-center gap-2 mt-4">
+            <span className="text-sm text-hlk-text-tertiary">수면 영향도</span>
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <span
+                  key={i}
+                  className={`inline-block w-2.5 h-2.5 rounded-full ${
+                    i <= column.sleepImpact ? 'bg-hlk-primary' : 'bg-hlk-border'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
 
           {/* Expert Card */}
           <div className="mt-8 flex items-center gap-4 p-5 bg-white rounded-xl border border-hlk-border">
@@ -115,14 +121,14 @@ export default async function ColumnDetailPage({
           ))}
         </div>
 
-        {/* Inline CTA — Elektra: 콘텐츠 끝에 항상 다음 액션 */}
-        <ColumnCTA symptomName={column.symptom} />
+        {/* Inline CTA */}
+        <ColumnCTA symptomName={sleepCategoryLabels[column.sleepCategory]} />
 
-        {/* Related Columns — Flo: 관련 콘텐츠로 체류시간 증가 */}
+        {/* Related Columns — 같은 sleepCategory 기준 */}
         {relatedColumns.length > 0 && (
           <div className="pb-12">
             <h3 className="text-lg font-bold text-hlk-text mb-5">
-              {column.symptom} 관련 다른 전문가 컬럼
+              {sleepCategoryLabels[column.sleepCategory]} 관련 다른 가이드
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {relatedColumns.map((related) => (
@@ -154,7 +160,7 @@ export default async function ColumnDetailPage({
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            전체 전문가 컬럼 목록으로
+            전체 수면 회복 가이드 목록으로
           </Link>
         </div>
       </article>
