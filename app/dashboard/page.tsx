@@ -17,11 +17,11 @@ import { ConciergeCard } from '@/components/concierge/ConciergeCard';
 
 // 데모 데이터
 const DEMO_LOGS = [
-  { log_date: '2026-02-14', overall_condition: 4, symptoms: ['fatigue'], mood_tags: ['calm'], sleep_hours: 7, sleep_quality: 4 },
-  { log_date: '2026-02-13', overall_condition: 3, symptoms: ['hot_flash', 'insomnia'], mood_tags: ['tired'], sleep_hours: 5, sleep_quality: 2 },
-  { log_date: '2026-02-12', overall_condition: 4, symptoms: ['fatigue'], mood_tags: ['happy'], sleep_hours: 7.5, sleep_quality: 4 },
-  { log_date: '2026-02-11', overall_condition: 2, symptoms: ['mood_swing', 'anxiety'], mood_tags: ['anxious'], sleep_hours: 4.5, sleep_quality: 1 },
-  { log_date: '2026-02-10', overall_condition: 3, symptoms: ['brain_fog'], mood_tags: ['tired'], sleep_hours: 6, sleep_quality: 3 },
+  { log_date: '2026-05-31', overall_condition: 4, symptoms: ['fatigue'], mood_tags: ['calm'], sleep_hours: 7, sleep_quality: 4 },
+  { log_date: '2026-05-30', overall_condition: 3, symptoms: ['hot_flash', 'insomnia'], mood_tags: ['tired'], sleep_hours: 5, sleep_quality: 2 },
+  { log_date: '2026-05-29', overall_condition: 4, symptoms: ['fatigue'], mood_tags: ['happy'], sleep_hours: 7.5, sleep_quality: 4 },
+  { log_date: '2026-05-28', overall_condition: 2, symptoms: ['mood_swing', 'anxiety'], mood_tags: ['anxious'], sleep_hours: 4.5, sleep_quality: 1 },
+  { log_date: '2026-05-27', overall_condition: 3, symptoms: ['brain_fog'], mood_tags: ['tired'], sleep_hours: 6, sleep_quality: 3 },
 ];
 
 const SLEEP_EMOJIS = [
