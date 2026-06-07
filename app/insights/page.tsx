@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLogStore } from '@/stores/logStore';
+import { useAuth } from '@/lib/authContext';
 import { DailyLog } from '@/lib/logTypes';
 import {
   calculateMoodTrend,
@@ -119,23 +120,39 @@ const DEMO_LOGS: DailyLog[] = [
 type Tab = 'report' | 'change' | 'tips';
 
 export default function InsightsPage() {
-  const { logs, getTodayLog } = useLogStore();
+  const { logs, getTodayLog, loadFromServer } = useLogStore();
+  const { user, isLoggedIn, isDemo } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [hydrating, setHydrating] = useState(false);
   const [showDemo, setShowDemo] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('report');
 
+  const isRealUser = isLoggedIn && !isDemo;
+
   useEffect(() => {
     setMounted(true);
-    // 실제 데이터가 없으면 데모 자동 활성화
-    if (logs.length === 0) {
+  }, []);
+
+  // 로그인한 실제 사용자는 서버에서 수면 로그를 불러와 localStorage와 병합
+  useEffect(() => {
+    if (isRealUser && user) {
+      setHydrating(true);
+      loadFromServer(user.id).finally(() => setHydrating(false));
+    }
+  }, [isRealUser, user, loadFromServer]);
+
+  // 게스트/미설정 환경에서만 데모 미리보기 기본 ON. 실제 사용자는 항상 OFF(자신의 데이터, 부족 시 잠금 UI)
+  useEffect(() => {
+    if (isRealUser) {
+      setShowDemo(false);
+    } else if (logs.length === 0) {
       setShowDemo(true);
     }
-  }, [logs.length]);
+  }, [isRealUser, logs.length]);
 
-  // 데모 모드일 때는 데모 데이터 사용
   const displayLogs = showDemo ? DEMO_LOGS : logs;
 
-  if (!mounted) {
+  if (!mounted || (isRealUser && hydrating)) {
     return (
       <div className="min-h-screen bg-hlk-bg flex flex-col items-center justify-center gap-4">
         <BreathingLoader size="md" showGuide />
@@ -183,16 +200,20 @@ export default function InsightsPage() {
             </svg>
           </Link>
           <h1 className="font-bold text-hlk-text">패턴 리포트</h1>
-          <button
-            onClick={() => setShowDemo(!showDemo)}
-            className={`text-xs px-3 py-1 rounded-full transition-colors ${
-              showDemo
-                ? 'bg-hlk-accent text-white'
-                : 'bg-hlk-bg text-hlk-text-tertiary hover:bg-hlk-border'
-            }`}
-          >
-            {showDemo ? '데모 ON' : '데모'}
-          </button>
+          {!isRealUser ? (
+            <button
+              onClick={() => setShowDemo(!showDemo)}
+              className={`text-xs px-3 py-1 rounded-full transition-colors ${
+                showDemo
+                  ? 'bg-hlk-accent text-white'
+                  : 'bg-hlk-bg text-hlk-text-tertiary hover:bg-hlk-border'
+              }`}
+            >
+              {showDemo ? '데모 ON' : '데모'}
+            </button>
+          ) : (
+            <span className="w-12" />
+          )}
         </div>
       </header>
 

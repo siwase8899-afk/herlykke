@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useLogStore } from '@/stores/logStore';
+import { useAuth } from '@/lib/authContext';
 import { SYMPTOMS, MOOD_OPTIONS } from '@/lib/logTypes';
 
 // 게스트/빈 데이터용 데모 로그
@@ -21,14 +22,26 @@ function LogDashboardContent() {
   const searchParams = useSearchParams();
   const justSaved = searchParams.get('saved') === 'true';
 
-  const { logs, getTodayLog, calculateStreak } = useLogStore();
+  const { logs, getTodayLog, calculateStreak, loadFromServer } = useLogStore();
+  const { user, isLoggedIn, isDemo } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [hydrating, setHydrating] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
+  const isRealUser = isLoggedIn && !isDemo;
+
+  // 로그인한 실제 사용자는 서버에서 수면 로그를 불러와 localStorage와 병합
+  useEffect(() => {
+    if (isRealUser && user) {
+      setHydrating(true);
+      loadFromServer(user.id).finally(() => setHydrating(false));
+    }
+  }, [isRealUser, user, loadFromServer]);
+
+  if (!mounted || (isRealUser && hydrating)) {
     return (
       <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
         <div className="text-hlk-text-tertiary">로딩 중...</div>
@@ -36,12 +49,12 @@ function LogDashboardContent() {
     );
   }
 
-  // 실제 데이터가 없으면 데모 데이터 자동 표시
-  const isDemo = logs.length === 0;
-  const displayLogs = isDemo ? DEMO_LOGS : logs;
+  // 게스트/미설정 환경에서만 데모 데이터 미리보기. 실제 사용자는 빈 상태 UI 노출
+  const previewMode = !isRealUser && logs.length === 0;
+  const displayLogs = previewMode ? DEMO_LOGS : logs;
 
-  const todayLog = isDemo ? null : getTodayLog();
-  const streakCount = isDemo ? 7 : calculateStreak();
+  const todayLog = previewMode ? null : getTodayLog();
+  const streakCount = previewMode ? 7 : calculateStreak();
 
   // 오늘 날짜
   const today = new Date();
@@ -74,7 +87,7 @@ function LogDashboardContent() {
         )}
 
         {/* 데모 안내 배너 */}
-        {isDemo && (
+        {previewMode && (
           <div className="mb-6 p-4 bg-hlk-accent-light border border-hlk-accent/20 rounded-2xl">
             <div className="flex items-center gap-3">
               <span className="text-xl">✨</span>
