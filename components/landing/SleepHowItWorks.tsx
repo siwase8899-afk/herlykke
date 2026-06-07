@@ -26,11 +26,11 @@ const STEPS = [
     icon: '📖',
     title: '수면 레시피 발견',
     time: null,
-    desc: '언니의 검증된 수면 개선법',
+    desc: '메이트의 검증된 수면 개선법',
   },
   {
     icon: '💜',
-    title: '언니 PICK',
+    title: '메이트 PICK',
     time: null,
     desc: '공감으로 검증된 제품 추천',
   },

@@ -16,7 +16,7 @@ export function CTAFooter() {
         <div className="relative max-w-2xl mx-auto text-center">
           {/* Step chips */}
           <div className="inline-flex items-center gap-2 mb-10">
-            {['수면 체크인', '수면 레시피', '언니 PICK'].map((label, i) => (
+            {['수면 체크인', '수면 레시피', '메이트 PICK'].map((label, i) => (
               <span key={label} className="flex items-center gap-2">
                 {i > 0 && (
                   <svg className="w-3 h-3 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@ export function CTAFooter() {
           </div>
 
           <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-5 leading-tight">
-            먼저 겪은 언니들이
+            먼저 겪은 메이트들이
             <br />
             기다리고 있어요
           </h2>

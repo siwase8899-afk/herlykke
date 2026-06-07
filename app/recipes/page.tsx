@@ -34,11 +34,11 @@ export default function RecipesPage() {
       </div>
 
       <div className="max-w-2xl mx-auto px-6 py-8">
-        {/* 언니 PICK 섹션 */}
+        {/* 메이트 PICK 섹션 */}
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xl">✨</span>
-            <h2 className="text-lg font-bold text-hlk-text">언니 PICK</h2>
+            <h2 className="text-lg font-bold text-hlk-text">메이트 PICK</h2>
             <span className="text-xs text-hlk-text-tertiary bg-hlk-surface-warm px-2 py-1 rounded-full ml-1">
               공감 TOP
             </span>
@@ -97,7 +97,7 @@ export default function RecipesPage() {
           <p className="text-sm text-hlk-text-secondary leading-relaxed mb-4">
             손글씨 1장으로 시작해요.
             <br />
-            공감이 쌓이면 <strong className="text-hlk-primary">언니 PICK</strong>이 됩니다.
+            공감이 쌓이면 <strong className="text-hlk-primary">메이트 PICK</strong>이 됩니다.
           </p>
           <Link
             href="/community"

@@ -36,7 +36,7 @@ export default function RecipeShowcase() {
               Real Ink Recipes
             </p>
             <h2 className="text-3xl md:text-[2.75rem] font-extrabold text-hlk-text leading-tight">
-              언니들의 수면 레시피
+              메이트들의 수면 레시피
             </h2>
           </div>
           <div

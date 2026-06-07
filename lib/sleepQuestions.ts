@@ -99,7 +99,7 @@ export const SLEEP_PROFILES: Record<SleepType, SleepProfile> = {
   menopause_related: {
     type: 'menopause_related',
     label: '호르몬 변화형 수면장애',
-    description: '갱년기 호르몬 변화와 관련된 수면 문제일 수 있어요. 비슷한 경험을 먼저 겪은 언니들이 많아요.',
+    description: '갱년기 호르몬 변화와 관련된 수면 문제일 수 있어요. 비슷한 경험을 먼저 겪은 메이트들이 많아요.',
     recommendedCategories: ['yoga_relax', 'nutrition', 'environment'],
   },
   chronic_insomnia: {

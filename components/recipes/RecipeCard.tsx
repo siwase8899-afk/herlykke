@@ -35,7 +35,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
               <span className="text-xs text-hlk-text-secondary">{recipe.curatorNickname}</span>
               {recipe.isAnniePick && (
                 <span className="text-xs bg-hlk-accent-light text-hlk-accent px-2 py-0.5 rounded-full font-medium ml-auto">
-                  ✨ 언니 PICK
+                  ✨ 메이트 PICK
                 </span>
               )}
             </div>
@@ -79,7 +79,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
           {recipe.isAnniePick && (
             <div className="absolute top-3 right-3">
               <span className="text-xs bg-hlk-accent text-white px-2.5 py-1 rounded-full font-medium">
-                ✨ 언니 PICK
+                ✨ 메이트 PICK
               </span>
             </div>
           )}

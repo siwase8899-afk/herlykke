@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 const COMPARISONS = [
   {
     not: '수면 트래킹 도구',
-    is: '수면 언니가 추천하는 수면 레시피 마켓',
+    is: '수면 메이트가 추천하는 수면 레시피 마켓',
   },
   {
     not: '건강기능식품 쇼핑몰',

@@ -53,7 +53,7 @@ export default function RecipeDetailPage() {
           {recipe.isAnniePick && (
             <div className="absolute top-3 right-3">
               <span className="text-sm bg-hlk-accent text-white px-3 py-1.5 rounded-full font-medium">
-                ✨ 언니 PICK
+                ✨ 메이트 PICK
               </span>
             </div>
           )}
@@ -117,7 +117,7 @@ export default function RecipeDetailPage() {
           <div className="bg-hlk-primary-light rounded-2xl p-5 border border-hlk-primary/20">
             <h2 className="font-bold text-hlk-primary mb-3 flex items-center gap-2">
               <span className="text-lg">✨</span>
-              언니의 후기
+              메이트의 후기
             </h2>
             <p className="text-hlk-text leading-relaxed font-medium">
               &ldquo;{recipe.result}&rdquo;
@@ -142,7 +142,7 @@ export default function RecipeDetailPage() {
               제품 보러가기 →
             </a>
             <p className="text-xs text-hlk-text-tertiary mt-2">
-              * 쿠팡 파트너스 링크 (언니가 직접 써봤어요)
+              * 쿠팡 파트너스 링크 (메이트가 직접 써봤어요)
             </p>
           </div>
         )}

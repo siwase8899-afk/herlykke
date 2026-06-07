@@ -32,7 +32,7 @@ export default function AnniePick() {
             <h2 className="text-3xl md:text-[2.75rem] font-extrabold text-hlk-text leading-tight mb-6">
               커뮤니티가 검증한
               <br />
-              레시피만 언니 PICK
+              레시피만 메이트 PICK
             </h2>
             <p className="text-base text-hlk-text-secondary leading-relaxed mb-10">
               플랫폼이 고르는 게 아니에요.
@@ -50,11 +50,11 @@ export default function AnniePick() {
                 {
                   num: '02',
                   title: '커뮤니티 검증',
-                  desc: '공감 50개 이상이면 언니 PICK으로 자동 선정. 플랫폼 편집 없음.',
+                  desc: '공감 50개 이상이면 메이트 PICK으로 자동 선정. 플랫폼 편집 없음.',
                 },
                 {
                   num: '03',
-                  title: '언니의 서약',
+                  title: '메이트의 서약',
                   desc: '"직접 경험한 것만 추천합니다"를 닉네임으로 서명합니다.',
                 },
               ].map((item, i) => (

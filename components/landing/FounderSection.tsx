@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { FounderAvatar } from './FounderAvatar';
 
 export function FounderSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
@@ -35,14 +35,8 @@ export function FounderSection() {
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
             {/* Left — photo + info */}
             <div className="bg-hlk-primary-light p-8 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
-              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg mb-4">
-                <Image
-                  src="/images/founder.png"
-                  alt="Becca - HERLYKKE Founder"
-                  width={80}
-                  height={80}
-                  className="object-cover w-full h-full"
-                />
+              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg mb-4 bg-hlk-surface">
+                <FounderAvatar className="w-full h-full" />
               </div>
               <p className="text-lg font-bold text-hlk-text">Becca</p>
               <p className="text-sm text-hlk-text-secondary mb-4">HERLYKKE Founder</p>
@@ -68,7 +62,7 @@ export function FounderSection() {
                 </p>
                 <p>
                   한국에 돌아와서도 그 연결감이 필요했어요.
-                  먼저 겪은 언니에게 물어볼 수 있는 곳.
+                  먼저 겪은 메이트에게 물어볼 수 있는 곳.
                   그래서 HERLYKKE를 만들었습니다.&rdquo;
                 </p>
               </blockquote>

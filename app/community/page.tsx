@@ -11,13 +11,13 @@ type TabId = 'checkin' | 'talk' | 'recipes';
 const TABS: { id: TabId; emoji: string; label: string }[] = [
   { id: 'checkin', emoji: '🌙', label: '오늘 수면' },
   { id: 'talk', emoji: '💬', label: '고민&경험' },
-  { id: 'recipes', emoji: '✨', label: '언니 PICK' },
+  { id: 'recipes', emoji: '✨', label: '메이트 PICK' },
 ];
 
 const DEMO_CHECKINS = [
   { nickname: '달빛요정', score: 3, tag: '#새벽각성', time: '1분 전', emoji: '😮‍💨' },
   { nickname: '수면탐정', score: 4, tag: '#족욕후', time: '5분 전', emoji: '😊' },
-  { nickname: '마그네슘언니', score: 5, tag: '#레시피효과!', time: '12분 전', emoji: '😄' },
+  { nickname: '마그네슘메이트', score: 5, tag: '#레시피효과!', time: '12분 전', emoji: '😄' },
   { nickname: '잠꾸러기탈출', score: 2, tag: '#열감', time: '23분 전', emoji: '😳' },
   { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전', emoji: '🥰' },
 ];
@@ -34,7 +34,7 @@ const DEMO_POSTS = [
     ],
   },
   {
-    nickname: '요가언니45',
+    nickname: '요가메이트45',
     content: '자기 전 다리 올리기 자세 해보신 분? 처음엔 이상했는데 이게 진짜 잠이 잘 와요. 10분만 해봐요!',
     time: '25분 전', replies: 15,
     reactions: [
@@ -69,7 +69,7 @@ const DEMO_PICKS = [
   { id: 'r01', emoji: '🌿', title: '마그네슘 + 족욕으로 새벽 각성 없앤 방법', curator: '잠꾸러기탈출', likes: 124 },
   { id: 'r06', emoji: '🧘‍♀️', title: '4-7-8 호흡법으로 새벽에 깼을 때 다시 잠드는 방법', curator: '숨쉬는여자', likes: 78 },
   { id: 'r08', emoji: '☕', title: '커피 컷오프 시간 바꿨더니 수면 질이 달라진 이야기', curator: '커피끊은날', likes: 62 },
-  { id: 'r02', emoji: '🌙', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가언니45', likes: 89 },
+  { id: 'r02', emoji: '🌙', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가메이트45', likes: 89 },
 ];
 
 // Sleep checkin widget
@@ -224,7 +224,7 @@ export default function CommunityPage() {
               <p className="text-sm font-semibold text-hlk-text mb-1">수면 기록이 쌓이면</p>
               <p className="text-xs text-hlk-text-secondary leading-relaxed">
                 나의 수면 패턴을 발견할 수 있어요. 어떤 방법이 효과 있었는지도 보여요.
-                30일이 쌓이면 언니 PICK에 도전해볼 수 있어요.
+                30일이 쌓이면 메이트 PICK에 도전해볼 수 있어요.
               </p>
             </div>
           </div>

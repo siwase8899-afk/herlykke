@@ -1,5 +1,5 @@
 // 수면 레시피 데이터 — Real Ink 시스템 기반
-// 언니 PICK: 공감 임계치(50+) 자동 선정
+// 메이트 PICK: 공감 임계치(50+) 자동 선정
 
 export type RecipeCategory = 'all' | 'nutrition' | 'yoga' | 'environment' | 'routine';
 
@@ -16,7 +16,7 @@ export type CuratorLevel = 1 | 2 | 3 | 4 | 5;
 export const CURATOR_LEVELS: Record<CuratorLevel, { name: string; badge: string; color: string }> = {
   1: { name: '잠 못 자는 중', badge: '🌙', color: '#A8A29E' },
   2: { name: '잠 되찾는 중', badge: '⭐', color: '#C98E87' },
-  3: { name: '수면 언니', badge: '✨', color: '#6F9CA6' },
+  3: { name: '수면 메이트', badge: '✨', color: '#6F9CA6' },
   4: { name: '수면 멘토', badge: '💎', color: '#5A8590' },
   5: { name: '수면 셀러', badge: '👑', color: '#A888A8' },
 };
@@ -40,7 +40,7 @@ export interface Recipe {
   productName?: string;
 }
 
-// 언니 PICK 자동 선정 임계치
+// 메이트 PICK 자동 선정 임계치
 export const ANNIE_PICK_THRESHOLD = 50;
 
 export const RECIPES: Recipe[] = [
@@ -66,7 +66,7 @@ export const RECIPES: Recipe[] = [
     id: 'r02',
     category: 'yoga',
     title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법',
-    curatorNickname: '요가언니45',
+    curatorNickname: '요가메이트45',
     curatorLevel: 3,
     realInkImageUrl: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=400&fit=crop&q=80',
     ingredients: ['요가 매트', '쿨링 타올 (선택)', '유튜브 요가니드라 영상'],
@@ -212,7 +212,7 @@ export const RECIPES: Recipe[] = [
   },
 ];
 
-// 언니 PICK 레시피 (likes >= ANNIE_PICK_THRESHOLD)
+// 메이트 PICK 레시피 (likes >= ANNIE_PICK_THRESHOLD)
 export function getAnniePickRecipes(): Recipe[] {
   return RECIPES.filter((r) => r.isAnniePick).sort((a, b) => b.likes - a.likes);
 }

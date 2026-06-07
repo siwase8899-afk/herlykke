@@ -276,7 +276,7 @@ export default function CheckinSection() {
             <p className="text-sm text-hlk-text-secondary leading-relaxed">
               혼자 고민하지 않아도 돼요.
               <br />
-              <span className="font-semibold text-hlk-primary">먼저 겪은 언니들</span>이 기다리고 있어요.
+              <span className="font-semibold text-hlk-primary">먼저 겪은 메이트들</span>이 기다리고 있어요.
             </p>
           </div>
 
