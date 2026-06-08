@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { GlowReaction } from '@/components/ui/GlowReaction';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
+import { CommunityTalkTab } from '@/components/community/CommunityTalkTab';
 
 type TabId = 'checkin' | 'talk' | 'recipes';
 
@@ -20,49 +20,6 @@ const DEMO_CHECKINS = [
   { nickname: '마그네슘메이트', score: 5, tag: '#레시피효과!', time: '12분 전', emoji: '😄' },
   { nickname: '잠꾸러기탈출', score: 2, tag: '#열감', time: '23분 전', emoji: '😳' },
   { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전', emoji: '🥰' },
-];
-
-const DEMO_POSTS = [
-  {
-    nickname: '허브덕후',
-    content: '발레리안 루트 차 진짜 효과 있는 분 계세요? 저는 2주 됐는데 조금씩 나아지는 것 같아서요...',
-    time: '10분 전', replies: 7,
-    reactions: [
-      { emoji: '😢', label: '공감', count: 12 },
-      { emoji: '🫶', label: '안아줘요', count: 5 },
-      { emoji: '💪', label: '힘내요', count: 8 },
-    ],
-  },
-  {
-    nickname: '요가메이트45',
-    content: '자기 전 다리 올리기 자세 해보신 분? 처음엔 이상했는데 이게 진짜 잠이 잘 와요. 10분만 해봐요!',
-    time: '25분 전', replies: 15,
-    reactions: [
-      { emoji: '🙋', label: '나도!', count: 31 },
-      { emoji: '🙏', label: '고마워요', count: 14 },
-      { emoji: '💪', label: '힘내요', count: 6 },
-    ],
-  },
-  {
-    nickname: '새벽3시단골',
-    content: '남편이 왜 새벽에 자꾸 깨냐고 해서... 속상했는데 여기 오니까 다들 비슷하시더라고요. 저만이 아니었어요',
-    time: '42분 전', replies: 23,
-    reactions: [
-      { emoji: '😢', label: '공감', count: 67 },
-      { emoji: '🫶', label: '안아줘요', count: 42 },
-      { emoji: '🙋', label: '나도!', count: 28 },
-    ],
-  },
-  {
-    nickname: '수면일기마니아',
-    content: '수면 일기 쓴 지 한 달 됐는데요. 커피 오후 1시 이후로 끊었더니 새벽 각성이 확 줄었어요!',
-    time: '1시간 전', replies: 9,
-    reactions: [
-      { emoji: '🙏', label: '고마워요', count: 44 },
-      { emoji: '🙋', label: '나도!', count: 19 },
-      { emoji: '💪', label: '힘내요', count: 11 },
-    ],
-  },
 ];
 
 const DEMO_PICKS = [
@@ -129,12 +86,6 @@ function SleepCheckinWidget() {
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState<TabId>('checkin');
-  const [activeReactions, setActiveReactions] = useState<Record<string, boolean>>({});
-
-  const toggleReaction = (postIdx: number, reactionIdx: number) => {
-    const key = `${postIdx}-${reactionIdx}`;
-    setActiveReactions((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
 
   return (
     <div className="min-h-screen bg-hlk-bg relative">
@@ -230,61 +181,8 @@ export default function CommunityPage() {
           </div>
         )}
 
-        {/* Talk tab — with GlowReaction */}
-        {activeTab === 'talk' && (
-          <div className="animate-slow-fade-in">
-            <button className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors">
-              <span className="text-lg">✏️</span>
-              <span>수면 고민이나 경험을 나눠보세요...</span>
-            </button>
-
-            <div className="space-y-4">
-              {DEMO_POSTS.map((post, i) => (
-                <div
-                  key={i}
-                  className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/20 transition-all duration-300 animate-slow-fade-in"
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center text-sm">
-                      🌙
-                    </div>
-                    <span className="text-sm font-medium text-hlk-text">{post.nickname}</span>
-                    <span className="text-xs text-hlk-text-tertiary ml-auto">{post.time}</span>
-                  </div>
-                  <p className="text-sm text-hlk-text leading-relaxed mb-4">{post.content}</p>
-
-                  {/* Glow reactions */}
-                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-hlk-border/40">
-                    {post.reactions.map((reaction, j) => (
-                      <GlowReaction
-                        key={j}
-                        emoji={reaction.emoji}
-                        label={reaction.label}
-                        count={reaction.count + (activeReactions[`${i}-${j}`] ? 1 : 0)}
-                        active={!!activeReactions[`${i}-${j}`]}
-                        onToggle={() => toggleReaction(i, j)}
-                      />
-                    ))}
-                    <span className="text-xs text-hlk-text-tertiary ml-auto">
-                      💬 {post.replies}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 bg-yellow-50 rounded-2xl p-5 border border-yellow-200">
-              <p className="font-semibold text-yellow-800 mb-1">카카오 오픈채팅도 있어요</p>
-              <p className="text-sm text-yellow-700 leading-relaxed mb-3">
-                더 실시간으로 이야기하고 싶다면 카카오 오픈채팅방으로 오세요.
-              </p>
-              <button className="text-sm font-medium text-yellow-800 bg-yellow-100 px-4 py-2 rounded-xl hover:bg-yellow-200 transition-colors">
-                오픈채팅 입장하기 →
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Talk tab — 실제 글쓰기 CRUD */}
+        {activeTab === 'talk' && <CommunityTalkTab />}
 
         {/* Recipes tab */}
         {activeTab === 'recipes' && (

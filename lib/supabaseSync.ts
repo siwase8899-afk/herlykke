@@ -275,6 +275,110 @@ export async function submitSellerApplication(data: SellerApplication) {
   }
 }
 
+// ─────────────────────────────────────────────
+// 커뮤니티 (posts / likes)
+// ─────────────────────────────────────────────
+
+export interface CommunityPost {
+  id: string;
+  anonymousName: string;
+  content: string;
+  category: string;
+  tags: string[];
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  userId: string | null;
+}
+
+// 게시글 목록 로드 (숨김 제외, 최신순)
+export async function loadPosts(category?: string): Promise<CommunityPost[]> {
+  if (!isSupabaseConfigured) return [];
+  try {
+    let query = supabase
+      .from('posts')
+      .select('*')
+      .eq('is_hidden', false)
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (category) query = query.eq('category', category);
+    const { data, error } = await query;
+    if (error) throw error;
+    return (data || []).map((r) => ({
+      id: r.id,
+      anonymousName: r.anonymous_name,
+      content: r.content,
+      category: r.category,
+      tags: (r.tags as string[]) || [],
+      likeCount: r.like_count || 0,
+      commentCount: r.comment_count || 0,
+      createdAt: r.created_at,
+      userId: r.user_id,
+    }));
+  } catch (error) {
+    console.error('[HERLYKKE] Load posts failed:', error);
+    return [];
+  }
+}
+
+// 게시글 작성
+export async function submitPost(
+  userId: string,
+  anonymousName: string,
+  content: string,
+  category: string,
+  tags: string[] = []
+) {
+  if (!isSupabaseConfigured) return { success: true, demo: true };
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .insert({ user_id: userId, anonymous_name: anonymousName, content, category, tags })
+      .select()
+      .single();
+    if (error) throw error;
+    return { success: true, post: data };
+  } catch (error) {
+    console.error('[HERLYKKE] Submit post failed:', error);
+    return { success: false, error };
+  }
+}
+
+// 내가 공감(좋아요)한 게시글 id 목록
+export async function loadLikedPostIds(userId: string): Promise<string[]> {
+  if (!isSupabaseConfigured) return [];
+  try {
+    const { data, error } = await supabase
+      .from('likes')
+      .select('post_id')
+      .eq('user_id', userId)
+      .not('post_id', 'is', null);
+    if (error) throw error;
+    return (data || []).map((r) => r.post_id as string).filter(Boolean);
+  } catch (error) {
+    console.error('[HERLYKKE] Load likes failed:', error);
+    return [];
+  }
+}
+
+// 공감 토글 (like_count는 DB 트리거가 자동 갱신)
+export async function togglePostLike(userId: string, postId: string, currentlyLiked: boolean) {
+  if (!isSupabaseConfigured) return { success: true, demo: true };
+  try {
+    if (currentlyLiked) {
+      const { error } = await supabase.from('likes').delete().eq('user_id', userId).eq('post_id', postId);
+      if (error) throw error;
+    } else {
+      const { error } = await supabase.from('likes').insert({ user_id: userId, post_id: postId });
+      if (error) throw error;
+    }
+    return { success: true };
+  } catch (error) {
+    console.error('[HERLYKKE] Toggle like failed:', error);
+    return { success: false, error };
+  }
+}
+
 // 수면 시간 계산 헬퍼
 function calculateSleepHours(bedTime: string, wakeTime: string): number | null {
   if (!bedTime || !wakeTime) return null;
