@@ -13,7 +13,6 @@ import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { PersonalizedFeed } from '@/components/dashboard/PersonalizedFeed';
 import { TodaysReading } from '@/components/dashboard/TodaysReading';
-import { ConciergeCard } from '@/components/concierge/ConciergeCard';
 
 // 데모 데이터
 const DEMO_LOGS = [
@@ -290,10 +289,6 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {/* ── AI Concierge Card ── */}
-        <div className="mb-5 animate-slow-fade-in-delay-2">
-          <ConciergeCard displayName={displayName} />
-        </div>
 
         {/* ── Personalized Content Feed ── */}
         <PersonalizedFeed symptoms={logs.slice(0, 5).flatMap(log => log.symptoms || [])} />

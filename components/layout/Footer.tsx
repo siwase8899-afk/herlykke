@@ -31,6 +31,14 @@ export function Footer() {
 
         {/* Disclaimer */}
         <div className="mt-12 pt-8 border-t border-white/20">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 mb-4 text-xs text-white/70">
+            <Link href="/privacy" className="hover:text-white transition-colors font-medium">
+              개인정보처리방침
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              이용약관
+            </Link>
+          </div>
           <p className="text-xs text-white/50 mb-3 leading-relaxed">
             이 서비스는 의료 서비스가 아니며, 전문의 상담을 대체하지 않습니다.
             체크인 결과는 참고용이며, 정확한 진단을 위해서는 전문의 상담을 권장합니다.

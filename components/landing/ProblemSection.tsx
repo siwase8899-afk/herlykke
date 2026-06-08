@@ -198,12 +198,12 @@ export function ProblemSection() {
               <p className="text-xl font-bold text-hlk-primary">같은 증상의 친구와 익명으로</p>
               <p className="text-xs text-white/40 mt-2">블라인드처럼 안전한 익명 커뮤니티</p>
             </div>
-            <Link href="/solutions" className="group p-6 rounded-2xl hover:bg-white/5 transition-colors">
+            <Link href="/recipes" className="group p-6 rounded-2xl hover:bg-white/5 transition-colors">
               <p className="text-white/50 text-sm line-through mb-3">뭘 해야 할지 모르겠어요</p>
-              <p className="text-xl font-bold text-hlk-accent">나에게 맞는 솔루션 추천</p>
-              <p className="text-xs text-white/40 mt-2">코칭, 명상, 운동, 영양 맞춤 큐레이션</p>
+              <p className="text-xl font-bold text-hlk-accent">먼저 겪은 메이트의 수면 레시피</p>
+              <p className="text-xs text-white/40 mt-2">재료·방법·후기로 따라하는 수면 개선법</p>
               <span className="inline-flex items-center gap-1 text-xs text-hlk-accent/70 mt-3 group-hover:text-hlk-accent transition-colors">
-                솔루션 둘러보기
+                레시피 둘러보기
                 <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

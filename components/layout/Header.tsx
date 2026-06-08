@@ -14,7 +14,6 @@ const guestNavItems = [
 
 const authNavItems = [
   { label: '대시보드', href: '/dashboard' },
-  { label: '수면 동료', href: '/concierge' },
   { label: '수면 가이드', href: '/columns' },
   { label: '수면 레시피', href: '/recipes' },
   { label: '커뮤니티', href: '/community' },
@@ -52,9 +51,13 @@ export function Header() {
               {/* Logo — serif, bold */}
               <Link
                 href={isLoggedIn ? '/dashboard' : '/'}
-                className="text-xl font-bold text-hlk-text tracking-tight font-[family-name:var(--font-display)]"
-                             >
-                HERLYKKE
+                className="flex items-center"
+              >
+                <img
+                  src="/herlykke-logo-primary.svg"
+                  alt="HERLYKKE"
+                  className="h-8 md:h-9 w-auto"
+                />
               </Link>
 
               {/* Desktop Nav */}

@@ -85,6 +85,9 @@ export default function CheckinIntro() {
           <p className="text-center text-hlk-text-tertiary text-xs mt-4">
             가입 없이 &middot; 1분 소요 &middot; 무료
           </p>
+          <p className="text-center text-hlk-text-tertiary text-[11px] leading-relaxed mt-5 px-2">
+            ※ 본 체크인은 의학적 진단이 아닌 참고용입니다. 증상이 지속되면 전문의 상담을 권장합니다.
+          </p>
         </div>
       </div>
     </div>
