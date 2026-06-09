@@ -4,6 +4,14 @@ import Link from 'next/link';
 import { Recipe, CURATOR_LEVELS } from '@/lib/recipesData';
 import RealInkBadge from './RealInkBadge';
 
+// 깨진 손글씨 이미지 폴백 — 브랜드 톤(웜크림 + 세이지 초승달) 플레이스홀더
+const FALLBACK_INK =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='120' height='120' fill='%23F1EADD'/%3E%3Cpath d='M70 38a24 24 0 1 0 12 36 18 18 0 0 1-12-36z' fill='%235E8C94' opacity='0.45'/%3E%3C/svg%3E";
+const onInkError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  e.currentTarget.onerror = null;
+  e.currentTarget.src = FALLBACK_INK;
+};
+
 interface RecipeCardProps {
   recipe: Recipe;
   layout?: 'grid' | 'list';
@@ -21,6 +29,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
             <img
               src={recipe.realInkImageUrl}
               alt="Real Ink 손글씨"
+              onError={onInkError}
               className="w-full h-full object-cover"
             />
             <div className="absolute top-2 left-2">
@@ -70,6 +79,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
           <img
             src={recipe.realInkImageUrl}
             alt="Real Ink 손글씨"
+              onError={onInkError}
             className="w-full h-full object-cover"
           />
           {/* 배지들 */}
