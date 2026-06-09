@@ -9,7 +9,7 @@ import { CONDITION_LEVELS } from '@/lib/dailyLogConstants';
 import { columns } from '@/lib/columnsData';
 import { TodaySymptomsWidget } from '@/components/community/TodaySymptomsWidget';
 import { BreathingLoader } from '@/components/ui/BreathingLoader';
-import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
+import { SleepScoreRing } from '@/components/ui/SleepScoreRing';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { PersonalizedFeed } from '@/components/dashboard/PersonalizedFeed';
 import { TodaysReading } from '@/components/dashboard/TodaysReading';
@@ -108,9 +108,9 @@ export default function DashboardPage() {
     const recentSymptoms = logs.slice(0, 5).flatMap(log => log.symptoms || []);
     const disruptors = ['anxiety', 'mood_swing', 'insomnia', 'hot_flash', 'night_sweat'];
     const count = recentSymptoms.filter(s => disruptors.includes(s)).length;
-    if (count >= 4) return { level: 75, label: '수면 방해 요인이 많아요', emoji: '🌊', color: '#D98B8B' };
-    if (count >= 2) return { level: 50, label: '가끔 깨는 밤이 있어요', emoji: '🌗', color: '#E0C49A' };
-    return { level: 25, label: '비교적 안정적이에요', emoji: '🌙', color: '#6F9CA6' };
+    if (count >= 4) return { level: 75, label: '수면 방해 요인이 많아요', emoji: '🌑', color: '#C97B5A' };
+    if (count >= 2) return { level: 50, label: '가끔 깨는 밤이 있어요', emoji: '🌓', color: '#D9986F' };
+    return { level: 25, label: '비교적 안정적이에요', emoji: '🌙', color: '#5E8C94' };
   }, [logs]);
 
   // Sleep trend (improving / declining / stable)
@@ -211,8 +211,7 @@ export default function DashboardPage() {
           <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-5 border border-hlk-border/60 shadow-sm">
             <p className="text-xs font-semibold text-hlk-text-tertiary tracking-wide uppercase mb-3">수면 점수</p>
             <div className="flex flex-col items-center mb-2">
-              <SleepCycleViz quality={sleepReadiness} size={72} />
-              <p className="text-2xl font-extrabold text-hlk-text mt-2 tabular-nums">{sleepReadiness}</p>
+              <SleepScoreRing score={sleepReadiness} size={88} />
             </div>
             <p className="text-center text-[11px] text-hlk-text-tertiary">
               {sleepReadiness >= 70 ? '깊은 잠을 자고 있어요' : sleepReadiness >= 50 ? '조금 더 챙겨보세요' : '수면 회복이 필요해요'}

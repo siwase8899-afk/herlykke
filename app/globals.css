@@ -4,42 +4,50 @@
   /* HERLYKKE 색상 팔레트 — Calm Wellness Pastel */
   /* Soft Sage Blue + Calm Lavender + Soft Mint + Light Grey */
 
-  /* Primary - Soft Sage Blue */
-  --color-hlk-primary: #6F9CA6;
-  --color-hlk-primary-light: #C8DFE4;
-  --color-hlk-primary-dark: #5A8590;
+  /* Primary - Soft Sage Blue (v2: deepened for contrast) */
+  --color-hlk-primary: #5E8C94;
+  --color-hlk-primary-light: #D7E3E2;
+  --color-hlk-primary-dark: #4E767D;
 
-  /* Accent - Calm Lavender */
-  --color-hlk-accent: #C9A6C9;
-  --color-hlk-accent-light: #E8D6E8;
-  --color-hlk-accent-dark: #A888A8;
+  /* Accent - Calm Lavender (v2) */
+  --color-hlk-accent: #B89BC4;
+  --color-hlk-accent-light: #EBE2EF;
+  --color-hlk-accent-dark: #9A7FA8;
+
+  /* Warm accent - Dusty Terracotta (v2: 온기·CTA, 희소 사용) */
+  --color-hlk-clay: #C97B5A;
+  --color-hlk-clay-light: #F1DDD2;
+  --color-hlk-clay-dark: #A85B3C;
+
+  /* Night - Deep Indigo (수면·밤) */
+  --color-hlk-indigo: #2C3454;
 
   /* Highlight - Soft Mint */
   --color-hlk-highlight: #B8E0C6;
   --color-hlk-highlight-soft: #D8F0E2;
 
   /* Secondary */
-  --color-hlk-secondary: #2F3A3D;
-  --color-hlk-secondary-light: #C8DFE4;
+  --color-hlk-secondary: #2A332E;
+  --color-hlk-secondary-light: #D7E3E2;
 
-  /* Backgrounds - Warm Light Grey */
-  --color-hlk-bg: #F3F6F7;
-  --color-hlk-surface: #ffffff;
-  --color-hlk-surface-warm: #EAF0F2;
+  /* Backgrounds - Warm Cream (v2) */
+  --color-hlk-bg: #F7F3EC;
+  --color-hlk-surface: #FCFAF6;
+  --color-hlk-surface-warm: #F1EADD;
 
-  /* Text */
-  --color-hlk-text: #2F3A3D;
-  --color-hlk-text-secondary: #6B7C80;
-  --color-hlk-text-tertiary: #95A3A7;
+  /* Text - Warm Ink (v2) */
+  --color-hlk-text: #2A332E;
+  --color-hlk-text-secondary: #6B7A72;
+  --color-hlk-text-tertiary: #9A9683;
 
-  /* Border - Cool Neutral */
-  --color-hlk-border: #E0E6E8;
-  --color-hlk-border-light: #EDF1F2;
+  /* Border - Warm Hairline (v2) */
+  --color-hlk-border: #E7E0D4;
+  --color-hlk-border-light: #F0EBE0;
 
   /* Status */
-  --color-hlk-success: #B8E0C6;
-  --color-hlk-error: #D98B8B;
-  --color-hlk-warning: #E0C49A;
+  --color-hlk-success: #6FA37A;
+  --color-hlk-error: #C2645B;
+  --color-hlk-warning: #D9986F;
 
   /* Mesh Gradient - Vibrant Aurora Palette */
   --color-mesh-sage: #8FA79A;
@@ -49,9 +57,10 @@
   --color-mesh-plum: #7A6F73;
   --color-mesh-rose: #C89A96;
 
-  /* 폰트 */
+  /* 폰트 (v2: 영문·숫자 Fraunces 세리프 + 한글 Pretendard 폴백) */
   --font-sans: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-display: 'Nunito', var(--font-sans);
+  --font-serif: var(--font-fraunces), 'Fraunces', 'Pretendard Variable', 'Pretendard', serif;
+  --font-display: var(--font-serif);
 }
 
 * {
@@ -63,8 +72,8 @@ html {
 }
 
 body {
-  background-color: #F3F6F7;
-  color: #2F3A3D;
+  background-color: #F7F3EC;
+  color: #2A332E;
   line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -413,6 +422,12 @@ button:active, a:active {
     #1e3a5f 290deg,
     #5f8f8f 360deg
   );
+}
+
+/* ===== Typing cursor blink ===== */
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
 }
 
 @property --cta-gradient-angle {
