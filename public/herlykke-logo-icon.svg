@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="citrusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBC4B"/>
+      <stop offset="100%" stop-color="#E8920A"/>
+    </linearGradient>
+    <clipPath id="crescentClip">
+      <path d="M 50.5 10.9 A 50 50 0 1 1 109.1 69.5 A 42 42 0 0 0 50.5 10.9 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Crescent moon body -->
+  <path
+    d="M 50.5 10.9 A 50 50 0 1 1 109.1 69.5 A 42 42 0 0 0 50.5 10.9 Z"
+    fill="url(#citrusGrad)"
+  />
+
+  <!-- Peel outline -->
+  <path
+    d="M 50.5 10.9 A 50 50 0 1 1 109.1 69.5 A 42 42 0 0 0 50.5 10.9 Z"
+    fill="none"
+    stroke="#E8920A"
+    stroke-width="1"
+    opacity="0.3"
+  />
+
+  <!-- Citrus segment lines (clipped to crescent) -->
+  <g clip-path="url(#crescentClip)" opacity="0.65" stroke="#FEF3D0" stroke-width="1.5" fill="none">
+    <path d="M 30 85 Q 55 55 45 20"/>
+    <path d="M 18 65 Q 48 50 55 12"/>
+    <path d="M 40 105 Q 60 70 38 35"/>
+  </g>
+</svg>
