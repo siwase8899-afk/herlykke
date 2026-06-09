@@ -24,11 +24,11 @@ const DEMO_LOGS = [
 ];
 
 const SLEEP_EMOJIS = [
-  { value: 1, emoji: '😢', label: '거의 못 잤어요' },
-  { value: 2, emoji: '😕', label: '뒤척였어요' },
-  { value: 3, emoji: '😐', label: '그저 그래요' },
-  { value: 4, emoji: '🙂', label: '잘 잤어요' },
-  { value: 5, emoji: '😊', label: '숙면했어요' },
+  { value: 1, emoji: '🌑', label: '거의 못 잤어요' },
+  { value: 2, emoji: '🌘', label: '뒤척였어요' },
+  { value: 3, emoji: '🌗', label: '그저 그래요' },
+  { value: 4, emoji: '🌖', label: '잘 잤어요' },
+  { value: 5, emoji: '🌕', label: '숙면했어요' },
 ];
 
 export default function DashboardPage() {

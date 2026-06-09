@@ -46,16 +46,17 @@ export default function SleepHero() {
           }`}
         >
           <p
-            className="text-sm md:text-base tracking-[0.35em] uppercase font-semibold"
-            style={{ color: '#FFFFFF', textShadow: '0 1px 12px rgba(0,0,0,0.2)' }}
+            className="font-[family-name:var(--font-serif)] italic text-3xl md:text-4xl tracking-tight"
+            style={{ color: '#FFFFFF', textShadow: '0 2px 16px rgba(0,0,0,0.25)' }}
           >
-            HER + LYKKE — 그녀의 행복
+            Her · Lykke
           </p>
+          <div className="w-10 h-px bg-white/45 mx-auto my-3.5" />
           <p
-            className="text-xs mt-2 tracking-wide"
-            style={{ color: 'rgba(255,255,255,0.75)', textShadow: '0 1px 8px rgba(0,0,0,0.15)' }}
+            className="text-[11px] md:text-xs tracking-[0.3em] uppercase"
+            style={{ color: 'rgba(255,255,255,0.82)', textShadow: '0 1px 8px rgba(0,0,0,0.2)' }}
           >
-            LYKKE는 덴마크어로 행복입니다
+            덴마크어로 &lsquo;그녀의 행복&rsquo;
           </p>
         </div>
 
@@ -66,7 +67,7 @@ export default function SleepHero() {
           }`}
         >
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12] mb-4"
             style={{ color: '#FFFFFF', textShadow: '0 2px 20px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.15)' }}
           >
             <span className="relative inline-block overflow-hidden align-bottom">
@@ -83,7 +84,7 @@ export default function SleepHero() {
             이 달라지면
           </h1>
           <p
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15]"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.12]"
             style={{ color: '#FFFFFF', textShadow: '0 2px 20px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.15)' }}
           >
             하루가 달라집니다.

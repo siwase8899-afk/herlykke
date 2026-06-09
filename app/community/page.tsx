@@ -35,11 +35,11 @@ function SleepCheckinWidget() {
   const [submitted, setSubmitted] = useState(false);
 
   const SCORES = [
-    { value: 1, emoji: '😞', label: '최악' },
-    { value: 2, emoji: '😕', label: '나쁨' },
-    { value: 3, emoji: '😐', label: '보통' },
-    { value: 4, emoji: '😊', label: '좋음' },
-    { value: 5, emoji: '😄', label: '최고' },
+    { value: 1, emoji: '🌑', label: '최악' },
+    { value: 2, emoji: '🌘', label: '나쁨' },
+    { value: 3, emoji: '🌗', label: '보통' },
+    { value: 4, emoji: '🌖', label: '좋음' },
+    { value: 5, emoji: '🌕', label: '최고' },
   ];
 
   if (submitted) {
