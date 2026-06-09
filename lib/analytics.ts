@@ -86,6 +86,12 @@ export const analytics = {
     gtagEvent('column_viewed', { slug, symptom });
   },
 
+  // 레시피 제품링크 클릭 (수익 가설 검증: "누르는가")
+  recipeProductClicked: (recipeId: string, productName: string) => {
+    track('recipe_product_clicked', { recipe_id: recipeId, product_name: productName });
+    gtagEvent('recipe_product_clicked', { recipe_id: recipeId, product_name: productName });
+  },
+
   // 랜딩 페이지
   ctaClicked: (location: string, action: string) => {
     track('cta_clicked', { location, action });

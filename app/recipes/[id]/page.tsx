@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getRecipeById, CURATOR_LEVELS, RECIPE_CATEGORIES } from '@/lib/recipesData';
 import RealInkBadge from '@/components/recipes/RealInkBadge';
+import { analytics } from '@/lib/analytics';
 
 export default function RecipeDetailPage() {
   const params = useParams();
@@ -137,12 +138,13 @@ export default function RecipeDetailPage() {
               href={recipe.productLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => analytics.recipeProductClicked(recipe.id, recipe.productName!)}
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-hlk-accent text-white text-sm font-semibold rounded-xl hover:bg-hlk-accent-dark transition-colors"
             >
               제품 보러가기 →
             </a>
             <p className="text-xs text-hlk-text-tertiary mt-2">
-              * 쿠팡 파트너스 링크 (메이트가 직접 써봤어요)
+              * 메이트가 직접 써본 제품이에요
             </p>
           </div>
         )}

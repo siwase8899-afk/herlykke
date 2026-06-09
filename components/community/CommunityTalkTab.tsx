@@ -9,8 +9,10 @@ import {
   loadLikedPostIds,
   togglePostLike,
   loadProfileFromServer,
+  submitReport,
   type CommunityPost,
 } from '@/lib/supabaseSync';
+import { checkContent } from '@/lib/moderation';
 
 // 게스트/미리보기용 데모
 const DEMO_POSTS: CommunityPost[] = [
@@ -80,6 +82,11 @@ export function CommunityTalkTab() {
   const handleSubmit = async () => {
     const content = draft.trim();
     if (!content || !user) return;
+    const mod = checkContent(content);
+    if (!mod.ok) {
+      setError(mod.reason || '내용을 확인해주세요.');
+      return;
+    }
     setSubmitting(true);
     setError('');
     const res = await submitPost(user.id, nickname, content, category);
@@ -108,6 +115,14 @@ export function CommunityTalkTab() {
     await togglePostLike(user.id, post.id, liked);
   };
 
+  const [reportedIds, setReportedIds] = useState<Set<string>>(new Set());
+  const handleReport = async (post: CommunityPost) => {
+    if (!user || reportedIds.has(post.id)) return;
+    if (!confirm('이 글을 신고할까요? 운영자가 검토합니다.')) return;
+    setReportedIds((prev) => new Set(prev).add(post.id));
+    await submitReport(user.id, { postId: post.id });
+  };
+
   // 게스트/미리보기: 데모 읽기 전용 + 로그인 유도
   if (!isRealUser) {
     return (
@@ -127,6 +142,9 @@ export function CommunityTalkTab() {
 
   return (
     <div className="animate-slow-fade-in">
+      <p className="text-[11px] text-hlk-text-tertiary leading-relaxed mb-3 px-1">
+        💛 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요. 부적절한 글은 신고할 수 있어요.
+      </p>
       <button
         onClick={() => setModalOpen(true)}
         className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
@@ -173,7 +191,14 @@ export function CommunityTalkTab() {
                 >
                   <span>💜</span> 공감 {post.likeCount > 0 ? post.likeCount : ''}
                 </button>
-                <span className="text-xs text-hlk-text-tertiary ml-auto">💬 {post.commentCount}</span>
+                <span className="text-xs text-hlk-text-tertiary">💬 {post.commentCount}</span>
+                <button
+                  onClick={() => handleReport(post)}
+                  disabled={reportedIds.has(post.id)}
+                  className="text-xs text-hlk-text-tertiary hover:text-hlk-text ml-auto disabled:opacity-50"
+                >
+                  {reportedIds.has(post.id) ? '신고됨' : '신고'}
+                </button>
               </div>
             </div>
           ))}

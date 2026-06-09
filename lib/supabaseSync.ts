@@ -379,6 +379,24 @@ export async function togglePostLike(userId: string, postId: string, currentlyLi
   }
 }
 
+// 게시글/댓글 신고
+export async function submitReport(reporterId: string, target: { postId?: string; commentId?: string }, reason?: string) {
+  if (!isSupabaseConfigured) return { success: true, demo: true };
+  try {
+    const { error } = await supabase.from('reports').insert({
+      reporter_id: reporterId,
+      post_id: target.postId || null,
+      comment_id: target.commentId || null,
+      reason: reason || null,
+    });
+    if (error) throw error;
+    return { success: true };
+  } catch (error) {
+    console.error('[HERLYKKE] Report failed:', error);
+    return { success: false, error };
+  }
+}
+
 // 수면 시간 계산 헬퍼
 function calculateSleepHours(bedTime: string, wakeTime: string): number | null {
   if (!bedTime || !wakeTime) return null;
