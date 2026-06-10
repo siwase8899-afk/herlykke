@@ -135,7 +135,6 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_update_post_like_count
   AFTER INSERT OR DELETE ON likes
   FOR EACH ROW
-  WHEN (NEW.post_id IS NOT NULL OR OLD.post_id IS NOT NULL)
   EXECUTE FUNCTION update_post_like_count();
 
 -- 댓글 수 자동 업데이트 트리거
