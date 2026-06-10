@@ -47,15 +47,20 @@ export function FounderSection() {
             <div className="p-8 md:p-10 lg:p-12">
               <blockquote className="text-base md:text-lg text-hlk-text leading-[1.85] space-y-4">
                 <p>
-                  &ldquo;40대 중반, 갑자기 잠이 안 왔어요.
-                  분명히 피곤한데 누우면 눈이 떠지고, 새벽 3시에 깨서 천장만 바라봤어요.
+                  &ldquo;40대 중반, 1인 가구로 살아가던 저는
+                  회사의 바쁜 리듬 속에서 번아웃이 찾아왔어요.
+                  노화와 신체 변화가 겹치면서 막연한 불안이 엄습했고,
+                  매일 밤 불면은 아닌데 한 번도 개운한 적이 없었어요.
                 </p>
                 <p>
-                  그 불안을 안고 <span className="text-hlk-primary font-semibold">덴마크 호이스콜레</span>로 떠났어요.
+                  계속해서 무언가에 흔들리고,
+                  사람들과의 관계 속에서도 안정을 찾기 힘들었어요.
+                  그러다 정말 충동적으로 — 이전부터 동경하던 휘게의 삶을 찾아
+                  <span className="text-hlk-primary font-semibold"> 덴마크 호이스콜레</span>로 떠났습니다.
+                </p>
+                <p>
                   거기서 같은 시기를 지나는 여성들을 만났어요.
                   &lsquo;나만 이런 줄 알았다&rsquo;는 말을 처음 들었어요.
-                </p>
-                <p>
                   작은 독립 서점의 북토크, Full Moon 모임 —
                   별것 아닌 공감이었는데{' '}
                   <span className="text-hlk-accent font-semibold">생각보다 훨씬 큰 위로</span>가 됐어요.
