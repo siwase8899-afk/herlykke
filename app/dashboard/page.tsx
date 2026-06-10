@@ -13,6 +13,8 @@ import { SleepScoreRing } from '@/components/ui/SleepScoreRing';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { PersonalizedFeed } from '@/components/dashboard/PersonalizedFeed';
 import { TodaysReading } from '@/components/dashboard/TodaysReading';
+import { EmojiIcon } from '@/lib/iconMap';
+import { Moon } from 'lucide-react';
 
 // 데모 데이터
 const DEMO_LOGS = [
@@ -179,9 +181,12 @@ export default function DashboardPage() {
                     : 'bg-hlk-bg/50 border border-transparent hover:bg-hlk-bg'
                 }`}
               >
-                <span className={`text-2xl transition-transform duration-200 ${selectedSleep === item.value ? 'scale-110' : ''}`}>
-                  {item.emoji}
-                </span>
+                <Moon
+                  size={24}
+                  strokeWidth={1.75}
+                  className={`transition-all duration-200 ${selectedSleep === item.value ? 'scale-110 text-hlk-indigo' : 'text-hlk-text-secondary'}`}
+                  style={{ opacity: 0.4 + item.value * 0.12 }}
+                />
                 <span className={`text-[11px] font-medium ${
                   selectedSleep === item.value ? 'text-hlk-primary' : 'text-hlk-text-tertiary'
                 }`}>
@@ -227,9 +232,7 @@ export default function DashboardPage() {
                   className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500"
                   style={{ backgroundColor: nightDisruption.color + '18' }}
                 >
-                  <span className="text-2xl">
-                    {nightDisruption.emoji}
-                  </span>
+                  <EmojiIcon emoji={nightDisruption.emoji} size={26} className="text-hlk-indigo" />
                 </div>
               </div>
             </div>
@@ -283,7 +286,7 @@ export default function DashboardPage() {
         {/* ── Sleep Trend ── */}
         {sleepTrend && (
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-hlk-border/60 mb-5 flex items-center justify-center gap-2">
-            <span className="text-lg">{sleepTrend.icon}</span>
+            <EmojiIcon emoji={sleepTrend.icon} size={18} className={sleepTrend.color} />
             <span className={`text-sm font-medium ${sleepTrend.color}`}>{sleepTrend.label}</span>
           </div>
         )}
@@ -349,8 +352,8 @@ export default function DashboardPage() {
                     className="px-5 py-3.5 flex items-center justify-between hover:bg-hlk-bg/30 transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-xl ${getConditionColor(log.overall_condition)} flex items-center justify-center text-lg`}>
-                        {getConditionEmoji(log.overall_condition)}
+                      <div className={`w-10 h-10 rounded-xl ${getConditionColor(log.overall_condition)} flex items-center justify-center text-white`}>
+                        <EmojiIcon emoji={getConditionEmoji(log.overall_condition)} size={18} />
                       </div>
                       <div>
                         <p className="text-sm font-medium text-hlk-text">
