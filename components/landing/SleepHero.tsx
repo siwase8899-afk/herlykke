@@ -134,13 +134,13 @@ export default function SleepHero() {
               </svg>
             </Link>
           </div>
-          <Link
-            href="/recipes"
+          <button
+            onClick={() => document.getElementById('landing-content')?.scrollIntoView({ behavior: 'smooth' })}
             className="inline-flex items-center justify-center px-10 py-4 font-semibold rounded-full border-2 border-white/50 hover:border-white/80 hover:bg-white/15 backdrop-blur-sm transition-all duration-300"
             style={{ color: '#FFFFFF', textShadow: '0 1px 6px rgba(0,0,0,0.1)' }}
           >
             수면 레시피 보기
-          </Link>
+          </button>
         </div>
 
         {/* Micro trust */}
@@ -156,6 +156,28 @@ export default function SleepHero() {
           <span className="w-1 h-1 rounded-full bg-white/40" />
           <span>4050 여성 수면 커뮤니티</span>
         </div>
+
+        {/* 스크롤 유도 화살표 */}
+        <button
+          onClick={() => document.getElementById('landing-content')?.scrollIntoView({ behavior: 'smooth' })}
+          className={`mt-14 flex flex-col items-center gap-1.5 mx-auto transition-all duration-1000 ease-out delay-[1200ms] ${
+            showContent ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-label="아래로 스크롤"
+        >
+          <span className="text-[11px] tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            scroll
+          </span>
+          <svg
+            className="w-5 h-5 animate-bounce"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            style={{ color: 'rgba(255,255,255,0.6)' }}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
       </div>
     </section>
   );

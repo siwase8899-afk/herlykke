@@ -35,6 +35,7 @@ export default function Home() {
         <SleepHero />
 
         {/* ② 콘텐츠 허브 (탭형 브라우저) */}
+        <div id="landing-content">
         <ContentQuickAccess />
 
         {/* ③ 수면 레시피 (확장: 6장 + AnniePick 통합) */}
@@ -57,6 +58,7 @@ export default function Home() {
 
         {/* ⑨ 최종 CTA */}
         <CTAFooter />
+        </div>
       </main>
     </SunsetScroll>
   );
