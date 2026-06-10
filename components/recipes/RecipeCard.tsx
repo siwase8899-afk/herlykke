@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Recipe, CURATOR_LEVELS } from '@/lib/recipesData';
 import RealInkBadge from './RealInkBadge';
+import { EmojiIcon } from '@/lib/iconMap';
 
 // 깨진 손글씨 이미지 폴백 — 브랜드 톤(웜크림 + 세이지 초승달) 플레이스홀더
 const FALLBACK_INK =
@@ -40,11 +41,11 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
           {/* 내용 */}
           <div className="flex-1 p-4">
             <div className="flex items-center gap-1.5 flex-wrap mb-2">
-              <span className="text-sm">{level.badge}</span>
+              <EmojiIcon emoji={level.badge} size={14} />
               <span className="text-xs text-hlk-text-secondary">{recipe.curatorNickname}</span>
               {recipe.isAnniePick && (
                 <span className="text-xs bg-hlk-accent-light text-hlk-accent px-2 py-0.5 rounded-full font-medium ml-auto">
-                  ✨ 메이트 PICK
+                  <EmojiIcon emoji="✨" size={12} /> 메이트 PICK
                 </span>
               )}
             </div>
@@ -62,7 +63,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
                   </span>
                 ))}
               </div>
-              <span className="text-xs text-hlk-text-secondary">❤️ {recipe.likes}</span>
+              <span className="text-xs text-hlk-text-secondary"><EmojiIcon emoji="❤️" size={12} /> {recipe.likes}</span>
             </div>
           </div>
         </div>
@@ -99,7 +100,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
         <div className="p-4 flex-1 flex flex-col">
           {/* 큐레이터 */}
           <div className="flex items-center gap-1.5 mb-2">
-            <span className="text-sm">{level.badge}</span>
+            <EmojiIcon emoji={level.badge} size={14} />
             <span className="text-xs text-hlk-text-secondary">{recipe.curatorNickname}</span>
             <span
               className="text-xs px-2 py-0.5 rounded-full ml-auto"
@@ -127,7 +128,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
                 </span>
               ))}
             </div>
-            <span className="text-xs text-hlk-text-secondary">❤️ {recipe.likes}</span>
+            <span className="text-xs text-hlk-text-secondary"><EmojiIcon emoji="❤️" size={12} /> {recipe.likes}</span>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { columns } from '@/lib/columnsData';
 import { getAnniePickRecipes } from '@/lib/recipesData';
+import { EmojiIcon } from '@/lib/iconMap';
 
 export function TodaysReading() {
   const dayOfYear = Math.floor(
@@ -56,7 +57,7 @@ export function TodaysReading() {
             className="group flex items-start gap-3 bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-hlk-border/60 hover:border-hlk-primary/20 hover:shadow-md transition-all"
           >
             <div className="w-10 h-10 rounded-xl bg-hlk-surface-warm flex items-center justify-center flex-shrink-0 text-lg">
-              {card.emoji}
+              <EmojiIcon emoji={card.emoji} size={20} />
             </div>
             <div className="flex-1 min-w-0">
               <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold mb-1 ${card.color}`}>

@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useLogStore } from '@/stores/logStore';
 import { useAuth } from '@/lib/authContext';
 import { SYMPTOMS, MOOD_OPTIONS } from '@/lib/logTypes';
+import { EmojiIcon } from '@/lib/iconMap';
 
 // 게스트/빈 데이터용 데모 로그
 const DEMO_LOGS = [
@@ -77,11 +78,11 @@ function LogDashboardContent() {
         {justSaved && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-              <span className="text-xl">🎉</span>
+              <EmojiIcon emoji="🎉" size={20} className="text-green-600" />
             </div>
             <div>
               <p className="font-semibold text-green-800">수면 일지 완료!</p>
-              <p className="text-sm text-green-600">오늘도 잘 기록했어요 🌙</p>
+              <p className="text-sm text-green-600 flex items-center gap-1">오늘도 잘 기록했어요 <EmojiIcon emoji="🌙" size={14} /></p>
             </div>
           </div>
         )}
@@ -90,7 +91,7 @@ function LogDashboardContent() {
         {previewMode && (
           <div className="mb-6 p-4 bg-hlk-accent-light border border-hlk-accent/20 rounded-2xl">
             <div className="flex items-center gap-3">
-              <span className="text-xl">✨</span>
+              <EmojiIcon emoji="✨" size={20} className="text-hlk-accent" />
               <div>
                 <p className="text-sm font-semibold text-hlk-accent">미리보기 모드</p>
                 <p className="text-xs text-hlk-text-secondary">데모 데이터로 서비스를 체험하고 있어요</p>
@@ -106,7 +107,7 @@ function LogDashboardContent() {
         <div className="mb-8">
           <p className="text-sm text-hlk-text-tertiary mb-1">{dateStr}</p>
           <h1 className="text-2xl font-bold text-hlk-text mb-1">
-            수면 일지 🌙
+            수면 일지
           </h1>
           <p className="text-sm text-hlk-text-secondary">
             매일 3분, 어젯밤 수면을 기록해요
@@ -127,7 +128,7 @@ function LogDashboardContent() {
                   </div>
                   <div>
                     <p className="font-semibold text-hlk-text">오늘 수면 일지 완료!</p>
-                    <p className="text-sm text-hlk-text-tertiary">수고했어요 🌙</p>
+                    <p className="text-sm text-hlk-text-tertiary">수고했어요</p>
                   </div>
                 </div>
                 <Link
@@ -142,18 +143,14 @@ function LogDashboardContent() {
               <div className="bg-hlk-bg rounded-xl p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-hlk-text-tertiary">아침 컨디션</span>
-                  <span className="text-xl">
-                    {MOOD_OPTIONS.find((m) => m.value === todayLog.mood)?.emoji}
-                  </span>
+                  <EmojiIcon emoji={MOOD_OPTIONS.find((m) => m.value === todayLog.mood)?.emoji} size={20} />
                 </div>
                 {todayLog.symptoms.length > 0 && (
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-hlk-text-tertiary">증상</span>
                     <div className="flex gap-1">
                       {todayLog.symptoms.slice(0, 4).map((s) => (
-                        <span key={s.symptomId} className="text-lg">
-                          {SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji}
-                        </span>
+                        <EmojiIcon key={s.symptomId} emoji={SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji} size={18} />
                       ))}
                       {todayLog.symptoms.length > 4 && (
                         <span className="text-sm text-hlk-text-tertiary">
@@ -177,7 +174,7 @@ function LogDashboardContent() {
             // 오늘 기록 안 함
             <div className="text-center py-4">
               <div className="w-16 h-16 rounded-full bg-hlk-primary-light flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🌙</span>
+                <EmojiIcon emoji="🌙" size={28} className="text-hlk-primary" />
               </div>
               <h2 className="text-lg font-bold text-hlk-text mb-2">
                 어젯밤 수면을 기록해볼까요?
@@ -205,12 +202,12 @@ function LogDashboardContent() {
               <p className="text-white/80 text-sm mb-1">연속 수면 기록</p>
               <p className="text-4xl font-black">{streakCount}일</p>
             </div>
-            <div className="text-5xl">🔥</div>
+            <div><EmojiIcon emoji="🔥" size={40} className="text-white/90" /></div>
           </div>
           {streakCount >= 7 && (
             <div className="mt-4 pt-4 border-t border-white/20">
               <p className="text-sm text-white/90">
-                🎉 7일 연속 달성! 수면 패턴 리포트가 열렸어요
+                <EmojiIcon emoji="🎉" size={14} /> 7일 연속 달성! 수면 패턴 리포트가 열렸어요
               </p>
             </div>
           )}
@@ -243,7 +240,7 @@ function LogDashboardContent() {
                 const dayLabel = logDate.toLocaleDateString('ko-KR', { weekday: 'short' });
                 return (
                   <div key={log.id} className="flex-1 flex flex-col items-center gap-1">
-                    <span className="text-sm">{moodEmoji}</span>
+                    <EmojiIcon emoji={moodEmoji} size={16} />
                     <div className="w-full max-w-[32px] bg-hlk-bg rounded-full overflow-hidden" style={{ height: '60px' }}>
                       <div
                         className="w-full rounded-full transition-all"
@@ -271,11 +268,11 @@ function LogDashboardContent() {
                   </div>
                   <div className="text-sm">
                     {trend > 0 ? (
-                      <span className="text-green-600">📈 개선 중</span>
+                      <span className="text-green-600 inline-flex items-center gap-1"><EmojiIcon emoji="📈" size={14} /> 개선 중</span>
                     ) : trend < 0 ? (
-                      <span className="text-amber-600">📉 관리 필요</span>
+                      <span className="text-amber-600 inline-flex items-center gap-1"><EmojiIcon emoji="📉" size={14} /> 관리 필요</span>
                     ) : (
-                      <span className="text-hlk-text-tertiary">➡️ 유지 중</span>
+                      <span className="text-hlk-text-tertiary inline-flex items-center gap-1"><EmojiIcon emoji="➡️" size={14} /> 유지 중</span>
                     )}
                   </div>
                 </div>
@@ -288,14 +285,14 @@ function LogDashboardContent() {
         {recentLogs.length >= 2 && (
           <div className="grid grid-cols-2 gap-3 mb-6">
             <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
-              <span className="text-2xl mb-1 block">😴</span>
+              <div className="mb-1"><EmojiIcon emoji="😴" size={22} className="text-hlk-primary" /></div>
               <p className="text-xs text-hlk-text-tertiary">수면 추적</p>
               <p className="text-sm font-semibold text-hlk-text mt-1">
                 {recentLogs.filter(l => l.sleep).length}/{recentLogs.length}일 기록
               </p>
             </div>
             <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
-              <span className="text-2xl mb-1 block">🏃‍♀️</span>
+              <div className="mb-1"><EmojiIcon emoji="🏃" size={22} className="text-hlk-primary" /></div>
               <p className="text-xs text-hlk-text-tertiary">활동 추적</p>
               <p className="text-sm font-semibold text-hlk-text mt-1">
                 {recentLogs.filter(l => l.activities && l.activities.length > 0).length}/{recentLogs.length}일 기록
@@ -321,9 +318,7 @@ function LogDashboardContent() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="text-2xl">
-                        {MOOD_OPTIONS.find((m) => m.value === log.mood)?.emoji}
-                      </div>
+                      <EmojiIcon emoji={MOOD_OPTIONS.find((m) => m.value === log.mood)?.emoji} size={22} />
                       <div>
                         <p className="text-sm font-medium text-hlk-text">
                           {logDate.toLocaleDateString('ko-KR', {
@@ -341,9 +336,7 @@ function LogDashboardContent() {
                     </div>
                     <div className="flex gap-1">
                       {log.symptoms.slice(0, 3).map((s) => (
-                        <span key={s.symptomId} className="text-sm">
-                          {SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji}
-                        </span>
+                        <EmojiIcon key={s.symptomId} emoji={SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji} size={14} />
                       ))}
                     </div>
                   </div>
@@ -366,7 +359,7 @@ function LogDashboardContent() {
         {recentLogs.length === 0 && (
           <div className="bg-white rounded-2xl p-8 border border-hlk-border text-center">
             <div className="w-16 h-16 rounded-full bg-hlk-bg flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">📊</span>
+              <EmojiIcon emoji="📊" size={28} className="text-hlk-text-tertiary" />
             </div>
             <h3 className="font-semibold text-hlk-text mb-2">
               아직 기록이 없어요

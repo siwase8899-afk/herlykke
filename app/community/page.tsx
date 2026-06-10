@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
 import { CommunityTalkTab } from '@/components/community/CommunityTalkTab';
+import { EmojiIcon } from '@/lib/iconMap';
+import { Moon } from 'lucide-react';
 
 type TabId = 'checkin' | 'talk' | 'recipes';
 
@@ -45,7 +47,7 @@ function SleepCheckinWidget() {
   if (submitted) {
     return (
       <div className="bg-hlk-primary-light rounded-2xl p-5 text-center animate-scale-in">
-        <div className="text-3xl mb-2">{SCORES.find((s) => s.value === score)?.emoji}</div>
+        <div className="mb-2"><Moon size={32} className="mx-auto text-hlk-primary" /></div>
         <p className="font-semibold text-hlk-primary">오늘 수면 기록 완료!</p>
         <p className="text-sm text-hlk-text-secondary mt-1">수면 점수 {score}/5점</p>
       </div>
@@ -64,7 +66,7 @@ function SleepCheckinWidget() {
               score === s.value ? 'bg-hlk-primary-light scale-110' : 'hover:bg-hlk-surface-warm'
             }`}
           >
-            <span className="text-2xl">{s.emoji}</span>
+            <Moon size={24} strokeWidth={1.75} style={{ opacity: 0.25 + (s.value / 5) * 0.75 }} className="text-hlk-primary" />
             <span className="text-xs text-hlk-text-tertiary">{s.label}</span>
           </button>
         ))}
@@ -115,7 +117,7 @@ export default function CommunityPage() {
                     : 'border-transparent text-hlk-text-secondary hover:text-hlk-text'
                 }`}
               >
-                <span className="text-base">{tab.emoji}</span>
+                <EmojiIcon emoji={tab.emoji} size={18} />
                 <span>{tab.label}</span>
               </button>
             ))}
@@ -145,7 +147,7 @@ export default function CommunityPage() {
                     className="flex items-center gap-3 bg-hlk-surface rounded-xl px-4 py-3 border border-hlk-border animate-slow-fade-in"
                     style={{ animationDelay: `${i * 0.08}s` }}
                   >
-                    <span className="text-2xl">{item.emoji}</span>
+                    <EmojiIcon emoji={item.emoji} size={22} />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-hlk-text">{item.nickname}</span>
@@ -203,8 +205,8 @@ export default function CommunityPage() {
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/30 hover:shadow-sm transition-all duration-300 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center text-2xl flex-shrink-0">
-                      {pick.emoji}
+                    <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
+                      <EmojiIcon emoji={pick.emoji} size={22} className="text-hlk-primary" />
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-hlk-text leading-snug mb-1 line-clamp-2">
@@ -229,7 +231,7 @@ export default function CommunityPage() {
             </div>
 
             <div className="mt-6 bg-hlk-primary-light rounded-2xl p-5 text-center border border-hlk-primary/20">
-              <div className="text-2xl mb-2">✍️</div>
+              <div className="mb-2"><EmojiIcon emoji="✍️" size={24} className="text-hlk-primary" /></div>
               <p className="font-semibold text-hlk-text mb-1">나의 수면 레시피 올리기</p>
               <p className="text-xs text-hlk-text-secondary leading-relaxed mb-3">
                 손글씨 1장과 함께 올려주세요. 진심 한 장이 있어야 레시피가 됩니다.

@@ -13,6 +13,7 @@ import {
   type CommunityPost,
 } from '@/lib/supabaseSync';
 import { checkContent } from '@/lib/moderation';
+import { EmojiIcon } from '@/lib/iconMap';
 
 // 게스트/미리보기용 데모
 const DEMO_POSTS: CommunityPost[] = [
@@ -131,7 +132,7 @@ export function CommunityTalkTab() {
           href="/login"
           className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
         >
-          <span className="text-lg">✏️</span>
+          <EmojiIcon emoji="✏️" size={18} />
           <span>로그인하고 수면 고민·경험을 나눠보세요</span>
         </Link>
         <DemoList />
@@ -143,13 +144,13 @@ export function CommunityTalkTab() {
   return (
     <div className="animate-slow-fade-in">
       <p className="text-[11px] text-hlk-text-tertiary leading-relaxed mb-3 px-1">
-        💛 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요. 부적절한 글은 신고할 수 있어요.
+        <EmojiIcon emoji="💛" size={14} className="text-amber-500" /> 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요. 부적절한 글은 신고할 수 있어요.
       </p>
       <button
         onClick={() => setModalOpen(true)}
         className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
       >
-        <span className="text-lg">✏️</span>
+        <EmojiIcon emoji="✏️" size={18} />
         <span>수면 고민이나 경험을 나눠보세요...</span>
       </button>
 
@@ -157,7 +158,7 @@ export function CommunityTalkTab() {
         <p className="text-center text-sm text-hlk-text-tertiary py-10">불러오는 중...</p>
       ) : posts.length === 0 ? (
         <div className="bg-hlk-surface rounded-2xl p-8 border border-hlk-border text-center">
-          <div className="text-3xl mb-3">🌙</div>
+          <div className="mb-3"><EmojiIcon emoji="🌙" size={28} className="text-hlk-primary" /></div>
           <p className="font-semibold text-hlk-text mb-1">아직 글이 없어요</p>
           <p className="text-sm text-hlk-text-secondary mb-5">첫 글의 주인공이 되어보세요. 같은 밤을 지나는 메이트들이 기다려요.</p>
           <button
@@ -172,7 +173,7 @@ export function CommunityTalkTab() {
           {posts.map((post) => (
             <div key={post.id} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center text-sm">🌙</div>
+                <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center"><EmojiIcon emoji="🌙" size={16} className="text-hlk-primary" /></div>
                 <span className="text-sm font-medium text-hlk-text">{post.anonymousName}</span>
                 <span className="text-xs text-hlk-text-tertiary bg-hlk-surface-warm px-2 py-0.5 rounded-full">
                   {CATEGORY_LABEL[post.category] || post.category}
@@ -189,9 +190,9 @@ export function CommunityTalkTab() {
                       : 'text-hlk-text-secondary hover:bg-hlk-surface-warm'
                   }`}
                 >
-                  <span>💜</span> 공감 {post.likeCount > 0 ? post.likeCount : ''}
+                  <EmojiIcon emoji="💜" size={14} /> 공감 {post.likeCount > 0 ? post.likeCount : ''}
                 </button>
-                <span className="text-xs text-hlk-text-tertiary">💬 {post.commentCount}</span>
+                <span className="text-xs text-hlk-text-tertiary"><EmojiIcon emoji="💬" size={14} /> {post.commentCount}</span>
                 <button
                   onClick={() => handleReport(post)}
                   disabled={reportedIds.has(post.id)}
@@ -263,14 +264,14 @@ function DemoList() {
       {DEMO_POSTS.map((post) => (
         <div key={post.id} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center text-sm">🌙</div>
+            <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center"><EmojiIcon emoji="🌙" size={16} className="text-hlk-primary" /></div>
             <span className="text-sm font-medium text-hlk-text">{post.anonymousName}</span>
             <span className="text-xs text-hlk-text-tertiary ml-auto">미리보기</span>
           </div>
           <p className="text-sm text-hlk-text leading-relaxed mb-4">{post.content}</p>
           <div className="flex items-center gap-3 pt-3 border-t border-hlk-border/40">
             <span className="inline-flex items-center gap-1.5 text-sm text-hlk-text-secondary">💜 공감 {post.likeCount}</span>
-            <span className="text-xs text-hlk-text-tertiary ml-auto">💬 {post.commentCount}</span>
+            <span className="text-xs text-hlk-text-tertiary ml-auto"><EmojiIcon emoji="💬" size={14} /> {post.commentCount}</span>
           </div>
         </div>
       ))}

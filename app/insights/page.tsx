@@ -26,6 +26,7 @@ import { TipsSection } from '@/components/tips/TipsSection';
 import { columns } from '@/lib/columnsData';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { BreathingLoader } from '@/components/ui/BreathingLoader';
+import { EmojiIcon } from '@/lib/iconMap';
 
 // 데모 데이터 (14일 — 변화 리포트를 위해 2주)
 const DEMO_LOGS: DailyLog[] = [
@@ -222,7 +223,7 @@ export default function InsightsPage() {
         <div className="bg-hlk-accent-light border-b border-hlk-accent/20 px-5 py-3">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span>✨</span>
+              <EmojiIcon emoji="✨" size={16} className="text-hlk-accent" />
               <p className="text-xs text-hlk-text-secondary">
                 {logs.length === 0 ? '미리보기 모드 — 데모 데이터로 서비스를 체험 중이에요' : '데모 데이터로 보고 있어요'}
               </p>
@@ -326,19 +327,19 @@ export default function InsightsPage() {
                     <div className="mt-4 flex items-center justify-center gap-2 text-sm">
                       {sleepPattern.qualityTrend === 'improving' && (
                         <>
-                          <span className="text-green-500">📈</span>
+                          <EmojiIcon emoji="📈" size={16} className="text-green-500" />
                           <span className="text-hlk-text-secondary">수면 품질이 개선되고 있어요!</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'declining' && (
                         <>
-                          <span className="text-red-500">📉</span>
+                          <EmojiIcon emoji="📉" size={16} className="text-red-500" />
                           <span className="text-hlk-text-secondary">수면에 신경 써보세요</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'stable' && (
                         <>
-                          <span className="text-amber-500">➡️</span>
+                          <EmojiIcon emoji="➡️" size={16} className="text-amber-500" />
                           <span className="text-hlk-text-secondary">수면 패턴이 일정해요</span>
                         </>
                       )}
@@ -354,7 +355,7 @@ export default function InsightsPage() {
                   <div className="bg-white rounded-2xl p-5 border border-hlk-border">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-semibold text-hlk-text flex items-center gap-2">
-                        <span className="text-lg">💊</span>
+                        <EmojiIcon emoji="💊" size={18} />
                         이 증상 관리 솔루션
                       </h3>
                       <Link href="/solutions" className="text-sm text-hlk-primary hover:underline">
@@ -401,9 +402,7 @@ export default function InsightsPage() {
                             className="flex items-center gap-4 p-3 bg-hlk-bg rounded-xl hover:bg-hlk-border transition-colors"
                           >
                             <div className="w-10 h-10 rounded-lg bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
-                              <span className="text-lg">
-                                {sol.category === '명상/요가' ? '🧘‍♀️' : sol.category === '영양제' ? '💊' : sol.category === '운동' ? '🏃‍♀️' : sol.category === '상담' ? '💬' : '🛍️'}
-                              </span>
+                              <EmojiIcon emoji={sol.category === '명상/요가' ? '🧘‍♀️' : sol.category === '영양제' ? '💊' : sol.category === '운동' ? '🏃' : sol.category === '상담' ? '💬' : '🛍️'} size={18} className="text-hlk-primary" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium text-hlk-text truncate">{sol.title}</p>
@@ -427,7 +426,7 @@ export default function InsightsPage() {
                 <div className="bg-white rounded-2xl p-5 border border-hlk-border">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-hlk-text flex items-center gap-2">
-                      <span className="text-lg">🌙</span>
+                      <EmojiIcon emoji="🌙" size={18} />
                       수면 회복 가이드
                     </h3>
                     <Link href="/columns" className="text-sm text-hlk-primary hover:underline">
@@ -462,7 +461,7 @@ export default function InsightsPage() {
                           className="flex items-start gap-3 p-3 bg-hlk-bg rounded-xl hover:bg-hlk-border transition-colors"
                         >
                           <div className="w-10 h-10 rounded-lg bg-hlk-accent-light flex items-center justify-center flex-shrink-0">
-                            <span className="text-lg">🌙</span>
+                            <EmojiIcon emoji="🌙" size={18} />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-hlk-text line-clamp-1">{col.title}</p>
@@ -488,7 +487,7 @@ export default function InsightsPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-start gap-3">
-                      <span className="text-2xl">💡</span>
+                      <EmojiIcon emoji="💡" size={22} className="text-hlk-accent" />
                       <div>
                         <h3 className="font-semibold text-hlk-text mb-1">맞춤 케어 팁 보기</h3>
                         <p className="text-sm text-hlk-text-secondary">

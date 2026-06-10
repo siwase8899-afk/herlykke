@@ -12,6 +12,7 @@ import { ActivityTags } from '@/components/log/ActivityTags';
 import { SYMPTOMS } from '@/lib/logTypes';
 import { MOOD_TAGS } from '@/lib/dailyLogConstants';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { EmojiIcon } from '@/lib/iconMap';
 
 // 수면을 첫 번째 스텝으로 재배치
 const STEPS = ['sleep', 'mood', 'symptoms', 'activities', 'note'] as const;
@@ -198,7 +199,7 @@ export default function NewLogPage() {
                 <div className="flex justify-between">
                   <span className="text-hlk-text-tertiary">아침 컨디션</span>
                   <span className="text-hlk-text">
-                    {draft.mood ? ['😫', '😕', '😐', '🙂', '😊'][draft.mood - 1] : '-'}
+                    {draft.mood ? <EmojiIcon emoji={['😫', '😕', '😐', '🙂', '😊'][draft.mood - 1]} size={18} /> : '-'}
                   </span>
                 </div>
 
@@ -209,7 +210,7 @@ export default function NewLogPage() {
                       {draft.moodTags.map((tagId) => {
                         const tag = MOOD_TAGS.find((t) => t.id === tagId);
                         return tag ? (
-                          <span key={tagId} className="text-xs">{tag.emoji} {tag.label}</span>
+                          <span key={tagId} className="text-xs inline-flex items-center gap-0.5"><EmojiIcon emoji={tag.emoji} size={12} /> {tag.label}</span>
                         ) : null;
                       })}
                     </div>
@@ -220,9 +221,7 @@ export default function NewLogPage() {
                   <span className="text-hlk-text-tertiary">수면 방해 증상</span>
                   <span className="text-hlk-text">
                     {draft.symptoms.length > 0
-                      ? draft.symptoms
-                          .map((s) => SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji)
-                          .join(' ')
+                      ? <span className="inline-flex gap-1">{draft.symptoms.map((s) => <EmojiIcon key={s.symptomId} emoji={SYMPTOMS.find((sym) => sym.id === s.symptomId)?.emoji} size={14} />)}</span>
                       : '없음'}
                   </span>
                 </div>
@@ -249,7 +248,7 @@ export default function NewLogPage() {
               onClick={handleSave}
               className="w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 active:scale-[0.98] transition-all"
             >
-              수면 일지 완료 🌙
+              수면 일지 완료
             </button>
           ) : (
             <button

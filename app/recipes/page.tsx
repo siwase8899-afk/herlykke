@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { RECIPES, RECIPE_CATEGORIES, getAnniePickRecipes, getRecipesByCategory, RecipeCategory } from '@/lib/recipesData';
 import RecipeCard from '@/components/recipes/RecipeCard';
 import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { EmojiIcon } from '@/lib/iconMap';
 
 export default function RecipesPage() {
   const [activeCategory, setActiveCategory] = useState<RecipeCategory>('all');
@@ -21,7 +22,7 @@ export default function RecipesPage() {
         ]} />
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-2 bg-white/20 text-white text-sm px-3 py-1.5 rounded-full mb-4">
-            <span>✍️</span>
+            <EmojiIcon emoji="✍️" size={16} />
             <span>손글씨 인증 · Real Ink</span>
           </div>
           <h1 className="text-3xl font-bold mb-2">수면 레시피</h1>
@@ -37,7 +38,7 @@ export default function RecipesPage() {
         {/* 메이트 PICK 섹션 */}
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-xl">✨</span>
+            <EmojiIcon emoji="✨" size={20} className="text-hlk-accent" />
             <h2 className="text-lg font-bold text-hlk-text">메이트 PICK</h2>
             <span className="text-xs text-hlk-text-tertiary bg-hlk-surface-warm px-2 py-1 rounded-full ml-1">
               공감 TOP
@@ -68,7 +69,7 @@ export default function RecipesPage() {
                   : 'bg-hlk-surface text-hlk-text-secondary border border-hlk-border hover:border-hlk-primary/30'
               }`}
             >
-              <span>{cat.emoji}</span>
+              <EmojiIcon emoji={cat.emoji} size={16} />
               <span>{cat.label}</span>
             </button>
           ))}
@@ -92,7 +93,7 @@ export default function RecipesPage() {
 
         {/* 레시피 올리기 CTA */}
         <div className="mt-10 bg-hlk-primary-light rounded-2xl p-6 text-center border border-hlk-primary/20">
-          <div className="text-3xl mb-3">✍️</div>
+          <div className="mb-3"><EmojiIcon emoji="✍️" size={28} className="text-hlk-primary" /></div>
           <h3 className="font-bold text-hlk-text mb-2">당신의 수면 레시피도 올려보세요</h3>
           <p className="text-sm text-hlk-text-secondary leading-relaxed mb-4">
             손글씨 1장으로 시작해요.
