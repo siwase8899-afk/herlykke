@@ -153,7 +153,7 @@ export function HeroSection() {
             {/* Right: Character Card — slides in from right */}
             <div className="relative flex justify-center">
               <div
-                className={`relative bg-white rounded-3xl p-8 md:p-10 border border-hlk-border shadow-xl max-w-sm w-full transition-all duration-600 ${
+                className={`relative card-glass rounded-3xl p-8 md:p-10 shadow-xl max-w-sm w-full transition-all duration-600 ${
                   isVisible ? 'opacity-100 scale-100 translate-x-0' : 'opacity-0 scale-95 translate-x-4'
                 }`}
                 style={{ transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' }}

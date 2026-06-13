@@ -62,7 +62,7 @@ export const DEMO_POLLS: Poll[] = [
   {
     id: 'poll_3',
     type: 'empathy',
-    question: '갱년기라고 말했을 때 주변 반응...',
+    question: '몸이 달라졌다고 말했을 때 주변 반응...',
     options: [
       { id: 'opt_3_1', text: '"아직 젊은데 벌써?"라고 함', emoji: '🙄', votes: 298 },
       { id: 'opt_3_2', text: '이해해주고 배려해줌', emoji: '🤗', votes: 87 },
@@ -108,8 +108,8 @@ export const DEMO_POLLS: Poll[] = [
 
 // 카테고리 정보
 export const POLL_CATEGORIES = {
-  symptom: { label: '증상', emoji: '🩺', color: 'bg-red-100 text-red-700' },
-  lifestyle: { label: '생활', emoji: '🏠', color: 'bg-blue-100 text-blue-700' },
-  tips: { label: '꿀팁', emoji: '💡', color: 'bg-yellow-100 text-yellow-700' },
-  general: { label: '일반', emoji: '💬', color: 'bg-gray-100 text-gray-700' },
+  symptom: { label: '증상', emoji: '🩺', color: 'bg-hlk-accent-light text-hlk-accent-dark' },
+  lifestyle: { label: '생활', emoji: '🏠', color: 'bg-hlk-lavender-light text-hlk-lavender' },
+  tips: { label: '꿀팁', emoji: '💡', color: 'bg-hlk-clay-light text-hlk-clay-dark' },
+  general: { label: '일반', emoji: '💬', color: 'bg-hlk-primary-light text-hlk-primary-dark' },
 };

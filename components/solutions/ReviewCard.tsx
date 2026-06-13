@@ -40,16 +40,16 @@ export function ReviewCard({ review }: ReviewCardProps) {
     : null;
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+    <div className="card-glass rounded-2xl p-5">
       {/* Before/After 증상 변화 */}
       {biggestChange && biggestSymptom && (
         <div className="flex items-center gap-2 mb-3 p-3 bg-hlk-bg rounded-xl">
           <span className="text-lg">{biggestSymptom.emoji}</span>
           <span className="text-sm font-semibold text-hlk-text">{biggestSymptom.name}</span>
           <div className="flex items-center gap-1 ml-auto">
-            <span className="text-sm font-bold text-red-500">{biggestChange.before}/5</span>
+            <span className="text-sm font-bold text-hlk-error">{biggestChange.before}/5</span>
             <span className="text-hlk-text-tertiary">→</span>
-            <span className="text-sm font-bold text-green-600">{biggestChange.after}/5</span>
+            <span className="text-sm font-bold text-hlk-success">{biggestChange.after}/5</span>
           </div>
           <span className="text-xs text-hlk-text-tertiary">| {getDurationLabel(review.usageDuration)}</span>
         </div>
@@ -64,7 +64,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
       <div className="flex items-center gap-2 mb-3">
         <div className="flex">
           {[1, 2, 3, 4, 5].map((star) => (
-            <span key={star} className={`text-sm ${star <= review.rating ? 'text-yellow-500' : 'text-hlk-border'}`}>
+            <span key={star} className={`text-sm ${star <= review.rating ? 'text-hlk-star' : 'text-hlk-border'}`}>
               ★
             </span>
           ))}

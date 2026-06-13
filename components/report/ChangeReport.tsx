@@ -2,6 +2,7 @@
 
 import { PeriodComparison, MonthlyReport } from '@/lib/patternAnalysis';
 import { useState } from 'react';
+import { EmojiIcon } from '@/lib/iconMap';
 
 interface ChangeReportProps {
   weekly: PeriodComparison | null;
@@ -14,9 +15,9 @@ export function ChangeReport({ weekly, monthly, totalLogs }: ChangeReportProps) 
 
   if (!weekly) {
     return (
-      <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
+      <div className="card-glass rounded-2xl p-6 text-center">
         <div className="w-16 h-16 rounded-full bg-hlk-bg flex items-center justify-center mx-auto mb-4">
-          <span className="text-3xl">📊</span>
+          <EmojiIcon emoji="📊" size={30} className="text-hlk-primary" />
         </div>
         <h3 className="font-bold text-hlk-text mb-2">변화 리포트 준비 중</h3>
         <p className="text-sm text-hlk-text-secondary mb-4">
@@ -97,13 +98,13 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
       {/* 변화 요약 3열 그리드 */}
       <div className="grid grid-cols-3 gap-3">
         {/* 기분 변화 */}
-        <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+        <div className="card-glass rounded-2xl p-4 text-center">
           <p className="text-xs text-hlk-text-tertiary mb-1">기분</p>
           <p className={`text-2xl font-bold ${
             data.moodChangeDirection === 'up'
-              ? 'text-green-600'
+              ? 'text-hlk-success'
               : data.moodChangeDirection === 'down'
-              ? 'text-red-500'
+              ? 'text-hlk-error'
               : 'text-hlk-text'
           }`}>
             {data.moodChange > 0 ? '+' : ''}{data.moodChange}%
@@ -116,13 +117,13 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
         </div>
 
         {/* 수면 변화 */}
-        <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+        <div className="card-glass rounded-2xl p-4 text-center">
           <p className="text-xs text-hlk-text-tertiary mb-1">수면 품질</p>
           <p className={`text-2xl font-bold ${
             data.sleepChange.quality > 0
-              ? 'text-green-600'
+              ? 'text-hlk-success'
               : data.sleepChange.quality < 0
-              ? 'text-red-500'
+              ? 'text-hlk-error'
               : 'text-hlk-text'
           }`}>
             {data.sleepChange.quality > 0 ? '+' : ''}{data.sleepChange.quality.toFixed(1)}
@@ -135,7 +136,7 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
         </div>
 
         {/* 기록 일수 */}
-        <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+        <div className="card-glass rounded-2xl p-4 text-center">
           <p className="text-xs text-hlk-text-tertiary mb-1">기록</p>
           <p className="text-2xl font-bold text-hlk-primary">
             {data.current.totalLogs}일
@@ -148,7 +149,7 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
 
       {/* 증상 변화 */}
       {data.symptomChanges.length > 0 && (
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-2xl p-5">
           <h3 className="font-semibold text-hlk-text mb-4 flex items-center gap-2">
             <span>🩺</span>
             증상 변화
@@ -162,9 +163,9 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
                     <span className="text-sm font-medium text-hlk-text">{symptom.name}</span>
                     <span className={`text-xs font-semibold ${
                       symptom.direction === 'improved'
-                        ? 'text-green-600'
+                        ? 'text-hlk-success'
                         : symptom.direction === 'worsened'
-                        ? 'text-red-500'
+                        ? 'text-hlk-error'
                         : 'text-hlk-text-tertiary'
                     }`}>
                       {symptom.direction === 'improved'
@@ -181,7 +182,7 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
                       <div className="h-2 rounded-full bg-hlk-border" style={{ width: `${(symptom.previousCount / 7) * 100}%`, minWidth: symptom.previousCount > 0 ? '8px' : '0' }} />
                       {/* 이번주 */}
                       <div className={`h-2 rounded-full ${
-                        symptom.direction === 'improved' ? 'bg-green-400' : symptom.direction === 'worsened' ? 'bg-red-400' : 'bg-hlk-primary'
+                        symptom.direction === 'improved' ? 'bg-hlk-success' : symptom.direction === 'worsened' ? 'bg-hlk-error' : 'bg-hlk-primary'
                       }`} style={{ width: `${(symptom.currentCount / 7) * 100}%`, minWidth: symptom.currentCount > 0 ? '8px' : '0' }} />
                     </div>
                     <span className="text-xs text-hlk-text-tertiary w-12 text-right">
@@ -207,33 +208,33 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
 
       {/* 활동 영향 요약 */}
       {(data.current.bestActivity || data.current.worstTrigger) && (
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-2xl p-5">
           <h3 className="font-semibold text-hlk-text mb-3 flex items-center gap-2">
             <span>💡</span>
             이번 주 발견
           </h3>
           <div className="space-y-3">
             {data.current.bestActivity && (
-              <div className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-hlk-primary-light rounded-xl">
                 <span className="text-lg">{data.current.bestActivity.emoji}</span>
                 <div>
-                  <p className="text-sm font-medium text-green-700">
+                  <p className="text-sm font-medium text-hlk-primary-dark">
                     {data.current.bestActivity.name}한 날 기분이 더 좋았어요
                   </p>
-                  <p className="text-xs text-green-600">
+                  <p className="text-xs text-hlk-success">
                     평균 기분 +{data.current.bestActivity.impactScore.toFixed(1)}
                   </p>
                 </div>
               </div>
             )}
             {data.current.worstTrigger && (
-              <div className="flex items-center gap-3 p-3 bg-red-50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-hlk-clay-light rounded-xl">
                 <span className="text-lg">{data.current.worstTrigger.emoji}</span>
                 <div>
-                  <p className="text-sm font-medium text-red-700">
+                  <p className="text-sm font-medium text-hlk-error">
                     {data.current.worstTrigger.name} 후 기분이 낮았어요
                   </p>
-                  <p className="text-xs text-red-600">
+                  <p className="text-xs text-hlk-error">
                     평균 기분 {data.current.worstTrigger.impactScore.toFixed(1)}
                   </p>
                 </div>
@@ -250,7 +251,7 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
 function MonthlyChangeView({ data, weeklyFallback }: { data: MonthlyReport | null; weeklyFallback: PeriodComparison }) {
   if (!data) {
     return (
-      <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
+      <div className="card-glass rounded-2xl p-6 text-center">
         <div className="w-14 h-14 rounded-full bg-hlk-bg flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">📅</span>
         </div>
@@ -278,7 +279,7 @@ function MonthlyChangeView({ data, weeklyFallback }: { data: MonthlyReport | nul
       </div>
 
       {/* 주차별 기분 추이 */}
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <h3 className="font-semibold text-hlk-text mb-4">주차별 컨디션</h3>
         <div className="space-y-3">
           {data.weeks.map((week) => {
@@ -288,10 +289,10 @@ function MonthlyChangeView({ data, weeklyFallback }: { data: MonthlyReport | nul
             };
             const moodPercent = (week.summary.avgMood / 5) * 100;
             const moodColor = week.summary.avgMood >= 4
-              ? 'bg-green-400'
+              ? 'bg-hlk-success'
               : week.summary.avgMood >= 3
-              ? 'bg-amber-400'
-              : 'bg-red-400';
+              ? 'bg-hlk-warning-fill'
+              : 'bg-hlk-error';
 
             return (
               <div key={week.weekNumber}>
@@ -326,7 +327,7 @@ function MonthlyChangeView({ data, weeklyFallback }: { data: MonthlyReport | nul
       </div>
 
       {/* 수면 추이 */}
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <h3 className="font-semibold text-hlk-text mb-4">주차별 수면</h3>
         <div className="grid grid-cols-2 gap-3">
           {data.weeks.map((week) => (

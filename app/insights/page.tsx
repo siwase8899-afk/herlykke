@@ -24,7 +24,6 @@ import { ReportLocked } from '@/components/report/ReportLocked';
 import { ChangeReport } from '@/components/report/ChangeReport';
 import { TipsSection } from '@/components/tips/TipsSection';
 import { columns } from '@/lib/columnsData';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { BreathingLoader } from '@/components/ui/BreathingLoader';
 import { EmojiIcon } from '@/lib/iconMap';
 
@@ -155,7 +154,7 @@ export default function InsightsPage() {
 
   if (!mounted || (isRealUser && hydrating)) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <BreathingLoader size="md" showGuide />
         <p className="text-sm text-hlk-text-tertiary animate-slow-fade-in-delay-2">패턴을 분석하고 있어요...</p>
       </div>
@@ -190,8 +189,7 @@ export default function InsightsPage() {
   const monthlyReport = generateMonthlyReport(displayLogs);
 
   return (
-    <div className="min-h-screen bg-hlk-bg relative">
-      <FloatingOrbs />
+    <div className="min-h-screen relative">
       {/* Header */}
       <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-lg mx-auto flex items-center justify-between">
@@ -238,7 +236,7 @@ export default function InsightsPage() {
       )}
 
       {/* Tabs */}
-      <div className="sticky top-[57px] z-40 bg-white border-b border-hlk-border">
+      <div className="sticky top-[57px] z-40 bg-white/82 backdrop-blur-lg border-b border-hlk-border">
         <div className="max-w-lg mx-auto px-5">
           <div className="flex gap-4">
             <button
@@ -308,7 +306,7 @@ export default function InsightsPage() {
 
                 {/* 수면 패턴 */}
                 {sleepPattern.avgHours > 0 && (
-                  <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+                  <div className="card-glass rounded-2xl p-5">
                     <h3 className="font-semibold text-hlk-text mb-4">수면 패턴</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-hlk-bg rounded-xl p-4 text-center">
@@ -327,19 +325,19 @@ export default function InsightsPage() {
                     <div className="mt-4 flex items-center justify-center gap-2 text-sm">
                       {sleepPattern.qualityTrend === 'improving' && (
                         <>
-                          <EmojiIcon emoji="📈" size={16} className="text-green-500" />
+                          <EmojiIcon emoji="📈" size={16} className="text-hlk-success" />
                           <span className="text-hlk-text-secondary">수면 품질이 개선되고 있어요!</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'declining' && (
                         <>
-                          <EmojiIcon emoji="📉" size={16} className="text-red-500" />
+                          <EmojiIcon emoji="📉" size={16} className="text-hlk-error" />
                           <span className="text-hlk-text-secondary">수면에 신경 써보세요</span>
                         </>
                       )}
                       {sleepPattern.qualityTrend === 'stable' && (
                         <>
-                          <EmojiIcon emoji="➡️" size={16} className="text-amber-500" />
+                          <EmojiIcon emoji="➡️" size={16} className="text-hlk-warning" />
                           <span className="text-hlk-text-secondary">수면 패턴이 일정해요</span>
                         </>
                       )}
@@ -352,7 +350,7 @@ export default function InsightsPage() {
 
                 {/* 이 증상 관리 솔루션 */}
                 {symptomFrequency.length > 0 && (
-                  <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+                  <div className="card-glass rounded-2xl p-5">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-semibold text-hlk-text flex items-center gap-2">
                         <EmojiIcon emoji="💊" size={18} />
@@ -423,7 +421,7 @@ export default function InsightsPage() {
                 )}
 
                 {/* 전문가 컬럼 추천 */}
-                <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+                <div className="card-glass rounded-2xl p-5">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-hlk-text flex items-center gap-2">
                       <EmojiIcon emoji="🌙" size={18} />
@@ -511,7 +509,7 @@ export default function InsightsPage() {
 
       {/* Bottom CTA */}
       {!todayLog && (
-        <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-hlk-border">
+        <div className="sticky bottom-0 px-5 py-4 bg-white/82 backdrop-blur-lg border-t border-hlk-border">
           <div className="max-w-lg mx-auto">
             <Link
               href="/log/new"

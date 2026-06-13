@@ -39,11 +39,11 @@ export function Footer() {
               이용약관
             </Link>
           </div>
-          <p className="text-xs text-white/50 mb-3 leading-relaxed">
+          <p className="text-sm text-white/75 mb-3 leading-relaxed">
             이 서비스는 의료 서비스가 아니며, 전문의 상담을 대체하지 않습니다.
             체크인 결과는 참고용이며, 정확한 진단을 위해서는 전문의 상담을 권장합니다.
           </p>
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-white/60">
             &copy; 2026 HERLYKKE. All rights reserved.
           </p>
         </div>

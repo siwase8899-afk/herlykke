@@ -1,12 +1,13 @@
 'use client';
 
 import type { KuppermanResult, KuppermanLevel } from '../../lib/stageClassifier';
+import { BarChart3 } from 'lucide-react';
 
-const LEVEL_CONFIG: Record<KuppermanLevel, { color: string; bg: string; emoji: string }> = {
-  normal:   { color: 'text-hlk-success',  bg: 'bg-hlk-success/10', emoji: '🟢' },
-  mild:     { color: 'text-hlk-primary',  bg: 'bg-hlk-primary-light', emoji: '🟡' },
-  moderate: { color: 'text-hlk-warning',  bg: 'bg-hlk-warning/10', emoji: '🟠' },
-  severe:   { color: 'text-hlk-error',    bg: 'bg-hlk-error/10', emoji: '🔴' },
+const LEVEL_CONFIG: Record<KuppermanLevel, { color: string; bg: string; dot: string }> = {
+  normal:   { color: 'text-hlk-success',  bg: 'bg-hlk-success/10', dot: 'bg-hlk-success' },
+  mild:     { color: 'text-hlk-primary',  bg: 'bg-hlk-primary-light', dot: 'bg-hlk-primary' },
+  moderate: { color: 'text-hlk-warning',  bg: 'bg-hlk-warning/10', dot: 'bg-hlk-warning' },
+  severe:   { color: 'text-hlk-error',    bg: 'bg-hlk-error/10', dot: 'bg-hlk-error' },
 };
 
 interface KuppermanCardProps {
@@ -19,11 +20,11 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
   const activeDetails = result.details.filter(d => d.severity > 0);
 
   return (
-    <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-6">
+    <div className="card-glass rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-lg">📊</span>
+        <BarChart3 className="h-5 w-5 text-hlk-primary" aria-hidden />
         <h3 className="text-base font-bold text-hlk-text">변화 지수</h3>
-        <span className="text-xs text-hlk-text-tertiary ml-auto">쿠퍼만 기반</span>
+        <span className="text-xs text-hlk-text-tertiary ml-auto">체크인 답변 기반</span>
       </div>
 
       {/* 점수 표시 */}
@@ -32,7 +33,8 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
           {result.score}<span className="text-lg font-normal text-hlk-text-tertiary">/{result.maxScore}</span>
         </div>
         <span className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1 rounded-full ${config.bg} ${config.color}`}>
-          {config.emoji} {result.levelLabel}
+          <span className={`h-2 w-2 rounded-full ${config.dot}`} aria-hidden />
+          {result.levelLabel}
         </span>
       </div>
 
@@ -85,7 +87,7 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
       )}
 
       <p className="text-[10px] text-hlk-text-tertiary mt-4 text-center leading-relaxed">
-        임상에서 사용되는 쿠퍼만 갱년기 지수(Kupperman Index) 기반
+        체크인 답변을 바탕으로 현재 변화 정도를 간단히 정리한 참고 지표입니다.
       </p>
     </div>
   );

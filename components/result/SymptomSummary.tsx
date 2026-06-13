@@ -21,7 +21,7 @@ export function SymptomSummary({ physicalSymptoms, emotionalSymptoms, cluster }:
   const emotionalItems = EmotionalSymptoms.filter((s) => emotionalSymptoms.includes(s.key));
 
   return (
-    <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-6">
+    <div className="card-glass rounded-2xl p-6">
       <h3 className="text-base font-bold text-hlk-text mb-1">나의 증상 패턴</h3>
       <p className="text-sm text-hlk-primary font-medium mb-4">
         {CLUSTER_LABELS[cluster] || cluster}

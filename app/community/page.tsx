@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
 import { CommunityTalkTab } from '@/components/community/CommunityTalkTab';
 import { EmojiIcon } from '@/lib/iconMap';
@@ -55,7 +54,7 @@ function SleepCheckinWidget() {
   }
 
   return (
-    <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+    <div className="card-glass rounded-2xl p-5">
       <p className="font-semibold text-hlk-text mb-4">오늘 밤 수면은 어떠셨나요?</p>
       <div className="flex justify-between mb-4">
         {SCORES.map((s) => (
@@ -90,10 +89,9 @@ export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState<TabId>('checkin');
 
   return (
-    <div className="min-h-screen bg-hlk-bg relative">
-      <FloatingOrbs />
+    <div className="min-h-screen relative">
       {/* Header with animated moon */}
-      <div className="bg-gradient-to-r from-hlk-primary to-hlk-primary-dark text-white px-6 pt-16 pb-6 relative overflow-hidden">
+      <div className="aurora-header px-6 pt-16 pb-6 overflow-hidden">
         <div className="absolute top-4 right-6 opacity-30">
           <SleepCycleViz quality={75} size={48} />
         </div>
@@ -144,7 +142,7 @@ export default function CommunityPage() {
                 {DEMO_CHECKINS.map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 bg-hlk-surface rounded-xl px-4 py-3 border border-hlk-border animate-slow-fade-in"
+                    className="flex items-center gap-3 card-glass rounded-xl px-4 py-3 animate-slow-fade-in"
                     style={{ animationDelay: `${i * 0.08}s` }}
                   >
                     <EmojiIcon emoji={item.emoji} size={22} />
@@ -204,7 +202,7 @@ export default function CommunityPage() {
                   className="block animate-slow-fade-in"
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border hover:border-hlk-primary/30 hover:shadow-sm transition-all duration-300 flex items-center gap-4">
+                  <div className="card-glass rounded-2xl p-5 hover:border-hlk-primary/30 hover:shadow-sm transition-all duration-300 flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
                       <EmojiIcon emoji={pick.emoji} size={22} className="text-hlk-primary" />
                     </div>

@@ -10,7 +10,7 @@ interface SymptomFrequencyProps {
 export function SymptomFrequency({ data, totalDays }: SymptomFrequencyProps) {
   if (data.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <h3 className="font-semibold text-hlk-text mb-4">증상 빈도</h3>
         <p className="text-sm text-hlk-text-tertiary text-center py-4">
           기록된 증상이 없어요
@@ -24,13 +24,13 @@ export function SymptomFrequency({ data, totalDays }: SymptomFrequencyProps) {
 
   // 강도에 따른 색상
   const getSeverityColor = (avgSeverity: number) => {
-    if (avgSeverity >= 4) return 'bg-red-400';
-    if (avgSeverity >= 3) return 'bg-amber-400';
-    return 'bg-green-400';
+    if (avgSeverity >= 4) return 'bg-hlk-error';
+    if (avgSeverity >= 3) return 'bg-hlk-warning-fill';
+    return 'bg-hlk-primary';
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+    <div className="card-glass rounded-2xl p-5">
       <h3 className="font-semibold text-hlk-text mb-4">주요 증상 TOP 5</h3>
 
       <div className="space-y-4">

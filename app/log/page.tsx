@@ -44,7 +44,7 @@ function LogDashboardContent() {
 
   if (!mounted || (isRealUser && hydrating)) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     );
@@ -72,17 +72,17 @@ function LogDashboardContent() {
     .slice(0, 7);
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       <div className="max-w-lg mx-auto px-5 py-8">
         {/* 저장 완료 메시지 */}
         {justSaved && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-              <EmojiIcon emoji="🎉" size={20} className="text-green-600" />
+          <div className="mb-6 p-4 bg-hlk-primary-light border border-hlk-primary/20 rounded-2xl flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-hlk-primary-light flex items-center justify-center">
+              <EmojiIcon emoji="🎉" size={20} className="text-hlk-success" />
             </div>
             <div>
-              <p className="font-semibold text-green-800">수면 일지 완료!</p>
-              <p className="text-sm text-green-600 flex items-center gap-1">오늘도 잘 기록했어요 <EmojiIcon emoji="🌙" size={14} /></p>
+              <p className="font-semibold text-hlk-primary-dark">수면 일지 완료!</p>
+              <p className="text-sm text-hlk-success flex items-center gap-1">오늘도 잘 기록했어요 <EmojiIcon emoji="🌙" size={14} /></p>
             </div>
           </div>
         )}
@@ -115,14 +115,14 @@ function LogDashboardContent() {
         </div>
 
         {/* 오늘 기록 상태 카드 */}
-        <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm mb-6">
+        <div className="card-glass rounded-2xl p-6 shadow-sm mb-6">
           {todayLog ? (
             // 오늘 기록 완료
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-12 h-12 rounded-full bg-hlk-primary-light flex items-center justify-center">
+                    <svg className="w-6 h-6 text-hlk-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -196,7 +196,7 @@ function LogDashboardContent() {
         </div>
 
         {/* 스트릭 카드 */}
-        <div className="bg-gradient-to-r from-hlk-accent to-amber-500 rounded-2xl p-6 text-white mb-6">
+        <div className="aurora-header rounded-2xl p-6 mb-6" style={{ background: 'linear-gradient(120deg, #96524C, #C65A3F, #F0642B)' }}>
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/80 text-sm mb-1">연속 수면 기록</p>
@@ -228,7 +228,7 @@ function LogDashboardContent() {
 
         {/* 컨디션 변화 추적 - 최근 7일 기분 트렌드 */}
         {recentLogs.length >= 2 && (
-          <div className="bg-white rounded-2xl p-6 border border-hlk-border mb-6">
+          <div className="card-glass rounded-2xl p-6 mb-6">
             <h3 className="font-semibold text-hlk-text mb-1">아침 컨디션 변화</h3>
             <p className="text-xs text-hlk-text-tertiary mb-4">최근 {recentLogs.length}일간 기상 후 컨디션</p>
             <div className="flex items-end justify-between gap-1 h-24 px-2">
@@ -268,9 +268,9 @@ function LogDashboardContent() {
                   </div>
                   <div className="text-sm">
                     {trend > 0 ? (
-                      <span className="text-green-600 inline-flex items-center gap-1"><EmojiIcon emoji="📈" size={14} /> 개선 중</span>
+                      <span className="text-hlk-success inline-flex items-center gap-1"><EmojiIcon emoji="📈" size={14} /> 개선 중</span>
                     ) : trend < 0 ? (
-                      <span className="text-amber-600 inline-flex items-center gap-1"><EmojiIcon emoji="📉" size={14} /> 관리 필요</span>
+                      <span className="text-hlk-warning inline-flex items-center gap-1"><EmojiIcon emoji="📉" size={14} /> 관리 필요</span>
                     ) : (
                       <span className="text-hlk-text-tertiary inline-flex items-center gap-1"><EmojiIcon emoji="➡️" size={14} /> 유지 중</span>
                     )}
@@ -284,14 +284,14 @@ function LogDashboardContent() {
         {/* 수면/활동 요약 */}
         {recentLogs.length >= 2 && (
           <div className="grid grid-cols-2 gap-3 mb-6">
-            <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+            <div className="card-glass rounded-2xl p-4 text-center">
               <div className="mb-1"><EmojiIcon emoji="😴" size={22} className="text-hlk-primary" /></div>
               <p className="text-xs text-hlk-text-tertiary">수면 추적</p>
               <p className="text-sm font-semibold text-hlk-text mt-1">
                 {recentLogs.filter(l => l.sleep).length}/{recentLogs.length}일 기록
               </p>
             </div>
-            <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+            <div className="card-glass rounded-2xl p-4 text-center">
               <div className="mb-1"><EmojiIcon emoji="🏃" size={22} className="text-hlk-primary" /></div>
               <p className="text-xs text-hlk-text-tertiary">활동 추적</p>
               <p className="text-sm font-semibold text-hlk-text mt-1">
@@ -303,7 +303,7 @@ function LogDashboardContent() {
 
         {/* 최근 기록 */}
         {recentLogs.length > 0 && (
-          <div className="bg-white rounded-2xl p-6 border border-hlk-border">
+          <div className="card-glass rounded-2xl p-6">
             <h3 className="font-semibold text-hlk-text mb-4">최근 기록</h3>
             <div className="space-y-3">
               {recentLogs.map((log) => {
@@ -357,7 +357,7 @@ function LogDashboardContent() {
 
         {/* 빈 상태 */}
         {recentLogs.length === 0 && (
-          <div className="bg-white rounded-2xl p-8 border border-hlk-border text-center">
+          <div className="card-glass rounded-2xl p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-hlk-bg flex items-center justify-center mx-auto mb-4">
               <EmojiIcon emoji="📊" size={28} className="text-hlk-text-tertiary" />
             </div>
@@ -392,7 +392,7 @@ function LogDashboardContent() {
 export default function LogDashboardPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-hlk-text-tertiary">로딩 중...</div>
       </div>
     }>

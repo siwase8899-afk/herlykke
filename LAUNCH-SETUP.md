@@ -16,7 +16,10 @@ herlykke.vercel.app 우측 상단에 **"데모 사용자"** 가 보이면 → Su
    - `supabase-seller.sql` (셀러 신청)
    - `supabase-reports.sql` (신고 — 이번에 추가됨)
 3. **Authentication → Providers**: 이메일 로그인 활성화(카카오 OAuth는 추후)
-4. 프로젝트 → **Settings → API**에서 `Project URL`과 `anon public key` 복사
+4. **Authentication → Sign In / Providers → Email → "Confirm email" OFF** ⚠️ 필수
+   - 켜져 있으면 가입해도 인증 메일을 눌러야만 로그인됨 → 체크인 끝낸 신규 사용자가 가입 직후 로그인 안 되고 로그인 화면으로 튕깁니다(전환 이탈의 핵심 원인).
+   - OFF로 두면 **가입 즉시 로그인 → 대시보드** 진입. (켜 두고 싶으면 코드가 "메일함 확인" 안내를 대신 보여주지만, 사용자가 메일 확인 전엔 못 이어감.)
+5. 프로젝트 → **Settings → API**에서 `Project URL`과 `anon public key` 복사
 
 ## 2. Vercel 환경변수 설정
 [vercel.com/dashboard](https://vercel.com/dashboard) → herlykke 프로젝트 → **Settings → Environment Variables**에 추가:

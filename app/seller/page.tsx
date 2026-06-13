@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { SYMPTOMS } from '@/lib/logTypes';
 import { submitSellerApplication } from '@/lib/supabaseSync';
+import { EmojiIcon } from '@/lib/iconMap';
 
 type FormState = 'form' | 'submitting' | 'success';
 
@@ -40,7 +41,7 @@ export default function SellerPage() {
 
   if (formState === 'success') {
     return (
-      <div className="min-h-screen bg-hlk-bg">
+      <div className="min-h-screen">
         <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
           <div className="max-w-lg mx-auto flex items-center justify-between">
             <Link href="/dashboard" className="text-hlk-text-tertiary hover:text-hlk-text transition-colors">
@@ -54,8 +55,8 @@ export default function SellerPage() {
         </header>
 
         <main className="max-w-lg mx-auto px-5 py-12 text-center">
-          <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6">
-            <span className="text-4xl">🎉</span>
+          <div className="w-20 h-20 rounded-full bg-hlk-primary-light flex items-center justify-center mx-auto mb-6">
+            <EmojiIcon emoji="🎉" size={36} className="text-hlk-clay" />
           </div>
           <h2 className="text-2xl font-bold text-hlk-text mb-3">신청이 완료되었어요!</h2>
           <p className="text-hlk-text-secondary leading-relaxed mb-8">
@@ -74,7 +75,7 @@ export default function SellerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-lg mx-auto flex items-center justify-between">
@@ -90,12 +91,12 @@ export default function SellerPage() {
 
       <main className="max-w-lg mx-auto px-5 py-6">
         {/* Hero */}
-        <div className="bg-gradient-to-br from-hlk-primary to-hlk-accent rounded-2xl p-6 text-white mb-8">
+        <div className="aurora-header rounded-2xl p-6 mb-8" style={{ background: 'linear-gradient(135deg, #43734F, #6E7E6A, #96524C)' }}>
           <div className="flex items-center gap-2 mb-3">
             <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-bold">1기 모집</span>
           </div>
           <h2 className="text-xl font-bold mb-2">
-            갱년기를 겪고, 극복한<br />경험이 있으신가요?
+            몸의 변화를 겪고, 극복한<br />경험이 있으신가요?
           </h2>
           <p className="text-white/80 text-sm leading-relaxed">
             같은 증상을 겪는 분들에게 나의 경험을 나누고,
@@ -105,17 +106,17 @@ export default function SellerPage() {
 
         {/* Benefits */}
         <div className="grid grid-cols-3 gap-3 mb-8">
-          <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+          <div className="card-glass rounded-2xl p-4 text-center">
             <span className="text-2xl mb-2 block">💬</span>
             <p className="text-xs font-semibold text-hlk-text">경험 공유</p>
             <p className="text-xs text-hlk-text-tertiary mt-1">나의 극복기가 누군가의 희망이 돼요</p>
           </div>
-          <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+          <div className="card-glass rounded-2xl p-4 text-center">
             <span className="text-2xl mb-2 block">💰</span>
             <p className="text-xs font-semibold text-hlk-text">수익 창출</p>
             <p className="text-xs text-hlk-text-tertiary mt-1">추천 솔루션 판매로 수수료 수익</p>
           </div>
-          <div className="bg-white rounded-2xl p-4 border border-hlk-border text-center">
+          <div className="card-glass rounded-2xl p-4 text-center">
             <span className="text-2xl mb-2 block">🤝</span>
             <p className="text-xs font-semibold text-hlk-text">동료 연결</p>
             <p className="text-xs text-hlk-text-tertiary mt-1">같은 경험의 동료들과 연결</p>
@@ -123,13 +124,13 @@ export default function SellerPage() {
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-2xl p-6 border border-hlk-border space-y-5">
+        <div className="card-glass rounded-2xl p-6 space-y-5">
           <h3 className="font-bold text-hlk-text text-lg">사전 등록하기</h3>
 
           {/* Nickname */}
           <div>
             <label className="text-sm font-medium text-hlk-text block mb-2">
-              닉네임 <span className="text-red-500">*</span>
+              닉네임 <span className="text-hlk-error">*</span>
             </label>
             <input
               type="text"
@@ -143,7 +144,7 @@ export default function SellerPage() {
           {/* Email */}
           <div>
             <label className="text-sm font-medium text-hlk-text block mb-2">
-              이메일 <span className="text-red-500">*</span>
+              이메일 <span className="text-hlk-error">*</span>
             </label>
             <input
               type="email"
@@ -157,7 +158,7 @@ export default function SellerPage() {
           {/* Symptoms */}
           <div>
             <label className="text-sm font-medium text-hlk-text block mb-2">
-              경험한 증상 <span className="text-red-500">*</span>
+              경험한 증상 <span className="text-hlk-error">*</span>
             </label>
             <p className="text-xs text-hlk-text-tertiary mb-3">극복했거나 관리 중인 증상을 선택해주세요</p>
             <div className="flex flex-wrap gap-2">
@@ -199,7 +200,7 @@ export default function SellerPage() {
             <textarea
               value={introduction}
               onChange={(e) => setIntroduction(e.target.value)}
-              placeholder="나의 갱년기 경험과 동료 셀러가 되고 싶은 이유를 자유롭게 적어주세요"
+              placeholder="나의 수면과 마음의 변화 경험과 동료 셀러가 되고 싶은 이유를 자유롭게 적어주세요"
               rows={4}
               className="w-full px-4 py-3 border border-hlk-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-hlk-primary/30 focus:border-hlk-primary resize-none"
             />

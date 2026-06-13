@@ -24,7 +24,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
   if (layout === 'list') {
     return (
       <Link href={`/recipes/${recipe.id}`}>
-        <div className="bg-hlk-surface rounded-2xl overflow-hidden border border-hlk-border card-healthcare flex">
+        <div className="card-glass rounded-2xl overflow-hidden card-healthcare flex">
           {/* 손글씨 이미지 */}
           <div className="w-28 md:w-36 flex-shrink-0 relative">
             <img
@@ -74,7 +74,7 @@ export default function RecipeCard({ recipe, layout = 'grid' }: RecipeCardProps)
   // grid layout
   return (
     <Link href={`/recipes/${recipe.id}`}>
-      <div className="bg-hlk-surface rounded-2xl overflow-hidden border border-hlk-border card-healthcare h-full flex flex-col">
+      <div className="card-glass rounded-2xl overflow-hidden card-healthcare h-full flex flex-col">
         {/* 손글씨 이미지 */}
         <div className="relative aspect-[4/3]">
           <img

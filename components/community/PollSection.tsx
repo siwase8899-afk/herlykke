@@ -49,7 +49,7 @@ export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionP
 
   if (!mounted) {
     return (
-      <div className="bg-white rounded-2xl border border-hlk-border p-4 animate-pulse">
+      <div className="card-glass rounded-2xl p-4 animate-pulse">
         <div className="h-5 bg-hlk-bg rounded w-1/4 mb-3" />
         <div className="h-12 bg-hlk-bg rounded-xl" />
       </div>
@@ -57,7 +57,7 @@ export function PollSection({ limit = 2, defaultExpanded = false }: PollSectionP
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
+    <div className="card-glass rounded-2xl overflow-hidden">
       {/* 컴팩트 헤더 */}
       <button
         onClick={() => setExpanded(!expanded)}

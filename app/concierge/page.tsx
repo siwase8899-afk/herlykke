@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react';
 import { useAuth } from '@/lib/authContext';
 import { ConciergeChat } from '@/components/concierge/ConciergeChat';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import BookingFlow from '@/components/consultation/BookingFlow';
 import type { ConciergeContext } from '@/lib/conciergeTypes';
 
@@ -24,8 +23,7 @@ export default function ConciergePage() {
   }), [displayName]);
 
   return (
-    <div className="min-h-screen bg-hlk-bg relative flex flex-col">
-      <FloatingOrbs />
+    <div className="min-h-screen relative flex flex-col">
 
       {/* Header */}
       <div className="relative z-10 border-b border-hlk-border bg-white/80 backdrop-blur-sm px-4 py-3">

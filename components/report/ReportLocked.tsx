@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { EmojiIcon } from '@/lib/iconMap';
 
 interface ReportLockedProps {
   currentDays: number;
@@ -12,10 +13,10 @@ export function ReportLocked({ currentDays, targetDays, percentage }: ReportLock
   const remainingDays = targetDays - currentDays;
 
   return (
-    <div className="bg-white rounded-2xl p-8 border border-hlk-border text-center">
+    <div className="card-glass rounded-2xl p-8 text-center">
       {/* 잠금 아이콘 */}
       <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-hlk-bg flex items-center justify-center">
-        <span className="text-4xl">🔒</span>
+        <EmojiIcon emoji="🔒" size={36} className="text-hlk-text-tertiary" />
       </div>
 
       <h2 className="text-xl font-bold text-hlk-text mb-2">

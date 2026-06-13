@@ -31,7 +31,7 @@ export function FounderSection() {
         </h2>
 
         {/* Founder card — modern split layout */}
-        <div className="bg-hlk-surface rounded-3xl border border-hlk-border overflow-hidden">
+        <div className="card-glass rounded-3xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
             {/* Left — photo + info */}
             <div className="bg-hlk-primary-light p-8 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
@@ -47,7 +47,7 @@ export function FounderSection() {
             <div className="p-8 md:p-10 lg:p-12">
               <blockquote className="text-base md:text-lg text-hlk-text leading-[1.85] space-y-4">
                 <p>
-                  &ldquo;40대 중반, 1인 가구로 살아가던 저는
+                  &ldquo;혼자 지내던 어느 시기, 저는
                   회사의 바쁜 리듬 속에서 번아웃이 찾아왔어요.
                   노화와 신체 변화가 겹치면서 막연한 불안이 엄습했고,
                   매일 밤 불면은 아닌데 한 번도 개운한 적이 없었어요.
@@ -59,7 +59,7 @@ export function FounderSection() {
                   <span className="text-hlk-primary font-semibold"> 덴마크 호이스콜레</span>로 떠났습니다.
                 </p>
                 <p>
-                  거기서 같은 시기를 지나는 여성들을 만났어요.
+                  거기서 같은 시기를 지나는 사람들을 만났어요.
                   &lsquo;나만 이런 줄 알았다&rsquo;는 말을 처음 들었어요.
                   작은 독립 서점의 북토크, Full Moon 모임 —
                   별것 아닌 공감이었는데{' '}

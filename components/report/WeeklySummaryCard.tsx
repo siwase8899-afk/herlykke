@@ -2,6 +2,7 @@
 
 import { WeeklySummary } from '@/lib/patternAnalysis';
 import { MOOD_OPTIONS } from '@/lib/logTypes';
+import { EmojiIcon } from '@/lib/iconMap';
 
 interface WeeklySummaryCardProps {
   summary: WeeklySummary;
@@ -14,11 +15,11 @@ export function WeeklySummaryCard({ summary, dateRange }: WeeklySummaryCardProps
   const getTrendIcon = (trend: 'improving' | 'declining' | 'stable') => {
     switch (trend) {
       case 'improving':
-        return { icon: '📈', text: '개선 중', color: 'text-green-600' };
+        return { icon: '📈', text: '개선 중', color: 'text-hlk-success' };
       case 'declining':
-        return { icon: '📉', text: '주의 필요', color: 'text-red-600' };
+        return { icon: '📉', text: '주의 필요', color: 'text-hlk-error' };
       default:
-        return { icon: '➡️', text: '유지 중', color: 'text-amber-600' };
+        return { icon: '➡️', text: '유지 중', color: 'text-hlk-warning' };
     }
   };
 
@@ -31,7 +32,7 @@ export function WeeklySummaryCard({ summary, dateRange }: WeeklySummaryCardProps
           <p className="text-white/70 text-sm">{dateRange}</p>
           <h2 className="text-xl font-bold">주간 리포트</h2>
         </div>
-        <div className="text-4xl">{moodEmoji}</div>
+        <EmojiIcon emoji={moodEmoji} size={32} className="text-white" />
       </div>
 
       {/* 주요 지표 */}
@@ -45,8 +46,8 @@ export function WeeklySummaryCard({ summary, dateRange }: WeeklySummaryCardProps
           <p className="text-xs text-white/70">기록 일수</p>
         </div>
         <div className="bg-white/20 rounded-xl px-3 py-2 text-center">
-          <p className="text-lg font-bold">{trend.icon}</p>
-          <p className="text-xs text-white/70">{trend.text}</p>
+          <EmojiIcon emoji={trend.icon} size={22} className="text-white" />
+          <p className="text-xs text-white/70 mt-0.5">{trend.text}</p>
         </div>
       </div>
 

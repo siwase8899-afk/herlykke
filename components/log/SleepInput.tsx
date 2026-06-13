@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SleepEntry, SLEEP_QUALITY_OPTIONS } from '@/lib/logTypes';
+import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
 
 interface SleepInputProps {
   value: SleepEntry | null;
@@ -87,7 +88,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
 
       <div className="max-w-sm mx-auto space-y-6">
         {/* 취침/기상 시간 버튼 */}
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-2xl p-5">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-hlk-text mb-2">
@@ -198,7 +199,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
         </div>
 
         {/* 수면 품질 */}
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-2xl p-5">
           <p className="text-sm font-medium text-hlk-text mb-4 text-center">
             어젯밤 수면의 질은 어땠나요?
           </p>
@@ -213,9 +214,13 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
                     : 'bg-hlk-bg border-2 border-transparent hover:border-hlk-border'
                 }`}
               >
-                <span className="text-2xl">{option.emoji}</span>
+                <SleepCycleViz
+                  quality={((option.value - 1) / 4) * 100}
+                  size={36}
+                  compact
+                />
                 <span
-                  className={`text-[10px] font-medium ${
+                  className={`text-xs font-medium ${
                     sleep.quality === option.value
                       ? 'text-hlk-primary'
                       : 'text-hlk-text-tertiary'

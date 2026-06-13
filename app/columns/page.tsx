@@ -5,13 +5,12 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { columns, sleepCategoryLabels, type SleepCategory } from '@/lib/columnsData';
 import { useAuth } from '@/lib/authContext';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 
 type FilterType = 'all' | SleepCategory;
 
 export default function ColumnsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-hlk-bg" />}>
+    <Suspense fallback={<div className="min-h-screen" />}>
       <ColumnsContent />
     </Suspense>
   );
@@ -46,8 +45,7 @@ function ColumnsContent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-hlk-bg relative">
-      <FloatingOrbs />
+    <div className="min-h-screen relative">
       {/* Hero */}
       <section className="relative bg-hlk-primary-light px-6 md:px-8 pt-12 pb-16">
         <div className="max-w-5xl mx-auto">
@@ -108,7 +106,7 @@ function ColumnsContent() {
               <Link
                 key={column.slug}
                 href={`/columns/${column.slug}`}
-                className="group block bg-white rounded-2xl border border-hlk-border overflow-hidden card-hover animate-slow-fade-in"
+                className="group block card-glass rounded-2xl overflow-hidden card-hover animate-slow-fade-in"
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
                 {/* Category badge + read time */}

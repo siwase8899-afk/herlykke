@@ -14,7 +14,7 @@ export function MoodChart({ data }: MoodChartProps) {
   const recentData = data.slice(-14); // 최근 14일
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+    <div className="card-glass rounded-2xl p-5">
       <h3 className="font-semibold text-hlk-text mb-4">기분 변화</h3>
 
       {/* 차트 */}
@@ -25,9 +25,9 @@ export function MoodChart({ data }: MoodChartProps) {
 
           // 기분에 따른 색상
           const getBarColor = (mood: number) => {
-            if (mood >= 4) return 'bg-green-400';
-            if (mood === 3) return 'bg-yellow-400';
-            return 'bg-red-400';
+            if (mood >= 4) return 'bg-hlk-success';
+            if (mood === 3) return 'bg-hlk-warning-fill';
+            return 'bg-hlk-error';
           };
 
           return (
@@ -50,15 +50,15 @@ export function MoodChart({ data }: MoodChartProps) {
       {/* 범례 */}
       <div className="flex justify-center gap-4 text-xs text-hlk-text-tertiary">
         <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-green-400" />
+          <span className="w-2 h-2 rounded-full bg-hlk-success" />
           좋음
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-yellow-400" />
+          <span className="w-2 h-2 rounded-full bg-hlk-warning-fill" />
           보통
         </span>
         <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-red-400" />
+          <span className="w-2 h-2 rounded-full bg-hlk-error" />
           안좋음
         </span>
       </div>

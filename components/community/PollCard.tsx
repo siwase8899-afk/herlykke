@@ -48,7 +48,7 @@ export function PollCard({ poll, onVote, votedOptionId }: PollCardProps) {
   const winningOption = getWinningOption();
 
   return (
-    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
+    <div className="card-glass rounded-2xl overflow-hidden">
       {/* 헤더 */}
       <div className="p-4 border-b border-hlk-border">
         <div className="flex items-center justify-between mb-2">

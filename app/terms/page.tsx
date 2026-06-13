@@ -65,13 +65,13 @@ const SECTIONS: { h: string; body: string[] }[] = [
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       <div className="max-w-2xl mx-auto px-5 py-12">
         <Link href="/" className="text-sm text-hlk-text-tertiary hover:text-hlk-text">← 홈으로</Link>
         <h1 className="text-2xl font-bold text-hlk-text mt-4 mb-2">이용약관</h1>
         <p className="text-xs text-hlk-text-tertiary mb-6">시행일: [ 시행일 기입 ]</p>
 
-        <div className="mb-8 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 leading-relaxed">
+        <div className="mb-8 p-4 rounded-xl bg-hlk-warning-fill/20 border border-hlk-warning-fill/40 text-xs text-hlk-warning leading-relaxed">
           ⚠️ 본 문서는 표준 템플릿입니다. 사업자등록·법무 검토 후 [ ] 항목을 확정해 정식 게시하세요. 유료 거래·제휴 수익이 발생하면 전자상거래법에 따른 사업자정보·청약철회 조항을 추가해야 합니다.
         </div>
 

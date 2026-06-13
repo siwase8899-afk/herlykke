@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DailyLog } from '@/lib/logTypes';
 import { getPersonalizedTips, getTipsForTodaySymptoms, RecommendedTip } from '@/lib/tipRecommendation';
 import { CATEGORY_INFO } from '@/lib/tipsData';
+import { EmojiIcon } from '@/lib/iconMap';
 import { TipCard } from './TipCard';
 
 interface TipsSectionProps {
@@ -97,8 +98,8 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
 
       {/* 팁이 없을 때 */}
       {personalizedTips.length === 0 && todayTips.length === 0 && (
-        <div className="bg-white rounded-2xl p-6 border border-hlk-border text-center">
-          <span className="text-4xl mb-3 block">💡</span>
+        <div className="card-glass rounded-2xl p-6 text-center">
+          <EmojiIcon emoji="💡" size={36} className="text-hlk-clay mb-3" />
           <h3 className="font-semibold text-hlk-text mb-2">맞춤 팁을 준비 중이에요</h3>
           <p className="text-sm text-hlk-text-secondary">
             증상을 기록하면 나에게 맞는 케어 팁을 추천해드릴게요

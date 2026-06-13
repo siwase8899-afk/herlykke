@@ -12,17 +12,17 @@ const personas = [
     name: '지은',
     role: 'IT기업 마케팅 팀장',
     age: '44세, 워킹맘',
-    pain: '회의 중 갑자기 얼굴이 빨개지고, 생리가 불규칙해졌는데 이게 갱년기인지 모르겠어요.',
+    pain: '회의 중 갑자기 얼굴이 빨개지고, 생리가 불규칙해졌는데 이게 몸의 변화인지 모르겠어요.',
     need: '내 상태 파악하기',
     needHref: '/checkin',
     bgColor: 'bg-hlk-primary-light',
     accentColor: 'text-hlk-primary',
     borderColor: 'border-hlk-primary',
-    benchmark: '폐경이행기 초기',
+    benchmark: '몸의 전환기 초기',
     journey: {
       before: '회의 중 갑자기 열이 오르고, 생리 주기가 들쭉날쭉. 검색하면 건기식 광고뿐, 병원에서는 "다 그래요".',
       herlykke: [
-        '3분 체크인으로 폐경이행기 초기 확인',
+        '3분 체크인으로 몸의 전환기 초기 확인',
         '매일 증상 기록 시작 — 열감·스트레스 연결 패턴 발견',
       ],
       after: '회의 전 호흡법으로 대처 가능. 내 몸의 신호를 읽을 수 있게 됐어요.',
@@ -34,15 +34,15 @@ const personas = [
     name: '수진',
     role: '프리랜서 번역가',
     age: '51세, 1인가구',
-    pain: '우울, 불안, 불면이 심한데 혼자 겪으니 너무 외로워요. 내 감정이 갱년기 때문인지 알고 싶어요.',
+    pain: '우울, 불안, 불면이 심한데 혼자 겪으니 너무 외로워요. 내 감정이 몸과 마음의 변화 때문인지 알고 싶어요.',
     need: '같은 동료 찾기',
     needHref: '/community',
     bgColor: 'bg-hlk-accent-light',
     accentColor: 'text-hlk-accent',
     borderColor: 'border-hlk-accent',
-    benchmark: '폐경 전후',
+    benchmark: '몸의 전환기',
     journey: {
-      before: '혼자 사니까 말할 곳이 없었어요. 우울한 건지 갱년기인지 구분도 안 되고, 새벽마다 깨서 천장만 봤어요.',
+      before: '혼자 사니까 말할 곳이 없었어요. 우울한 건지 몸의 변화인지 구분도 안 되고, 새벽마다 깨서 천장만 봤어요.',
       herlykke: [
         '카톡 토크방에서 같은 증상의 동료 발견',
         '감정 기록 → AI 분석으로 "이 시기의 우울"과 연관성 확인',
@@ -62,7 +62,7 @@ const personas = [
     bgColor: 'bg-hlk-secondary-light',
     accentColor: 'text-hlk-secondary',
     borderColor: 'border-hlk-secondary',
-    benchmark: '폐경 후기',
+    benchmark: '전환 이후기',
     journey: {
       before: '열감은 줄었는데 관절이 아파서 계단이 무서워요. 퇴직 후 "나는 뭐 하는 사람이지?" 혼란이 왔어요.',
       herlykke: [

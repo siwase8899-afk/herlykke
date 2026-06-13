@@ -12,7 +12,7 @@ export function ActivityImpact({ data }: ActivityImpactProps) {
 
   if (data.length === 0) {
     return (
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <h3 className="font-semibold text-hlk-text mb-4">활동 영향 분석</h3>
         <p className="text-sm text-hlk-text-tertiary text-center py-4">
           활동 데이터가 부족해요. 더 기록해주세요!
@@ -24,20 +24,20 @@ export function ActivityImpact({ data }: ActivityImpactProps) {
   const getImpactBadge = (impact: 'positive' | 'negative' | 'neutral', score: number) => {
     if (impact === 'positive') {
       return (
-        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">
+        <span className="text-xs px-2 py-0.5 rounded-full bg-hlk-primary-light text-hlk-primary-dark">
           +{score.toFixed(1)}
         </span>
       );
     }
     if (impact === 'negative') {
       return (
-        <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-700">
+        <span className="text-xs px-2 py-0.5 rounded-full bg-hlk-clay-light text-hlk-error">
           {score.toFixed(1)}
         </span>
       );
     }
     return (
-      <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
+      <span className="text-xs px-2 py-0.5 rounded-full bg-hlk-surface-warm text-hlk-text-tertiary">
         {score.toFixed(1)}
       </span>
     );
@@ -46,9 +46,9 @@ export function ActivityImpact({ data }: ActivityImpactProps) {
   return (
     <div className="space-y-4">
       {/* 긍정적 활동 */}
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <span className="w-2 h-2 rounded-full bg-green-400" />
+          <span className="w-2 h-2 rounded-full bg-hlk-success" />
           <h3 className="font-semibold text-hlk-text">도움이 되는 활동</h3>
         </div>
 
@@ -83,9 +83,9 @@ export function ActivityImpact({ data }: ActivityImpactProps) {
       </div>
 
       {/* 트리거 활동 */}
-      <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+      <div className="card-glass rounded-2xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <span className="w-2 h-2 rounded-full bg-amber-400" />
+          <span className="w-2 h-2 rounded-full bg-hlk-warning-fill" />
           <h3 className="font-semibold text-hlk-text">주의할 트리거</h3>
         </div>
 

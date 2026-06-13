@@ -32,11 +32,13 @@ export default function RecipeShowcase() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-xs font-semibold text-hlk-accent tracking-[0.2em] uppercase mb-4">
-              Real Ink Recipes
+            <p className="text-sm font-semibold text-hlk-accent mb-4">
+              작게 시작하는 루틴
             </p>
             <h2 className="text-3xl md:text-[2.75rem] font-extrabold text-hlk-text leading-tight">
-              메이트들의 수면 레시피
+              먼저 지나온 사람들이
+              <br />
+              남겨둔 방법들
             </h2>
           </div>
           <div
@@ -46,9 +48,9 @@ export default function RecipeShowcase() {
             style={{ transitionDelay: '100ms' }}
           >
             <p className="text-base text-hlk-text-secondary leading-relaxed">
-              손으로 직접 쓴 경험만 올라옵니다.
+              대단한 해결책보다 실제로 해본 작은 방법을 모읍니다.
               <br className="hidden md:block" />
-              커뮤니티 공감으로 검증된 레시피예요.
+              내 몸에 맞는지는 천천히 살펴보면 됩니다.
             </p>
           </div>
         </div>
@@ -66,11 +68,11 @@ export default function RecipeShowcase() {
                 } ${recipe.isAnniePick ? 'animate-shimmer' : ''}`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                {/* Real Ink image */}
+                {/* Experience card image */}
                 <div className="relative aspect-[4/3] bg-hlk-surface-warm overflow-hidden">
                   <img
                     src={recipe.realInkImageUrl}
-                    alt="Real Ink 손글씨"
+                    alt="커뮤니티 경험 카드"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   {recipe.isAnniePick && (
@@ -79,14 +81,13 @@ export default function RecipeShowcase() {
                     </div>
                   )}
                   <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-medium px-2.5 py-1 rounded-full text-hlk-text-secondary">
-                    Real Ink ✍️
+                    경험 기반 루틴
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-5">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-sm">{level.badge}</span>
                     <span className="text-xs text-hlk-text-secondary">{recipe.curatorNickname}</span>
                     <span
                       className="text-[10px] px-2 py-0.5 rounded-full font-medium"
@@ -136,13 +137,13 @@ export default function RecipeShowcase() {
             href="/recipes"
             className="group inline-flex items-center gap-2 text-hlk-primary font-semibold text-base hover:gap-3 transition-all duration-300"
           >
-            수면 레시피 전체 보기
+            루틴 자료 전체 보기
             <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </Link>
           <p className="text-xs text-hlk-text-tertiary mt-2">
-            진심 한 장이 있어야 레시피가 됩니다
+            작은 기록이 쌓이면 나에게 맞는 방향이 보입니다
           </p>
         </div>
       </div>

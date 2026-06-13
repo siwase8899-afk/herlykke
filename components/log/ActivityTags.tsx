@@ -8,11 +8,11 @@ interface ActivityTagsProps {
 }
 
 const CATEGORY_CONFIG = {
-  physical: { label: '신체 활동', color: 'green', dot: 'bg-green-400', selected: 'bg-green-100 border-green-400 text-green-700', hover: 'hover:border-green-300' },
-  mental: { label: '수면에 도움 되는 활동', color: 'blue', dot: 'bg-blue-400', selected: 'bg-blue-100 border-blue-400 text-blue-700', hover: 'hover:border-blue-300' },
-  selfcare: { label: '저녁 루틴', color: 'purple', dot: 'bg-purple-400', selected: 'bg-purple-100 border-purple-400 text-purple-700', hover: 'hover:border-purple-300' },
-  social: { label: '사회적 활동', color: 'teal', dot: 'bg-teal-400', selected: 'bg-teal-100 border-teal-400 text-teal-700', hover: 'hover:border-teal-300' },
-  trigger: { label: '수면을 방해할 수 있는 활동', color: 'amber', dot: 'bg-amber-400', selected: 'bg-amber-100 border-amber-400 text-amber-700', hover: 'hover:border-amber-300' },
+  physical: { label: '신체 활동', color: 'green', dot: 'bg-hlk-primary', selected: 'bg-hlk-primary-light border-hlk-primary text-hlk-primary-dark', hover: 'hover:border-hlk-primary' },
+  mental: { label: '수면에 도움 되는 활동', color: 'blue', dot: 'bg-hlk-accent', selected: 'bg-hlk-accent-light border-hlk-accent text-hlk-accent-dark', hover: 'hover:border-hlk-accent' },
+  selfcare: { label: '저녁 루틴', color: 'purple', dot: 'bg-hlk-clay', selected: 'bg-hlk-clay-light border-hlk-clay text-hlk-clay-dark', hover: 'hover:border-hlk-clay' },
+  social: { label: '사회적 활동', color: 'teal', dot: 'bg-hlk-lavender', selected: 'bg-hlk-lavender-light border-hlk-lavender text-hlk-lavender', hover: 'hover:border-hlk-lavender' },
+  trigger: { label: '수면을 방해할 수 있는 활동', color: 'amber', dot: 'bg-hlk-indigo', selected: 'bg-hlk-indigo-light border-hlk-indigo text-hlk-indigo', hover: 'hover:border-hlk-indigo' },
 } as const;
 
 const CATEGORY_ORDER: (keyof typeof CATEGORY_CONFIG)[] = ['physical', 'mental', 'selfcare', 'social', 'trigger'];

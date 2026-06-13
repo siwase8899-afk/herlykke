@@ -23,7 +23,7 @@ export function Button({
   const baseStyles = 'font-semibold rounded-full cursor-pointer inline-flex items-center justify-center btn-fill-hover';
 
   const variants = {
-    primary: 'bg-hlk-primary text-white btn-fill-hover--primary hover:-translate-y-0.5 active:scale-[0.98]',
+    primary: 'bg-hlk-clay text-white btn-fill-hover--primary hover:bg-hlk-clay-dark hover:-translate-y-0.5 active:scale-[0.98]',
     secondary: 'bg-white text-hlk-primary border-2 border-hlk-primary btn-fill-hover--secondary hover:-translate-y-0.5 active:scale-[0.98]',
     ghost: 'bg-transparent text-hlk-primary hover:bg-hlk-primary-light/50',
   };

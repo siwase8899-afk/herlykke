@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { getSolutionById, SOLUTIONS, DEMO_REVIEWS, SOLUTION_CATEGORIES } from '@/lib/solutionsData';
 import type { SolutionReview } from '@/lib/solutionsData';
 import { ReviewCard } from '@/components/solutions/ReviewCard';
+import { EmojiIcon } from '@/lib/iconMap';
 import { ReviewForm } from '@/components/solutions/ReviewForm';
 import { SYMPTOMS } from '@/lib/logTypes';
 import { submitSolutionReview } from '@/lib/supabaseSync';
@@ -95,9 +96,9 @@ export default function SolutionDetailPage() {
 
   if (!solution) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-4xl mb-4">🔍</p>
+          <EmojiIcon emoji="🔍" size={36} className="text-hlk-text-tertiary mb-4" />
           <h2 className="font-bold text-hlk-text mb-2">솔루션을 찾을 수 없어요</h2>
           <Link href="/solutions" className="text-hlk-primary text-sm">
             ← 솔루션 목록으로 돌아가기
@@ -110,7 +111,7 @@ export default function SolutionDetailPage() {
   const categoryLabel = SOLUTION_CATEGORIES.find((c) => c.id === solution.category)?.label;
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -146,7 +147,7 @@ export default function SolutionDetailPage() {
 
           <div className="flex items-center gap-4 mb-4">
             <div className="flex items-center gap-1">
-              <span className="text-yellow-500">★</span>
+              <span className="text-hlk-star">★</span>
               <span className="font-bold text-hlk-text">{solution.rating}</span>
               <span className="text-xs text-hlk-text-tertiary">({solution.reviews})</span>
             </div>
@@ -197,7 +198,7 @@ export default function SolutionDetailPage() {
               </h3>
               {reviews.length > 0 && (
                 <div className="flex items-center gap-1 mt-1">
-                  <span className="text-yellow-500 text-sm">★</span>
+                  <span className="text-hlk-star text-sm">★</span>
                   <span className="text-sm font-bold text-hlk-text">{avgRating}</span>
                   <span className="text-xs text-hlk-text-tertiary">평균</span>
                 </div>
@@ -234,7 +235,7 @@ export default function SolutionDetailPage() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-3xl mb-3">📝</p>
+              <EmojiIcon emoji="📝" size={30} className="text-hlk-text-tertiary mb-3" />
               <p className="text-sm text-hlk-text-secondary mb-1">아직 리뷰가 없어요</p>
               <p className="text-xs text-hlk-text-tertiary">첫 번째 인증 리뷰를 남겨보세요</p>
             </div>
@@ -264,7 +265,7 @@ export default function SolutionDetailPage() {
                     <h4 className="text-sm font-semibold text-hlk-text line-clamp-1">{related.title}</h4>
                     <p className="text-xs text-hlk-text-tertiary">{related.provider}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-yellow-500 text-xs">★ {related.rating}</span>
+                      <span className="text-hlk-star text-xs">★ {related.rating}</span>
                       <span className="text-xs text-hlk-primary font-medium">{related.price}</span>
                     </div>
                   </div>
@@ -299,7 +300,7 @@ export default function SolutionDetailPage() {
       )}
 
       {/* Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 px-5 py-4 bg-white border-t border-hlk-border">
+      <div className="fixed bottom-0 left-0 right-0 px-5 py-4 bg-white/82 backdrop-blur-lg border-t border-hlk-border">
         <div className="max-w-4xl mx-auto flex gap-3">
           <Link
             href="/solutions"

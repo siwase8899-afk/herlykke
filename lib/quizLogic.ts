@@ -1,5 +1,5 @@
 // Hims/Noom 인사이트: 퀴즈 = 전환 퍼널
-// 5문항 기반 갱년기 패턴 분류 로직
+// 5문항 기반 몸과 마음의 변화 패턴 분류 로직
 
 export type PatternType = 'emotional' | 'sleep' | 'physical' | 'complex';
 
@@ -54,8 +54,8 @@ export const PATTERN_RESULTS: Record<PatternType, PatternResult> = {
     type: 'emotional',
     icon: '🌊',
     name: '감정형 패턴',
-    description: '감정 기복, 불안, 우울감이 주요 증상이에요. 호르몬 변화가 신경전달물질에 영향을 미치면서 감정 조절이 어려워질 수 있어요.',
-    stat: '이 패턴의 여성 87%가 4주 후 감정 안정 경험',
+    description: '감정 기복, 불안, 우울감이 주요 증상이에요. 몸의 리듬 변화가 신경전달물질에 영향을 미치면서 감정 조절이 어려워질 수 있어요.',
+    stat: '이 패턴의 참여자 87%가 4주 후 감정 안정 경험',
     recommendation: '마음챙김 명상 + 감정 일기 + 동료 지지 그룹',
     userCount: 247,
   },
@@ -64,7 +64,7 @@ export const PATTERN_RESULTS: Record<PatternType, PatternResult> = {
     icon: '🌙',
     name: '수면형 패턴',
     description: '불면, 야간 발한, 만성 피로가 주요 증상이에요. 수면의 질이 떨어지면 다른 증상도 악화될 수 있어요.',
-    stat: '이 패턴의 여성 78%가 4주 후 수면 개선 보고',
+    stat: '이 패턴의 참여자 78%가 4주 후 수면 개선 보고',
     recommendation: '수면 위생 코칭 + 이완 기법 + 수면 패턴 추적',
     userCount: 189,
   },
@@ -72,8 +72,8 @@ export const PATTERN_RESULTS: Record<PatternType, PatternResult> = {
     type: 'physical',
     icon: '🔥',
     name: '신체형 패턴',
-    description: '열감, 관절통, 체중 변화가 주요 증상이에요. 에스트로겐 감소가 체온 조절과 관절 건강에 직접 영향을 미쳐요.',
-    stat: '이 패턴의 여성 82%가 4주 후 증상 완화 경험',
+    description: '열감, 관절통, 체중 변화가 주요 증상이에요. 몸의 균형 변화가 체온 조절과 관절 건강에 직접 영향을 미쳐요.',
+    stat: '이 패턴의 참여자 82%가 4주 후 증상 완화 경험',
     recommendation: '운동 프로그램 + 영양 가이드 + 호흡법 트레이닝',
     userCount: 213,
   },
@@ -82,7 +82,7 @@ export const PATTERN_RESULTS: Record<PatternType, PatternResult> = {
     icon: '🌀',
     name: '복합형 패턴',
     description: '감정, 수면, 신체 여러 영역에 걸쳐 증상이 나타나요. 종합적인 접근이 필요하지만, 그만큼 HERLYKKE의 4-Pillar 시스템이 효과적이에요.',
-    stat: '이 패턴의 여성 91%가 4주 후 전반적 개선 경험',
+    stat: '이 패턴의 참여자 91%가 4주 후 전반적 개선 경험',
     recommendation: '종합 웰니스 프로그램 + AI 맞춤 분석 + 전문가 상담',
     userCount: 312,
   },

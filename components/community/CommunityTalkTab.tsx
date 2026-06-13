@@ -130,7 +130,7 @@ export function CommunityTalkTab() {
       <div className="animate-slow-fade-in">
         <Link
           href="/login"
-          className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
+          className="w-full flex items-center gap-3 card-glass rounded-2xl px-5 py-4 text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
         >
           <EmojiIcon emoji="✏️" size={18} />
           <span>로그인하고 수면 고민·경험을 나눠보세요</span>
@@ -144,11 +144,11 @@ export function CommunityTalkTab() {
   return (
     <div className="animate-slow-fade-in">
       <p className="text-[11px] text-hlk-text-tertiary leading-relaxed mb-3 px-1">
-        <EmojiIcon emoji="💛" size={14} className="text-amber-500" /> 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요. 부적절한 글은 신고할 수 있어요.
+        <EmojiIcon emoji="💛" size={14} className="text-hlk-clay" /> 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요. 부적절한 글은 신고할 수 있어요.
       </p>
       <button
         onClick={() => setModalOpen(true)}
-        className="w-full flex items-center gap-3 bg-hlk-surface rounded-2xl px-5 py-4 border border-hlk-border text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
+        className="w-full flex items-center gap-3 card-glass rounded-2xl px-5 py-4 text-hlk-text-secondary text-sm mb-6 hover:border-hlk-primary/30 transition-colors"
       >
         <EmojiIcon emoji="✏️" size={18} />
         <span>수면 고민이나 경험을 나눠보세요...</span>
@@ -157,7 +157,7 @@ export function CommunityTalkTab() {
       {loading ? (
         <p className="text-center text-sm text-hlk-text-tertiary py-10">불러오는 중...</p>
       ) : posts.length === 0 ? (
-        <div className="bg-hlk-surface rounded-2xl p-8 border border-hlk-border text-center">
+        <div className="card-glass rounded-2xl p-8 text-center">
           <div className="mb-3"><EmojiIcon emoji="🌙" size={28} className="text-hlk-primary" /></div>
           <p className="font-semibold text-hlk-text mb-1">아직 글이 없어요</p>
           <p className="text-sm text-hlk-text-secondary mb-5">첫 글의 주인공이 되어보세요. 같은 밤을 지나는 메이트들이 기다려요.</p>
@@ -171,7 +171,7 @@ export function CommunityTalkTab() {
       ) : (
         <div className="space-y-4">
           {posts.map((post) => (
-            <div key={post.id} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+            <div key={post.id} className="card-glass rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center"><EmojiIcon emoji="🌙" size={16} className="text-hlk-primary" /></div>
                 <span className="text-sm font-medium text-hlk-text">{post.anonymousName}</span>
@@ -236,7 +236,7 @@ export function CommunityTalkTab() {
               placeholder="익명으로 공유돼요. 같은 밤을 지나는 메이트들에게 편하게 이야기해보세요."
               className="w-full rounded-xl border border-hlk-border bg-hlk-bg p-3 text-sm text-hlk-text resize-none focus:outline-none focus:border-hlk-primary"
             />
-            {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
+            {error && <p className="text-xs text-hlk-error mt-2">{error}</p>}
             <p className="text-[11px] text-hlk-text-tertiary mt-2 leading-relaxed">
               ※ 경험 공유는 환영해요. 의약품 복용을 단정적으로 권하는 의료 조언은 삼가주세요.
             </p>
@@ -262,7 +262,7 @@ function DemoList() {
   return (
     <div className="space-y-4">
       {DEMO_POSTS.map((post) => (
-        <div key={post.id} className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+        <div key={post.id} className="card-glass rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 rounded-full bg-hlk-primary-light flex items-center justify-center"><EmojiIcon emoji="🌙" size={16} className="text-hlk-primary" /></div>
             <span className="text-sm font-medium text-hlk-text">{post.anonymousName}</span>

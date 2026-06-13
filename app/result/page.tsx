@@ -14,6 +14,7 @@ import { TipsList } from '../../components/result/TipsList';
 import { GroupRecommendation } from '../../components/result/GroupRecommendation';
 import { Button } from '../../components/ui/Button';
 import Link from 'next/link';
+import { Activity, CheckCircle2, Dumbbell, Heart, MessageCircle, Pill, Target } from 'lucide-react';
 
 export default function ResultPage() {
   const router = useRouter();
@@ -23,22 +24,9 @@ export default function ResultPage() {
   const syncedRef = useRef(false);
 
   useEffect(() => {
-    setHydrated(true);
+    const timer = window.setTimeout(() => setHydrated(true), 0);
+    return () => window.clearTimeout(timer);
   }, []);
-
-  if (!hydrated || authLoading) {
-    return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
-        <div className="text-hlk-text-tertiary">결과를 분석하고 있어요...</div>
-      </div>
-    );
-  }
-
-  // 체크인 완료 안 했으면 리다이렉트
-  if (!store.ageRange) {
-    router.push('/checkin');
-    return null;
-  }
 
   // 분류 실행
   const stageResult = classifyStage({
@@ -52,16 +40,22 @@ export default function ResultPage() {
   const cluster = classifySymptomCluster(store.physicalSymptoms, store.emotionalSymptoms);
   const lifeContext = classifyLifeContext(store.employment, store.maritalStatus, store.livingSituation);
 
-  // 쿠퍼만 갱년기 지수 계산
+  // 체크인 변화 지표 계산
   const kuppermanResult = calculateKuppermanIndex(
     store.physicalSymptoms,
     store.emotionalSymptoms,
     store.symptomSeverityMap,
   );
 
+  useEffect(() => {
+    if (hydrated && !authLoading && !store.ageRange) {
+      router.push('/checkin');
+    }
+  }, [hydrated, authLoading, store.ageRange, router]);
+
   // 체크인 완료 트래킹 + Supabase 동기화 (1회만)
   useEffect(() => {
-    if (syncedRef.current || !stageResult.stage) return;
+    if (syncedRef.current || !store.ageRange || !stageResult.stage) return;
     syncedRef.current = true;
 
     analytics.checkinCompleted(stageResult.stage, kuppermanResult.score);
@@ -94,33 +88,45 @@ export default function ResultPage() {
     }
   }, [stageResult.stage, kuppermanResult.score, user, store, cluster, lifeContext]);
 
+  if (!hydrated || authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-hlk-text-tertiary">결과를 분석하고 있어요...</div>
+      </div>
+    );
+  }
+
+  // 체크인 완료 안 했으면 리다이렉트
+  if (!store.ageRange) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       <div className="max-w-lg mx-auto px-6 md:px-8 py-10">
         {/* Superhuman 인사이트: "Wellness Zero" 셀레브레이션 모멘트 */}
         <div className="text-center mb-10">
-          <div className="relative inline-block">
-            <div className="text-6xl mb-3 animate-bounce">🎉</div>
-            <div className="absolute inset-0 bg-hlk-accent/20 rounded-full blur-2xl -z-10" />
+          <div className="relative mb-4 inline-flex h-16 w-16 items-center justify-center rounded-3xl bg-hlk-primary-light text-hlk-primary">
+            <CheckCircle2 className="h-8 w-8" aria-hidden />
           </div>
           <h1 className="text-2xl font-bold text-hlk-text mb-2">
-            첫 번째 체크인 완료!
+            첫 번째 체크인을 마쳤어요
           </h1>
           <p className="text-sm text-hlk-text-secondary mb-4">
-            두 번째 삶의 여정이 시작됐어요
+            지금의 변화를 이해하는 첫 문장을 찾았습니다
           </p>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-hlk-accent-light rounded-full">
-            <span className="text-xl">🔥</span>
-            <span className="text-sm font-semibold text-hlk-accent">1일 스트릭 시작!</span>
+            <Heart className="h-4 w-4 text-hlk-accent" aria-hidden />
+            <span className="text-sm font-semibold text-hlk-accent">오늘의 기록 시작</span>
           </div>
         </div>
 
         {/* 다음 목표 */}
-        <div className="bg-white rounded-2xl p-4 border border-hlk-border shadow-sm mb-6">
+        <div className="card-glass rounded-2xl p-4 shadow-sm mb-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-hlk-primary-light flex items-center justify-center">
-              <span className="text-2xl">🎯</span>
+              <Target className="h-6 w-6 text-hlk-primary" aria-hidden />
             </div>
             <div className="flex-1">
               <p className="text-sm font-bold text-hlk-text">다음 목표: 7일 연속 체크인</p>
@@ -154,7 +160,7 @@ export default function ResultPage() {
         {/* 추천 솔루션 미리보기 */}
         <div className="mb-8">
           <h2 className="text-lg font-bold text-hlk-text mb-3 flex items-center gap-2">
-            <span>💊</span> 나에게 맞는 솔루션
+            <Pill className="h-5 w-5 text-hlk-primary" aria-hidden /> 나에게 맞는 솔루션
           </h2>
           <p className="text-sm text-hlk-text-secondary mb-4">
             체크인 결과를 기반으로 추천하는 솔루션이에요
@@ -166,25 +172,28 @@ export default function ResultPage() {
 
               const solutions = [
                 hasPhysical
-                  ? { title: '이 시기를 위한 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: '🧘‍♀️', price: '무료' }
-                  : { title: '아침 10분 스트레칭', desc: '활기찬 하루를 시작하는 루틴', icon: '🏃‍♀️', price: '무료' },
+                  ? { title: '이 시기를 위한 명상 프로그램', desc: '열감과 불안을 다스리는 10분 호흡 명상', icon: Activity, price: '무료' }
+                  : { title: '아침 10분 스트레칭', desc: '활기찬 하루를 시작하는 루틴', icon: Dumbbell, price: '무료' },
                 hasMoodIssues
-                  ? { title: '이 시기 전문 심리상담', desc: '감정 기복을 전문으로 다루는 1:1 상담', icon: '💬', price: '회당 80,000원' }
-                  : { title: '이 시기를 위한 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: '💊', price: '월 35,000원' },
+                  ? { title: '이 시기 전문 심리상담', desc: '감정 기복을 전문으로 다루는 1:1 상담', icon: MessageCircle, price: '회당 80,000원' }
+                  : { title: '이 시기를 위한 종합 영양제', desc: '이소플라본, 비타민D, 칼슘 맞춤 영양제', icon: Pill, price: '월 35,000원' },
               ];
 
-              return solutions.map((sol, i) => (
-                <div key={i} className="bg-white rounded-xl p-4 border border-hlk-border flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-hlk-primary-light flex items-center justify-center flex-shrink-0 text-xl">
-                    {sol.icon}
+              return solutions.map((sol, i) => {
+                const Icon = sol.icon;
+                return (
+                  <div key={i} className="card-glass rounded-xl p-4 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-hlk-primary-light flex items-center justify-center flex-shrink-0 text-xl">
+                      <Icon className="h-5 w-5 text-hlk-primary" aria-hidden />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-hlk-text">{sol.title}</p>
+                      <p className="text-xs text-hlk-text-tertiary truncate">{sol.desc}</p>
+                    </div>
+                    <span className="text-sm font-semibold text-hlk-primary flex-shrink-0">{sol.price}</span>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-hlk-text">{sol.title}</p>
-                    <p className="text-xs text-hlk-text-tertiary truncate">{sol.desc}</p>
-                  </div>
-                  <span className="text-sm font-semibold text-hlk-primary flex-shrink-0">{sol.price}</span>
-                </div>
-              ));
+                );
+              });
             })()}
             {!isLoggedIn && (
               <p className="text-xs text-hlk-text-tertiary text-center">
@@ -197,22 +206,22 @@ export default function ResultPage() {
         {/* 커뮤니티 인기글 미리보기 */}
         <div className="mb-8">
           <h2 className="text-lg font-bold text-hlk-text mb-3 flex items-center gap-2">
-            <span>💬</span> 비슷한 분들의 이야기
+            <MessageCircle className="h-5 w-5 text-hlk-primary" aria-hidden /> 비슷한 분들의 이야기
           </h2>
           <div className="space-y-3">
             {[
               { content: '오늘 아침에 또 열감이 왔는데, 깊게 호흡하니까 조금 나아졌어요.', likes: 24, comments: 8, name: '따뜻한 햇살42' },
-              { content: '남편한테 갱년기 증상 얘기했더니... 여기 오니까 위로가 되네요.', likes: 89, comments: 31, name: '밝은 구름77' },
+              { content: '남편한테 수면과 컨디션 변화 얘기했더니... 여기 오니까 위로가 되네요.', likes: 89, comments: 31, name: '밝은 구름77' },
             ].map((post, i) => (
-              <Link key={i} href="/community" className="block bg-white rounded-xl p-4 border border-hlk-border hover:shadow-sm transition-all">
+              <Link key={i} href="/community" className="block card-glass rounded-xl p-4 hover:shadow-sm transition-all">
                 <p className="text-sm text-hlk-text leading-relaxed line-clamp-2 mb-2">
                   {post.content}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-hlk-text-tertiary">{post.name}</span>
                   <div className="flex items-center gap-3 text-xs text-hlk-text-tertiary">
-                    <span>💜 {post.likes}</span>
-                    <span>💬 {post.comments}</span>
+                    <span className="inline-flex items-center gap-1"><Heart className="h-3.5 w-3.5" aria-hidden /> {post.likes}</span>
+                    <span className="inline-flex items-center gap-1"><MessageCircle className="h-3.5 w-3.5" aria-hidden /> {post.comments}</span>
                   </div>
                 </div>
               </Link>
@@ -245,23 +254,23 @@ export default function ResultPage() {
           /* 비로그인 상태: 결과 저장 → 가입 유도 */
           <>
             {/* 가입 동기 강화 */}
-            <div className="bg-gradient-to-br from-hlk-primary to-hlk-accent rounded-2xl p-6 mb-6 text-white text-center">
+            <div className="aurora-header rounded-2xl p-6 mb-6 text-center" style={{ background: 'linear-gradient(135deg, #43734F, #6E7E6A, #96524C)' }}>
               <h3 className="text-lg font-bold mb-2">이 결과를 저장하고 싶으신가요?</h3>
               <p className="text-white/80 text-sm mb-4">
                 가입하면 이런 것들을 이용할 수 있어요
               </p>
               <div className="space-y-2 mb-5 text-left">
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>체크인 결과 저장 & 추적</span>
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden /><span>체크인 결과 저장 & 추적</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>맞춤 패턴 분석</span>
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden /><span>맞춤 패턴 분석</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>함께하기에서 증상 공감 & 토크방</span>
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden /><span>함께하기에서 증상 공감 & 토크방</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/90 text-sm">
-                  <span>✓</span><span>증상별 맞춤 솔루션 추천</span>
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden /><span>증상별 맞춤 솔루션 추천</span>
                 </div>
               </div>
               <Link href="/signup" className="block">

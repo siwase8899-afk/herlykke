@@ -8,7 +8,7 @@ const EXPERTS: Expert[] = [
   {
     id: '1',
     name: '김수연 전문의',
-    specialty: '갱년기 수면장애 · 호르몬 치료',
+    specialty: '수면 변화장애 · 수면 상담',
     experience: '서울대병원 산부인과 15년',
     rating: 4.9,
     photoUrl: '',
@@ -26,8 +26,8 @@ const EXPERTS: Expert[] = [
   {
     id: '3',
     name: '이은영 약사',
-    specialty: '갱년기 영양 · 보충제 상담',
-    experience: '약국 상담 12년 · 여성건강 전문',
+    specialty: '몸과 마음의 변화 영양 · 보충제 상담',
+    experience: '약국 상담 12년 · 수면 건강 전문',
     rating: 4.7,
     photoUrl: '',
     available: false,
@@ -174,7 +174,7 @@ export default function BookingFlow() {
       {/* Step 2: Confirmation */}
       {step === 2 && selectedExpert && (
         <div className="space-y-5">
-          <div className="bg-hlk-surface rounded-2xl p-6 border border-hlk-border space-y-4">
+          <div className="card-glass rounded-2xl p-6 space-y-4">
             <h3 className="font-bold text-hlk-text text-lg">예약 확인</h3>
 
             <div className="space-y-3">

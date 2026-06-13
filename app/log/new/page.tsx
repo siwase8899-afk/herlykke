@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useLogStore } from '@/stores/logStore';
@@ -11,7 +11,6 @@ import { SleepInput } from '@/components/log/SleepInput';
 import { ActivityTags } from '@/components/log/ActivityTags';
 import { SYMPTOMS } from '@/lib/logTypes';
 import { MOOD_TAGS } from '@/lib/dailyLogConstants';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
 import { EmojiIcon } from '@/lib/iconMap';
 
 // 수면을 첫 번째 스텝으로 재배치
@@ -28,7 +27,7 @@ const STEP_LABELS: Record<Step, string> = {
 
 export default function NewLogPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, isLoggedIn, isLoading: authLoading } = useAuth();
   const [currentStep, setCurrentStep] = useState<Step>('sleep');
   const {
     draft,
@@ -42,6 +41,11 @@ export default function NewLogPage() {
     setNote,
     saveLog,
   } = useLogStore();
+
+  // 비로그인 게스트는 로그인으로 (대시보드와 동일 가드)
+  useEffect(() => {
+    if (!authLoading && !isLoggedIn) router.replace('/login');
+  }, [authLoading, isLoggedIn, router]);
 
   const currentStepIndex = STEPS.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / STEPS.length) * 100;
@@ -85,9 +89,12 @@ export default function NewLogPage() {
     weekday: 'long',
   });
 
+  if (authLoading || !isLoggedIn) {
+    return <div className="min-h-screen" />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-hlk-primary-light via-hlk-bg to-hlk-accent-light relative">
-      <FloatingOrbs />
       {/* Header */}
       <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-hlk-border">
         <div className="max-w-lg mx-auto px-5 py-4">
@@ -183,7 +190,7 @@ export default function NewLogPage() {
             />
 
             {/* 요약 미리보기 */}
-            <div className="mt-6 bg-white rounded-2xl p-5 border border-hlk-border">
+            <div className="mt-6 card-glass rounded-2xl p-5">
               <p className="text-sm font-semibold text-hlk-text mb-4">오늘의 수면 일지 요약</p>
 
               <div className="space-y-3 text-sm">
@@ -241,7 +248,7 @@ export default function NewLogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-hlk-border">
+      <footer className="fixed bottom-0 left-0 right-0 bg-white/82 backdrop-blur-lg border-t border-hlk-border">
         <div className="max-w-lg mx-auto px-5 py-4">
           {currentStep === 'note' ? (
             <button

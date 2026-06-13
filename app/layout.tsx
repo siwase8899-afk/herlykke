@@ -16,12 +16,12 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  title: "HERLYKKE - 잠을 되찾는 여정, 혼자 걷지 않아도 됩니다",
-  description: "4050 여성을 위한 수면 커뮤니티. 먼저 겪은 메이트들의 Real Ink 수면 레시피로 오늘 밤을 바꿔보세요. 1분 체크인으로 내 수면 유형을 파악하고 맞춤 레시피를 받아보세요.",
-  keywords: ["갱년기수면", "불면증", "수면레시피", "여성수면", "갱년기", "열감수면", "새벽각성", "HERLYKKE", "헤르리케", "수면커뮤니티", "뇌건강"],
+  title: "HERLYKKE - 수면과 마음의 전환기를 혼자 견디지 않도록",
+  description: "수면과 마음의 안정을 원하는 사람을 위한 웰니스 체크인과 커뮤니티. 수면, 열감, 감정 변화를 조용히 기록하고 비슷한 경험의 이야기를 만나보세요.",
+  keywords: ["몸과 마음의 변화", "수면변화", "열감", "감정기복", "브레인포그", "수면웰니스", "HERLYKKE", "헤르리케", "웰니스커뮤니티"],
   openGraph: {
-    title: "HERLYKKE - 잠을 되찾는 여정, 혼자 걷지 않아도 됩니다",
-    description: "먼저 겪은 메이트들의 Real Ink 수면 레시피. 커뮤니티가 검증한 방법만 모았어요.",
+    title: "HERLYKKE - 수면과 마음의 전환기를 혼자 견디지 않도록",
+    description: "수면, 열감, 감정 변화를 조용히 확인하는 1분 체크인과 커뮤니티.",
     type: "website",
     locale: "ko_KR",
     siteName: "HERLYKKE",

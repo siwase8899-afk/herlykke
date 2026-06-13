@@ -4,18 +4,17 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { SYMPTOM_CHARACTERS } from '@/lib/characters';
 import { useSymptomEmpathyStore } from '@/stores/symptomEmpathyStore';
+import { EmojiIcon } from '@/lib/iconMap';
 
 interface TodaySymptomsWidgetProps {
   defaultExpanded?: boolean;
 }
 
 export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWidgetProps) {
-  const [mounted, setMounted] = useState(false);
   const [expanded, setExpanded] = useState(defaultExpanded);
   const { todayEmpathized, empathyCounts, toggleEmpathy, resetIfNewDay } = useSymptomEmpathyStore();
 
   useEffect(() => {
-    setMounted(true);
     resetIfNewDay();
   }, [resetIfNewDay]);
 
@@ -37,17 +36,8 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
   // 내가 공감한 수
   const myCount = todayEmpathized.length;
 
-  if (!mounted) {
-    return (
-      <div className="bg-white rounded-2xl border border-hlk-border p-4 animate-pulse">
-        <div className="h-5 bg-hlk-bg rounded w-1/3 mb-2" />
-        <div className="h-8 bg-hlk-bg rounded w-2/3" />
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
+    <div className="card-glass rounded-2xl overflow-hidden">
       {/* 컴팩트 헤더 - 항상 표시 */}
       <button
         onClick={() => setExpanded(!expanded)}
@@ -79,7 +69,8 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
                       : 'bg-hlk-bg text-hlk-text-secondary'
                   }`}
                 >
-                  {symptom.emoji} {symptom.name}
+                  <EmojiIcon emoji={symptom.emoji} size={12} />
+                  {symptom.name}
                 </span>
               ))}
               <span className="text-xs text-hlk-text-tertiary">
@@ -94,8 +85,8 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
           <div className="text-right mr-2">
             <div className="flex items-center gap-1">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-hlk-success opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-hlk-success" />
               </span>
               <span className="text-xs text-hlk-text-tertiary">
                 {totalCount.toLocaleString()}명
@@ -136,7 +127,9 @@ export function TodaySymptomsWidget({ defaultExpanded = false }: TodaySymptomsWi
                     : 'bg-hlk-bg border-2 border-transparent hover:border-hlk-border'
                 }`}
               >
-                <div className="text-xl mb-0.5">{symptom.emoji}</div>
+                <div className="mb-1 flex justify-center text-hlk-primary">
+                  <EmojiIcon emoji={symptom.emoji} size={18} />
+                </div>
                 <p className={`text-[10px] font-medium truncate ${
                   symptom.isEmpathized ? 'text-hlk-primary' : 'text-hlk-text-secondary'
                 }`}>

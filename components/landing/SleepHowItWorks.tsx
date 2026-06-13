@@ -2,37 +2,32 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { ArrowRight, ClipboardList, MessageCircle, NotebookPen, Route } from 'lucide-react';
 
 const STEPS = [
   {
-    icon: '📱',
-    title: '카카오 로그인',
-    time: '30초',
-    desc: '1탭으로 간편하게',
-  },
-  {
-    icon: '📋',
-    title: '수면 유형 분석',
+    icon: ClipboardList,
+    title: '1분 체크인',
     time: '1분',
-    desc: '5문항으로 나의 수면 패턴 파악',
+    desc: '수면, 열감, 감정 변화 중 지금 가장 가까운 신호를 고릅니다.',
   },
   {
-    icon: '🤝',
-    title: '수면 동기 만나기',
-    time: '즉시',
-    desc: '나 같은 사람이 있었구나!',
+    icon: Route,
+    title: '변화 패턴 확인',
+    time: '바로',
+    desc: '의학적 진단이 아니라 내 상태를 설명할 수 있는 문장을 얻습니다.',
   },
   {
-    icon: '📖',
-    title: '수면 레시피 발견',
-    time: null,
-    desc: '메이트의 검증된 수면 개선법',
+    icon: MessageCircle,
+    title: '비슷한 이야기 보기',
+    time: '선택',
+    desc: '나와 비슷한 경험을 가진 사람들의 조용한 기록을 살펴봅니다.',
   },
   {
-    icon: '💜',
-    title: '메이트 PICK',
-    time: null,
-    desc: '공감으로 검증된 제품 추천',
+    icon: NotebookPen,
+    title: '작은 루틴으로 연결',
+    time: '천천히',
+    desc: '오늘 밤 해볼 수 있는 수면, 호흡, 생활 루틴을 발견합니다.',
   },
 ];
 
@@ -52,94 +47,64 @@ export default function SleepHowItWorks() {
   }, []);
 
   return (
-    <section ref={ref} className="py-24 md:py-32 px-6 md:px-8">
-      <div className="max-w-3xl mx-auto">
-        {/* Heading */}
+    <section ref={ref} className="bg-hlk-surface px-6 py-20 md:px-8 md:py-28">
+      <div className="mx-auto max-w-5xl">
         <div
-          className={`text-center mb-16 transition-all duration-700 ${
+          className={`mx-auto mb-14 max-w-2xl text-center transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <p className="text-xs font-semibold text-hlk-primary tracking-[0.2em] uppercase mb-4">
-            How It Works
-          </p>
-          <h2 className="text-3xl md:text-[2.75rem] font-extrabold text-hlk-text">
-            첫 5분이면 충분해요
+          <p className="text-sm font-semibold text-hlk-primary">시작은 짧고, 선택은 천천히</p>
+          <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-normal text-hlk-text md:text-[2.7rem]">
+            첫 1분이면 충분해요
           </h2>
+          <p className="mt-5 text-base leading-[1.75] text-hlk-text-secondary">
+            가입, 결제, 커뮤니티 참여를 서두르지 않습니다. 먼저 내 상태를 조용히 확인하고,
+            필요한 만큼만 다음 단계로 넘어갑니다.
+          </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-hlk-border md:-translate-x-px" />
-
-          <div className="space-y-10 md:space-y-12">
-            {STEPS.map((step, i) => {
-              const isLeft = i % 2 === 0;
-              return (
-                <div
-                  key={i}
-                  className={`relative transition-all duration-600 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: `${200 + i * 100}ms` }}
-                >
-                  {/* Icon circle on the line */}
-                  <div className="absolute left-5 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-hlk-surface border-2 border-hlk-primary/30 flex items-center justify-center text-lg z-10">
-                    {step.icon}
+        <div className="grid gap-4 md:grid-cols-4">
+          {STEPS.map((step, i) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={step.title}
+                className={`rounded-[22px] border border-hlk-border bg-white p-6 transition-all duration-700 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${120 + i * 80}ms` }}
+              >
+                <div className="mb-6 flex items-center justify-between">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-hlk-primary-light text-hlk-primary">
+                    <Icon className="h-5 w-5" aria-hidden />
                   </div>
-
-                  {/* Content card — mobile: always right; desktop: alternating */}
-                  <div
-                    className={`ml-14 md:ml-0 md:w-[calc(50%-2rem)] ${
-                      isLeft ? 'md:mr-auto md:text-right md:pr-0' : 'md:ml-auto md:text-left md:pl-0'
-                    }`}
-                  >
-                    <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
-                      <div className={`flex items-center gap-2 mb-1.5 ${isLeft ? 'md:justify-end' : ''}`}>
-                        <h3 className="text-base font-bold text-hlk-text">
-                          {step.title}
-                        </h3>
-                        {step.time && (
-                          <span className="text-[11px] font-semibold text-hlk-primary bg-hlk-primary/10 px-2 py-0.5 rounded-full">
-                            {step.time}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm text-hlk-text-secondary">
-                        {step.desc}
-                      </p>
-                    </div>
-                  </div>
+                  <span className="rounded-full bg-hlk-bg px-3 py-1 text-xs font-semibold text-hlk-text-tertiary">
+                    {step.time}
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+                <h3 className="font-bold text-hlk-text">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-hlk-text-secondary">{step.desc}</p>
+              </div>
+            );
+          })}
         </div>
 
-        {/* CTA */}
         <div
-          className={`text-center mt-16 transition-all duration-700 ${
+          className={`mt-12 text-center transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
-          style={{ transitionDelay: '700ms' }}
+          style={{ transitionDelay: '520ms' }}
         >
           <Link
             href="/checkin"
-            className="group inline-flex items-center justify-center gap-2 px-10 py-4 bg-hlk-primary text-white font-semibold rounded-full hover:bg-hlk-primary-dark transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-hlk-primary/15"
+            className="group inline-flex items-center justify-center gap-2 rounded-full bg-hlk-clay px-8 py-3.5 font-semibold text-white shadow-soft-md hover:bg-hlk-clay-dark"
           >
-            지금 시작하기
-            <svg
-              className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+            1분 체크인 시작하기
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
           </Link>
-          <p className="text-hlk-text-tertiary text-sm mt-4">
-            가입 없이 바로 &middot; 1분 소요 &middot; 닉네임으로 활동
+          <p className="mt-4 text-sm text-hlk-text-tertiary">
+            가입 없이 시작하고, 언제든 멈출 수 있어요.
           </p>
         </div>
       </div>
