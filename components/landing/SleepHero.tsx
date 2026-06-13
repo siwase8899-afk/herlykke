@@ -38,11 +38,6 @@ export default function SleepHero() {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,49,76,0.08)_0%,rgba(80,51,34,0.08)_46%,rgba(53,38,28,0.16)_100%)]" aria-hidden />
       <div className="hero-light-drift absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(255,255,255,0.18)_0%,rgba(255,244,226,0.10)_34%,rgba(41,49,76,0.04)_100%)]" aria-hidden />
       <div className="hero-grain absolute inset-0 opacity-[0.16]" aria-hidden />
-      <div className="hero-depth-scene absolute inset-0" aria-hidden>
-        <div className="hero-glass-ribbon hero-glass-ribbon--sage" />
-        <div className="hero-glass-ribbon hero-glass-ribbon--rose" />
-        <div className="hero-glass-ribbon hero-glass-ribbon--cream" />
-      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-14 text-center md:px-8 md:py-20">
         <div

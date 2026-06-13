@@ -497,33 +497,6 @@ button:active, a:active {
   }
 }
 
-@keyframes heroRibbonSage {
-  0%, 100% {
-    transform: translate3d(-18%, -8%, 0) rotateX(58deg) rotateY(-18deg) rotateZ(-10deg);
-  }
-  50% {
-    transform: translate3d(-13%, -4%, 46px) rotateX(54deg) rotateY(-10deg) rotateZ(-7deg);
-  }
-}
-
-@keyframes heroRibbonRose {
-  0%, 100% {
-    transform: translate3d(28%, 6%, -22px) rotateX(62deg) rotateY(20deg) rotateZ(12deg);
-  }
-  50% {
-    transform: translate3d(22%, 2%, 34px) rotateX(58deg) rotateY(12deg) rotateZ(9deg);
-  }
-}
-
-@keyframes heroRibbonCream {
-  0%, 100% {
-    transform: translate3d(5%, 42%, 18px) rotateX(66deg) rotateY(-4deg) rotateZ(3deg);
-  }
-  50% {
-    transform: translate3d(1%, 37%, 62px) rotateX(60deg) rotateY(4deg) rotateZ(0deg);
-  }
-}
-
 .hero-bg-drift {
   animation: heroBgDrift 22s cubic-bezier(0.19, 1, 0.22, 1) infinite;
   will-change: transform;
@@ -540,55 +513,6 @@ button:active, a:active {
     radial-gradient(circle at 80% 70%, rgba(41,49,76,0.14) 0 1px, transparent 1px);
   background-size: 22px 22px, 28px 28px;
   mix-blend-mode: soft-light;
-}
-
-.hero-depth-scene {
-  perspective: 1100px;
-  transform-style: preserve-3d;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.hero-glass-ribbon {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(58vw, 780px);
-  height: min(22vw, 260px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 34px;
-  filter: blur(0.2px);
-  opacity: 0.62;
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-  mix-blend-mode: screen;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.26),
-    0 26px 70px rgba(41, 49, 76, 0.16);
-}
-
-.hero-glass-ribbon--sage {
-  background:
-    linear-gradient(105deg, rgba(220, 232, 223, 0.05), rgba(120, 153, 134, 0.32), rgba(255, 249, 242, 0.06));
-  animation: heroRibbonSage 18s ease-in-out infinite;
-}
-
-.hero-glass-ribbon--rose {
-  width: min(48vw, 650px);
-  height: min(20vw, 230px);
-  background:
-    linear-gradient(112deg, rgba(240, 223, 220, 0.06), rgba(200, 154, 150, 0.30), rgba(245, 216, 197, 0.08));
-  animation: heroRibbonRose 20s ease-in-out infinite;
-  animation-delay: -5s;
-}
-
-.hero-glass-ribbon--cream {
-  width: min(68vw, 900px);
-  height: min(18vw, 210px);
-  background:
-    linear-gradient(96deg, rgba(255, 249, 242, 0.08), rgba(245, 216, 197, 0.24), rgba(120, 153, 134, 0.08));
-  animation: heroRibbonCream 22s ease-in-out infinite;
-  animation-delay: -9s;
 }
 
 .stats-motion-wash {
@@ -608,7 +532,6 @@ button:active, a:active {
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-drift,
   .hero-light-drift,
-  .hero-glass-ribbon,
   .stats-motion-wash,
   .stats-orb {
     animation: none;
