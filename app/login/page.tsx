@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useAuth } from '@/lib/authContext';
 
 export default function LoginPage() {
@@ -25,38 +24,14 @@ export default function LoginPage() {
     return <div className="min-h-screen" />;
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
-
-    if (!isSupabaseConfigured) {
-      // Demo mode - just redirect to dashboard
-      router.push('/dashboard');
-      return;
-    }
-
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      router.push('/dashboard');
-    } catch (err: unknown) {
-      const m = (err instanceof Error ? err.message : '').toLowerCase();
-      if (m.includes('invalid login credentials')) {
-        setError('이메일 또는 비밀번호가 맞지 않아요. 처음이시면 홈에서 체크인 후 가입해 주세요.');
-      } else if (m.includes('email not confirmed')) {
-        setError('이메일 인증이 필요해요. 메일함의 인증 링크를 눌러주세요.');
-      } else if (m.includes('email logins are disabled')) {
-        setError('이메일 로그인이 일시적으로 꺼져 있어요. 잠시 후 다시 시도해 주세요.');
-      } else {
-        setError(err instanceof Error ? err.message : '오류가 발생했어요. 다시 시도해주세요.');
-      }
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+    // ⚠️ 임시 로그인 우회 (출시 전 제거): 아무 이메일/비밀번호나 통과시켜 대시보드로 진입.
+    // authContext가 hlk_bypass_login 플래그를 보고 데모 유저로 로그인 처리한다.
+    localStorage.setItem('hlk_bypass_login', '1');
+    window.location.href = '/dashboard';
   };
 
   return (
