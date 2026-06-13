@@ -291,6 +291,7 @@ export default function InsightsPage() {
                 currentDays={progress.current}
                 targetDays={progress.target}
                 percentage={progress.percentage}
+                todayLogged={!!todayLog}
               />
             ) : (
               // 리포트 표시
