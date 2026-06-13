@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { FounderAvatar } from './FounderAvatar';
 
 export function FounderSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
@@ -36,7 +36,13 @@ export function FounderSection() {
             {/* Left — photo + info */}
             <div className="bg-hlk-primary-light p-8 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
               <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg mb-4 bg-hlk-surface">
-                <FounderAvatar className="w-full h-full" />
+                <Image
+                  src="/founder.png"
+                  alt="Becca, HERLYKKE 창업자"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <p className="text-lg font-bold text-hlk-text">Becca</p>
               <p className="text-sm text-hlk-text-secondary mb-4">HERLYKKE Founder</p>

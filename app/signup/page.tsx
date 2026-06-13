@@ -76,10 +76,17 @@ export default function SignupPage() {
       });
 
       if (authError) {
-        if (authError.message.includes('already registered')) {
-          setError('이미 가입된 이메일이에요. 다른 이메일을 사용해주세요.');
+        const msg = (authError.message ?? '').toLowerCase();
+        const status = (authError as { status?: number }).status;
+        if (msg.includes('already registered') || msg.includes('already been registered')) {
+          setError('이미 가입된 이메일이에요. 상단 로그인에서 이어가 주세요.');
+        } else if (msg.includes('rate limit') || status === 429) {
+          setError('메일 전송 한도에 걸렸어요. 잠시 후 다시 시도해 주세요.');
+        } else if (msg.includes('password')) {
+          setError('비밀번호는 6자 이상으로 입력해 주세요.');
         } else {
-          setError('가입 중 문제가 발생했어요. 다시 시도해주세요.');
+          // 알 수 없는 오류는 실제 메시지를 함께 노출해 원인 파악을 돕는다
+          setError(`가입 중 문제가 발생했어요: ${authError.message}`);
         }
         setLoading(false);
         return;
