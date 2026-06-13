@@ -33,20 +33,19 @@ export function FounderSection() {
         {/* Founder card — modern split layout */}
         <div className="card-glass rounded-3xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
-            {/* Left — photo + info */}
-            <div className="bg-hlk-primary-light p-8 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
-              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg mb-4 bg-hlk-surface">
-                <Image
-                  src="/founder.png"
-                  alt="Becca, HERLYKKE 창업자"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover"
-                />
+            {/* Left — full-bleed founder photo */}
+            <div className="relative bg-hlk-primary-light min-h-[340px] lg:min-h-[420px]">
+              <Image
+                src="/founder.png"
+                alt="Becca, HERLYKKE 창업자"
+                fill
+                sizes="(max-width: 1024px) 100vw, 280px"
+                className="object-cover object-[center_28%]"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent px-6 pb-5 pt-12">
+                <p className="text-lg font-bold text-white">Becca</p>
+                <p className="text-sm text-white/85">HERLYKKE Founder</p>
               </div>
-              <p className="text-lg font-bold text-hlk-text">Becca</p>
-              <p className="text-sm text-hlk-text-secondary mb-4">HERLYKKE Founder</p>
-              <div className="w-8 h-0.5 bg-hlk-primary/30 rounded-full" />
             </div>
 
             {/* Right — quote */}
