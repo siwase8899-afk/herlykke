@@ -44,10 +44,15 @@ export default function LoginPage() {
       if (error) throw error;
       router.push('/dashboard');
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
+      const m = (err instanceof Error ? err.message : '').toLowerCase();
+      if (m.includes('invalid login credentials')) {
+        setError('이메일 또는 비밀번호가 맞지 않아요. 처음이시면 홈에서 체크인 후 가입해 주세요.');
+      } else if (m.includes('email not confirmed')) {
+        setError('이메일 인증이 필요해요. 메일함의 인증 링크를 눌러주세요.');
+      } else if (m.includes('email logins are disabled')) {
+        setError('이메일 로그인이 일시적으로 꺼져 있어요. 잠시 후 다시 시도해 주세요.');
       } else {
-        setError('오류가 발생했어요. 다시 시도해주세요.');
+        setError(err instanceof Error ? err.message : '오류가 발생했어요. 다시 시도해주세요.');
       }
     } finally {
       setLoading(false);
