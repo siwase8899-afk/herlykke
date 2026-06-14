@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { SleepRecoveryIllustration } from '@/components/visuals/SleepRecoveryIllustration';
 
 const CHANGE_WORDS = ['수면', '호흡', '루틴'];
 
@@ -39,11 +38,8 @@ export default function SleepHero() {
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(41,49,76,0.08)_0%,rgba(80,51,34,0.08)_46%,rgba(53,38,28,0.16)_100%)]" aria-hidden />
       <div className="hero-light-drift absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(255,255,255,0.18)_0%,rgba(255,244,226,0.10)_34%,rgba(41,49,76,0.04)_100%)]" aria-hidden />
       <div className="hero-grain absolute inset-0 opacity-[0.16]" aria-hidden />
-      <div className="pointer-events-none absolute bottom-[-5rem] right-[-5rem] hidden w-[32rem] opacity-[0.34] mix-blend-screen blur-[0.2px] md:block lg:w-[38rem]" aria-hidden>
-        <SleepRecoveryIllustration compact className="w-full" />
-      </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-14 text-center md:px-8 md:py-20">
+<div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-14 text-center md:px-8 md:py-20">
         <div
           className={`mb-9 transition-all duration-1000 ease-out ${
             showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
