@@ -155,7 +155,7 @@ export default function SleepHero() {
             aria-label="아래 섹션으로 이동"
           >
             SCROLL
-            <ChevronDown className="h-5 w-5" aria-hidden />
+            <ChevronDown className="h-5 w-5 animate-bounce" aria-hidden />
           </button>
         </div>
       </div>
