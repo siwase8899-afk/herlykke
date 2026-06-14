@@ -33,9 +33,9 @@ const testimonials = [
     name: '선희',
     age: 49,
     location: '대전',
-    before: '갱년기라고 인정하기 싫었어요. 남들한테 말하기 창피했고요',
+    before: '몸이 달라졌다고 인정하기 싫었어요. 남들한테 말하기 창피했고요',
     quote: '여기 오니까 다들 비슷하더라고요. 이제는 당당하게 말해요.',
-    after: '이제 당당하게 "나 갱년기야!" 말해요',
+    after: '이제 당당하게 "나 요즘 몸이 달라지고 있어!" 말해요',
     symptom: '브레인포그, 피로감',
     weeks: 8,
   },
@@ -113,7 +113,7 @@ export function Testimonials() {
     <section ref={sectionRef} className={`px-6 md:px-8 py-24 md:py-32 bg-hlk-bg ${sectionVisible ? 'scroll-visible' : 'scroll-hidden'}`}>
       <div className="max-w-6xl mx-auto">
         {/* Testimonial section */}
-        <div className="bg-white rounded-3xl border border-hlk-border p-8 md:p-12">
+        <div className="card-glass rounded-3xl p-8 md:p-12">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 bg-hlk-accent-light text-hlk-accent text-xs font-semibold tracking-wide uppercase rounded-full mb-4">
               Real Stories
@@ -122,7 +122,7 @@ export function Testimonials() {
               실제 사용자 후기
             </h3>
             <p className="text-sm text-hlk-text-secondary">
-              HERLYKKE와 함께한 여성들의 진짜 이야기
+              HERLYKKE와 함께한 사람들의 진짜 이야기
             </p>
           </div>
 

@@ -1,364 +1,183 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { columns, sleepCategoryLabels, type SleepCategory } from '@/lib/columnsData';
-import { getAnniePickRecipes } from '@/lib/recipesData';
-import { SOLUTIONS } from '@/lib/solutionsData';
+import {
+  ArrowRight,
+  Brain,
+  CheckCircle2,
+  Flame,
+  Moon,
+  Sparkles,
+  Users,
+  Waves,
+} from 'lucide-react';
 
-/* ── Types ── */
-type Tab = 'columns' | 'recipes' | 'solutions';
-type SleepProblem = 'falling-asleep' | 'night-waking' | 'early-waking' | 'morning-fatigue';
+type ConcernId = 'night-waking' | 'heat' | 'mood' | 'brain-fog';
 
-/* ── Static data ── */
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'columns', label: '수면 회복 가이드' },
-  { id: 'recipes', label: '수면 레시피' },
-  { id: 'solutions', label: '맞춤 솔루션' },
+const CONCERNS: {
+  id: ConcernId;
+  label: string;
+  helper: string;
+  icon: typeof Moon;
+  next: string;
+}[] = [
+  {
+    id: 'night-waking',
+    label: '새벽에 자주 깨요',
+    helper: '잠이 얕아지고 다시 잠들기 어려운 밤',
+    icon: Moon,
+    next: '수면 패턴과 열감, 피로 신호를 함께 확인합니다.',
+  },
+  {
+    id: 'heat',
+    label: '열감이 올라와요',
+    helper: '갑자기 얼굴이 뜨거워지거나 땀이 나는 순간',
+    icon: Flame,
+    next: '열감이 수면과 감정 변화에 미치는 흐름을 살펴봅니다.',
+  },
+  {
+    id: 'mood',
+    label: '감정이 흔들려요',
+    helper: '이유 없이 예민하거나 마음이 가라앉는 날',
+    icon: Waves,
+    next: '수면 부족, 스트레스, 몸의 리듬 변화가 겹친 지점을 정리합니다.',
+  },
+  {
+    id: 'brain-fog',
+    label: '머리가 흐려요',
+    helper: '집중력, 기억력, 아침 피로가 신경 쓰이는 변화',
+    icon: Brain,
+    next: '기억력과 피로감을 수면 회복 관점에서 함께 봅니다.',
+  },
 ];
 
-const PROBLEMS: { id: SleepProblem; label: string; categories: SleepCategory[] }[] = [
-  { id: 'falling-asleep', label: '잠들기 어렵다', categories: ['falling-asleep', 'mind-sleep'] },
-  { id: 'night-waking', label: '밤에 자주 깬다', categories: ['night-waking'] },
-  { id: 'early-waking', label: '새벽에 깬다', categories: ['early-waking'] },
-  { id: 'morning-fatigue', label: '아침에 피곤하다', categories: ['morning-fatigue', 'body-signal', 'sleep-routine'] },
+const WHAT_YOU_GET = [
+  {
+    icon: CheckCircle2,
+    title: '내 변화 패턴',
+    desc: '수면, 열감, 감정 변화를 한 번에 정리해 지금의 상태를 이해합니다.',
+  },
+  {
+    icon: Users,
+    title: '로그인 후 열리는 연결',
+    desc: '체크인 이후 필요한 경우에만 비슷한 경험의 이야기와 커뮤니티로 이어집니다.',
+  },
+  {
+    icon: Sparkles,
+    title: '개인화된 루틴',
+    desc: '수면 레시피와 루틴은 로그인 후 내 체크인 결과에 맞춰 보여줍니다.',
+  },
 ];
 
-/* ── Helpers ── */
-const symptomMap: Record<SleepProblem, string[]> = {
-  'falling-asleep': ['insomnia', 'anxiety'],
-  'night-waking': ['insomnia', 'hot_flash', 'night_sweat'],
-  'early-waking': ['insomnia', 'anxiety'],
-  'morning-fatigue': ['fatigue', 'brain_fog', 'joint_pain'],
-};
-
-function filterColumns(problem: SleepProblem | null) {
-  if (!problem) return columns.slice(0, 4);
-  const cats = PROBLEMS.find((p) => p.id === problem)?.categories ?? [];
-  const filtered = columns.filter((c) => cats.includes(c.sleepCategory));
-  return filtered.length > 0 ? filtered.slice(0, 4) : columns.slice(0, 4);
-}
-
-function filterSolutions(problem: SleepProblem | null) {
-  if (!problem) return SOLUTIONS.slice(0, 4);
-  const syms = symptomMap[problem];
-  const filtered = SOLUTIONS.filter((s) => s.forSymptoms.some((f) => syms.includes(f)));
-  return filtered.length > 0 ? filtered.slice(0, 4) : SOLUTIONS.slice(0, 4);
-}
-
-/* ── Component ── */
 export default function ContentQuickAccess() {
-  const [activeTab, setActiveTab] = useState<Tab>('columns');
-  const [activeProblem, setActiveProblem] = useState<SleepProblem | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  const topRecipes = getAnniePickRecipes().slice(0, 4);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
-      { threshold: 0.12 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const filteredColumns = filterColumns(activeProblem);
-  const filteredSolutions = filterSolutions(activeProblem);
-
-  const ctaHref = activeTab === 'columns' ? '/columns' : activeTab === 'recipes' ? '/recipes' : '/solutions';
+  const [activeConcern, setActiveConcern] = useState<ConcernId>('night-waking');
+  const active = CONCERNS.find((item) => item.id === activeConcern) ?? CONCERNS[0];
+  const ActiveIcon = active.icon;
 
   return (
-    <section ref={ref} className="relative py-24 md:py-32 px-6 md:px-8 overflow-hidden" style={{ background: '#F6F7F4' }}>
-      {/* Subtle background gradient wash */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 30% 20%, rgba(111,156,166,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 70% 80%, rgba(212,149,106,0.05) 0%, transparent 60%)',
-        }}
-      />
-
-      <div className="relative max-w-5xl mx-auto">
-
-        {/* ─── 1. SECTION HEADER ─── */}
-        <div
-          className={`text-center mb-16 transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase mb-5" style={{ color: '#6F9CA6' }}>
-            Content Hub
-          </p>
-          <h2 className="text-3xl md:text-[2.75rem] font-extrabold leading-tight mb-5" style={{ color: '#2F3A3D' }}>
-            지금 바로 읽어보세요
+    <section id="landing-content" className="bg-hlk-surface px-6 py-20 md:px-8 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-semibold text-hlk-primary">먼저 지금의 나를 골라보세요</p>
+          <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-normal text-hlk-text md:text-[2.7rem]">
+            어떤 변화가 가장 신경 쓰이나요?
           </h2>
-          <p className="text-base leading-relaxed max-w-md mx-auto" style={{ color: '#6B7C80' }}>
-            수면 회복 가이드, 커뮤니티 검증 레시피, 맞춤 솔루션을 한 곳에서
+          <p className="mt-5 text-base leading-[1.75] text-hlk-text-secondary md:text-lg">
+            잠, 열감, 감정, 집중력처럼 흩어진 변화를 하나씩 고르며 시작합니다.
+            선택은 진단이 아니라 지금의 나를 이해하기 위한 작은 문입니다.
           </p>
         </div>
 
-        {/* ─── 2. PROBLEM-BASED DISCOVERY ─── */}
-        <div
-          className={`text-center mb-10 transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-          style={{ transitionDelay: '150ms' }}
-        >
-          <p className="text-sm font-medium mb-5" style={{ color: '#6B7C80' }}>
-            오늘 당신의 밤은 어떤가요?
-          </p>
-          <div className="flex flex-wrap justify-center gap-2.5">
-            {PROBLEMS.map((problem) => {
-              const isActive = activeProblem === problem.id;
-              return (
-                <button
-                  key={problem.id}
-                  onClick={() => setActiveProblem(isActive ? null : problem.id)}
-                  className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-                  style={{
-                    background: isActive ? '#6F9CA6' : '#ffffff',
-                    color: isActive ? '#ffffff' : '#4A5C60',
-                    border: `1px solid ${isActive ? '#6F9CA6' : '#D8DDD9'}`,
-                    boxShadow: isActive
-                      ? '0 2px 12px -2px rgba(111,156,166,0.3)'
-                      : '0 1px 3px rgba(0,0,0,0.04)',
-                  }}
-                >
-                  {problem.label}
-                </button>
-              );
-            })}
-          </div>
+        <div className="mt-12 grid gap-4 md:grid-cols-4">
+          {CONCERNS.map((concern) => {
+            const Icon = concern.icon;
+            const isActive = activeConcern === concern.id;
+            return (
+              <button
+                key={concern.id}
+                type="button"
+                onClick={() => setActiveConcern(concern.id)}
+                className={`rounded-2xl border p-5 text-left transition-all ${
+                  isActive
+                    ? 'border-hlk-primary bg-hlk-primary text-white shadow-soft-md'
+                    : 'border-hlk-border bg-white text-hlk-text hover:border-hlk-primary/40'
+                }`}
+              >
+                <Icon className={`mb-5 h-7 w-7 ${isActive ? 'text-white' : 'text-hlk-primary'}`} aria-hidden />
+                <p className="text-base font-bold">{concern.label}</p>
+                <p className={`mt-2 text-sm leading-relaxed ${isActive ? 'text-white/75' : 'text-hlk-text-tertiary'}`}>
+                  {concern.helper}
+                </p>
+              </button>
+            );
+          })}
         </div>
 
-        {/* ─── 3. CONTENT TYPE TABS ─── */}
-        <div
-          className={`flex justify-center mb-12 transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-          style={{ transitionDelay: '250ms' }}
-        >
-          <div
-            className="inline-flex rounded-full p-1"
-            style={{ background: '#EAEDEA', border: '1px solid #D8DDD9' }}
-            role="tablist"
-          >
-            {TABS.map((tab) => {
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveTab(tab.id)}
-                  className="relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-500 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-inset"
-                  style={{
-                    background: isActive ? '#ffffff' : 'transparent',
-                    color: isActive ? '#2F3A3D' : '#8A9599',
-                    boxShadow: isActive ? '0 1px 6px rgba(0,0,0,0.08)' : 'none',
-                  }}
-                >
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ─── 4. FEATURED CONTENT CARDS ─── */}
-        <div
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-          style={{ transitionDelay: '400ms' }}
-        >
-          {/* Columns */}
-          {activeTab === 'columns' && (
-            <div key={`columns-${activeProblem}`} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {filteredColumns.map((col, i) => (
-                <Link
-                  key={col.slug}
-                  href={`/columns/${col.slug}`}
-                  className="group relative flex flex-col bg-white rounded-[22px] p-6 border transition-all duration-500 ease-out hover:-translate-y-1 animate-slow-fade-in"
-                  style={{
-                    borderColor: '#E4E8E5',
-                    boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
-                    animationDelay: `${i * 100}ms`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 30px -8px rgba(0,0,0,0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(111,156,166,0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.03)';
-                    e.currentTarget.style.borderColor = '#E4E8E5';
-                  }}
-                >
-                  <span
-                    className="inline-block self-start px-3 py-1 rounded-full text-[11px] font-semibold mb-4"
-                    style={{ background: 'rgba(111,156,166,0.1)', color: '#5A8590' }}
-                  >
-                    {sleepCategoryLabels[col.sleepCategory]}
-                  </span>
-                  <h3
-                    className="font-bold text-[15px] leading-snug mb-2 line-clamp-2 transition-colors duration-300 group-hover:text-hlk-primary"
-                    style={{ color: '#2F3A3D' }}
-                  >
-                    {col.title}
-                  </h3>
-                  <p className="text-[13px] leading-relaxed line-clamp-2 mb-4" style={{ color: '#8A9599' }}>
-                    {col.subtitle}
-                  </p>
-                  <div
-                    className="mt-auto pt-4 flex items-center gap-2"
-                    style={{ borderTop: '1px solid #EFF2F0' }}
-                  >
-                    <span className="text-xs font-medium" style={{ color: '#6B7C80' }}>{col.expert.name}</span>
-                    <span className="text-xs" style={{ color: '#B0BABE' }}>·</span>
-                    <span className="text-xs" style={{ color: '#B0BABE' }}>{col.readTime}분 읽기</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* Recipes */}
-          {activeTab === 'recipes' && (
-            <div key="recipes" className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {topRecipes.map((recipe, i) => (
-                <Link
-                  key={recipe.id}
-                  href={`/recipes/${recipe.id}`}
-                  className="group relative flex flex-col bg-white rounded-[22px] overflow-hidden border transition-all duration-500 ease-out hover:-translate-y-1 animate-slow-fade-in"
-                  style={{
-                    borderColor: '#E4E8E5',
-                    boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
-                    animationDelay: `${i * 100}ms`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 30px -8px rgba(0,0,0,0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(111,156,166,0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.03)';
-                    e.currentTarget.style.borderColor = '#E4E8E5';
-                  }}
-                >
-                  <div className="relative aspect-[4/3]" style={{ background: '#EFF2F0' }}>
-                    <img
-                      src={recipe.realInkImageUrl}
-                      alt={recipe.title}
-                      className="w-full h-full object-cover"
-                    />
-                    {recipe.isAnniePick && (
-                      <span
-                        className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full"
-                        style={{ background: '#B8E0C6', color: '#2F3A3D' }}
-                      >
-                        PICK
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex flex-col flex-1 p-5">
-                    <h3
-                      className="font-bold text-[15px] leading-snug mb-3 line-clamp-2"
-                      style={{ color: '#2F3A3D' }}
-                    >
-                      {recipe.title}
-                    </h3>
-                    <div className="mt-auto flex items-center justify-between">
-                      <span className="text-xs font-medium" style={{ color: '#6B7C80' }}>
-                        {recipe.curatorNickname}
-                      </span>
-                      <span className="text-xs flex items-center gap-1" style={{ color: '#B0BABE' }}>
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
-                        {recipe.likes}
-                      </span>
+        <div className="mt-14 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+          <div className="rounded-[24px] border border-hlk-border bg-hlk-bg p-6 md:p-8">
+            <p className="text-sm font-semibold text-hlk-clay">체크인 후 받을 수 있는 것</p>
+            <div className="mt-6 space-y-5">
+              {WHAT_YOU_GET.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="flex gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-hlk-primary shadow-soft-sm">
+                      <Icon className="h-5 w-5" aria-hidden />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-hlk-text">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-hlk-text-secondary">{item.desc}</p>
                     </div>
                   </div>
-                </Link>
-              ))}
+                );
+              })}
             </div>
-          )}
+            <Link
+              href="/checkin"
+              className="group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-hlk-clay px-6 py-3.5 font-semibold text-white hover:bg-hlk-clay-dark"
+            >
+              나의 변화 체크하기
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+            </Link>
+          </div>
 
-          {/* Solutions */}
-          {activeTab === 'solutions' && (
-            <div key={`solutions-${activeProblem}`} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {filteredSolutions.map((sol, i) => (
-                <Link
-                  key={sol.id}
-                  href={`/solutions/${sol.id}`}
-                  className="group relative flex flex-col bg-white rounded-[22px] p-6 border transition-all duration-500 ease-out hover:-translate-y-1 animate-slow-fade-in"
-                  style={{
-                    borderColor: '#E4E8E5',
-                    boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
-                    animationDelay: `${i * 100}ms`,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = '0 8px 30px -8px rgba(0,0,0,0.08)';
-                    e.currentTarget.style.borderColor = 'rgba(111,156,166,0.25)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.03)';
-                    e.currentTarget.style.borderColor = '#E4E8E5';
-                  }}
-                >
-                  <div className="flex items-center gap-1.5 mb-4">
-                    <span className="text-sm" style={{ color: '#D4A574' }}>★</span>
-                    <span className="text-sm font-medium" style={{ color: '#2F3A3D' }}>{sol.rating}</span>
-                    <span className="text-xs" style={{ color: '#B0BABE' }}>({sol.reviews})</span>
-                  </div>
-                  <h3
-                    className="font-bold text-[15px] leading-snug mb-2 line-clamp-2 transition-colors duration-300 group-hover:text-hlk-primary"
-                    style={{ color: '#2F3A3D' }}
-                  >
-                    {sol.title}
-                  </h3>
-                  <p className="text-[13px] leading-relaxed line-clamp-2 mb-4" style={{ color: '#8A9599' }}>
-                    {sol.description}
+          <div className="rounded-[24px] border border-hlk-border bg-white p-6 md:p-8">
+            <p className="text-sm font-semibold text-hlk-primary">공개 홈에서는 여기까지만 보여줍니다</p>
+            <h3 className="mt-3 text-2xl font-extrabold leading-tight text-hlk-text md:text-3xl">
+              먼저 체크인하고,
+              <br />
+              그다음 필요한 것만 엽니다
+            </h3>
+            <p className="mt-5 text-base leading-[1.8] text-hlk-text-secondary">
+              HERLYKKE의 공개 홈페이지는 콘텐츠를 먼저 쏟아내지 않습니다. 지금 가장 가까운 변화를 고르고,
+              체크인 결과를 본 뒤에 수면 레시피, 커뮤니티, 읽을거리가 자연스럽게 연결됩니다.
+            </p>
+
+            <div className="mt-8 rounded-[22px] bg-hlk-primary-light/60 p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-hlk-primary">Selected signal</p>
+              <div className="mt-4 flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-hlk-primary shadow-soft-sm">
+                  <ActiveIcon className="h-6 w-6" aria-hidden />
+                </div>
+                <div>
+                  <p className="font-extrabold text-hlk-text">{active.label}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-hlk-text-secondary">{active.next}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              {['체크인', '결과 확인', '로그인 후 맞춤 경험'].map((step, index) => (
+                <div key={step} className="rounded-2xl border border-hlk-border bg-hlk-surface px-4 py-4 text-center">
+                  <p className="mx-auto mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-hlk-clay text-sm font-bold text-white">
+                    {index + 1}
                   </p>
-                  <span className="mt-auto text-sm font-bold" style={{ color: '#5A8590' }}>
-                    {sol.price}
-                  </span>
-                </Link>
+                  <p className="text-sm font-bold text-hlk-text">{step}</p>
+                </div>
               ))}
             </div>
-          )}
-        </div>
-
-        {/* ─── 5. BOTTOM CTA ─── */}
-        <div
-          className={`text-center mt-14 transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-          style={{ transitionDelay: '550ms' }}
-        >
-          <Link
-            href={ctaHref}
-            className="group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-semibold transition-all duration-500 ease-out hover:gap-3.5"
-            style={{
-              background: '#ffffff',
-              color: '#5A8590',
-              border: '1px solid #D8DDD9',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 16px -4px rgba(111,156,166,0.2)';
-              e.currentTarget.style.borderColor = 'rgba(111,156,166,0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)';
-              e.currentTarget.style.borderColor = '#D8DDD9';
-            }}
-          >
-            지금 나에게 맞는 수면 콘텐츠 더 보기
-            <svg className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+          </div>
         </div>
       </div>
     </section>

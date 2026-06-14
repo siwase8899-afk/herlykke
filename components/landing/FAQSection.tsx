@@ -7,7 +7,7 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 const faqs = [
   {
     q: '이 변화는 언제 시작되나요?',
-    a: '보통 45-55세 사이에 시작되지만, 40대 초반부터 증상을 느끼는 분도 많아요. 생리 불규칙, 열감, 수면 장애, 감정 변화 등이 초기 증상일 수 있어요.',
+    a: '보통 사이에 시작되지만, 예상보다 이른 시기부터 증상을 느끼는 분도 많아요. 생리 불규칙, 열감, 수면 장애, 감정 변화 등이 초기 증상일 수 있어요.',
   },
   {
     q: 'HERLYKKE는 의료 서비스인가요?',
@@ -26,8 +26,8 @@ const faqs = [
     a: '체크인 결과를 가족과 공유하면 "엄마가 왜 그러시는지" 이해하는 데 도움이 돼요. HERLYKKE는 이 시기를 겪는 분만을 위한 공간이지만, 가족이 함께 이해하면 더 큰 힘이 됩니다. 곧 "가족을 위한 가이드" 콘텐츠도 준비 중이에요.',
   },
   {
-    q: '한국 여성의 변화 양상은 서양과 다른가요?',
-    a: '네, 아시아 여성은 관절통/근육통, 수면 장애가 더 두드러지고, 평균 폐경 연령도 48-49세로 서양(51세)보다 빠른 편이에요. HERLYKKE는 한국 여성의 증상 데이터를 기반으로 맞춤 분석을 제공해요.',
+    q: '한국의 많은 사람의 변화 양상은 서양과 다른가요?',
+    a: '네, 아시아권 사람은 관절통/근육통, 수면 장애가 더 두드러지고, 평균 생애 전환 연령도 48-49세로 서양(51세)보다 빠른 편이에요. HERLYKKE는 한국의 많은 사람의 증상 데이터를 기반으로 맞춤 분석을 제공해요.',
   },
   {
     q: 'AI가 어떻게 맞는 조언을 해주나요?',
@@ -61,7 +61,7 @@ export function FAQSection() {
           {faqs.map((faq, index) => (
             <div
               key={faq.q}
-              className="bg-hlk-surface rounded-2xl border border-hlk-border overflow-hidden"
+              className="card-glass rounded-2xl overflow-hidden"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}

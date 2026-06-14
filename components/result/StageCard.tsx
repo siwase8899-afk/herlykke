@@ -2,15 +2,7 @@
 
 import { MenopauseStageLabel } from '../../lib/constants';
 import type { MenopauseStage } from '../../types/database';
-
-const STAGE_EMOJI: Record<string, string> = {
-  preparation: '🌱',
-  perimenopause: '🌿',
-  menopause_active: '🌺',
-  postmenopause_early: '🍂',
-  postmenopause_stable: '🌳',
-  unknown: '❓',
-};
+import { Sparkles } from 'lucide-react';
 
 const CONFIDENCE_LABEL: Record<string, string> = {
   high: '높음',
@@ -26,8 +18,10 @@ interface StageCardProps {
 
 export function StageCard({ stage, confidence, description }: StageCardProps) {
   return (
-    <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-8 text-center">
-      <div className="text-5xl mb-4">{STAGE_EMOJI[stage]}</div>
+    <div className="card-glass rounded-2xl p-8 text-center">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-hlk-primary-light text-hlk-primary">
+        <Sparkles className="h-6 w-6" aria-hidden />
+      </div>
       <p className="text-sm text-hlk-primary font-semibold mb-2">
         당신은 현재
       </p>

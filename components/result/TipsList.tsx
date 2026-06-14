@@ -6,7 +6,7 @@ interface TipsListProps {
 
 export function TipsList({ tips }: TipsListProps) {
   return (
-    <div className="bg-hlk-surface rounded-2xl border border-hlk-border p-6">
+    <div className="card-glass rounded-2xl p-6">
       <h3 className="text-base font-bold text-hlk-text mb-4">맞춤 관리 팁</h3>
       <div className="space-y-3">
         {tips.map((tip, i) => (

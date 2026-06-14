@@ -2,26 +2,25 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/lib/authContext';
 import { ScrollProgress } from './ScrollProgress';
 
 const guestNavItems = [
-  { label: '수면 가이드', href: '/columns' },
-  { label: '수면 레시피', href: '/recipes' },
-  { label: '커뮤니티', href: '/community' },
-  { label: '수면 체크인', href: '/checkin' },
+  { label: 'HERLYKKE', href: '/#why-herlykke' },
 ];
 
 const authNavItems = [
   { label: '대시보드', href: '/dashboard' },
-  { label: '수면 가이드', href: '/columns' },
-  { label: '수면 레시피', href: '/recipes' },
+  { label: '이야기', href: '/columns' },
+  { label: '루틴', href: '/recipes' },
   { label: '커뮤니티', href: '/community' },
 ];
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
   const { isLoggedIn, isLoading, user, logout } = useAuth();
 
   useEffect(() => {
@@ -31,16 +30,19 @@ export function Header() {
   }, []);
 
   const navItems = isLoggedIn ? authNavItems : guestNavItems;
-  const ctaLabel = isLoggedIn ? '오늘 기록하기' : '시작하기';
+  const ctaLabel = isLoggedIn ? '오늘 기록하기' : '처음이에요';
   const ctaHref = isLoggedIn ? '/log/new' : '/checkin';
   const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || '회원';
+  const isHomeHeroTop = pathname === '/' && !isScrolled && !isMenuOpen;
 
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
         <div
           className={`backdrop-blur-lg border-b transition-all duration-500 ${
-            isScrolled
+            isHomeHeroTop
+              ? 'bg-transparent border-white/10'
+              : isScrolled
               ? 'bg-hlk-bg/95 border-hlk-border/60 shadow-soft-sm'
               : 'bg-hlk-bg/80 border-hlk-border/40'
           }`}
@@ -56,7 +58,7 @@ export function Header() {
                 <img
                   src="/herlykke-logo-primary.svg"
                   alt="HERLYKKE"
-                  className="h-8 md:h-9 w-auto"
+                  className={`h-8 w-auto md:h-9 ${isHomeHeroTop ? 'brightness-0 invert' : ''}`}
                 />
               </Link>
 
@@ -66,19 +68,13 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="text-sm text-hlk-text-secondary hover:text-hlk-text transition-colors"
+                    className={`text-sm transition-colors ${
+                      isHomeHeroTop ? 'text-white/75 hover:text-white' : 'text-hlk-text-secondary hover:text-hlk-text'
+                    }`}
                   >
                     {item.label}
                   </Link>
                 ))}
-
-                {/* CTA */}
-                <Link
-                  href={ctaHref}
-                  className="px-6 py-2.5 bg-hlk-primary text-white text-sm font-semibold rounded-full hover:bg-hlk-primary-dark transition-colors"
-                >
-                  {ctaLabel}
-                </Link>
 
                 {/* Profile / Login */}
                 {!isLoading && (
@@ -89,7 +85,9 @@ export function Header() {
                       </span>
                       <button
                         onClick={logout}
-                        className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
+                        className={`text-sm transition-colors ${
+                          isHomeHeroTop ? 'text-white/65 hover:text-white' : 'text-hlk-text-tertiary hover:text-hlk-text'
+                        }`}
                       >
                         로그아웃
                       </button>
@@ -97,12 +95,28 @@ export function Header() {
                   ) : (
                     <Link
                       href="/login"
-                      className="text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors"
+                      className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors ${
+                        isHomeHeroTop
+                          ? 'border border-white/45 bg-white/15 text-white hover:bg-white/25'
+                          : 'border border-hlk-primary-dark/30 bg-white text-hlk-primary-dark hover:border-hlk-primary-dark hover:bg-hlk-primary-light'
+                      }`}
                     >
                       로그인
                     </Link>
                   )
                 )}
+
+                {/* CTA */}
+                <Link
+                  href={ctaHref}
+                  className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-colors ${
+                    isHomeHeroTop
+                      ? 'bg-white text-hlk-secondary hover:bg-hlk-clay-light'
+                      : 'bg-hlk-clay text-white hover:bg-hlk-clay-dark'
+                  }`}
+                >
+                  {ctaLabel}
+                </Link>
               </nav>
 
               {/* Mobile Hamburger */}
@@ -113,17 +127,23 @@ export function Header() {
               >
                 <div className="w-5 flex flex-col gap-1.5">
                   <span
-                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
+                    className={`block h-0.5 transition-all duration-300 ${
+                      isHomeHeroTop ? 'bg-white' : 'bg-hlk-text'
+                    } ${
                       isMenuOpen ? 'rotate-45 translate-y-2' : ''
                     }`}
                   />
                   <span
-                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
+                    className={`block h-0.5 transition-all duration-300 ${
+                      isHomeHeroTop ? 'bg-white' : 'bg-hlk-text'
+                    } ${
                       isMenuOpen ? 'opacity-0' : ''
                     }`}
                   />
                   <span
-                    className={`block h-0.5 bg-hlk-text transition-all duration-300 ${
+                    className={`block h-0.5 transition-all duration-300 ${
+                      isHomeHeroTop ? 'bg-white' : 'bg-hlk-text'
+                    } ${
                       isMenuOpen ? '-rotate-45 -translate-y-2' : ''
                     }`}
                   />
@@ -155,16 +175,6 @@ export function Header() {
               </Link>
             ))}
 
-            <div className="pt-4">
-              <Link
-                href={ctaHref}
-                onClick={() => setIsMenuOpen(false)}
-                className="block w-full text-center px-6 py-3.5 bg-hlk-primary text-white font-semibold rounded-full"
-              >
-                {ctaLabel}
-              </Link>
-            </div>
-
             {!isLoading && (
               isLoggedIn ? (
                 <div className="flex items-center justify-between pt-4 border-t border-hlk-border">
@@ -180,12 +190,22 @@ export function Header() {
                 <Link
                   href="/login"
                   onClick={() => setIsMenuOpen(false)}
-                  className="block text-center text-sm text-hlk-text-tertiary hover:text-hlk-text transition-colors py-3"
+                  className="block w-full text-center px-6 py-3.5 bg-white text-hlk-primary-dark font-semibold rounded-full border border-hlk-primary-dark/30"
                 >
                   로그인
                 </Link>
               )
             )}
+
+            <div className="pt-3">
+              <Link
+                href={ctaHref}
+                onClick={() => setIsMenuOpen(false)}
+                className="block w-full text-center px-6 py-3.5 bg-hlk-clay text-white font-semibold rounded-full"
+              >
+                {ctaLabel}
+              </Link>
+            </div>
           </div>
         </div>
       </header>

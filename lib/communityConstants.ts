@@ -1,12 +1,13 @@
 // 커뮤니티 상수 및 타입
 
 // 원본 카테고리 (게시글 데이터용)
+// 카테고리 구분색을 브랜드 시스템 5색으로 통일(제네릭 무지개 폐기) — 따뜻함·일관성 유지
 export const CATEGORIES = [
-  { id: 'daily', label: '일상 이야기', icon: '', dot: 'bg-yellow-400', color: 'bg-yellow-100 text-yellow-700' },
-  { id: 'symptoms', label: '증상 공유', icon: '', dot: 'bg-purple-400', color: 'bg-purple-100 text-purple-700' },
-  { id: 'tips', label: '꿀팁 공유', icon: '', dot: 'bg-green-400', color: 'bg-green-100 text-green-700' },
-  { id: 'question', label: '질문있어요', icon: '', dot: 'bg-blue-400', color: 'bg-blue-100 text-blue-700' },
-  { id: 'support', label: '응원해요', icon: '', dot: 'bg-pink-400', color: 'bg-pink-100 text-pink-700' },
+  { id: 'daily', label: '일상 이야기', icon: '', dot: 'bg-hlk-primary', color: 'bg-hlk-primary-light text-hlk-primary-dark' },
+  { id: 'symptoms', label: '증상 공유', icon: '', dot: 'bg-hlk-accent', color: 'bg-hlk-accent-light text-hlk-accent-dark' },
+  { id: 'tips', label: '꿀팁 공유', icon: '', dot: 'bg-hlk-clay', color: 'bg-hlk-clay-light text-hlk-clay-dark' },
+  { id: 'question', label: '질문있어요', icon: '', dot: 'bg-hlk-lavender', color: 'bg-hlk-lavender-light text-hlk-lavender' },
+  { id: 'support', label: '응원해요', icon: '', dot: 'bg-hlk-indigo', color: 'bg-hlk-indigo-light text-hlk-indigo' },
 ] as const;
 
 export type CategoryId = typeof CATEGORIES[number]['id'];
@@ -140,7 +141,7 @@ export const DEMO_POSTS: Post[] = [
     user_id: 'demo3',
     anonymous_name: '밝은 구름77',
     title: null,
-    content: '남편한테 갱년기 증상 얘기했더니 "다 그런 거야"라고 해서 서운했는데... 여기 오니까 위로가 되네요. 저만 그런 게 아니었어요 😢💜',
+    content: '남편한테 수면과 컨디션 변화 얘기했더니 "다 그런 거야"라고 해서 서운했는데... 여기 오니까 위로가 되네요. 저만 그런 게 아니었어요 😢💜',
     category: 'daily',
     tags: ['가족', '공감'],
     like_count: 89,
@@ -193,7 +194,7 @@ export const DEMO_COMMENTS: Comment[] = [
     user_id: 'demo6',
     parent_id: null,
     anonymous_name: '씩씩한 나비22',
-    content: '저도요ㅠㅠ 브레인포그라고 하더라고요. 갱년기 증상 중 하나래요. 혼자가 아니에요!',
+    content: '저도요ㅠㅠ 브레인포그라고 하더라고요. 수면과 컨디션 변화 중 하나래요. 혼자가 아니에요!',
     like_count: 12,
     is_hidden: false,
     created_at: new Date(Date.now() - 1000 * 60 * 60).toISOString(),

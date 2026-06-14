@@ -221,7 +221,7 @@ export const QUESTIONS: QuestionConfig[] = [
       { value: 'exercise', label: '운동' },
       { value: 'obgyn', label: '산부인과 진료' },
       { value: 'other_doctor', label: '다른 의사 상담' },
-      { value: 'hrt', label: '호르몬 대체요법(HRT)' },
+      { value: 'hrt', label: '전문의 상담' },
       { value: 'herbal', label: '한약/한방 치료' },
       { value: 'counseling', label: '심리상담' },
       { value: 'internet', label: '인터넷 검색' },
@@ -243,7 +243,7 @@ export const QUESTIONS: QuestionConfig[] = [
     sectionLabel: '현재 관리',
     type: 'text',
     question: '이 시기에 대해 가장 알고 싶은 것은?',
-    placeholder: '예: 호르몬 치료가 안전한지 알고 싶어요',
+    placeholder: '예: 수면 상담가 안전한지 알고 싶어요',
     storeField: 'mostWantedInfo',
   },
   {

@@ -49,14 +49,14 @@ export function ConcreteStats() {
   const stats = [
     {
       number: '850만',
-      label: '이 시기를 지나는 한국 여성',
-      detail: '45-60세 여성 인구',
+      label: '이 시기를 지나는 한국의 많은 사람',
+      detail: '45-60세 수면 고민 인구',
       color: 'text-hlk-primary',
     },
     {
       number: '87%',
       label: '증상 인지 부족',
-      detail: '"이게 갱년기인지 몰랐어요"',
+      detail: '"이게 몸의 변화인지 몰랐어요"',
       color: 'text-hlk-accent',
     },
     {
@@ -74,8 +74,8 @@ export function ConcreteStats() {
   ];
 
   const insights = [
-    { text: '아시아 여성 평균 폐경 연령 48-49세 (서양 51세보다 빠름)', source: 'Sol Research' },
-    { text: '한국 여성 1위 증상: 관절통/근육통 (서양은 핫플래시)', source: 'Sol Asia Data' },
+    { text: '아시아권 사람 평균 생애 전환 연령 48-49세 (서양 51세보다 빠름)', source: 'Sol Research' },
+    { text: '한국의 많은 사람 1위 증상: 관절통/근육통 (서양은 핫플래시)', source: 'Sol Asia Data' },
     { text: '이 시기를 위한 전용 커뮤니티: 한국 0개 vs 글로벌 5개+', source: 'HERLYKKE 시장 조사' },
   ];
 
@@ -101,7 +101,7 @@ export function ConcreteStats() {
         </div>
 
         {/* C2MTL 인사이트: 카드 대신 세퍼레이터 기반 통계 블록 — 절제된 임팩트 */}
-        <div className="bg-white rounded-2xl border border-hlk-border mb-16 overflow-hidden">
+        <div className="card-glass rounded-2xl mb-16 overflow-hidden">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-hlk-border">
             {stats.map((stat, i) => (
               <div
@@ -122,8 +122,8 @@ export function ConcreteStats() {
           </div>
         </div>
 
-        {/* 한국 갱년기 인사이트 — Sol/경쟁사 분석 기반 */}
-        <div className="bg-white rounded-2xl p-8 border border-hlk-border">
+        {/* 한국 몸과 마음의 변화 인사이트 — Sol/경쟁사 분석 기반 */}
+        <div className="card-glass rounded-2xl p-8">
           <p className="text-sm font-semibold text-hlk-primary mb-6 text-center">
             알고 계셨나요?
           </p>

@@ -1,5 +1,5 @@
 // 수면 온보딩 5문항 — v9 기준
-// 갱년기 시그널을 자연스럽게 감지하는 구조
+// 몸과 마음의 변화 시그널을 자연스럽게 감지하는 구조
 
 export interface SleepOption {
   id: string;
@@ -34,11 +34,11 @@ export const SLEEP_QUESTIONS: SleepQuestion[] = [
   {
     id: 'q2_menopause_signal',
     section: 2,
-    question: '잠자리에서 이런 경험이 있으신가요?',
+    question: '잠든 이후, 수면 동안 이런 경험이 있으신가요?',
     subtext: '해당되는 것을 모두 골라주세요',
     type: 'multi',
     options: [
-      { id: 'hot_flash', label: '갑자기 몸이 확 달아오른다', emoji: '🔥', signal: 'menopause' },
+      { id: 'hot_flash', label: '갑자기 얼굴이 뜨겁게 느껴진다', emoji: '🔥', signal: 'menopause' },
       { id: 'night_sweat', label: '자다가 땀이 나서 깬다', emoji: '💦', signal: 'menopause' },
       { id: 'heart_racing', label: '심장이 두근거린다', emoji: '💓', signal: 'menopause' },
       { id: 'none_above', label: '해당 없음', emoji: '✌️' },
@@ -98,8 +98,8 @@ export interface SleepProfile {
 export const SLEEP_PROFILES: Record<SleepType, SleepProfile> = {
   menopause_related: {
     type: 'menopause_related',
-    label: '호르몬 변화형 수면장애',
-    description: '갱년기 호르몬 변화와 관련된 수면 문제일 수 있어요. 비슷한 경험을 먼저 겪은 메이트들이 많아요.',
+    label: '몸의 리듬 변화형 수면장애',
+    description: '몸의 리듬 변화와 관련된 수면 문제일 수 있어요. 비슷한 경험을 먼저 겪은 메이트들이 많아요.',
     recommendedCategories: ['yoga_relax', 'nutrition', 'environment'],
   },
   chronic_insomnia: {

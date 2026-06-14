@@ -1,5 +1,5 @@
 // 창업자(Becca) 손그림풍 일러스트 아바타.
-// 사진 대신 사용하는 SVG 일러스트 — 차분한 단발 여성 + 진주 목걸이 디테일.
+// 사진 대신 사용하는 SVG 일러스트.
 // 브랜드 톤(세이지 #6F9CA6 / 라벤더 #C9A6C9 / 따뜻한 크림)을 따른다.
 
 export function FounderAvatar({ className = '' }: { className?: string }) {

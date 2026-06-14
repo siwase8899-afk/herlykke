@@ -36,6 +36,8 @@ interface SleepCycleVizProps {
   animate?: boolean;
   /** Animation speed in ms per phase */
   animationSpeed?: number;
+  /** Compact mode for inline selectors — hides ambient glow + stars */
+  compact?: boolean;
 }
 
 export function SleepCycleViz({
@@ -44,6 +46,7 @@ export function SleepCycleViz({
   showLabel = false,
   animate = false,
   animationSpeed = 3000,
+  compact = false,
 }: SleepCycleVizProps) {
   const [currentPhase, setCurrentPhase] = useState(0);
 
@@ -76,13 +79,15 @@ export function SleepCycleViz({
     <div className="flex flex-col items-center gap-2">
       <div className="relative" style={{ width: size, height: size }}>
         {/* Ambient glow */}
-        <div
-          className="absolute inset-0 rounded-full animate-breathe-slow"
-          style={{
-            backgroundColor: `rgba(202, 218, 237, ${0.1 + phase.illumination * 0.2})`,
-            filter: `blur(${size * 0.25}px)`,
-          }}
-        />
+        {!compact && (
+          <div
+            className="absolute inset-0 rounded-full animate-breathe-slow"
+            style={{
+              backgroundColor: `rgba(240, 216, 178, ${0.12 + phase.illumination * 0.22})`,
+              filter: `blur(${size * 0.25}px)`,
+            }}
+          />
+        )}
 
         {/* Moon body */}
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="relative">
@@ -91,18 +96,18 @@ export function SleepCycleViz({
             cx={half}
             cy={half}
             r={r}
-            fill="#C8DFE4"
+            fill="#F4EAD8"
             className="transition-all duration-1000"
           />
 
-          {/* Shadow overlay — creates phase effect */}
+          {/* Shadow overlay — creates phase effect (밤 인디고) */}
           <ellipse
             cx={half + shadowOffset * 0.3}
             cy={half}
             rx={Math.abs(r * (1 - phase.illumination))}
             ry={r}
-            fill="#5A8590"
-            opacity={0.7}
+            fill="#29314C"
+            opacity={0.72}
             className="transition-all duration-1000 ease-in-out"
           />
 
@@ -113,7 +118,7 @@ export function SleepCycleViz({
         </svg>
 
         {/* Tiny stars around the moon */}
-        {[
+        {!compact && [
           { x: '10%', y: '5%',   s: 2, d: '0s' },
           { x: '85%', y: '15%',  s: 1.5, d: '-1s' },
           { x: '5%',  y: '80%',  s: 1.5, d: '-2s' },

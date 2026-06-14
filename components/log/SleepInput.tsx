@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { SleepEntry, SLEEP_QUALITY_OPTIONS } from '@/lib/logTypes';
 
 interface SleepInputProps {
@@ -10,6 +11,19 @@ interface SleepInputProps {
 
 const HOURS = Array.from({ length: 12 }, (_, i) => i + 1);
 const MINUTES = [0, 15, 30, 45];
+
+const TIME_VISUALS = {
+  bed: '/images/log/sleep-log-bedtime.webp',
+  wake: '/images/log/sleep-log-waketime.webp',
+};
+
+const QUALITY_VISUALS: Record<number, string> = {
+  1: '/images/log/sleep-quality-1.webp',
+  2: '/images/log/sleep-quality-2.webp',
+  3: '/images/log/sleep-quality-3.webp',
+  4: '/images/log/sleep-quality-4.webp',
+  5: '/images/log/sleep-quality-5.webp',
+};
 
 function to24h(hour: number, period: 'AM' | 'PM'): number {
   if (period === 'AM' && hour === 12) return 0;
@@ -64,7 +78,7 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
     if (!sleep.bedTime || !sleep.wakeTime) return null;
     const [bedH, bedM] = sleep.bedTime.split(':').map(Number);
     const [wakeH, wakeM] = sleep.wakeTime.split(':').map(Number);
-    let bedMinutes = bedH * 60 + bedM;
+    const bedMinutes = bedH * 60 + bedM;
     let wakeMinutes = wakeH * 60 + wakeM;
     if (wakeMinutes <= bedMinutes) wakeMinutes += 24 * 60;
     const diffMinutes = wakeMinutes - bedMinutes;
@@ -85,9 +99,44 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
         취침과 기상 시간, 그리고 수면의 질을 알려주세요
       </p>
 
-      <div className="max-w-sm mx-auto space-y-6">
+      <div className="max-w-xl mx-auto space-y-5">
+        <div className="rounded-[28px] border border-hlk-clay/20 bg-white/85 p-4 shadow-[0_18px_50px_rgba(120,82,56,0.12)]">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <div className="relative aspect-square overflow-hidden rounded-2xl bg-hlk-bg">
+              <Image
+                src={TIME_VISUALS.bed}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 38vw, 180px"
+                className="object-cover"
+                priority
+                unoptimized
+              />
+            </div>
+            <div className="flex h-full min-h-24 flex-col items-center justify-center gap-2" aria-hidden>
+              <span className="h-2 w-2 rounded-full bg-hlk-primary" />
+              <span className="h-10 w-px bg-hlk-border" />
+              <span className="h-2 w-2 rounded-full bg-hlk-clay" />
+            </div>
+            <div className="relative aspect-square overflow-hidden rounded-2xl bg-hlk-bg">
+              <Image
+                src={TIME_VISUALS.wake}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 38vw, 180px"
+                className="object-cover"
+                priority
+                unoptimized
+              />
+            </div>
+          </div>
+          <p className="mt-3 text-center text-sm font-medium text-hlk-text-secondary">
+            잠든 순간부터 깨어난 아침까지, 어젯밤의 리듬을 가볍게 남겨요.
+          </p>
+        </div>
+
         {/* 취침/기상 시간 버튼 */}
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-[28px] p-5 shadow-[0_18px_50px_rgba(120,82,56,0.10)]">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-hlk-text mb-2">
@@ -198,27 +247,37 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
         </div>
 
         {/* 수면 품질 */}
-        <div className="bg-white rounded-2xl p-5 border border-hlk-border">
+        <div className="card-glass rounded-[28px] p-5 shadow-[0_18px_50px_rgba(120,82,56,0.10)]">
           <p className="text-sm font-medium text-hlk-text mb-4 text-center">
             어젯밤 수면의 질은 어땠나요?
           </p>
-          <div className="flex justify-center gap-3">
+          <div className="grid grid-cols-5 gap-2">
             {SLEEP_QUALITY_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 onClick={() => handleQualityChange(option.value)}
-                className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-all ${
+                className={`flex min-h-32 flex-col items-center justify-between rounded-2xl border-2 p-2.5 text-center transition-all ${
                   sleep.quality === option.value
-                    ? 'bg-hlk-primary-light border-2 border-hlk-primary'
-                    : 'bg-hlk-bg border-2 border-transparent hover:border-hlk-border'
+                    ? 'bg-hlk-primary-light border-hlk-primary shadow-[0_12px_28px_rgba(83,128,94,0.20)]'
+                    : 'bg-hlk-bg border-transparent hover:border-hlk-clay/30 hover:bg-white'
                 }`}
               >
-                <span className="text-2xl">{option.emoji}</span>
+                <span className="relative block h-14 w-14 overflow-hidden rounded-2xl bg-white shadow-sm">
+                  <Image
+                    src={QUALITY_VISUALS[option.value]}
+                    alt=""
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                    loading="eager"
+                    unoptimized
+                  />
+                </span>
                 <span
-                  className={`text-[10px] font-medium ${
+                  className={`text-[11px] font-semibold leading-snug ${
                     sleep.quality === option.value
                       ? 'text-hlk-primary'
-                      : 'text-hlk-text-tertiary'
+                      : 'text-hlk-text-secondary'
                   }`}
                 >
                   {option.label}

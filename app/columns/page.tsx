@@ -5,13 +5,13 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { columns, sleepCategoryLabels, type SleepCategory } from '@/lib/columnsData';
 import { useAuth } from '@/lib/authContext';
-import { FloatingOrbs } from '@/components/ui/FloatingOrbs';
+import { ExpertPortrait } from '@/components/visuals/ExpertPortrait';
 
 type FilterType = 'all' | SleepCategory;
 
 export default function ColumnsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-hlk-bg" />}>
+    <Suspense fallback={<div className="min-h-screen" />}>
       <ColumnsContent />
     </Suspense>
   );
@@ -46,24 +46,42 @@ function ColumnsContent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-hlk-bg relative">
-      <FloatingOrbs />
+    <div className="min-h-screen relative">
       {/* Hero */}
-      <section className="relative bg-hlk-primary-light px-6 md:px-8 pt-12 pb-16">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-hlk-primary font-semibold text-sm uppercase tracking-wider mb-3">
-            Sleep Recovery Guide
-          </p>
-          <h1 className="text-3xl md:text-4xl font-bold text-hlk-text leading-tight mb-4">
-            전문가가 들려주는
-            <br />
-            <span className="text-hlk-primary">수면 회복 이야기</span>
-          </h1>
-          <p className="text-lg text-hlk-text-secondary max-w-2xl">
-            산부인과, 정신건강의학과, 수면의학 전문의가
-            <br />
-            몸의 변화와 수면에 대해 쉽고 따뜻하게 설명합니다.
-          </p>
+      <section className="relative overflow-hidden bg-hlk-primary-light px-6 pb-16 pt-12 md:px-8">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_24%,rgba(240,100,43,0.20),transparent_34%),radial-gradient(circle_at_16%_74%,rgba(201,166,201,0.20),transparent_32%)]" aria-hidden />
+        <div className="relative mx-auto max-w-5xl">
+          <div className="max-w-3xl">
+            <p className="text-hlk-primary font-semibold text-sm uppercase tracking-wider mb-3">
+              Sleep Recovery Guide
+            </p>
+            <h1 className="text-3xl md:text-4xl font-bold text-hlk-text leading-tight mb-4">
+              전문가가 들려주는
+              <br />
+              <span className="text-hlk-primary">수면 회복 이야기</span>
+            </h1>
+            <p className="text-lg text-hlk-text-secondary max-w-2xl">
+              수면, 마음, 몸의 리듬을 차분히 이해할 수 있도록
+              <br />
+              전문가의 언어를 따뜻한 가이드로 전합니다.
+            </p>
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="flex -space-x-3">
+              {columns.slice(0, 4).map((column) => (
+                <ExpertPortrait
+                  key={column.slug}
+                  expert={column.expert}
+                  size="md"
+                  className="border-2 border-white shadow-[0_10px_28px_rgba(22,43,34,0.14)]"
+                  priority
+                />
+              ))}
+            </div>
+            <p className="text-sm font-medium text-hlk-text-secondary">
+              수면과 마음 회복을 다루는 전문가 가이드를 모았습니다.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -108,7 +126,7 @@ function ColumnsContent() {
               <Link
                 key={column.slug}
                 href={`/columns/${column.slug}`}
-                className="group block bg-white rounded-2xl border border-hlk-border overflow-hidden card-hover animate-slow-fade-in"
+                className="group block card-glass rounded-2xl overflow-hidden card-hover animate-slow-fade-in"
                 style={{ animationDelay: `${idx * 50}ms` }}
               >
                 {/* Category badge + read time */}
@@ -136,11 +154,7 @@ function ColumnsContent() {
                 {/* Expert + Sleep Impact */}
                 <div className="px-6 pb-6 pt-3 border-t border-hlk-border-light">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-full bg-hlk-secondary-light flex items-center justify-center shrink-0">
-                      <span className="text-sm font-bold text-hlk-text">
-                        {column.expert.name.charAt(0)}
-                      </span>
-                    </div>
+                    <ExpertPortrait expert={column.expert} size="sm" />
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-hlk-text truncate">
                         {column.expert.name}

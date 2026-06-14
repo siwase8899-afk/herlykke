@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { columns, getColumnBySlug, getColumnsBySleepCategory, sleepCategoryLabels } from '@/lib/columnsData';
 import { notFound } from 'next/navigation';
 import { ColumnCTA } from '@/components/columns/ColumnCTA';
+import { ExpertPortrait } from '@/components/visuals/ExpertPortrait';
 
 export function generateStaticParams() {
   return columns.map((column) => ({
@@ -30,7 +31,7 @@ export default async function ColumnDetailPage({
   const paragraphs = column.content.split('\n\n');
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-hlk-primary-light border-b border-hlk-border">
         <div className="max-w-3xl mx-auto px-6 md:px-8 py-4">
@@ -86,12 +87,8 @@ export default async function ColumnDetailPage({
           </div>
 
           {/* Expert Card */}
-          <div className="mt-8 flex items-center gap-4 p-5 bg-white rounded-xl border border-hlk-border">
-            <div className="w-14 h-14 rounded-full bg-hlk-secondary-light flex items-center justify-center shrink-0">
-              <span className="text-xl font-bold text-hlk-text">
-                {column.expert.name.charAt(0)}
-              </span>
-            </div>
+          <div className="mt-8 flex items-center gap-4 p-5 card-glass rounded-xl">
+            <ExpertPortrait expert={column.expert} size="lg" priority />
             <div>
               <p className="font-bold text-hlk-text">{column.expert.name}</p>
               <p className="text-sm text-hlk-text-secondary">{column.expert.title}</p>
@@ -135,7 +132,7 @@ export default async function ColumnDetailPage({
                 <Link
                   key={related.slug}
                   href={`/columns/${related.slug}`}
-                  className="group block p-5 bg-white rounded-xl border border-hlk-border hover:border-hlk-primary/30 transition-all"
+                  className="group block p-5 card-glass rounded-xl hover:border-hlk-primary/30 transition-all"
                 >
                   <h4 className="font-bold text-hlk-text group-hover:text-hlk-primary transition-colors line-clamp-2 mb-2">
                     {related.title}

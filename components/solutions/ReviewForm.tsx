@@ -59,7 +59,7 @@ export function ReviewForm({ solutionTitle, onSubmit, onCancel }: ReviewFormProp
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-hlk-border overflow-hidden">
+    <div className="card-glass rounded-2xl overflow-hidden">
       {/* Header */}
       <div className="px-5 py-4 border-b border-hlk-border bg-hlk-bg">
         <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ export function ReviewForm({ solutionTitle, onSubmit, onCancel }: ReviewFormProp
                   <button
                     key={star}
                     onClick={() => setRating(star)}
-                    className={`text-3xl transition-all ${star <= rating ? 'text-yellow-500 scale-110' : 'text-hlk-border'}`}
+                    className={`text-3xl transition-all ${star <= rating ? 'text-hlk-star scale-110' : 'text-hlk-border'}`}
                   >
                     ★
                   </button>
@@ -178,7 +178,7 @@ export function ReviewForm({ solutionTitle, onSubmit, onCancel }: ReviewFormProp
                                 onClick={() => setBeforeSeverity((prev) => ({ ...prev, [symptomId]: v }))}
                                 className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
                                   (beforeSeverity[symptomId] || 3) >= v
-                                    ? 'bg-red-400 text-white'
+                                    ? 'bg-hlk-error text-white'
                                     : 'bg-white border border-hlk-border'
                                 }`}
                               >
@@ -196,7 +196,7 @@ export function ReviewForm({ solutionTitle, onSubmit, onCancel }: ReviewFormProp
                                 onClick={() => setAfterSeverity((prev) => ({ ...prev, [symptomId]: v }))}
                                 className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
                                   (afterSeverity[symptomId] || 2) >= v
-                                    ? 'bg-green-400 text-white'
+                                    ? 'bg-hlk-success text-white'
                                     : 'bg-white border border-hlk-border'
                                 }`}
                               >

@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { FounderAvatar } from './FounderAvatar';
 
 export function FounderSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useIntersectionObserver({ threshold: 0.1 });
@@ -31,23 +31,28 @@ export function FounderSection() {
         </h2>
 
         {/* Founder card — modern split layout */}
-        <div className="bg-hlk-surface rounded-3xl border border-hlk-border overflow-hidden">
+        <div className="card-glass rounded-3xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
-            {/* Left — photo + info */}
-            <div className="bg-hlk-primary-light p-8 flex flex-col items-center lg:items-start justify-center text-center lg:text-left">
-              <div className="w-20 h-20 rounded-2xl overflow-hidden border-2 border-white shadow-lg mb-4 bg-hlk-surface">
-                <FounderAvatar className="w-full h-full" />
+            {/* Left — full-bleed founder photo */}
+            <div className="relative bg-hlk-primary-light min-h-[340px] lg:min-h-[420px]">
+              <Image
+                src="/founder.png"
+                alt="Becca, HERLYKKE 창업자"
+                fill
+                sizes="(max-width: 1024px) 100vw, 280px"
+                className="object-cover object-[center_28%]"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 via-black/25 to-transparent px-6 pb-5 pt-12">
+                <p className="text-lg font-bold text-white">Becca</p>
+                <p className="text-sm text-white/85">HERLYKKE Founder</p>
               </div>
-              <p className="text-lg font-bold text-hlk-text">Becca</p>
-              <p className="text-sm text-hlk-text-secondary mb-4">HERLYKKE Founder</p>
-              <div className="w-8 h-0.5 bg-hlk-primary/30 rounded-full" />
             </div>
 
             {/* Right — quote */}
             <div className="p-8 md:p-10 lg:p-12">
               <blockquote className="text-base md:text-lg text-hlk-text leading-[1.85] space-y-4">
                 <p>
-                  &ldquo;40대 중반, 1인 가구로 살아가던 저는
+                  &ldquo;혼자 지내던 어느 시기, 저는
                   회사의 바쁜 리듬 속에서 번아웃이 찾아왔어요.
                   노화와 신체 변화가 겹치면서 막연한 불안이 엄습했고,
                   매일 밤 불면은 아닌데 한 번도 개운한 적이 없었어요.
@@ -59,7 +64,7 @@ export function FounderSection() {
                   <span className="text-hlk-primary font-semibold"> 덴마크 호이스콜레</span>로 떠났습니다.
                 </p>
                 <p>
-                  거기서 같은 시기를 지나는 여성들을 만났어요.
+                  거기서 같은 시기를 지나는 사람들을 만났어요.
                   &lsquo;나만 이런 줄 알았다&rsquo;는 말을 처음 들었어요.
                   작은 독립 서점의 북토크, Full Moon 모임 —
                   별것 아닌 공감이었는데{' '}

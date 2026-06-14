@@ -6,21 +6,21 @@ import { symptomToSleepCategory } from '@/lib/columnsData';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 // 신체적 고충 + 정서적 고충
-// Sol 인사이트: 한국 여성 증상 빈도순 재정렬 (관절통 > 수면 > 홍조)
+// Sol 인사이트: 한국의 많은 사람 증상 빈도순 재정렬 (관절통 > 수면 > 홍조)
 // 전문가 한마디: 각 증상별 전문가 코멘트 (호버 시 표시)
 const struggles = {
   body: [
-    { symptom: '관절통/근육통', desc: '아침에 몸이 뻣뻣해요', expertTip: '에스트로겐 감소가 관절 윤활에 영향을 줘요' },
-    { symptom: '수면 장애', desc: '새벽 3시에 눈이 번쩍', expertTip: '이 시기를 지나는 여성의 60% 이상이 경험해요' },
-    { symptom: '안면 홍조', desc: '갑자기 확 달아오르는 얼굴', expertTip: '체온 조절 중추의 일시적 오작동이에요' },
-    { symptom: '만성 피로', desc: '쉬어도 충전이 안 돼요', expertTip: '의지 부족이 아닌 호르몬 변화예요' },
+    { symptom: '관절통/근육통', desc: '아침에 몸이 뻣뻣해요', expertTip: '몸의 균형 변화가 관절 윤활에 영향을 줘요' },
+    { symptom: '수면 장애', desc: '새벽 3시에 눈이 번쩍', expertTip: '이 시기를 지나는 사람들의 60% 이상이 경험해요' },
+    { symptom: '안면 홍조', desc: '갑자기 얼굴이 뜨거워질 때', expertTip: '체온 조절 중추의 일시적 오작동이에요' },
+    { symptom: '만성 피로', desc: '쉬어도 충전이 안 돼요', expertTip: '의지 부족이 아닌 몸의 리듬 변화예요' },
     { symptom: '건조함', desc: '피부도 점막도 마를 때', expertTip: '콜라겐·히알루론산 합성이 줄어들어요' },
   ],
   mind: [
     { symptom: '브레인 포그', desc: '단어가 떠오르지 않아요', expertTip: '치매가 아니에요, 1-2년 후 회복돼요' },
     { symptom: '감정 기복', desc: '이유 없이 눈물이 나요', expertTip: '세로토닌 불안정이 원인이에요' },
     { symptom: '불안감', desc: '괜히 마음이 불안해요', expertTip: 'GABA 브레이크가 약해진 거예요' },
-    { symptom: '정체성 질문', desc: '나는 누구인가...?', expertTip: '위기가 아닌 "중년의 각성"이에요' },
+    { symptom: '정체성 질문', desc: '나는 누구인가...?', expertTip: '위기가 아닌 "삶의 전환 신호"이에요' },
   ],
 };
 
@@ -73,7 +73,7 @@ export function ProblemSection() {
               {/* Two columns of symptoms */}
               <div className="grid sm:grid-cols-2 gap-8">
                 {/* Body signals */}
-                <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm">
+                <div className="card-glass rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 rounded-xl bg-hlk-primary/10 flex items-center justify-center">
                       <svg className="w-5 h-5 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -116,7 +116,7 @@ export function ProblemSection() {
                 </div>
 
                 {/* Mind signals */}
-                <div className="bg-white rounded-2xl p-6 border border-hlk-border shadow-sm">
+                <div className="card-glass rounded-2xl p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 rounded-xl bg-hlk-accent/10 flex items-center justify-center">
                       <svg className="w-5 h-5 text-hlk-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -175,7 +175,7 @@ export function ProblemSection() {
               당신의 이야기를 <span className="text-hlk-accent">듣고 있어요</span>.
             </h3>
             <p className="text-white/70 max-w-xl mx-auto">
-              한국 850만 이 시기를 지나는 여성에게는 신뢰할 수 있는 정보,
+              수면과 마음의 변화를 겪는 사람들에게는 신뢰할 수 있는 정보,
               같은 경험을 공유할 동료, 맞는 솔루션을 찾을 수 있는
               <span className="text-hlk-primary font-semibold"> 하나의 안전한 공간</span>이 없었어요.
             </p>
@@ -189,7 +189,7 @@ export function ProblemSection() {
               <p className="text-xs text-white/40 mt-2">화해가 성분을 분석하듯, HERLYKKE는 증상을 분석해요</p>
             </div>
             <div className="p-6 border-y md:border-y-0 md:border-x border-white/10">
-              <p className="text-white/50 text-sm line-through mb-3">병원 3분 진료, "다 그래요"</p>
+              <p className="text-white/50 text-sm line-through mb-3">병원 3분 진료, &ldquo;다 그래요&rdquo;</p>
               <p className="text-xl font-bold text-hlk-primary">AI가 나의 패턴을 분석</p>
               <p className="text-xs text-white/40 mt-2">기록할수록 더 정확해지는 맞춤 분석</p>
             </div>

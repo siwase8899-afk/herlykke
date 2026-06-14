@@ -30,7 +30,7 @@ export interface Solution {
 }
 
 export const SOLUTIONS: Solution[] = [
-  // 갱년기 코칭
+  // 몸과 마음의 변화 코칭
   {
     id: 's0-1', category: 'coaching', title: '1:1 변화 동반자 코칭', provider: 'HERLYKKE 웰니스',
     description: '이 시기 전문 코치와 8주간 1:1 동반자 여정. 증상 관리부터 라이프스타일 개선까지 맞춤 가이드.',
@@ -77,7 +77,7 @@ export const SOLUTIONS: Solution[] = [
   // 운동
   {
     id: 's4', category: 'exercise', title: '이 시기 맞춤 필라테스', provider: '헬시라이프 스튜디오',
-    description: '관절에 무리 없이 코어와 유연성을 강화하는 40대-50대 맞춤 필라테스.',
+    description: '관절에 무리 없이 코어와 유연성을 강화하는 부담 없는 필라테스.',
     image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400&h=300&fit=crop',
     tags: ['관절', '유연성', '코어'], rating: 4.8, reviews: 312, price: '월 29,000원', matchScore: 90,
     forSymptoms: ['joint_pain', 'fatigue', 'weight_gain'],
@@ -99,7 +99,7 @@ export const SOLUTIONS: Solution[] = [
   // 영양제
   {
     id: 's7', category: 'nutrition', title: '이 시기를 위한 종합 영양제', provider: '뉴트리웰',
-    description: '이소플라본, 비타민D, 칼슘이 함께 든 이 시기 여성 맞춤 종합 영양제.',
+    description: '이소플라본, 비타민D, 칼슘이 함께 든 이 시기를 지나는 분 맞춤 종합 영양제.',
     image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop',
     tags: ['이소플라본', '비타민D', '칼슘'], rating: 4.7, reviews: 523, price: '월 35,000원', matchScore: 94,
     forSymptoms: ['hot_flash', 'joint_pain', 'fatigue'],
@@ -172,7 +172,7 @@ export const SOLUTIONS: Solution[] = [
   },
   {
     id: 's17', category: 'product', title: '이 시기를 위한 보습 크림', provider: '더마케어',
-    description: '호르몬 변화로 건조해진 피부를 위한 고보습 페이셜 크림.',
+    description: '몸의 리듬 변화로 건조해진 피부를 위한 고보습 페이셜 크림.',
     image: 'https://images.unsplash.com/photo-1570194065650-d99fb4b38b15?w=400&h=300&fit=crop',
     tags: ['보습', '피부', '건조'], rating: 4.6, reviews: 289, price: '48,000원', matchScore: 85,
     forSymptoms: ['skin_dry'],

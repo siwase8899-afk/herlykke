@@ -15,13 +15,13 @@ interface ClassifierResult {
   tips: string[];
 }
 
-// ─── 쿠퍼만 갱년기 지수 (Kupperman Menopausal Index) ───
+// ─── 체크인 변화 지표 (Kupperman Menopausal Index) ───
 
-// 쿠퍼만 11개 증상 → HERLYKKE 체크인 키 매핑 + 가중치
+// HERLYKKE 체크인 증상 → HERLYKKE 체크인 키 매핑 + 가중치
 const KUPPERMAN_SYMPTOMS: {
   key: string;        // HERLYKKE physicalSymptoms/emotionalSymptoms 키
   label: string;
-  weight: number;     // 쿠퍼만 가중치
+  weight: number;     // 체크인 가중치
   source: 'physical' | 'emotional';
 }[] = [
   { key: 'hot_flash',    label: '안면홍조/발한',     weight: 4, source: 'physical' },
@@ -55,7 +55,7 @@ const KUPPERMAN_LEVELS: { max: number; level: KuppermanLevel; label: string }[] 
 ];
 
 /**
- * 쿠퍼만 갱년기 지수 계산
+ * 체크인 변화 지표 계산
  * @param physicalSymptoms - 선택한 신체 증상 키 배열
  * @param emotionalSymptoms - 선택한 감정 증상 키 배열
  * @param severityMap - 증상별 심각도 (0-3). 없으면 선택한 증상은 1로 처리
@@ -98,7 +98,7 @@ export function calculateKuppermanIndex(
   };
 }
 
-// 갱년기 단계 자동 분류 알고리즘
+// 몸과 마음의 변화 단계 자동 분류 알고리즘
 // 연령 + 증상 패턴 + 심각도 + 발현 시기를 종합 분석
 export function classifyStage(input: ClassifierInput): ClassifierResult {
   const { ageRange, physicalSymptoms, emotionalSymptoms, symptomSeverity, symptomOnset } = input;
@@ -159,7 +159,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   } else if (score <= 7) {
     stage = 'perimenopause';
     confidence = hasHotFlash || hasMoodSwing ? 'high' : 'medium';
-    description = '변화의 시작 단계에 해당해요. 호르몬 변화가 시작되면서 다양한 증상이 나타날 수 있어요.';
+    description = '변화의 시작 단계에 해당해요. 몸의 리듬 변화가 시작되면서 다양한 증상이 나타날 수 있어요.';
     tips = [
       '산부인과 상담으로 현재 상태 확인',
       '증상 일지 작성 시작하기',
@@ -171,7 +171,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
     confidence = 'high';
     description = '변화가 가장 활발한 시기에 계세요. 증상이 활발하지만, 관리하면 충분히 나아질 수 있어요.';
     tips = [
-      '호르몬 대체요법(HRT) 상담 고려',
+      '전문의 상담 상담 고려',
       '증상별 맞춤 관리 시작',
       '같은 경험을 하는 사람들과 대화',
       '무리하지 않기, 나에게 관대하기',
@@ -179,7 +179,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   } else if (score <= 14) {
     stage = 'postmenopause_early';
     confidence = ageRange === '55-59' || ageRange === '60+' ? 'high' : 'medium';
-    description = '폐경 후 초기 단계예요. 증상이 서서히 안정되기 시작하지만, 건강 관리가 더욱 중요해요.';
+    description = '전환 이후 초기 단계예요. 증상이 서서히 안정되기 시작하지만, 건강 관리가 더욱 중요해요.';
     tips = [
       '골밀도 검사 받기',
       '심혈관 건강 관리',
@@ -189,7 +189,7 @@ export function classifyStage(input: ClassifierInput): ClassifierResult {
   } else {
     stage = 'postmenopause_stable';
     confidence = 'medium';
-    description = '폐경 후 안정기에요. 몸이 새로운 균형을 찾아가는 시기, 건강한 노화를 준비해요.';
+    description = '전환 이후 안정기에요. 몸이 새로운 균형을 찾아가는 시기, 건강한 노화를 준비해요.';
     tips = [
       '규칙적인 건강 검진',
       '사회 활동 유지하기',

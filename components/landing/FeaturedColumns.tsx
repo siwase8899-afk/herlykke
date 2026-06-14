@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { columns, sleepCategoryLabels } from '@/lib/columnsData';
+import { ExpertPortrait } from '@/components/visuals/ExpertPortrait';
 
 export default function FeaturedColumns() {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,13 +30,13 @@ export default function FeaturedColumns() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-xs font-semibold text-hlk-accent tracking-[0.2em] uppercase mb-3">
-              Sleep Recovery Guide
+            <p className="text-sm font-semibold text-hlk-accent mb-3">
+              더 알아보고 싶을 때
             </p>
             <h2 className="text-3xl md:text-[2.75rem] font-extrabold text-hlk-text leading-tight">
-              전문가가 들려주는
+              몸의 변화를
               <br />
-              수면 회복 이야기
+              차분히 이해하는 글
             </h2>
           </div>
           <Link
@@ -56,7 +57,7 @@ export default function FeaturedColumns() {
             <Link
               key={col.slug}
               href={`/columns/${col.slug}`}
-              className={`group block bg-white rounded-2xl border border-hlk-border overflow-hidden card-hover ${
+              className={`group block card-glass rounded-2xl overflow-hidden card-hover ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{
@@ -81,9 +82,7 @@ export default function FeaturedColumns() {
               <div className="px-5 pb-4 pt-3 border-t border-hlk-border-light">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-hlk-secondary-light flex items-center justify-center">
-                      <span className="text-xs font-bold text-hlk-text">{col.expert.name.charAt(0)}</span>
-                    </div>
+                    <ExpertPortrait expert={col.expert} size="xs" />
                     <div>
                       <p className="text-xs font-semibold text-hlk-text">{col.expert.name}</p>
                       <p className="text-[10px] text-hlk-text-tertiary">{col.expert.title}</p>

@@ -46,7 +46,7 @@ export const AuthBadge: Record<AuthLevelType, string> = {
   lv5_leader: '\u2B50',          // ⭐
 };
 
-// 갱년기 단계
+// 몸과 마음의 변화 단계
 export const MenopauseStage = {
   PREPARATION: 'preparation',
   PERIMENOPAUSE: 'perimenopause',
@@ -58,13 +58,13 @@ export const MenopauseStage = {
 
 export type MenopauseStageType = typeof MenopauseStage[keyof typeof MenopauseStage];
 
-// 갱년기 단계 한국어 라벨
+// 몸과 마음의 변화 단계 한국어 라벨
 export const MenopauseStageLabel: Record<MenopauseStageType, string> = {
   preparation: '준비기',
   perimenopause: '변화 시작기',
   menopause_active: '변화 활발기',
-  postmenopause_early: '폐경 후 초기',
-  postmenopause_stable: '폐경 후 안정기',
+  postmenopause_early: '전환 이후 초기',
+  postmenopause_stable: '전환 이후 안정기',
   unknown: '확인 중',
 };
 
@@ -91,7 +91,7 @@ export const EmotionalSymptoms = [
   { key: 'mood_swing', label: '감정기복 (갑자기 짜증, 눈물)', emoji: '🌊' },
   { key: 'low_confidence', label: '자신감 저하', emoji: '😔' },
   { key: 'loneliness', label: '외로움 / 고립감', emoji: '🫥' },
-  { key: 'loss_femininity', label: '여성으로서의 상실감', emoji: '🩷' },
+  { key: 'loss_femininity', label: '나답게 사는 감각의 상실', emoji: '🩷' },
   { key: 'identity_crisis', label: '"나는 누구지?" 정체성 혼란', emoji: '❓' },
   { key: 'future_anxiety', label: '미래에 대한 막연한 불안', emoji: '🌫️' },
 ] as const;

@@ -379,16 +379,16 @@ export const TIPS_DATABASE: Tip[] = [
 
 // 카테고리별 아이콘
 export const CATEGORY_INFO = {
-  lifestyle: { emoji: '🏠', label: '생활습관', color: 'bg-blue-100 text-blue-700' },
-  nutrition: { emoji: '🥗', label: '영양', color: 'bg-green-100 text-green-700' },
-  exercise: { emoji: '🏃', label: '운동', color: 'bg-orange-100 text-orange-700' },
-  mindfulness: { emoji: '🧘', label: '마음챙김', color: 'bg-purple-100 text-purple-700' },
-  medical: { emoji: '🏥', label: '의료', color: 'bg-red-100 text-red-700' },
+  lifestyle: { emoji: '🏠', label: '생활습관', color: 'bg-hlk-lavender-light text-hlk-lavender' },
+  nutrition: { emoji: '🥗', label: '영양', color: 'bg-hlk-primary-light text-hlk-primary-dark' },
+  exercise: { emoji: '🏃', label: '운동', color: 'bg-hlk-clay-light text-hlk-clay-dark' },
+  mindfulness: { emoji: '🧘', label: '마음챙김', color: 'bg-hlk-indigo-light text-hlk-indigo' },
+  medical: { emoji: '🏥', label: '의료', color: 'bg-hlk-accent-light text-hlk-accent-dark' },
 };
 
-// 난이도별 정보
+// 난이도별 정보 — 의미색(쉬움=success, 보통=warning, 어려움=error)
 export const DIFFICULTY_INFO = {
-  easy: { label: '쉬움', color: 'text-green-600' },
-  medium: { label: '보통', color: 'text-amber-600' },
-  hard: { label: '어려움', color: 'text-red-600' },
+  easy: { label: '쉬움', color: 'text-hlk-success' },
+  medium: { label: '보통', color: 'text-hlk-warning' },
+  hard: { label: '어려움', color: 'text-hlk-error' },
 };

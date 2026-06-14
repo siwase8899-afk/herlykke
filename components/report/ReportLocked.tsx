@@ -1,21 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import { EmojiIcon } from '@/lib/iconMap';
 
 interface ReportLockedProps {
   currentDays: number;
   targetDays: number;
   percentage: number;
+  todayLogged?: boolean;
 }
 
-export function ReportLocked({ currentDays, targetDays, percentage }: ReportLockedProps) {
+export function ReportLocked({ currentDays, targetDays, percentage, todayLogged = false }: ReportLockedProps) {
   const remainingDays = targetDays - currentDays;
 
   return (
-    <div className="bg-white rounded-2xl p-8 border border-hlk-border text-center">
+    <div className="card-glass rounded-2xl p-8 text-center">
       {/* 잠금 아이콘 */}
       <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-hlk-bg flex items-center justify-center">
-        <span className="text-4xl">🔒</span>
+        <EmojiIcon emoji="🔒" size={36} className="text-hlk-text-tertiary" />
       </div>
 
       <h2 className="text-xl font-bold text-hlk-text mb-2">
@@ -68,15 +70,42 @@ export function ReportLocked({ currentDays, targetDays, percentage }: ReportLock
       </div>
 
       {/* CTA */}
-      <Link
-        href="/log/new"
-        className="inline-flex items-center justify-center w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 transition-all"
-      >
-        오늘 기록하기
-        <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
-      </Link>
+      {todayLogged ? (
+        // 오늘 기록을 이미 마쳤으면 또 기록시키지 않고 다음 여정으로 안내
+        <div>
+          <div className="flex items-center justify-center gap-2 mb-2 text-hlk-primary font-semibold">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            오늘 기록을 마쳤어요
+          </div>
+          <p className="text-sm text-hlk-text-tertiary mb-5">
+            내일 또 들러 기록하면 리포트가 점점 채워져요.
+          </p>
+          <Link
+            href="/community"
+            className="inline-flex items-center justify-center w-full py-4 bg-hlk-primary text-white font-bold rounded-full hover:bg-hlk-primary/90 transition-all"
+          >
+            다른 분들의 수면 이야기 보기
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+          <Link href="/recipes" className="inline-block mt-3 text-sm text-hlk-primary hover:underline">
+            수면 레시피 둘러보기
+          </Link>
+        </div>
+      ) : (
+        <Link
+          href="/log/new"
+          className="inline-flex items-center justify-center w-full py-4 bg-hlk-accent text-white font-bold rounded-full hover:bg-hlk-accent/90 transition-all"
+        >
+          오늘 기록하기
+          <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </Link>
+      )}
     </div>
   );
 }

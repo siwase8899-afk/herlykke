@@ -1,53 +1,68 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* HERLYKKE 색상 팔레트 — Calm Wellness Pastel */
-  /* Soft Sage Blue + Calm Lavender + Soft Mint + Light Grey */
+  /* HERLYKKE 색상 팔레트 — Hero Image Inspired (v3: 대비·가독성 강화) */
+  /* Muted Sage + Sunset Terracotta + Apricot Cream */
+  /* v3 원칙: 따뜻함·선명함 유지 + 카드 분리/텍스트 AA 통과. 자세한 대비표는 DESIGN.md */
 
-  /* Primary - Soft Sage Blue (v2: deepened for contrast) */
-  --color-hlk-primary: #5E8C94;
-  --color-hlk-primary-light: #D7E3E2;
-  --color-hlk-primary-dark: #4E767D;
+  /* Primary - Sage. 기본값은 텍스트/아이콘이 읽히는 진한 세이지(bg 위 4.70 PASS) */
+  --color-hlk-primary: #43734F;
+  --color-hlk-primary-strong: #2F5C3D;   /* hover/active */
+  --color-hlk-primary-light: #CFE7D3;     /* 채움 전용 — 진한 글씨와만 페어 */
+  --color-hlk-primary-dark: #3F6B4D;
 
-  /* Accent - Calm Lavender (v2) */
-  --color-hlk-accent: #B89BC4;
-  --color-hlk-accent-light: #EBE2EF;
-  --color-hlk-accent-dark: #9A7FA8;
+  /* Accent - Mauve. 텍스트로 쓰이도록 진한 모브가 기본(bg 위 4.95 PASS) */
+  --color-hlk-accent: #96524C;
+  --color-hlk-accent-light: #F3D4CE;      /* 채움 전용 */
+  --color-hlk-accent-dark: #7E433E;
+  --color-hlk-accent-soft: #CC7F78;       /* 글로우·장식 전용(비텍스트) */
 
-  /* Warm accent - Dusty Terracotta (v2: 온기·CTA, 희소 사용) */
-  --color-hlk-clay: #C97B5A;
-  --color-hlk-clay-light: #F1DDD2;
-  --color-hlk-clay-dark: #A85B3C;
+  /* Warm accent - Sunset Terracotta (CTA, emphasis) */
+  --color-hlk-clay: #F0642B;              /* 선명 브랜드 주황 — 대형/UI 흰글씨 */
+  --color-hlk-clay-text: #CD4A1B;         /* 작은 흰글씨용(4.57 PASS) */
+  --color-hlk-clay-light: #FFD8BE;
+  --color-hlk-clay-dark: #AD421A;
+
+  /* Lavender - 세 번째 의미 강조색 (DESIGN.md 요구) */
+  --color-hlk-lavender: #6F5C9E;          /* on white 5.67 PASS */
+  --color-hlk-lavender-light: #E8E1F2;    /* 채움 */
+  --color-hlk-lavender-fill: #9A86C9;     /* v4 비비드 채움(비텍스트) */
+
+  /* v4 비비드 채움(비텍스트 전용: 블롭·그라데이션·채움) */
+  --color-hlk-sage-mid: #6E9A7C;          /* 선명 세이지 채움 */
 
   /* Night - Deep Indigo (수면·밤) */
-  --color-hlk-indigo: #2C3454;
+  --color-hlk-indigo: #29314C;
+  --color-hlk-indigo-light: #DCE0EB;      /* 채움 */
 
   /* Highlight - Soft Mint */
-  --color-hlk-highlight: #B8E0C6;
-  --color-hlk-highlight-soft: #D8F0E2;
+  --color-hlk-highlight: #A6DDB8;
+  --color-hlk-highlight-soft: #D5F0DE;
 
   /* Secondary */
-  --color-hlk-secondary: #2A332E;
-  --color-hlk-secondary-light: #D7E3E2;
+  --color-hlk-secondary: #17231D;
+  --color-hlk-secondary-light: #CFE7D3;
 
-  /* Backgrounds - Warm Cream (v2) */
-  --color-hlk-bg: #F7F3EC;
-  --color-hlk-surface: #FCFAF6;
-  --color-hlk-surface-warm: #F1EADD;
+  /* Backgrounds - Apricot Warm Cream (v3: 카드가 뜨도록 bg 깊게 + surface 순백) */
+  --color-hlk-bg: #FBEAD9;
+  --color-hlk-surface: #FFFFFF;
+  --color-hlk-surface-warm: #F6DCC4;
 
-  /* Text - Warm Ink (v2) */
-  --color-hlk-text: #2A332E;
-  --color-hlk-text-secondary: #6B7A72;
-  --color-hlk-text-tertiary: #9A9683;
+  /* Text - Warm Ink (v3) */
+  --color-hlk-text: #17231D;
+  --color-hlk-text-secondary: #4D5A50;
+  --color-hlk-text-tertiary: #6B5E4C;     /* v3: 어둡게(노안 대비 5.37 PASS) */
 
-  /* Border - Warm Hairline (v2) */
-  --color-hlk-border: #E7E0D4;
-  --color-hlk-border-light: #F0EBE0;
+  /* Border - Warm Hairline (v3: 흰 카드 경계가 보이도록 깊게) */
+  --color-hlk-border: #E0B58F;
+  --color-hlk-border-light: #EFD6BF;
 
-  /* Status */
-  --color-hlk-success: #6FA37A;
-  --color-hlk-error: #C2645B;
-  --color-hlk-warning: #D9986F;
+  /* Status (v3: 텍스트로 AA 통과) */
+  --color-hlk-success: #2F7D4F;
+  --color-hlk-error: #C0392B;
+  --color-hlk-warning: #9A6212;           /* 텍스트용; 채움·점은 warning-fill */
+  --color-hlk-warning-fill: #D48A3B;
+  --color-hlk-star: #E8A33D;              /* 별점 */
 
   /* Mesh Gradient - Vibrant Aurora Palette */
   --color-mesh-sage: #8FA79A;
@@ -72,8 +87,8 @@ html {
 }
 
 body {
-  background-color: #F7F3EC;
-  color: #2A332E;
+  background-color: transparent; /* v4: .app-aurora가 배경 공급 */
+  color: #17231D;
   line-height: 1.8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -96,13 +111,13 @@ input, textarea, select {
 
 /* Selection */
 ::selection {
-  background-color: #C8DFE4;
-  color: #5A8590;
+  background-color: #FFD8BE;
+  color: #17231D;
 }
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid #6F9CA6;
+  outline: 2px solid #F0642B;
   outline-offset: 2px;
 }
 
@@ -141,7 +156,7 @@ button:active, a:active {
 }
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 28px -8px rgba(120, 80, 40, 0.18);
 }
 
 /* 증상 순환 애니메이션 */
@@ -283,7 +298,7 @@ button:active, a:active {
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px -8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px -8px rgba(120, 80, 40, 0.16);
 }
 
 /* C2MTL 비대칭 타이밍: 페이지 전환 (진입 느림, 퇴장 빠름) */
@@ -441,10 +456,189 @@ button:active, a:active {
   to   { --cta-gradient-angle: 360deg; }
 }
 
+/* ===== Hero image motion ===== */
+@keyframes heroBgDrift {
+  0%, 100% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.075) translate3d(-1.2%, 0.8%, 0);
+  }
+}
+
+@keyframes heroLightDrift {
+  0%, 100% {
+    opacity: 0.88;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(1.6%, -1.2%, 0) scale(1.04);
+  }
+}
+
+@keyframes statsWashMove {
+  0%, 100% {
+    transform: translate3d(-4%, 0, 0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(4%, -2%, 0);
+    opacity: 0.78;
+  }
+}
+
+@keyframes statsOrbFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-12px, 14px, 0) scale(1.08);
+  }
+}
+
+@keyframes sleepIllustrationFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(0.7deg);
+  }
+}
+
+@keyframes sleepIllustrationOrbit {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, -8px, 0) scale(1.025);
+  }
+}
+
+@keyframes sleepIllustrationBreath {
+  0%, 100% {
+    opacity: 0.48;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes communitySceneFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0) rotate(0.6deg);
+  }
+}
+
+@keyframes communityBubbleDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.78;
+  }
+  50% {
+    transform: translate3d(8px, -5px, 0);
+    opacity: 1;
+  }
+}
+
+.hero-bg-drift {
+  animation: heroBgDrift 22s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+  will-change: transform;
+}
+
+.hero-light-drift {
+  animation: heroLightDrift 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-grain {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.16) 0 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(41,49,76,0.14) 0 1px, transparent 1px);
+  background-size: 22px 22px, 28px 28px;
+  mix-blend-mode: soft-light;
+}
+
+.stats-motion-wash {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 249, 242, 0.72), transparent 32%),
+    radial-gradient(circle at 85% 30%, rgba(240, 223, 220, 0.72), transparent 28%),
+    radial-gradient(circle at 42% 88%, rgba(245, 216, 197, 0.52), transparent 30%);
+  animation: statsWashMove 18s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.stats-orb {
+  animation: statsOrbFloat 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+.sleep-illustration-float {
+  animation: sleepIllustrationFloat 7s ease-in-out infinite;
+  transform-origin: 50% 72%;
+  will-change: transform;
+}
+
+.sleep-illustration-orbit {
+  animation: sleepIllustrationOrbit 6.5s ease-in-out infinite;
+  transform-origin: 51% 36%;
+  will-change: transform;
+}
+
+.sleep-illustration-breath {
+  animation: sleepIllustrationBreath 5.8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.sleep-illustration-scribble {
+  animation: sleepIllustrationFloat 9s ease-in-out infinite reverse;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.community-scene-float {
+  animation: communitySceneFloat 7.5s ease-in-out infinite;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
+
+.community-scene-bubbles {
+  animation: communityBubbleDrift 6.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.community-scene-stars {
+  animation: sleepIllustrationBreath 5.5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-drift,
+  .hero-light-drift,
+  .stats-motion-wash,
+  .stats-orb,
+  .sleep-illustration-float,
+  .sleep-illustration-orbit,
+  .sleep-illustration-breath,
+  .sleep-illustration-scribble,
+  .community-scene-float,
+  .community-scene-bubbles,
+  .community-scene-stars {
+    animation: none;
+  }
+}
+
 /* ===== CTA 미세 펄스 ===== */
 @keyframes subtlePulse {
-  0%, 100% { box-shadow: 0 10px 15px -3px rgba(111, 156, 166, 0.2); }
-  50% { box-shadow: 0 10px 25px -3px rgba(111, 156, 166, 0.35); }
+  0%, 100% { box-shadow: 0 10px 15px -3px rgba(120, 80, 40, 0.20); }
+  50% { box-shadow: 0 10px 25px -3px rgba(120, 80, 40, 0.34); }
 }
 .animate-subtle-pulse {
   animation: subtlePulse 3s ease-in-out infinite;
@@ -680,10 +874,11 @@ button:active, a:active {
 }
 
 /* ===== Soft Shadow System ===== */
-.shadow-soft-sm { box-shadow: 0 1px 3px rgba(111,156,166,0.06), 0 1px 2px rgba(111,156,166,0.04); }
-.shadow-soft    { box-shadow: 0 4px 12px rgba(111,156,166,0.08), 0 1px 3px rgba(111,156,166,0.04); }
-.shadow-soft-md { box-shadow: 0 8px 24px rgba(111,156,166,0.10), 0 2px 6px rgba(111,156,166,0.04); }
-.shadow-soft-lg { box-shadow: 0 16px 40px rgba(111,156,166,0.12), 0 4px 12px rgba(111,156,166,0.04); }
+/* v3: 따뜻한 엄버 그림자 — 크림 위에서 카드를 떠 보이게(차가운 세이지블루 폐기) */
+.shadow-soft-sm { box-shadow: 0 1px 3px rgba(120,80,40,0.10), 0 1px 2px rgba(120,80,40,0.06); }
+.shadow-soft    { box-shadow: 0 4px 14px rgba(120,80,40,0.12), 0 1px 3px rgba(120,80,40,0.07); }
+.shadow-soft-md { box-shadow: 0 8px 26px rgba(120,80,40,0.14), 0 2px 6px rgba(120,80,40,0.07); }
+.shadow-soft-lg { box-shadow: 0 16px 42px rgba(120,80,40,0.16), 0 4px 12px rgba(120,80,40,0.08); }
 
 /* ===== Healthcare Provider 카드 인터랙션 ===== */
 .card-healthcare {
@@ -694,8 +889,8 @@ button:active, a:active {
 
 .card-healthcare:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 40px -8px rgba(111, 156, 166, 0.15),
-              0 4px 12px -4px rgba(111, 156, 166, 0.08);
+  box-shadow: 0 16px 40px -8px rgba(120, 80, 40, 0.18),
+              0 4px 12px -4px rgba(120, 80, 40, 0.10);
   border-color: var(--color-hlk-primary-light);
 }
 
@@ -919,4 +1114,84 @@ button:active, a:active {
   pointer-events: none;
   z-index: 2;
   mix-blend-mode: overlay;
+}
+
+/* ============================================================= */
+/* ===== v4 "Immersive Aurora" — 앱 전체 luminous 시스템 ====== */
+/* ============================================================= */
+
+/* 앱 전역 오로라 배경 — 고정, 콘텐츠 뒤. 히어로보다 톤다운(opacity↓ blur↑) + 중앙 라이트 베일로 읽는 컬럼은 차분, 가장자리는 비비드 */
+.app-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(160deg, #FBEAD9 0%, #F3DBC2 30%, #E8C9A6 60%, #E9D2C2 100%);
+}
+.app-aurora__blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.app-aurora__blob--sage {
+  width: 72vw; max-width: 780px; aspect-ratio: 1; top: -22%; left: -18%;
+  background: radial-gradient(circle, #8FA79A 0%, rgba(143,167,154,.58) 38%, transparent 66%);
+  filter: blur(95px); opacity: .68; animation: meshDrift1 26s ease-in-out infinite;
+}
+.app-aurora__blob--gold {
+  width: 60vw; max-width: 700px; aspect-ratio: 1; top: -12%; right: 4%;
+  background: radial-gradient(circle, #F5C46A 0%, rgba(245,196,106,.58) 32%, transparent 62%);
+  filter: blur(100px); opacity: .64; animation: meshDrift5 24s ease-in-out infinite;
+}
+.app-aurora__blob--orange {
+  width: 56vw; max-width: 640px; aspect-ratio: 1; top: 32%; left: 12%;
+  background: radial-gradient(circle, #F47A2A 0%, rgba(244,122,42,.52) 32%, transparent 62%);
+  filter: blur(105px); opacity: .54; animation: meshDrift6 22s ease-in-out infinite;
+}
+.app-aurora__blob--rose {
+  width: 64vw; max-width: 720px; aspect-ratio: 1; top: 6%; right: -16%;
+  background: radial-gradient(circle, #C89A96 0%, rgba(200,154,150,.58) 36%, transparent 66%);
+  filter: blur(100px); opacity: .62; animation: meshDrift2 28s ease-in-out infinite;
+}
+.app-aurora__blob--plum {
+  width: 54vw; max-width: 620px; aspect-ratio: 1; bottom: -12%; left: -10%;
+  background: radial-gradient(circle, #7A6F73 0%, rgba(122,111,115,.5) 38%, transparent 68%);
+  filter: blur(105px); opacity: .52; animation: meshDrift4 26s ease-in-out infinite;
+}
+/* 중앙 라이트 베일 — 읽는 컬럼 가독 확보(가벼워짐), 가장자리는 더 비비드 */
+.app-aurora::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 54% 64% at 50% 40%,
+    rgba(251,234,217,.46) 0%, rgba(251,234,217,.20) 48%, transparent 82%);
+}
+
+/* 글래스 카드 — 가독성 메커니즘. 흰 82%면 가장 밝은 오로라 위에서도 본문 14.65 / tertiary 5.70 / sage 4.99 AA PASS */
+.card-glass {
+  background-color: rgba(255,255,255,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.60);
+  box-shadow: 0 4px 14px rgba(120,80,40,0.12), 0 1px 3px rgba(120,80,40,0.07);
+}
+
+/* 페이지 상단 오로라 헤더 밴드 — 비비드 그라데이션 + 10% 다크 베일로 흰 글씨 AA 보장 */
+.aurora-header {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(120deg, var(--ah-from, #43734F), var(--ah-via, #6E9A7C), var(--ah-to, #2F5C3D));
+}
+.aurora-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(20,20,32,0.10);
+  pointer-events: none;
+}
+.aurora-header > * { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .app-aurora__blob { animation: none; }
 }

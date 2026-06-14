@@ -2,6 +2,11 @@
 
 import { MOOD_OPTIONS } from '@/lib/logTypes';
 import { MOOD_TAGS } from '@/lib/dailyLogConstants';
+import { EmojiIcon } from '@/lib/iconMap';
+import { Frown, Annoyed, Meh, Smile, Laugh, type LucideIcon } from 'lucide-react';
+
+// 아침 컨디션 1~5 → 구분되는 라인 아이콘 램프(제네릭 이모지 금지)
+const CONDITION_ICONS: LucideIcon[] = [Frown, Annoyed, Meh, Smile, Laugh];
 
 interface MoodSelectorProps {
   value: 1 | 2 | 3 | 4 | 5 | null;
@@ -22,26 +27,34 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
       </p>
 
       <div className="flex justify-center gap-4">
-        {MOOD_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => onChange(option.value as 1 | 2 | 3 | 4 | 5)}
-            className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
-              value === option.value
-                ? 'bg-hlk-primary-light border-2 border-hlk-primary scale-110'
-                : 'bg-white border-2 border-hlk-border hover:border-hlk-primary/50'
-            }`}
-          >
-            <span className="text-4xl">{option.emoji}</span>
-            <span
-              className={`text-xs font-medium ${
-                value === option.value ? 'text-hlk-primary' : 'text-hlk-text-tertiary'
+        {MOOD_OPTIONS.map((option) => {
+          const Icon = CONDITION_ICONS[option.value - 1];
+          return (
+            <button
+              key={option.value}
+              onClick={() => onChange(option.value as 1 | 2 | 3 | 4 | 5)}
+              className={`flex flex-col items-center gap-2 p-4 rounded-2xl transition-all ${
+                value === option.value
+                  ? 'bg-hlk-primary-light border-2 border-hlk-primary scale-110'
+                  : 'bg-white border-2 border-hlk-border hover:border-hlk-primary/50'
               }`}
             >
-              {option.label}
-            </span>
-          </button>
-        ))}
+              <Icon
+                size={32}
+                strokeWidth={1.75}
+                className={value === option.value ? 'text-hlk-primary' : 'text-hlk-text-tertiary'}
+                aria-hidden
+              />
+              <span
+                className={`text-xs font-medium ${
+                  value === option.value ? 'text-hlk-primary' : 'text-hlk-text-tertiary'
+                }`}
+              >
+                {option.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Layer 2: 기상 후 감정 태그 */}
@@ -70,7 +83,7 @@ export function MoodSelector({ value, onChange, selectedTags = [], onToggleTag }
                     }
                   `}
                 >
-                  <span>{tag.emoji}</span>
+                  <EmojiIcon emoji={tag.emoji} size={15} />
                   <span>{tag.label}</span>
                 </button>
               );

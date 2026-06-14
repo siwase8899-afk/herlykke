@@ -97,10 +97,10 @@ export function SymptomPicker({
                           className={`flex-1 h-3 rounded-full transition-all ${
                             level <= entry.severity
                               ? level <= 2
-                                ? 'bg-green-400'
+                                ? 'bg-hlk-primary'
                                 : level <= 3
-                                ? 'bg-yellow-400'
-                                : 'bg-red-400'
+                                ? 'bg-hlk-warning-fill'
+                                : 'bg-hlk-error'
                               : 'bg-hlk-border'
                           }`}
                         />

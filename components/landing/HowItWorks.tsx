@@ -69,7 +69,7 @@ const pillars = [
     id: 'community',
     pillar: 'COMMUNITY',
     title: '함께하기',
-    headline: '비슷한 여성들과 연결',
+    headline: '비슷한 사람들과 연결',
     desc: '같은 증상, 같은 고민을 나누는 친구를 찾아요. 카톡 토크방에서 편하게.',
     features: ['카카오 토크방', '증상 공감', '오늘의 투표'],
     Icon: CommunityIcon,

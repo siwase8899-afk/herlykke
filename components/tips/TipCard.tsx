@@ -18,7 +18,7 @@ export function TipCard({ tip, reason, showSymptom = true }: TipCardProps) {
 
   return (
     <div
-      className={`bg-white rounded-2xl border border-hlk-border overflow-hidden transition-all ${
+      className={`card-glass rounded-2xl overflow-hidden transition-all ${
         isExpanded ? 'shadow-md' : 'shadow-sm'
       }`}
     >

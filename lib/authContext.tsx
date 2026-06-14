@@ -32,6 +32,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const isDemo = !isSupabaseConfigured;
 
   useEffect(() => {
+    // ⚠️ 임시 로그인 우회 (출시 전 제거): 플래그가 있으면 데모 유저로 로그인 처리
+    if (typeof window !== 'undefined' && localStorage.getItem('hlk_bypass_login') === '1') {
+      setUser(DEMO_USER);
+      setIsLoading(false);
+      return;
+    }
     if (!isSupabaseConfigured) {
       setUser(DEMO_USER);
       setIsLoading(false);
@@ -55,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    if (typeof window !== 'undefined') localStorage.removeItem('hlk_bypass_login'); // 임시 우회 해제
     if (isSupabaseConfigured) {
       await supabase.auth.signOut();
     }

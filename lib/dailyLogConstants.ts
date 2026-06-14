@@ -25,32 +25,37 @@ export const ACTIVITIES = [
 ] as const;
 
 // 감정 태그 (2레이어: 컨디션 선택 후 구체적 감정 복수 선택)
+// 색은 tone 2톤(긍정=세이지, 부정=라벤더)으로 통일 — 구분은 이모지/라벨이 담당.
+// 14색 무지개를 폐기해 따뜻한 브랜드와 일관성 확보(가독성·정돈).
+const TONE_CHIP_POSITIVE = 'bg-hlk-primary-light text-hlk-primary-dark border-hlk-primary-light';
+const TONE_CHIP_NEGATIVE = 'bg-hlk-lavender-light text-hlk-lavender border-hlk-lavender-light';
+
 export const MOOD_TAGS = [
   // 긍정
-  { id: 'happy', label: '행복해요', emoji: '😊', tone: 'positive' as const, color: 'bg-yellow-100 text-yellow-700 border-yellow-200' },
-  { id: 'calm', label: '평온해요', emoji: '😌', tone: 'positive' as const, color: 'bg-green-100 text-green-700 border-green-200' },
-  { id: 'energetic', label: '활력있어요', emoji: '💪', tone: 'positive' as const, color: 'bg-orange-100 text-orange-700 border-orange-200' },
-  { id: 'grateful', label: '감사해요', emoji: '🙏', tone: 'positive' as const, color: 'bg-amber-100 text-amber-700 border-amber-200' },
-  { id: 'proud', label: '뿌듯해요', emoji: '🌟', tone: 'positive' as const, color: 'bg-lime-100 text-lime-700 border-lime-200' },
-  { id: 'hopeful', label: '희망적이에요', emoji: '🌈', tone: 'positive' as const, color: 'bg-pink-100 text-pink-700 border-pink-200' },
+  { id: 'happy', label: '행복해요', emoji: '😊', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
+  { id: 'calm', label: '평온해요', emoji: '😌', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
+  { id: 'energetic', label: '활력있어요', emoji: '💪', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
+  { id: 'grateful', label: '감사해요', emoji: '🙏', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
+  { id: 'proud', label: '뿌듯해요', emoji: '🌟', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
+  { id: 'hopeful', label: '희망적이에요', emoji: '🌈', tone: 'positive' as const, color: TONE_CHIP_POSITIVE },
   // 부정
-  { id: 'tired', label: '피곤해요', emoji: '😮‍💨', tone: 'negative' as const, color: 'bg-gray-100 text-gray-700 border-gray-200' },
-  { id: 'anxious', label: '불안해요', emoji: '😰', tone: 'negative' as const, color: 'bg-purple-100 text-purple-700 border-purple-200' },
-  { id: 'irritable', label: '예민해요', emoji: '😤', tone: 'negative' as const, color: 'bg-red-100 text-red-700 border-red-200' },
-  { id: 'sad', label: '우울해요', emoji: '😢', tone: 'negative' as const, color: 'bg-blue-100 text-blue-700 border-blue-200' },
-  { id: 'tearful', label: '눈물이 나요', emoji: '🥲', tone: 'negative' as const, color: 'bg-sky-100 text-sky-700 border-sky-200' },
-  { id: 'listless', label: '무기력해요', emoji: '🫠', tone: 'negative' as const, color: 'bg-slate-100 text-slate-700 border-slate-200' },
-  { id: 'lonely', label: '외로워요', emoji: '🏝️', tone: 'negative' as const, color: 'bg-indigo-100 text-indigo-700 border-indigo-200' },
-  { id: 'frustrated', label: '답답해요', emoji: '😶‍🌫️', tone: 'negative' as const, color: 'bg-stone-100 text-stone-700 border-stone-200' },
+  { id: 'tired', label: '피곤해요', emoji: '😮‍💨', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'anxious', label: '불안해요', emoji: '😰', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'irritable', label: '예민해요', emoji: '😤', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'sad', label: '우울해요', emoji: '😢', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'tearful', label: '눈물이 나요', emoji: '🥲', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'listless', label: '무기력해요', emoji: '🫠', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'lonely', label: '외로워요', emoji: '🏝️', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
+  { id: 'frustrated', label: '답답해요', emoji: '😶‍🌫️', tone: 'negative' as const, color: TONE_CHIP_NEGATIVE },
 ] as const;
 
-// 아침 컨디션 레벨
+// 아침 컨디션 레벨 — 따뜻한 의미 스케일(임상적 빨강→초록 신호등 폐기)
 export const CONDITION_LEVELS = [
-  { value: 1, label: '힘들어요', emoji: '😫', color: 'bg-red-500' },
-  { value: 2, label: '안좋아요', emoji: '😔', color: 'bg-orange-500' },
-  { value: 3, label: '보통이에요', emoji: '😐', color: 'bg-yellow-500' },
-  { value: 4, label: '괜찮아요', emoji: '🙂', color: 'bg-lime-500' },
-  { value: 5, label: '상쾌해요', emoji: '😊', color: 'bg-green-500' },
+  { value: 1, label: '힘들어요', emoji: '😫', color: 'bg-hlk-error' },
+  { value: 2, label: '안좋아요', emoji: '😔', color: 'bg-hlk-warning-fill' },
+  { value: 3, label: '보통이에요', emoji: '😐', color: 'bg-hlk-surface-warm' },
+  { value: 4, label: '괜찮아요', emoji: '🙂', color: 'bg-hlk-primary-light' },
+  { value: 5, label: '상쾌해요', emoji: '😊', color: 'bg-hlk-primary' },
 ] as const;
 
 // 타입 정의

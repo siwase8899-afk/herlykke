@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { SLEEP_QUESTIONS, classifySleepType, SLEEP_PROFILES, SleepQuestion } from '@/lib/sleepQuestions';
+import { EmojiIcon } from '@/lib/iconMap';
 
 const TOTAL = SLEEP_QUESTIONS.length; // 5
 
@@ -72,10 +73,17 @@ export default function CheckinSection() {
   const sectionNum = parseInt(params.section as string, 10);
   const question: SleepQuestion | undefined = SLEEP_QUESTIONS[sectionNum - 1];
 
-  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
-  const [selected, setSelected] = useState<string | string[]>(
-    question?.type === 'multi' ? [] : ''
-  );
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>(() => {
+    if (typeof window === 'undefined') return {};
+    const saved = window.sessionStorage.getItem('sleep_checkin_answers');
+    if (!saved) return {};
+
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return {};
+    }
+  });
   const [showResult, setShowResult] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -93,43 +101,28 @@ export default function CheckinSection() {
     }
   }, [sectionNum, router]);
 
-  // Load previous answers from sessionStorage
-  useEffect(() => {
-    setFadeIn(false);
-    const saved = sessionStorage.getItem('sleep_checkin_answers');
-    if (saved) {
-      const parsedAnswers = JSON.parse(saved);
-      setAnswers(parsedAnswers);
-      const currentAnswer = parsedAnswers[question?.id];
-      if (currentAnswer) {
-        setSelected(currentAnswer);
-      } else {
-        setSelected(question?.type === 'multi' ? [] : '');
-      }
-    } else {
-      setSelected(question?.type === 'multi' ? [] : '');
-    }
-  }, [question]);
-
   if (!question) return null;
 
   const isMulti = question.type === 'multi';
   const stepMsg = STEP_MESSAGES[sectionNum];
+  const selected = answers[question.id] ?? (isMulti ? [] : '');
 
   const handleSelect = (optionId: string) => {
     if (isMulti) {
       if (optionId === 'none_above') {
-        setSelected(['none_above']);
+        setAnswers((prev) => ({ ...prev, [question.id]: ['none_above'] }));
         return;
       }
-      setSelected((prev) => {
-        const arr = Array.isArray(prev) ? prev.filter((v) => v !== 'none_above') : [];
-        return arr.includes(optionId)
+      setAnswers((prev) => {
+        const current = prev[question.id];
+        const arr = Array.isArray(current) ? current.filter((v) => v !== 'none_above') : [];
+        const next = arr.includes(optionId)
           ? arr.filter((v) => v !== optionId)
           : [...arr, optionId];
+        return { ...prev, [question.id]: next };
       });
     } else {
-      setSelected(optionId);
+      setAnswers((prev) => ({ ...prev, [question.id]: optionId }));
     }
   };
 
@@ -145,9 +138,7 @@ export default function CheckinSection() {
   const handleNext = () => {
     if (!hasSelection) return;
 
-    const newAnswers = { ...answers, [question.id]: selected };
-    setAnswers(newAnswers);
-    sessionStorage.setItem('sleep_checkin_answers', JSON.stringify(newAnswers));
+    sessionStorage.setItem('sleep_checkin_answers', JSON.stringify(answers));
 
     if (sectionNum < TOTAL) {
       setIsAnimating(true);
@@ -168,17 +159,17 @@ export default function CheckinSection() {
     // Readiness ring config
     const circumference = 2 * Math.PI * 54;
     const dashOffset = circumference - (sleepReadiness / 100) * circumference;
-    const readinessColor = sleepReadiness >= 60 ? '#6F9CA6' : sleepReadiness >= 40 ? '#E0C49A' : '#D98B8B';
+    const readinessColor = sleepReadiness >= 60 ? '#4F9665' : sleepReadiness >= 40 ? '#D48A3B' : '#C24E45';
 
     return (
-      <div className="min-h-screen bg-gradient-to-b from-hlk-primary-light via-hlk-bg to-hlk-bg">
+      <div className="min-h-screen bg-gradient-to-b from-white via-hlk-surface to-hlk-primary-light/35">
         <div className="max-w-md mx-auto px-6 py-10">
           {/* Completion message */}
           <div className="text-center mb-10">
             <div className="relative w-20 h-20 mx-auto mb-6">
-              <div className="absolute inset-0 bg-hlk-highlight/20 rounded-full blur-lg" />
-              <div className="relative w-20 h-20 bg-gradient-to-br from-hlk-primary-light to-hlk-accent-light rounded-full flex items-center justify-center border border-white/60 shadow-md">
-                <svg className="w-8 h-8 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="absolute inset-0 bg-hlk-clay-light/50 rounded-full blur-lg" />
+              <div className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center border border-hlk-border shadow-soft-md">
+                <svg className="w-8 h-8 text-hlk-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -190,7 +181,7 @@ export default function CheckinSection() {
           </div>
 
           {/* Sleep Readiness Score — circular gauge */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-hlk-border/60 shadow-lg mb-5">
+          <div className="card-glass rounded-3xl p-8 shadow-soft-md mb-5">
             <p className="text-xs font-semibold text-hlk-text-tertiary tracking-widest uppercase text-center mb-6">
               Sleep Readiness Score
             </p>
@@ -222,7 +213,7 @@ export default function CheckinSection() {
           </div>
 
           {/* Stress Level Indicator */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 border border-hlk-border/60 shadow-lg mb-5">
+          <div className="card-glass rounded-3xl p-6 shadow-soft-md mb-5">
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm font-semibold text-hlk-text">스트레스 수준</p>
               <span
@@ -251,51 +242,37 @@ export default function CheckinSection() {
           </div>
 
           {/* Sleep Type Result */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-6 border border-hlk-border/60 shadow-lg mb-5">
+          <div className="card-glass rounded-3xl p-6 shadow-soft-md mb-5">
             <p className="text-xs text-hlk-text-tertiary mb-1">나의 수면 유형</p>
             <h2 className="text-lg font-bold text-hlk-primary mb-3">{profile.label}</h2>
             <p className="text-sm text-hlk-text-secondary leading-relaxed">{profile.description}</p>
           </div>
 
-          {/* Recommended categories */}
-          <div className="bg-hlk-accent-light/50 rounded-3xl p-6 mb-8">
-            <p className="text-sm font-semibold text-hlk-text mb-3">맞춤 수면 레시피 카테고리</p>
-            <div className="flex flex-wrap gap-2">
-              {profile.recommendedCategories.map((cat) => (
-                <span key={cat} className="text-xs bg-white/80 text-hlk-text px-3 py-1.5 rounded-full border border-hlk-border/60">
-                  {cat === 'nutrition' ? '🌿 영양제·식품' :
-                    cat === 'yoga_relax' ? '🧘‍♀️ 요가·이완' :
-                    cat === 'environment' ? '🌙 수면 환경' : '📓 잠자리 루틴'}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Gentle supportive message */}
-          <div className="bg-hlk-primary-light/50 rounded-2xl p-5 mb-8 text-center">
-            <p className="text-sm text-hlk-text-secondary leading-relaxed">
-              혼자 고민하지 않아도 돼요.
+          {/* Login transition */}
+          <div className="card-glass rounded-3xl p-6 mb-8 shadow-soft-md">
+            <p className="text-xs font-bold text-hlk-clay tracking-widest uppercase mb-3">
+              Next Step
+            </p>
+            <h2 className="text-xl font-extrabold text-hlk-text leading-snug mb-3">
+              회원가입하면 결과를 저장하고
               <br />
-              <span className="font-semibold text-hlk-primary">먼저 겪은 메이트들</span>이 기다리고 있어요.
+              필요한 루틴만 이어볼 수 있어요
+            </h2>
+            <p className="text-sm text-hlk-text-secondary leading-relaxed">
+              처음 오셨다면 결과를 저장하며 계정을 만들어주세요. 이미 가입한 분은 홈 상단의 로그인에서 바로 이어갈 수 있어요.
             </p>
           </div>
 
           {/* CTA */}
           <div className="flex flex-col gap-3">
             <Link
-              href="/recipes"
-              className="group w-full flex items-center justify-center gap-2 py-4 bg-hlk-primary text-white font-semibold rounded-2xl hover:bg-hlk-primary-dark transition-all duration-300 shadow-lg shadow-hlk-primary/15 hover:-translate-y-0.5"
+              href="/signup?from=sleep-checkin"
+              className="group w-full flex items-center justify-center gap-2 py-4 bg-hlk-clay text-white font-semibold rounded-2xl hover:bg-hlk-clay-dark transition-all duration-300 shadow-lg shadow-hlk-clay/20 hover:-translate-y-0.5"
             >
-              맞춤 수면 레시피 보기
+              결과 저장하고 회원가입하기
               <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </Link>
-            <Link
-              href="/community"
-              className="w-full flex items-center justify-center gap-2 py-4 bg-white text-hlk-text font-medium rounded-2xl border border-hlk-border hover:border-hlk-primary/40 transition-all duration-300"
-            >
-              같은 경험의 동료들과 이야기하기
             </Link>
           </div>
         </div>
@@ -305,21 +282,21 @@ export default function CheckinSection() {
 
   // ── Question Screen ──
   return (
-    <div className={`min-h-screen bg-gradient-to-b from-hlk-primary-light/30 via-hlk-bg to-hlk-bg transition-all duration-300 ${isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
+    <div className={`min-h-screen bg-gradient-to-b from-white via-hlk-surface to-hlk-primary-light/35 transition-all duration-300 ${isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
       <div className="max-w-md mx-auto px-6 py-10">
         {/* Top nav */}
         <div className="flex items-center gap-3 mb-6">
           {sectionNum > 1 ? (
             <button
               onClick={() => router.push(`/checkin/${sectionNum - 1}`)}
-              className="w-9 h-9 rounded-full bg-white/80 border border-hlk-border/60 flex items-center justify-center text-hlk-text-secondary hover:text-hlk-text transition-colors"
+              className="w-10 h-10 rounded-full bg-white border border-hlk-border flex items-center justify-center text-hlk-text-secondary shadow-soft-sm hover:text-hlk-text transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
           ) : (
-            <Link href="/checkin" className="w-9 h-9 rounded-full bg-white/80 border border-hlk-border/60 flex items-center justify-center text-hlk-text-secondary hover:text-hlk-text transition-colors">
+            <Link href="/checkin" className="w-10 h-10 rounded-full bg-white border border-hlk-border flex items-center justify-center text-hlk-text-secondary shadow-soft-sm hover:text-hlk-text transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
@@ -331,25 +308,25 @@ export default function CheckinSection() {
             {Array.from({ length: TOTAL }).map((_, i) => (
               <div
                 key={i}
-                className={`h-1.5 flex-1 rounded-full transition-all duration-500 ${
-                  i < sectionNum ? 'bg-hlk-primary' : 'bg-hlk-border'
+                className={`h-2 flex-1 rounded-full transition-all duration-500 ${
+                  i < sectionNum ? 'bg-hlk-primary-dark' : 'bg-hlk-border-light'
                 }`}
               />
             ))}
           </div>
-          <span className="text-xs text-hlk-text-tertiary font-medium">{sectionNum}/{TOTAL}</span>
+          <span className="text-sm text-hlk-text-secondary font-semibold">{sectionNum}/{TOTAL}</span>
         </div>
 
         {/* Supportive step message */}
         <div className={`mb-6 transition-all duration-500 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
-          <p className="text-xs text-hlk-accent font-semibold tracking-wide">{stepMsg.sub}</p>
+          <p className="text-sm text-hlk-accent-dark font-bold tracking-wide">{stepMsg.sub}</p>
         </div>
 
         {/* Question */}
         <div className={`mb-8 transition-all duration-500 delay-100 ${fadeIn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
-          <h1 className="text-2xl font-extrabold text-hlk-text leading-snug mb-2">{question.question}</h1>
+          <h1 className="text-[2rem] font-extrabold text-hlk-text leading-snug mb-2">{question.question}</h1>
           {question.subtext && (
-            <p className="text-sm text-hlk-text-secondary">{question.subtext}</p>
+            <p className="text-lg text-hlk-text-secondary">{question.subtext}</p>
           )}
         </div>
 
@@ -363,21 +340,25 @@ export default function CheckinSection() {
                 onClick={() => handleSelect(option.id)}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl border text-left transition-all duration-200 ${
                   active
-                    ? 'border-hlk-primary bg-hlk-primary-light/60 shadow-md shadow-hlk-primary/5'
-                    : 'border-hlk-border/60 bg-white/80 backdrop-blur-sm hover:border-hlk-primary/30 hover:bg-white'
+                    ? 'border-hlk-primary-dark bg-white shadow-soft-md ring-2 ring-hlk-primary-light'
+                    : 'border-hlk-border bg-white shadow-soft-sm hover:border-hlk-primary/60 hover:shadow-soft-md'
                 }`}
                 style={{ transitionDelay: `${i * 50}ms` }}
               >
                 {option.emoji && (
-                  <span className={`text-2xl flex-shrink-0 transition-transform duration-200 ${active ? 'scale-110' : ''}`}>
-                    {option.emoji}
+                  <span
+                    className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl transition-all duration-200 ${
+                      active ? 'bg-hlk-primary-dark text-white shadow-soft-sm' : 'bg-hlk-primary-light/70 text-hlk-primary-dark'
+                    }`}
+                  >
+                    <EmojiIcon emoji={option.emoji} size={22} />
                   </span>
                 )}
-                <span className={`font-medium text-sm leading-snug ${active ? 'text-hlk-primary' : 'text-hlk-text'}`}>
+                <span className={`font-semibold text-base leading-snug ${active ? 'text-hlk-text' : 'text-hlk-text'}`}>
                   {option.label}
                 </span>
                 {active && (
-                  <span className="ml-auto text-hlk-primary flex-shrink-0">
+                  <span className="ml-auto text-hlk-primary-dark flex-shrink-0">
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
@@ -395,8 +376,8 @@ export default function CheckinSection() {
             disabled={!hasSelection}
             className={`w-full py-4 rounded-2xl text-lg font-semibold transition-all duration-300 ${
               hasSelection
-                ? 'bg-hlk-primary text-white hover:bg-hlk-primary-dark shadow-lg shadow-hlk-primary/15 hover:-translate-y-0.5'
-                : 'bg-hlk-border/50 text-hlk-text-tertiary cursor-not-allowed'
+                ? 'bg-hlk-clay text-white hover:bg-hlk-clay-dark shadow-lg shadow-hlk-clay/20 hover:-translate-y-0.5'
+                : 'bg-hlk-border-light text-hlk-text-tertiary cursor-not-allowed'
             }`}
           >
             {sectionNum < TOTAL ? '다음' : '결과 확인하기'}

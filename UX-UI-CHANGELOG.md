@@ -148,6 +148,78 @@ shadow-soft-lg: 0 16px 40px rgba(111,156,166,0.12)
 
 ---
 
+### Phase E (CTA 글로우 + Content Hub 리디자인) — 2026-03-08
+
+#### E1. CTA 버튼 글로우 효과 (`SleepHero.tsx`, `globals.css`)
+
+**레퍼런스**: 외부 SaaS 사이트의 gradient glow 버튼 패턴 적용
+
+| 항목 | 구현 |
+|------|------|
+| 구조 | `p-[2px]` gradient wrapper + 내부 `bg-black rounded-full` 버튼 |
+| 글로우 | `background: inherit` + `filter: blur(0.6em)` 복제 레이어 |
+| 회전 | `@property --cta-gradient-angle` + `ctaGlowSpin 8s linear infinite` |
+| Hover | 글로우 레이어 `scale-[1.2]`, `duration-500` |
+| 색상 | conic-gradient: teal `#5f8f8f` → dusty rose `#c48b8b` → warm amber `#d4956a` → coral `#e8a07a` → deep blue `#1e3a5f` |
+
+**CSS 추가**:
+- `--cta-gradient` CSS 변수 (conic-gradient)
+- `@property --cta-gradient-angle` (CSS Houdini)
+- `@keyframes ctaGlowSpin`
+- `prefers-reduced-motion` 대응
+
+**이전 시도 & 롤백 기록**:
+1. ❌ tight halo ring (conic-gradient `-inset-[3px]`) → 테두리 애니메이션 느낌, 빛이 아님
+2. ❌ blur 축소 (`blur-[2px]`) → 회전은 보이나 공격적
+3. ❌ radial-gradient 블롭 2개 (left/right) → 크기 부족으로 안 보임
+4. ✅ **최종**: 레퍼런스 패턴 (inherit + blur clone + @property 회전)
+
+#### E2. Content Hub → 5파트 구조 리디자인 (`ContentQuickAccess.tsx`)
+
+**Before**: 탭 3개 + 카드 4개의 정적 구조
+**After**: 5파트 guided discovery 구조
+
+| 파트 | 내용 |
+|------|------|
+| 1. Header | eyebrow "Content Hub" + "지금 바로 읽어보세요" + 서브카피 |
+| 2. Sleep Check | "오늘 당신의 밤은 어떤가요?" + 4개 증상 pill (타이핑 효과) |
+| 3. Tabs | segmented control 스타일 (pill container `#EAEDEA`) |
+| 4. Cards | `rounded-[22px]`, editorial 레이아웃, 카테고리 뱃지 + 메타 |
+| 5. CTA | "나에게 맞는 수면 콘텐츠 더 보기 →" pill 버튼 |
+
+**증상 기반 필터링**:
+- `잠들기 어렵다` → `falling-asleep`, `mind-sleep` 카테고리 필터
+- `밤에 자주 깬다` → `night-waking`
+- `새벽에 깬다` → `early-waking`
+- `아침에 피곤하다` → `morning-fatigue`, `body-signal`, `sleep-routine`
+- Solutions도 `forSymptoms` 매칭으로 필터
+
+**타이핑 애니메이션** (E2 추가):
+- "오늘 당신의 밤은 어떤가요?" 텍스트를 `text-xl md:text-2xl font-bold`로 확대
+- 섹션 진입 후 600ms 딜레이 → 80ms/글자 타이핑
+- 완료 후 teal `#6F9CA6` 커서 깜빡임 (`cursorBlink 1s`)
+
+**카드 인터랙션**:
+- hover: `-translate-y-1` + 그림자 확대 + 보더 teal 변화
+- stagger entrance: `animationDelay: ${i * 100}ms`
+
+**배경**: `#F6F7F4` + 극미세 radial gradient wash (teal 왼쪽 상단 + amber 오른쪽 하단)
+
+#### E3. 다크 테마 시도 & 롤백
+
+- Content Hub에 deep blue → dusty rose → night purple 다크 배경 시도
+- glass-morphism 카드 (backdrop-blur + 반투명)
+- **롤백 사유**: 기존 밝은 톤 색상 시스템과 불일치
+- `git checkout a290829 --` 으로 3개 파일 복원
+
+#### E4. 히어로 해시태그 추가 & 삭제
+
+- `#새벽3시에깨요` 등 6개 공감 해시태그 + glass-morphism 칩 추가
+- **삭제 사유**: Content Hub 리디자인 시 불필요 판단
+- 최종 상태: 해시태그 없음, 히어로는 CTA에 집중
+
+---
+
 ## 주요 컴포넌트 인벤토리
 
 ### UI 컴포넌트 (`components/ui/`)

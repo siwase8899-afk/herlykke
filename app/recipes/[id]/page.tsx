@@ -13,7 +13,7 @@ export default function RecipeDetailPage() {
 
   if (!recipe) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-hlk-text-secondary mb-4">레시피를 찾을 수 없어요</p>
           <Link href="/recipes" className="text-hlk-primary font-medium">← 돌아가기</Link>
@@ -26,7 +26,7 @@ export default function RecipeDetailPage() {
   const categoryLabel = RECIPE_CATEGORIES.find((c) => c.id === recipe.category);
 
   return (
-    <div className="min-h-screen bg-hlk-bg pb-20">
+    <div className="min-h-screen pb-20">
       {/* 뒤로가기 */}
       <div className="sticky top-0 bg-hlk-bg/90 backdrop-blur-sm border-b border-hlk-border z-10 px-6 py-4">
         <button
@@ -88,7 +88,7 @@ export default function RecipeDetailPage() {
         {/* 레시피 포맷: 재료 + 방법 + 결과 */}
         <div className="space-y-5 mb-8">
           {/* 재료 */}
-          <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+          <div className="card-glass rounded-2xl p-5">
             <h2 className="font-bold text-hlk-text mb-3 flex items-center gap-2">
               <span className="w-6 h-6 bg-hlk-primary-light text-hlk-primary rounded-lg flex items-center justify-center text-xs font-bold">재</span>
               재료
@@ -104,7 +104,7 @@ export default function RecipeDetailPage() {
           </div>
 
           {/* 방법 */}
-          <div className="bg-hlk-surface rounded-2xl p-5 border border-hlk-border">
+          <div className="card-glass rounded-2xl p-5">
             <h2 className="font-bold text-hlk-text mb-3 flex items-center gap-2">
               <span className="w-6 h-6 bg-hlk-accent-light text-hlk-accent rounded-lg flex items-center justify-center text-xs font-bold">법</span>
               방법

@@ -39,7 +39,7 @@ export default function SolutionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-hlk-bg flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <BreathingLoader size="lg" showGuide />
         <p className="text-sm text-hlk-text-tertiary mt-4 animate-slow-fade-in-delay-2">
           맞춤 솔루션을 분석 중이에요...
@@ -49,7 +49,7 @@ export default function SolutionsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-hlk-bg">
+    <div className="min-h-screen">
       {/* Header */}
       <header className="sticky top-0 z-50 px-5 py-4 border-b border-hlk-border bg-white/80 backdrop-blur-lg">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function SolutionsPage() {
       </div>
 
       {/* Category Filter */}
-      <div className="sticky top-[57px] z-40 bg-white border-b border-hlk-border">
+      <div className="sticky top-[57px] z-40 bg-white/82 backdrop-blur-lg border-b border-hlk-border">
         <div className="max-w-4xl mx-auto px-5 py-3">
           <div className="flex gap-2 overflow-x-auto scrollbar-hide">
             {SOLUTION_CATEGORIES.map(category => (
@@ -157,7 +157,7 @@ export default function SolutionsPage() {
       </main>
 
       {/* Bottom CTA */}
-      <div className="sticky bottom-0 px-5 py-4 bg-white border-t border-hlk-border">
+      <div className="sticky bottom-0 px-5 py-4 bg-white/82 backdrop-blur-lg border-t border-hlk-border">
         <div className="max-w-4xl mx-auto flex gap-3">
           <Link
             href="/log"
@@ -232,7 +232,7 @@ function SolutionCard({ solution }: { solution: Solution & { isRecommended: bool
         {/* Rating & Price */}
         <div className="flex items-center justify-between pt-3 border-t border-hlk-border">
           <div className="flex items-center gap-1">
-            <span className="text-yellow-500">★</span>
+            <span className="text-hlk-star">★</span>
             <span className="text-sm font-medium text-hlk-text">{solution.rating}</span>
             <span className="text-xs text-hlk-text-tertiary">({solution.reviews})</span>
             {reviewCount > 0 && (
