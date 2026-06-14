@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { columns, sleepCategoryLabels } from '@/lib/columnsData';
+import { ExpertPortrait } from '@/components/visuals/ExpertPortrait';
 
 export default function FeaturedColumns() {
   const [isVisible, setIsVisible] = useState(false);
@@ -81,9 +82,7 @@ export default function FeaturedColumns() {
               <div className="px-5 pb-4 pt-3 border-t border-hlk-border-light">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-hlk-secondary-light flex items-center justify-center">
-                      <span className="text-xs font-bold text-hlk-text">{col.expert.name.charAt(0)}</span>
-                    </div>
+                    <ExpertPortrait expert={col.expert} size="xs" />
                     <div>
                       <p className="text-xs font-semibold text-hlk-text">{col.expert.name}</p>
                       <p className="text-[10px] text-hlk-text-tertiary">{col.expert.title}</p>

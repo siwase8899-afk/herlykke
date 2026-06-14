@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { CONDITION_LEVELS } from '@/lib/dailyLogConstants';
 import { BreathingLoader } from '@/components/ui/BreathingLoader';
 import { SleepScoreRing } from '@/components/ui/SleepScoreRing';
+import { TodaysReading } from '@/components/dashboard/TodaysReading';
 import { AlertTriangle, ArrowRight, Meh, Smile, Sparkles, TrendingDown } from 'lucide-react';
 
 interface DashboardLog {
@@ -178,6 +179,8 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
+
+        <TodaysReading />
 
         {/* 차분한 응원 한 줄 */}
         <p className="text-center text-sm text-hlk-text-tertiary leading-relaxed">

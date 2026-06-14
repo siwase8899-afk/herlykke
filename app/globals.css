@@ -497,6 +497,55 @@ button:active, a:active {
   }
 }
 
+@keyframes sleepIllustrationFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(0.7deg);
+  }
+}
+
+@keyframes sleepIllustrationOrbit {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, -8px, 0) scale(1.025);
+  }
+}
+
+@keyframes sleepIllustrationBreath {
+  0%, 100% {
+    opacity: 0.48;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes communitySceneFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(-0.5deg);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0) rotate(0.6deg);
+  }
+}
+
+@keyframes communityBubbleDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.78;
+  }
+  50% {
+    transform: translate3d(8px, -5px, 0);
+    opacity: 1;
+  }
+}
+
 .hero-bg-drift {
   animation: heroBgDrift 22s cubic-bezier(0.19, 1, 0.22, 1) infinite;
   will-change: transform;
@@ -529,11 +578,59 @@ button:active, a:active {
   will-change: transform;
 }
 
+.sleep-illustration-float {
+  animation: sleepIllustrationFloat 7s ease-in-out infinite;
+  transform-origin: 50% 72%;
+  will-change: transform;
+}
+
+.sleep-illustration-orbit {
+  animation: sleepIllustrationOrbit 6.5s ease-in-out infinite;
+  transform-origin: 51% 36%;
+  will-change: transform;
+}
+
+.sleep-illustration-breath {
+  animation: sleepIllustrationBreath 5.8s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.sleep-illustration-scribble {
+  animation: sleepIllustrationFloat 9s ease-in-out infinite reverse;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.community-scene-float {
+  animation: communitySceneFloat 7.5s ease-in-out infinite;
+  transform-origin: 50% 60%;
+  will-change: transform;
+}
+
+.community-scene-bubbles {
+  animation: communityBubbleDrift 6.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.community-scene-stars {
+  animation: sleepIllustrationBreath 5.5s ease-in-out infinite;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-drift,
   .hero-light-drift,
   .stats-motion-wash,
-  .stats-orb {
+  .stats-orb,
+  .sleep-illustration-float,
+  .sleep-illustration-orbit,
+  .sleep-illustration-breath,
+  .sleep-illustration-scribble,
+  .community-scene-float,
+  .community-scene-bubbles,
+  .community-scene-stars {
     animation: none;
   }
 }

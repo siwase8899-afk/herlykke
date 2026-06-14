@@ -2,32 +2,32 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { SleepCycleViz } from '@/components/ui/SleepCycleViz';
+import Image from 'next/image';
 import { CommunityTalkTab } from '@/components/community/CommunityTalkTab';
-import { EmojiIcon } from '@/lib/iconMap';
-import { Moon } from 'lucide-react';
+import { MessageCircle, Moon, Sparkles, type LucideIcon } from 'lucide-react';
+import { MateAvatar, RecipeObject } from '@/components/visuals/CommunityVisuals';
 
 type TabId = 'checkin' | 'talk' | 'recipes';
 
-const TABS: { id: TabId; emoji: string; label: string }[] = [
-  { id: 'checkin', emoji: '🌙', label: '오늘 수면' },
-  { id: 'talk', emoji: '💬', label: '고민&경험' },
-  { id: 'recipes', emoji: '✨', label: '메이트 PICK' },
+const TABS: { id: TabId; Icon: LucideIcon; label: string }[] = [
+  { id: 'checkin', Icon: Moon, label: '오늘 수면' },
+  { id: 'talk', Icon: MessageCircle, label: '고민&경험' },
+  { id: 'recipes', Icon: Sparkles, label: '메이트 PICK' },
 ];
 
 const DEMO_CHECKINS = [
-  { nickname: '달빛요정', score: 3, tag: '#새벽각성', time: '1분 전', emoji: '😮‍💨' },
-  { nickname: '수면탐정', score: 4, tag: '#족욕후', time: '5분 전', emoji: '😊' },
-  { nickname: '마그네슘메이트', score: 5, tag: '#레시피효과!', time: '12분 전', emoji: '😄' },
-  { nickname: '잠꾸러기탈출', score: 2, tag: '#열감', time: '23분 전', emoji: '😳' },
-  { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전', emoji: '🥰' },
+  { nickname: '달빛요정', score: 3, tag: '#새벽각성', time: '1분 전' },
+  { nickname: '수면탐정', score: 4, tag: '#족욕후', time: '5분 전' },
+  { nickname: '마그네슘메이트', score: 5, tag: '#레시피효과!', time: '12분 전' },
+  { nickname: '잠꾸러기탈출', score: 2, tag: '#열감', time: '23분 전' },
+  { nickname: '라벤더팬', score: 4, tag: '#아로마', time: '31분 전' },
 ];
 
 const DEMO_PICKS = [
-  { id: 'r01', emoji: '🌿', title: '마그네슘 + 족욕으로 새벽 각성 없앤 방법', curator: '잠꾸러기탈출', likes: 124 },
-  { id: 'r06', emoji: '🧘‍♀️', title: '4-7-8 호흡법으로 새벽에 깼을 때 다시 잠드는 방법', curator: '숨쉬는여자', likes: 78 },
-  { id: 'r08', emoji: '☕', title: '커피 컷오프 시간 바꿨더니 수면 질이 달라진 이야기', curator: '커피끊은날', likes: 62 },
-  { id: 'r02', emoji: '🌙', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가메이트45', likes: 89 },
+  { id: 'r01', title: '마그네슘 + 족욕으로 새벽 각성 없앤 방법', curator: '잠꾸러기탈출', likes: 124 },
+  { id: 'r06', title: '4-7-8 호흡법으로 새벽에 깼을 때 다시 잠드는 방법', curator: '숨쉬는여자', likes: 78 },
+  { id: 'r08', title: '커피 컷오프 시간 바꿨더니 수면 질이 달라진 이야기', curator: '커피끊은날', likes: 62 },
+  { id: 'r02', title: '자기 전 10분 요가 니드라로 열감 없이 잠드는 법', curator: '요가메이트45', likes: 89 },
 ];
 
 // Sleep checkin widget
@@ -36,11 +36,11 @@ function SleepCheckinWidget() {
   const [submitted, setSubmitted] = useState(false);
 
   const SCORES = [
-    { value: 1, emoji: '🌑', label: '최악' },
-    { value: 2, emoji: '🌘', label: '나쁨' },
-    { value: 3, emoji: '🌗', label: '보통' },
-    { value: 4, emoji: '🌖', label: '좋음' },
-    { value: 5, emoji: '🌕', label: '최고' },
+    { value: 1, label: '최악' },
+    { value: 2, label: '나쁨' },
+    { value: 3, label: '보통' },
+    { value: 4, label: '좋음' },
+    { value: 5, label: '최고' },
   ];
 
   if (submitted) {
@@ -54,8 +54,17 @@ function SleepCheckinWidget() {
   }
 
   return (
-    <div className="card-glass rounded-2xl p-5">
-      <p className="font-semibold text-hlk-text mb-4">오늘 밤 수면은 어떠셨나요?</p>
+      <div className="card-glass relative overflow-hidden rounded-2xl p-5">
+        <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-hlk-primary-light/65 blur-2xl" aria-hidden />
+        <div className="relative mb-4 flex items-start justify-between gap-4">
+          <div>
+            <p className="font-semibold text-hlk-text">오늘 밤 수면은 어떠셨나요?</p>
+            <p className="mt-1 text-xs text-hlk-text-secondary">짧게 남긴 기록이 내 패턴을 보여줘요.</p>
+          </div>
+          <div className="hidden h-16 w-16 flex-shrink-0 items-center justify-center rounded-2xl bg-hlk-surface-warm sm:flex">
+            <RecipeObject seed="sleep-checkin" size={58} />
+          </div>
+        </div>
       <div className="flex justify-between mb-4">
         {SCORES.map((s) => (
           <button
@@ -90,14 +99,24 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen relative">
-      {/* Header with animated moon */}
-      <div className="aurora-header px-6 pt-16 pb-6 overflow-hidden">
-        <div className="absolute top-4 right-6 opacity-30">
-          <SleepCycleViz quality={75} size={48} />
-        </div>
-        <div className="max-w-2xl mx-auto relative">
+      {/* Header */}
+      <div className="relative overflow-hidden bg-hlk-primary-dark px-6 pb-8 pt-16 text-white">
+        <Image
+          src="/images/community/community-hero-sleep.webp"
+          alt="수면 커뮤니티 배경 일러스트"
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-75"
+          priority
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-hlk-primary-dark via-hlk-primary-dark/76 to-hlk-primary-dark/18" aria-hidden />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-hlk-bg/95 to-transparent" aria-hidden />
+        <div className="relative mx-auto max-w-2xl">
           <h1 className="text-2xl font-bold mb-1 animate-slow-fade-in">수면 커뮤니티</h1>
-          <p className="text-white/80 text-sm animate-slow-fade-in-delay-1">나만 이런 게 아니었어요. 여기 다들 있어요.</p>
+          <p className="max-w-sm text-white/88 text-sm animate-slow-fade-in-delay-1">
+            나만 이런 게 아니었어요. 오늘의 밤을 조용히 나누는 곳.
+          </p>
         </div>
       </div>
 
@@ -105,20 +124,23 @@ export default function CommunityPage() {
       <div className="sticky top-0 bg-hlk-bg/95 backdrop-blur-sm border-b border-hlk-border z-10">
         <div className="max-w-2xl mx-auto px-6">
           <div className="flex">
-            {TABS.map((tab) => (
+            {TABS.map((tab) => {
+              const Icon = tab.Icon;
+              return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => setActiveTab(tab.id as TabId)}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-4 text-sm font-medium border-b-2 transition-all duration-300 ${
                   activeTab === tab.id
                     ? 'border-hlk-primary text-hlk-primary'
                     : 'border-transparent text-hlk-text-secondary hover:text-hlk-text'
                 }`}
               >
-                <EmojiIcon emoji={tab.emoji} size={18} />
+                <Icon className="h-[18px] w-[18px]" strokeWidth={1.75} aria-hidden />
                 <span>{tab.label}</span>
               </button>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -145,7 +167,7 @@ export default function CommunityPage() {
                     className="flex items-center gap-3 card-glass rounded-xl px-4 py-3 animate-slow-fade-in"
                     style={{ animationDelay: `${i * 0.08}s` }}
                   >
-                    <EmojiIcon emoji={item.emoji} size={22} />
+                    <MateAvatar seed={item.nickname} size={40} />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-medium text-hlk-text">{item.nickname}</span>
@@ -171,12 +193,17 @@ export default function CommunityPage() {
               </div>
             </div>
 
-            <div className="mt-6 bg-hlk-surface-warm rounded-2xl p-5 border border-hlk-border">
-              <p className="text-sm font-semibold text-hlk-text mb-1">수면 기록이 쌓이면</p>
-              <p className="text-xs text-hlk-text-secondary leading-relaxed">
-                나의 수면 패턴을 발견할 수 있어요. 어떤 방법이 효과 있었는지도 보여요.
-                30일이 쌓이면 메이트 PICK에 도전해볼 수 있어요.
-              </p>
+            <div className="mt-6 grid gap-4 rounded-2xl border border-hlk-border bg-hlk-surface-warm p-5 sm:grid-cols-[86px_1fr]">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/70">
+                <RecipeObject seed="sleep-pattern" size={72} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-hlk-text mb-1">수면 기록이 쌓이면</p>
+                <p className="text-xs text-hlk-text-secondary leading-relaxed">
+                  나의 수면 패턴을 발견할 수 있어요. 어떤 방법이 효과 있었는지도 보여요.
+                  30일이 쌓이면 메이트 PICK에 도전해볼 수 있어요.
+                </p>
+              </div>
             </div>
           </div>
         )}
@@ -203,8 +230,8 @@ export default function CommunityPage() {
                   style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <div className="card-glass rounded-2xl p-5 hover:border-hlk-primary/30 hover:shadow-sm transition-all duration-300 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
-                      <EmojiIcon emoji={pick.emoji} size={22} className="text-hlk-primary" />
+                    <div className="w-14 h-14 rounded-2xl bg-hlk-primary-light flex items-center justify-center flex-shrink-0">
+                      <RecipeObject seed={pick.title} size={54} />
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-hlk-text leading-snug mb-1 line-clamp-2">
@@ -228,18 +255,22 @@ export default function CommunityPage() {
               ))}
             </div>
 
-            <div className="mt-6 bg-hlk-primary-light rounded-2xl p-5 text-center border border-hlk-primary/20">
-              <div className="mb-2"><EmojiIcon emoji="✍️" size={24} className="text-hlk-primary" /></div>
-              <p className="font-semibold text-hlk-text mb-1">나의 수면 레시피 올리기</p>
-              <p className="text-xs text-hlk-text-secondary leading-relaxed mb-3">
-                손글씨 1장과 함께 올려주세요. 진심 한 장이 있어야 레시피가 됩니다.
-              </p>
-              <Link
-                href="/recipes"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-hlk-primary text-white text-sm font-semibold rounded-xl hover:bg-hlk-primary-dark transition-colors"
-              >
-                레시피 전체 보기 →
-              </Link>
+            <div className="mt-6 grid gap-4 rounded-2xl border border-hlk-primary/20 bg-hlk-primary-light p-5 sm:grid-cols-[72px_1fr]">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/60">
+                <RecipeObject seed="write-recipe" size={62} />
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="font-semibold text-hlk-text mb-1">나의 수면 레시피 올리기</p>
+                <p className="text-xs text-hlk-text-secondary leading-relaxed mb-3">
+                  손글씨 1장과 함께 올려주세요. 진심 한 장이 있어야 레시피가 됩니다.
+                </p>
+                <Link
+                  href="/recipes"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-hlk-primary text-white text-sm font-semibold rounded-xl hover:bg-hlk-primary-dark transition-colors"
+                >
+                  레시피 전체 보기 →
+                </Link>
+              </div>
             </div>
           </div>
         )}

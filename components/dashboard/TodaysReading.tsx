@@ -5,6 +5,7 @@ import { columns } from '@/lib/columnsData';
 import { getAnniePickRecipes } from '@/lib/recipesData';
 import { BookOpen, Lightbulb, NotebookPen } from 'lucide-react';
 import { useState } from 'react';
+import { ExpertPortrait } from '@/components/visuals/ExpertPortrait';
 
 function getDayOfYear() {
   const now = new Date();
@@ -24,6 +25,7 @@ export function TodaysReading() {
     {
       type: '전문가 컬럼',
       Icon: BookOpen,
+      expert: todayColumn.expert,
       title: todayColumn.title,
       sub: todayColumn.expert.name + ' · ' + todayColumn.readTime + '분',
       href: `/columns/${todayColumn.slug}`,
@@ -32,6 +34,7 @@ export function TodaysReading() {
     {
       type: '수면 레시피',
       Icon: NotebookPen,
+      expert: null,
       title: todayRecipe.title,
       sub: todayRecipe.curatorNickname + ' · 공감 ' + todayRecipe.likes,
       href: `/recipes/${todayRecipe.id}`,
@@ -40,6 +43,7 @@ export function TodaysReading() {
     {
       type: '오늘의 팁',
       Icon: Lightbulb,
+      expert: null,
       title: '자기 전 90분 전 따뜻한 샤워하기',
       sub: '수면 위생',
       href: '/insights',
@@ -66,7 +70,11 @@ export function TodaysReading() {
               className="group flex items-start gap-3 bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-hlk-border/60 hover:border-hlk-primary/20 hover:shadow-md transition-all"
             >
               <div className="w-10 h-10 rounded-xl bg-hlk-surface-warm flex items-center justify-center flex-shrink-0 text-lg">
-                <Icon className="h-5 w-5 text-hlk-primary-dark" aria-hidden />
+                {card.expert ? (
+                  <ExpertPortrait expert={card.expert} size="sm" priority />
+                ) : (
+                  <Icon className="h-5 w-5 text-hlk-primary-dark" aria-hidden />
+                )}
               </div>
               <div className="flex-1 min-w-0">
                 <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold mb-1 ${card.color}`}>
