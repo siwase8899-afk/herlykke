@@ -42,7 +42,7 @@ export function TipsSection({ logs, todayLog }: TipsSectionProps) {
       {todayTips.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-xl">💡</span>
+            <EmojiIcon emoji="💡" size={18} className="text-hlk-accent" />
             <h3 className="font-semibold text-hlk-text">오늘을 위한 팁</h3>
           </div>
           <div className="space-y-3">

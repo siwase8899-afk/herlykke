@@ -117,7 +117,7 @@ export default function RecipeDetailPage() {
           {/* 결과 */}
           <div className="bg-hlk-primary-light rounded-2xl p-5 border border-hlk-primary/20">
             <h2 className="font-bold text-hlk-primary mb-3 flex items-center gap-2">
-              <span className="text-lg">✨</span>
+              <svg className="w-4 h-4 text-hlk-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
               메이트의 후기
             </h2>
             <p className="text-hlk-text leading-relaxed font-medium">
