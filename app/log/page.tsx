@@ -200,7 +200,7 @@ function LogDashboardContent() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-white/80 text-sm mb-1">연속 수면 기록</p>
-              <p className="text-4xl font-black">{streakCount}일</p>
+              <p className="text-4xl font-black font-[family-name:var(--font-serif)]">{streakCount}<span className="text-2xl">일</span></p>
             </div>
             <div><EmojiIcon emoji="🔥" size={40} className="text-white/90" /></div>
           </div>
@@ -247,7 +247,7 @@ function LogDashboardContent() {
                         style={{
                           height: `${heightPercent}%`,
                           marginTop: `${100 - heightPercent}%`,
-                          background: mood >= 4 ? '#7C6BC4' : mood >= 3 ? '#D4A8E0' : '#E8D5EF',
+                          background: mood >= 4 ? 'var(--color-hlk-lavender)' : mood >= 3 ? 'var(--color-hlk-lavender-light)' : 'var(--color-hlk-border)',
                         }}
                       />
                     </div>

@@ -239,8 +239,8 @@ export function SleepInput({ value, onChange }: SleepInputProps) {
           {sleepDuration && !showPicker && (
             <div className="mt-4 text-center">
               <p className="text-sm text-hlk-text-tertiary">총 수면 시간</p>
-              <p className="text-2xl font-bold text-hlk-primary">
-                {sleepDuration.hours}시간{sleepDuration.minutes > 0 ? ` ${sleepDuration.minutes}분` : ''}
+              <p className="text-2xl font-bold text-hlk-primary font-[family-name:var(--font-serif)]">
+                {sleepDuration.hours}<span className="text-lg font-sans">시간</span>{sleepDuration.minutes > 0 ? <>{sleepDuration.minutes}<span className="text-lg font-sans">분</span></> : ''}
               </p>
             </div>
           )}

@@ -69,7 +69,7 @@ export default function SleepStats() {
           >
             <div className="stats-orb absolute right-[-36px] top-[-36px] h-48 w-48 rounded-full bg-white/8" aria-hidden />
             <p className="mb-3 text-base font-semibold text-white/68">수면 고민이 있는 사람들의 불면</p>
-            <p className="mb-5 text-6xl font-black tabular-nums text-white md:text-7xl">{mainStat}</p>
+            <p className="mb-5 text-6xl font-black tabular-nums text-white md:text-7xl font-[family-name:var(--font-serif)]">{mainStat}</p>
             <p className="max-w-lg text-base font-medium leading-relaxed text-white/78">
               수면 고민이 있는 많은 사람이 불면증을 경험합니다. 몸의 리듬 변화가 주요 원인입니다.
             </p>
@@ -83,7 +83,7 @@ export default function SleepStats() {
               }`}
               style={{ transitionDelay: '150ms' }}
             >
-              <p className="mb-2 text-5xl font-black tabular-nums text-hlk-accent">{riskStat}</p>
+              <p className="mb-2 text-5xl font-black tabular-nums text-hlk-accent font-[family-name:var(--font-serif)]">{riskStat}</p>
               <p className="text-base font-bold leading-snug text-hlk-text">만성 불면증과 치매 위험 증가 연관성</p>
               <p className="mt-3 text-sm text-hlk-text-tertiary">Mayo Clinic 2025</p>
             </div>
@@ -94,7 +94,7 @@ export default function SleepStats() {
               }`}
               style={{ transitionDelay: '300ms' }}
             >
-              <p className="mb-2 text-5xl font-black text-hlk-primary">2/3</p>
+              <p className="mb-2 text-5xl font-black text-hlk-primary font-[family-name:var(--font-serif)]">2/3</p>
               <p className="text-base font-bold leading-snug text-hlk-text">인지 건강을 걱정하는 사람이 늘고 있어요</p>
               <p className="mt-3 text-sm text-hlk-text-tertiary">보건복지부 2023</p>
             </div>

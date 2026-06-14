@@ -29,8 +29,8 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
 
       {/* 점수 표시 */}
       <div className="text-center mb-5">
-        <div className="text-4xl font-black text-hlk-text mb-1">
-          {result.score}<span className="text-lg font-normal text-hlk-text-tertiary">/{result.maxScore}</span>
+        <div className="text-4xl font-black text-hlk-text mb-1 font-[family-name:var(--font-serif)]">
+          {result.score}<span className="text-lg font-normal text-hlk-text-tertiary font-sans">/{result.maxScore}</span>
         </div>
         <span className={`inline-flex items-center gap-1.5 text-sm font-semibold px-3 py-1 rounded-full ${config.bg} ${config.color}`}>
           <span className={`h-2 w-2 rounded-full ${config.dot}`} aria-hidden />
@@ -45,10 +45,10 @@ export function KuppermanCard({ result }: KuppermanCardProps) {
             className="h-full rounded-full transition-all duration-700 ease-out"
             style={{
               width: `${Math.max(percentage, 2)}%`,
-              background: result.level === 'normal' ? '#15803D'
-                : result.level === 'mild' ? '#6F9CA6'
-                : result.level === 'moderate' ? '#EA580C'
-                : '#DC2626',
+              background: result.level === 'normal' ? 'var(--color-hlk-success)'
+                : result.level === 'mild' ? 'var(--color-hlk-primary)'
+                : result.level === 'moderate' ? 'var(--color-hlk-warning-fill)'
+                : 'var(--color-hlk-error)',
             }}
           />
         </div>

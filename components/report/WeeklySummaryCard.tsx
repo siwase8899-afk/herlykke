@@ -38,11 +38,11 @@ export function WeeklySummaryCard({ summary, dateRange }: WeeklySummaryCardProps
       {/* 주요 지표 */}
       <div className="grid grid-cols-3 gap-3 mb-4">
         <div className="bg-white/20 rounded-xl px-3 py-2 text-center">
-          <p className="text-2xl font-bold">{summary.avgMood.toFixed(1)}</p>
+          <p className="text-2xl font-bold font-[family-name:var(--font-serif)]">{summary.avgMood.toFixed(1)}</p>
           <p className="text-xs text-white/70">평균 기분</p>
         </div>
         <div className="bg-white/20 rounded-xl px-3 py-2 text-center">
-          <p className="text-2xl font-bold">{summary.totalLogs}</p>
+          <p className="text-2xl font-bold font-[family-name:var(--font-serif)]">{summary.totalLogs}</p>
           <p className="text-xs text-white/70">기록 일수</p>
         </div>
         <div className="bg-white/20 rounded-xl px-3 py-2 text-center">

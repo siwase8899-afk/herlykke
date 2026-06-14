@@ -311,14 +311,14 @@ export default function InsightsPage() {
                     <h3 className="font-semibold text-hlk-text mb-4">수면 패턴</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="bg-hlk-bg rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-hlk-primary">
-                          {sleepPattern.avgHours.toFixed(1)}
+                        <p className="text-2xl font-bold text-hlk-primary font-[family-name:var(--font-serif)]">
+                          {sleepPattern.avgHours.toFixed(1)}<span className="text-base font-sans font-medium">시간</span>
                         </p>
                         <p className="text-xs text-hlk-text-tertiary">평균 수면 시간</p>
                       </div>
                       <div className="bg-hlk-bg rounded-xl p-4 text-center">
-                        <p className="text-2xl font-bold text-hlk-primary">
-                          {sleepPattern.avgQuality.toFixed(1)}
+                        <p className="text-2xl font-bold text-hlk-primary font-[family-name:var(--font-serif)]">
+                          {sleepPattern.avgQuality.toFixed(1)}<span className="text-base font-sans font-medium">/5</span>
                         </p>
                         <p className="text-xs text-hlk-text-tertiary">평균 수면 품질</p>
                       </div>
