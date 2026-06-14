@@ -210,7 +210,7 @@ function WeeklyChangeView({ data }: { data: PeriodComparison }) {
       {(data.current.bestActivity || data.current.worstTrigger) && (
         <div className="card-glass rounded-2xl p-5">
           <h3 className="font-semibold text-hlk-text mb-3 flex items-center gap-2">
-            <span>💡</span>
+            <EmojiIcon emoji="💡" size={16} className="text-hlk-accent" />
             이번 주 발견
           </h3>
           <div className="space-y-3">

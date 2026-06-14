@@ -51,19 +51,19 @@ export function ReportLocked({ currentDays, targetDays, percentage, todayLogged 
         </p>
         <div className="space-y-2 text-sm text-hlk-text-secondary">
           <div className="flex items-center gap-2">
-            <span>📊</span>
+            <EmojiIcon emoji="📊" size={14} className="text-hlk-primary flex-shrink-0" />
             <span>기분 변화 트렌드</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>🔥</span>
+            <EmojiIcon emoji="🔥" size={14} className="text-hlk-clay flex-shrink-0" />
             <span>가장 많이 나타나는 증상</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>💡</span>
+            <EmojiIcon emoji="💡" size={14} className="text-hlk-accent flex-shrink-0" />
             <span>나에게 도움이 되는 활동</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>⚠️</span>
+            <EmojiIcon emoji="⚠️" size={14} className="text-hlk-warning flex-shrink-0" />
             <span>주의해야 할 트리거</span>
           </div>
         </div>
