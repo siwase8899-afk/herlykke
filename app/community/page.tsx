@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { CommunityTalkTab } from '@/components/community/CommunityTalkTab';
 import { MessageCircle, Moon, Sparkles, type LucideIcon } from 'lucide-react';
 import { MateAvatar, RecipeObject } from '@/components/visuals/CommunityVisuals';
@@ -101,16 +100,7 @@ export default function CommunityPage() {
     <div className="min-h-screen relative">
       {/* Header */}
       <div className="relative overflow-hidden bg-hlk-primary-dark px-6 pb-8 pt-16 text-white">
-        <Image
-          src="/images/community/community-hero-sleep.webp"
-          alt="수면 커뮤니티 배경 일러스트"
-          fill
-          sizes="100vw"
-          className="object-cover object-center opacity-75"
-          priority
-          unoptimized
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-hlk-primary-dark via-hlk-primary-dark/76 to-hlk-primary-dark/18" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(111,92,158,0.28)_0%,transparent_65%)]" aria-hidden />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-hlk-bg/95 to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-2xl">
           <h1 className="text-2xl font-bold mb-1 animate-slow-fade-in">수면 커뮤니티</h1>
